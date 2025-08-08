@@ -25,7 +25,7 @@ jobs:
       run: npm ci
 
     - name: Build
-      run: npm run build:pages
+      run: NODE_ENV=production npm run build
 
     - name: Setup SPA routing for GitHub Pages
       run: |

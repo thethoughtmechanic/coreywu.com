@@ -23,8 +23,8 @@ export const thoughts: Thought[] = [
   },
   {
     id: "3",
-    title: "Family & Equal Opportunity",
-    description: "Quick thoughts on how family structures and equal opportunity intersect, and what this means for creating more inclusive environments.",
+    title: "Families Are The Root To Inequality",
+    description: "Equality of opportunity is impossible when resources accumulate within family lines.",
     tag: "Thought Bite",
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",

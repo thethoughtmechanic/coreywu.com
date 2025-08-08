@@ -29,18 +29,17 @@ jobs:
 
     - name: Setup SPA routing for GitHub Pages
       run: |
-        # Copy index.html to 404.html for SPA routing
-        cp ./dist/public/index.html ./dist/public/404.html
+        # Remove old docs folder
+        rm -rf docs/
         # Create docs folder and copy all files
         mkdir -p docs
         cp -r ./dist/public/* docs/
-        # Ensure 404.html exists in docs folder
-        cp ./dist/public/index.html docs/404.html
+        # Copy index.html to 404.html for SPA routing
+        cp docs/index.html docs/404.html
 
-    - name: Commit and push to main branch
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs/
-        git commit -m "Deploy to GitHub Pages" -a || exit 0
-        git push
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        force_orphan: true

@@ -94,12 +94,21 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
           <p className="text-soft-black/80 leading-relaxed mb-4 text-sm" data-testid={`text-thought-description-${thought.id}`}>
             {thought.description}
           </p>
-          <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-            <span>See more</span>
-            <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
+          {thought.status === 'wip' ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-sm text-muted-grey">
+                <div className="w-2 h-2 bg-warm-brown/40 rounded-full animate-pulse"></div>
+                <span className="font-medium">Work in Progress</span>
+              </div>
+            </div>
+          ) : (
+            <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
+              <span>See more</span>
+              <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          )}
         </div>
       </article>
     );
@@ -193,12 +202,21 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
         </p>
 
         <div className="flex items-center justify-between mt-auto">
-          <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-            <span>See more</span>
-            <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
+          {thought.status === 'wip' ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 text-xs text-muted-grey">
+                <div className="w-1.5 h-1.5 bg-warm-brown/40 rounded-full animate-pulse"></div>
+                <span className="font-medium">Work in Progress</span>
+              </div>
+            </div>
+          ) : (
+            <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
+              <span>See more</span>
+              <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          )}
 
           <div className="flex items-center gap-1">
             {[...Array(3)].map((_, i) => (

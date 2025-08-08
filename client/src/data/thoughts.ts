@@ -18,7 +18,8 @@ export const thoughts: Thought[] = [
     tag: "Philosophizing",
     readTime: "12 min read",
     date: "Aug 7, 2025",
-    imageGradient: "from-purple-500 to-pink-500"
+    imageGradient: "from-purple-500 to-pink-500",
+    status: "wip"
   },
   {
     id: "3",

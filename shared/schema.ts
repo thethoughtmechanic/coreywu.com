@@ -65,4 +65,3 @@ export type Thought = typeof thoughts.$inferSelect;
 export type InsertThought = z.infer<typeof insertThoughtSchema>;
 export type Experiment = typeof experiments.$inferSelect;
 export type InsertExperiment = z.infer<typeof insertExperimentSchema>;
-

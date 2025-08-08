@@ -110,17 +110,17 @@ export default function About() {
       </div>
 
       <div className="relative max-w-4xl mx-auto">
-        <div className="space-y-6 relative">
-          {/* Timeline line - positioned behind the items */}
+        <div className="space-y-8 relative">
+          {/* Timeline line - positioned behind the items with explicit height */}
           {sortedEvents.length > 1 && (
-            <div
-              className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/60"
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/60 rounded-full"
               style={{
-                top: '50px',
-                bottom: '50px',
+                top: '60px',
+                height: `${(sortedEvents.length - 1) * 140 + 60}px`,
                 zIndex: 1
               }}
-            ></div>
+            />
           )}
 
           {sortedEvents.map((event, index) => (

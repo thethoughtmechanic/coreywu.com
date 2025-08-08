@@ -10,12 +10,12 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
     <div className="relative flex items-center min-h-[100px]">
       {/* Center dot - positioned at middle of container */}
       <div 
-        className={`absolute left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full border-2 border-cream ${
+        className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white shadow-sm ${
           event.isActive 
-            ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' 
+            ? 'bg-active-green shadow-[0_0_15px_rgba(34,197,94,0.8)]' 
             : 'bg-warm-brown'
         }`}
-        style={{ zIndex: 10 }}
+        style={{ zIndex: 20 }}
       ></div>
 
       {/* Content positioned left or right */}
@@ -23,10 +23,10 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
         <div className="bg-light-brown/80 rounded-lg p-4 shadow-sm border border-warm-brown/15 hover:shadow-md hover:bg-light-brown transition-all duration-200">
           <div className={`flex items-center gap-2 mb-1.5 ${isLeft ? 'justify-end' : 'justify-start'}`}>
             <span className="text-xs px-2 py-0.5 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium">
-              {event.type}
+              {event.date}
             </span>
             <span className="text-xs text-muted-grey font-medium">
-              {event.date}
+              {event.description}
             </span>
           </div>
           <h3 className="font-medium text-warm-brown mb-1.5 text-sm">

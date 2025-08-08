@@ -16,25 +16,25 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
           className={`absolute inset-0 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
           style={{
             background: experiment.status === 'sunset' ? `
-              radial-gradient(ellipse 80% 70% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 95%),
-              radial-gradient(ellipse 75% 60% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 90%),
-              radial-gradient(ellipse 70% 80% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 100%),
-              radial-gradient(ellipse 80% 50% at 85% 80%, #374151 0%, #374151 40%, transparent 85%),
-              radial-gradient(ellipse 75% 75% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 90%)
+              radial-gradient(ellipse 40% 35% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 95%),
+              radial-gradient(ellipse 35% 30% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 90%),
+              radial-gradient(ellipse 30% 40% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 100%),
+              radial-gradient(ellipse 40% 25% at 85% 80%, #374151 0%, #374151 40%, transparent 85%),
+              radial-gradient(ellipse 35% 35% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 90%)
             ` : experiment.status === 'wip' ? `
-              radial-gradient(ellipse 80% 70% at 30% 20%, #eab308 0%, #eab308 50%, transparent 95%),
-              radial-gradient(ellipse 75% 60% at 75% 25%, #f59e0b 0%, #f59e0b 45%, transparent 90%),
-              radial-gradient(ellipse 70% 80% at 15% 85%, #d97706 0%, #d97706 55%, transparent 100%),
-              radial-gradient(ellipse 80% 50% at 85% 80%, #fbbf24 0%, #fbbf24 40%, transparent 85%),
-              radial-gradient(ellipse 75% 75% at 50% 50%, #fde047 0%, #fde047 45%, transparent 90%)
+              radial-gradient(ellipse 40% 35% at 30% 20%, #eab308 0%, #eab308 50%, transparent 95%),
+              radial-gradient(ellipse 35% 30% at 75% 25%, #f59e0b 0%, #f59e0b 45%, transparent 90%),
+              radial-gradient(ellipse 30% 40% at 15% 85%, #d97706 0%, #d97706 55%, transparent 100%),
+              radial-gradient(ellipse 40% 25% at 85% 80%, #fbbf24 0%, #fbbf24 40%, transparent 85%),
+              radial-gradient(ellipse 35% 35% at 50% 50%, #fde047 0%, #fde047 45%, transparent 90%)
             ` : `
-              radial-gradient(ellipse 80% 70% at 30% 20%, #06b6d4 0%, #06b6d4 50%, transparent 95%),
-              radial-gradient(ellipse 75% 60% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 90%),
-              radial-gradient(ellipse 70% 80% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 100%),
-              radial-gradient(ellipse 80% 50% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 85%),
-              radial-gradient(ellipse 75% 75% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 90%)
+              radial-gradient(ellipse 40% 35% at 30% 20%, #06b6d4 0%, #06b6d4 50%, transparent 95%),
+              radial-gradient(ellipse 35% 30% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 90%),
+              radial-gradient(ellipse 30% 40% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 100%),
+              radial-gradient(ellipse 40% 25% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 85%),
+              radial-gradient(ellipse 35% 35% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 90%)
             `,
-            transform: 'scale(3.5) rotate(25deg)'
+            transform: 'scale(1.8) rotate(25deg)'
           }}
         />
 
@@ -46,20 +46,20 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
             <div className="flex items-center gap-2 mb-2">
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${experiment.status === 'sunset' ? 'bg-gray-400' : experiment.status === 'wip' ? 'bg-yellow-500' : experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
               <h3 
-                className="text-sm font-medium text-warm-brown leading-tight group-hover:text-white group-hover:font-semibold transition-all duration-500"
+                className={`text-sm font-medium text-warm-brown leading-tight group-hover:text-white group-hover:font-semibold transition-all duration-500 ${showStatusIndicator ? 'text-white font-semibold' : ''}`}
                 data-testid={`text-experiment-title-${experiment.id}`}
               >
                 {experiment.title}
               </h3>
             </div>
             <p 
-              className="text-xs text-muted-grey mb-2 group-hover:text-white/70 transition-all duration-500"
+              className={`text-xs text-muted-grey mb-2 group-hover:text-white/70 transition-all duration-500 ${showStatusIndicator ? 'text-white/70' : ''}`}
               data-testid={`text-experiment-timeframe-${experiment.id}`}
             >
               {experiment.timeframe}
             </p>
             <p 
-              className="text-xs text-soft-black mb-3 line-clamp-2 leading-relaxed group-hover:text-white/90 transition-all duration-500"
+              className={`text-xs text-soft-black mb-3 line-clamp-2 leading-relaxed group-hover:text-white/90 transition-all duration-500 ${showStatusIndicator ? 'text-white/90' : ''}`}
               data-testid={`text-experiment-description-${experiment.id}`}
             >
               {experiment.description}
@@ -71,13 +71,13 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
                     {experiment.collaborators.slice(0, 2).map((collaborator, index) => (
                       <span 
                         key={index}
-                        className="text-xs px-1.5 py-0.5 bg-warm-brown/10 text-warm-brown rounded text-[10px] group-hover:bg-white/20 group-hover:text-white transition-all duration-500"
+                        className={`text-xs px-1.5 py-0.5 bg-warm-brown/10 text-warm-brown rounded text-[10px] group-hover:bg-white/20 group-hover:text-white transition-all duration-500 ${showStatusIndicator ? 'bg-white/20 text-white' : ''}`}
                       >
                         {collaborator}
                       </span>
                     ))}
                     {experiment.collaborators.length > 2 && (
-                      <span className="text-xs text-muted-grey group-hover:text-white/70 transition-all duration-500">+{experiment.collaborators.length - 2}</span>
+                      <span className={`text-xs text-muted-grey group-hover:text-white/70 transition-all duration-500 ${showStatusIndicator ? 'text-white/70' : ''}`}>+{experiment.collaborators.length - 2}</span>
                     )}
                   </>
                 ) : (

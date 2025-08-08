@@ -117,14 +117,14 @@ export default function Thoughts() {
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-8">
         {/* Garden Cards Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
+              <div className="grid grid-cols-5 md:grid-cols-10 lg:grid-cols-15 xl:grid-cols-20 gap-6">
                 {/* Main Thought Cards */}
                 {thoughts.map((thought, index) => (
                   <div
                     key={thought.id}
-                    className={`cursor-pointer group/card ${thought.tag === 'Thought Bite' ? 'col-span-1' : 'col-span-2'}`}
+                    className={`cursor-pointer group/card ${thought.tag === 'Thought Bite' ? 'col-span-3' : 'col-span-5'}`}
                   >
-                    <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[160px]' : 'min-h-[220px]'}`}>
+                    <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[200px]' : 'min-h-[220px]'}`}>
                 {/* Paint Splatter Background - appears on hover */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
@@ -162,7 +162,7 @@ export default function Thoughts() {
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
 
                 <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-col items-start justify-start mb-2 sm:flex-row sm:items-center sm:justify-between">
                     <span className="text-xs text-warm-brown font-medium group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500">{thought.tag}</span>
                     <span className="text-xs text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">{thought.date || "Aug 7, 2025"}</span>
                   </div>

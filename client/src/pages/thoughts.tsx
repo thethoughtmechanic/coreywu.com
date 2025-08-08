@@ -117,14 +117,14 @@ export default function Thoughts() {
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-8">
         {/* Garden Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {/* Main Thought Cards */}
           {thoughts.map((thought, index) => (
             <div
               key={thought.id}
-              className="cursor-pointer group/card"
+              className={`cursor-pointer group/card ${thought.tag === 'Thought Bite' ? 'md:col-span-1 lg:col-span-1 xl:col-span-1' : 'md:col-span-1 lg:col-span-1 xl:col-span-1'}`}
             >
-              <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[180px]' : 'min-h-[220px]'}`}>
+              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[160px] max-w-[280px] mx-auto' : 'min-h-[220px]'}`}></div>
                 {/* Paint Splatter Background - appears on hover */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
@@ -166,22 +166,24 @@ export default function Thoughts() {
                     <span className="text-xs text-warm-brown font-medium group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500">{thought.tag}</span>
                     <span className="text-xs text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">{thought.date || "Aug 7, 2025"}</span>
                   </div>
-                  <h3 className="text-sm font-medium text-warm-brown mb-2 line-clamp-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500">
+                  <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' ? 'line-clamp-3' : 'line-clamp-2'}`}>
                     {thought.title}
                   </h3>
-                  <p className="text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1">
+                  <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' ? 'line-clamp-4' : ''}`}>
                     {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
                   </p>
 
-                  {/* Read time indicator */}
-                  <div className="flex items-center gap-1 mb-3">
-                    <svg className="w-3 h-3 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-xs text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">
-                      {thought.readTime || "5 min read"}
-                    </span>
-                  </div>
+                  {/* Read time indicator - Skip for Thought Bite */}
+                  {thought.tag !== 'Thought Bite' && (
+                    <div className="flex items-center gap-1 mb-3">
+                      <svg className="w-3 h-3 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-xs text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">
+                        {thought.readTime || "5 min read"}
+                      </span>
+                    </div>
+                  )}
 
                   {/* CTA Button - Only show if not Thought Bite */}
                   {thought.tag !== 'Thought Bite' && (

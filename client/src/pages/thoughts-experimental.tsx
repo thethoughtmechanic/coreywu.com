@@ -224,7 +224,7 @@ export default function ThoughtsExperimental() {
             };
 
             const colors = getTagColors(thought.tag);
-            
+
             return (
               <div key={`tag-flash-${thought.id}`}>
                 <h3 className="text-sm font-medium text-warm-brown mb-3">
@@ -253,14 +253,14 @@ export default function ThoughtsExperimental() {
                         {thought.tag}
                       </span>
                     )}
-                    
+
                     {/* Show default tag underneath for background flash */}
                     {index === 0 && (
                       <span className="text-xs text-warm-brown font-medium px-2 py-1">
                         {thought.tag}
                       </span>
                     )}
-                    
+
                     <span className="text-xs text-warm-brown/60">{thought.date}</span>
                   </div>
                   <h4 className="text-sm font-medium text-warm-brown mb-2 line-clamp-2 flex-1">
@@ -327,7 +327,7 @@ export default function ThoughtsExperimental() {
             };
 
             const colors = getTagColors(thought.tag);
-            
+
             return (
               <div key={`advanced-tag-${thought.id}`}>
                 <h3 className="text-sm font-medium text-warm-brown mb-3">
@@ -357,7 +357,7 @@ export default function ThoughtsExperimental() {
                         {thought.tag}
                       </span>
                     )}
-                    
+
                     <span className="text-xs text-warm-brown/60">{thought.date}</span>
                   </div>
                   <h4 className="text-sm font-medium text-warm-brown mb-2 line-clamp-2 flex-1">
@@ -379,13 +379,145 @@ export default function ThoughtsExperimental() {
         </div>
       </section>
 
-      {/* 5. Existing Card Treatment with Tag Colors */}
+      {/* 5. Thought Bite Size & Treatment Experiments */}
       <section className="mb-16">
-        <h2 className="text-2xl font-light text-warm-brown mb-2">5. Your Current Treatment + Tag Colors</h2>
+        <h2 className="text-2xl font-light text-warm-brown mb-2">5. Thought Bite Differentiation</h2>
+        <p className="text-sm text-muted-grey mb-8">Smaller, distinct treatments for bite-sized thoughts</p>
+
+        <div className="grid grid-cols-4 gap-4 mb-8">
+          {/* Find the thought bite */}
+          {(() => {
+            const thoughtBite = thoughts.find(t => t.tag === 'Thought Bite');
+            if (!thoughtBite) return null;
+
+            return Array.from({ length: 4 }, (_, index) => (
+              <div key={`bite-${index}`}>
+                <h3 className="text-sm font-medium text-warm-brown mb-3">
+                  {index === 0 ? 'Compact Card' : index === 1 ? 'Quote Style' : index === 2 ? 'Pill Shape' : 'Minimal Box'}
+                </h3>
+
+                {index === 0 ? (
+                  // Compact card style
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 cursor-pointer hover:shadow-md transition-all duration-300 min-h-[140px] flex flex-col">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                      <span className="text-xs font-medium text-emerald-700">{thoughtBite.tag}</span>
+                    </div>
+                    <h4 className="text-sm font-medium text-gray-900 mb-2 leading-tight flex-1">
+                      {thoughtBite.title}
+                    </h4>
+                    <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+                      {thoughtBite.description}
+                    </p>
+                  </div>
+                ) : index === 1 ? (
+                  // Quote style
+                  <div className="bg-white border-l-4 border-emerald-400 rounded-r-xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-all duration-300 min-h-[140px] flex flex-col relative">
+                    <div className="absolute top-2 right-2 text-emerald-300 text-xl font-serif">"</div>
+                    <span className="text-xs font-medium text-emerald-600 mb-2">{thoughtBite.tag}</span>
+                    <h4 className="text-sm font-medium text-gray-900 mb-2 leading-tight flex-1 italic">
+                      {thoughtBite.title}
+                    </h4>
+                    <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+                      {thoughtBite.description}
+                    </p>
+                  </div>
+                ) : index === 2 ? (
+                  // Pill shape
+                  <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full p-4 cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-300 min-h-[140px] flex flex-col text-white">
+                    <span className="text-xs font-medium opacity-90 mb-2">{thoughtBite.tag}</span>
+                    <h4 className="text-sm font-semibold mb-2 leading-tight flex-1">
+                      {thoughtBite.title}
+                    </h4>
+                    <p className="text-xs opacity-90 leading-relaxed line-clamp-2">
+                      {thoughtBite.description}
+                    </p>
+                  </div>
+                ) : (
+                  // Minimal box
+                  <div className="border border-gray-200 rounded-lg p-3 cursor-pointer hover:border-emerald-300 hover:bg-emerald-50/50 transition-all duration-300 min-h-[140px] flex flex-col">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs text-emerald-600 font-medium">{thoughtBite.tag}</span>
+                      <span className="text-xs text-gray-400">{thoughtBite.readTime}</span>
+                    </div>
+                    <h4 className="text-sm font-medium text-gray-900 mb-2 leading-tight flex-1">
+                      {thoughtBite.title}
+                    </h4>
+                    <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+                      {thoughtBite.description}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ));
+          })()}
+        </div>
+
+        {/* Mixed layout showing size comparison */}
+        <div className="mb-8">
+          <h3 className="text-sm font-medium text-warm-brown mb-3">Size Comparison: Regular vs Thought Bite</h3>
+          <div className="grid grid-cols-12 gap-4">
+            {/* Regular thought cards - span 4 columns each */}
+            {thoughts.filter(t => t.tag !== 'Thought Bite').slice(0, 2).map((thought) => (
+              <div key={`regular-${thought.id}`} className="col-span-4">
+                <div className="bg-soft-cream rounded-2xl p-6 shadow-soft border border-warm-brown/10 min-h-[220px] flex flex-col">
+                  <div className={`bg-gradient-to-br ${thought.imageGradient} h-16 rounded mb-3`}></div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-warm-brown font-medium">{thought.tag}</span>
+                    <span className="text-xs text-warm-brown/60">{thought.date}</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-warm-brown mb-2 line-clamp-2 flex-1">
+                    {thought.title}
+                  </h4>
+                  <p className="text-xs text-soft-black/70 mb-3 leading-relaxed line-clamp-3">
+                    {thought.description}
+                  </p>
+                  <div className="flex items-center gap-1">
+                    <svg className="w-3 h-3 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-xs text-warm-brown/60">{thought.readTime}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Thought bite cards - span 2 columns each */}
+            {Array.from({ length: 2 }, (_, index) => {
+              const thoughtBite = thoughts.find(t => t.tag === 'Thought Bite');
+              if (!thoughtBite) return null;
+
+              return (
+                <div key={`bite-comparison-${index}`} className="col-span-2">
+                  <div className={`rounded-xl p-3 shadow-sm border cursor-pointer hover:shadow-md transition-all duration-300 min-h-[160px] flex flex-col ${
+                    index === 0 ? 'bg-emerald-50 border-emerald-200' : 'bg-white border-emerald-300'
+                  }`}>
+                    <div className="flex items-center gap-1 mb-2">
+                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                      <span className="text-xs font-medium text-emerald-700">{thoughtBite.tag}</span>
+                    </div>
+                    <h4 className="text-xs font-medium text-gray-900 mb-2 leading-tight flex-1">
+                      {thoughtBite.title}
+                    </h4>
+                    <p className="text-xs text-gray-600 leading-relaxed line-clamp-3 mb-2">
+                      {thoughtBite.description}
+                    </p>
+                    <span className="text-xs text-gray-400">{thoughtBite.readTime}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Your Current Treatment + Tag Colors */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-light text-warm-brown mb-2">6. Your Current Treatment + Tag Colors</h2>
         <p className="text-sm text-muted-grey mb-8">Combining your paint splatter effect with tag color coordination</p>
 
         <div className="grid grid-cols-3 gap-6">
-          {thoughts.slice(0, 3).map((thought) => {
+          {thoughts.map((thought) => {
             const getTagColors = (tag: string) => {
               switch (tag) {
                 case 'AI Alignment':
@@ -452,9 +584,9 @@ export default function ThoughtsExperimental() {
                       {thought.title}
                     </h3>
                     <p className="text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1">
-                      {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
+                      {thought.description}
                     </p>
-                    
+
                     {/* Read time indicator */}
                     <div className="flex items-center gap-1 mb-3">
                       <svg className="w-3 h-3 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">

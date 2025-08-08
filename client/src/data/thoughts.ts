@@ -23,7 +23,7 @@ export const thoughts: Thought[] = [
   },
   {
     id: "3",
-    title: "Families Are The Root To Inequality",
+    title: "Families Are The Root of Inequality",
     description: "Equality of opportunity is impossible when resources accumulate within family lines.",
     tag: "Thought Bite",
     readTime: "2 min read",

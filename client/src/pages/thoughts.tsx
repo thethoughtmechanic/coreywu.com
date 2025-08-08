@@ -117,14 +117,14 @@ export default function Thoughts() {
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-8">
         {/* Garden Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {/* Main Thought Cards */}
-          {thoughts.map((thought, index) => (
-            <div
-              key={thought.id}
-              className={`cursor-pointer group/card ${thought.tag === 'Thought Bite' ? 'md:col-span-1 lg:col-span-1 xl:col-span-1' : 'md:col-span-1 lg:col-span-1 xl:col-span-1'}`}
-            >
-              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[160px] max-w-[280px] mx-auto' : 'min-h-[220px]'}`}>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
+                {/* Main Thought Cards */}
+                {thoughts.map((thought, index) => (
+                  <div
+                    key={thought.id}
+                    className={`cursor-pointer group/card ${thought.tag === 'Thought Bite' ? 'col-span-1' : 'col-span-2'}`}
+                  >
+                    <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[160px]' : 'min-h-[220px]'}`}>
                 {/* Paint Splatter Background - appears on hover */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"

@@ -8,49 +8,8 @@ export class Storage {
   constructor() {
     // Experiments
     const mockExperiments: Experiment[] = [
-      {
-        id: "1",
-        title: "Voice UI Prototype",
-        description: "Exploring natural language interfaces for complex workflows",
-        status: "learn",
-        collaborationType: "Individual",
-        problemType: "Horizontal",
-        imageGradient: "from-warmBrown to-hoverBrown",
-        timeframe: "3 months",
-        collaborators: null,
-        isActive: false
-      },
-      {
-        id: "2", 
-        title: "AR Shopping Experience",
-        description: "Augmented reality for retail product visualization",
-        status: "build",
-        collaborationType: "Collaboration",
-        problemType: "Vertical",
-        imageGradient: "from-mutedGrey to-warmBrown",
-        timeframe: "6 months",
-        collaborators: ["Designer", "3D Artist"],
-        isActive: true
-      },
-      {
-        id: "3",
-        title: "AI Content Curator",
-        description: "Machine learning-powered content discovery platform",
-        status: "scale",
-        collaborationType: "Individual", 
-        problemType: "Horizontal",
-        imageGradient: "from-warmBrown via-hoverBrown to-softBlack",
-        timeframe: "8 months",
-        collaborators: null,
-        isActive: true
-      },
-      {
-        id: "4",
-        title: "Gesture Recognition System",
-        description: "Computer vision for touchless interface control",
-        status: "learn",
-        collaborationType: "Collaboration",
-        problemType: "Vertical",
+      // Add your real experiments here
+    ];
         imageGradient: "from-hoverBrown to-warmBrown",
         timeframe: "4 months",
         collaborators: ["ML Engineer", "UX Designer"],

@@ -23,8 +23,8 @@ export const thoughts = pgTable("thoughts", {
   title: text("title").notNull(),
   description: text("description").notNull(),
   tag: text("tag").notNull(),
-  readTime: text("read_time").notNull(),
-  imageGradient: text("image_gradient").notNull(),
+  readTime: text("read_time"),
+  imageGradient: text("image_gradient"),
   date: text("date").notNull(),
   status: text("status").$type<'wip' | 'published'>(),
 });

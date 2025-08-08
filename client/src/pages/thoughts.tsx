@@ -30,74 +30,7 @@ export default function Thoughts() {
     }
   ];
 
-  const renderEditorialView = () => (
-    <div className="space-y-12">
-      {/* Featured Article Section */}
-      {articles.length > 0 && (
-        <section>
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-lg font-medium text-warm-brown">Featured Articles</h2>
-            <div className="flex-1 h-px bg-warm-brown/20"></div>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-6">
-            <ThoughtCard thought={articles[0]} variant="featured" />
-            <div className="grid gap-4">
-              {articles.slice(1, 3).map((thought) => (
-                <ThoughtCard key={thought.id} thought={thought} variant="compact" />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
-      {/* Quick Thoughts Stream */}
-      {quickThoughts.length > 0 && (
-        <section>
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-lg font-medium text-warm-brown">Quick Thoughts</h2>
-            <div className="flex-1 h-px bg-warm-brown/20"></div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {quickThoughts.map((thought) => (
-              <ThoughtCard key={thought.id} thought={thought} variant="micro" />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Media Content */}
-      {mediaContent.length > 0 && (
-        <section>
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-lg font-medium text-warm-brown">Media & Presentations</h2>
-            <div className="flex-1 h-px bg-warm-brown/20"></div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {mediaContent.map((thought) => (
-              <ThoughtCard key={thought.id} thought={thought} variant="media" />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* All Other Content */}
-      {thoughts && thoughts.length > articles.length + quickThoughts.length + mediaContent.length && (
-        <section>
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-lg font-medium text-warm-brown">More Thoughts</h2>
-            <div className="flex-1 h-px bg-warm-brown/20"></div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4" data-testid="thoughts-grid">
-            {thoughts
-              .filter(t => !articles.includes(t) && !quickThoughts.includes(t) && !mediaContent.includes(t))
-              .map((thought) => (
-                <ThoughtCard key={thought.id} thought={thought} variant="compact" />
-              ))}
-          </div>
-        </section>
-      )}
-    </div>
-  );
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -117,14 +50,14 @@ export default function Thoughts() {
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-8">
         {/* Garden Cards Grid */}
-              <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
-                {/* Main Thought Cards */}
-                {thoughts.map((thought, index) => (
-                  <div
-                    key={thought.id}
-                    className="cursor-pointer group/card"
-                  ></div_str>
-                    <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[200px]' : 'min-h-[220px]'}`}>
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+          {/* Main Thought Cards */}
+          {thoughts.map((thought, index) => (
+            <div
+              key={thought.id}
+              className="cursor-pointer group/card"
+            >
+              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[200px]' : 'min-h-[220px]'}`}>
                 {/* Paint Splatter Background - appears on hover */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"

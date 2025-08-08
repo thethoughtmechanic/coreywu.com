@@ -171,17 +171,23 @@ export default function Thoughts() {
 
                 {/* CTA Button - Only show if not Thought Bite */}
                 {thought.tag !== 'Thought Bite' && (
-                  <button
-                    onClick={() => setLocation("/thoughts/1")}
-                    className={`w-full text-xs py-2 px-3 rounded-xl transition-colors duration-200 font-medium ${
-                      thought.id === '2'
-                        ? 'bg-gray-400 text-white cursor-not-allowed group-hover/card:bg-gray-500 group-hover/card:text-white'
-                        : 'bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:bg-white/90 group-hover/card:text-warm-brown'
-                    }`}
-                    disabled={thought.id === '2'}
-                  >
-                    {thought.id === '2' ? 'WIP' : 'Read more'}
-                  </button>
+                  <>
+                    {thought.status === 'wip' ? (
+                      <div className="flex items-center justify-center gap-2 py-2">
+                        <div className="flex items-center gap-2 text-xs text-warm-brown/60 group-hover/card:text-white/70">
+                          <div className="w-1.5 h-1.5 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                          <span className="font-medium">Work in Progress</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setLocation("/thoughts/1")}
+                        className="w-full text-xs py-2 px-3 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:bg-white/90 group-hover/card:text-warm-brown"
+                      >
+                        Read more
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
             </div>

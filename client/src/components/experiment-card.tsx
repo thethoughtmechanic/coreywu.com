@@ -64,15 +64,16 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
   return (
     <div className={`bg-light-brown rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''}`}>
       <div className="flex items-start justify-between">
-        <div className="flex items-start space-x-4 flex-1">
-          <div className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
-          <div className="flex-1">
-            <h3 
-              className="text-xl font-medium text-warm-brown mb-2"
-              data-testid={`text-experiment-title-${experiment.id}`}
-            >
-              {experiment.title}
-            </h3>
+        <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <div className={`w-3 h-3 rounded-full flex-shrink-0 ${experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
+              <h3 
+                className="text-xl font-medium text-warm-brown"
+                data-testid={`text-experiment-title-${experiment.id}`}
+              >
+                {experiment.title}
+              </h3>
+            </div>
             <p 
               className="text-sm text-muted-grey mb-3"
               data-testid={`text-experiment-timeframe-${experiment.id}`}
@@ -98,16 +99,9 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
                   ))}
                 </div>
               )}
-              <button 
-                className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium"
-                data-testid={`button-see-more-${experiment.id}`}
-              >
-                See More →
-              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 }

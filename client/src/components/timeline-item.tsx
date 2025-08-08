@@ -9,7 +9,11 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
   return (
     <div className="relative flex items-start">
       {/* Center dot */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 w-3 h-3 bg-warm-brown rounded-full border-2 border-cream z-10"></div>
+      <div className={`absolute left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full border-2 border-cream z-10 ${
+        event.isActive 
+          ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' 
+          : 'bg-warm-brown'
+      }`}></div>
 
       {/* Content positioned left or right */}
       <div className={`w-1/2 ${isLeft ? 'pr-6 text-right' : 'pl-6 ml-auto'}`}>

@@ -114,7 +114,7 @@ export default function About() {
           {/* Timeline line - positioned to span from first to last item */}
           {sortedEvents.length > 1 && (
             <div
-              className="absolute left-1/2 transform -translate-x-1/2 w-px bg-warm-brown/30 z-[-1]"
+              className="absolute left-1/2 transform -translate-x-1/2 w-px bg-warm-brown/50 z-[-1]"
               style={{
                 top: '0px',
                 height: `${(sortedEvents.length - 1) * 6 * 4 + 48}px` // space-y-6 = 24px, plus item height

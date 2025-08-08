@@ -55,9 +55,11 @@ export default function Thoughts() {
           {thoughts.map((thought, index) => (
             <div
               key={thought.id}
-              className={`cursor-pointer group/card ${
+              className={`group/card ${
+                thought.tag === 'Scenario' ? 'col-span-8 md:col-span-6' : 'cursor-pointer'
+              } ${
                 thought.tag === 'Thought Bite' ? 'col-span-3' : 
-                thought.tag === 'Scenario' ? 'col-span-8 md:col-span-6' : 
+                thought.tag === 'Scenario' ? '' : 
                 'col-span-4 md:col-span-4'
               }`}
             >
@@ -66,85 +68,82 @@ export default function Thoughts() {
                 thought.tag === 'Scenario' ? 'min-h-[280px]' : 
                 'min-h-[220px]'
               }`}>
-                {/* Paint Splatter Background - appears on hover */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
-                  style={{
-                    background: thought.tag === 'AI Alignment' ? `
-                      radial-gradient(ellipse 50% 40% at 25% 15%, #7c3aed 0%, #7c3aed 50%, transparent 90%),
-                      radial-gradient(ellipse 45% 35% at 75% 25%, #a855f7 0%, #a855f7 45%, transparent 85%),
-                      radial-gradient(ellipse 40% 50% at 15% 85%, #8b5cf6 0%, #8b5cf6 55%, transparent 95%),
-                      radial-gradient(ellipse 50% 30% at 85% 80%, #9333ea 0%, #9333ea 40%, transparent 80%),
-                      radial-gradient(ellipse 45% 45% at 50% 50%, #c084fc 0%, #c084fc 45%, transparent 85%)
-                    ` : thought.tag === 'Thought Bite' ? `
-                      radial-gradient(ellipse 50% 40% at 25% 15%, #059669 0%, #059669 50%, transparent 90%),
-                      radial-gradient(ellipse 45% 35% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 85%),
-                      radial-gradient(ellipse 40% 50% at 15% 85%, #0d9488 0%, #0d9488 55%, transparent 95%),
-                      radial-gradient(ellipse 50% 30% at 85% 80%, #0284c7 0%, #0284c7 40%, transparent 80%),
-                      radial-gradient(ellipse 45% 45% at 50% 50%, #0ea5e9 0%, #0ea5e9 45%, transparent 85%)
-                    ` : thought.tag === 'Philosophizing' ? `
-                      radial-gradient(ellipse 50% 40% at 25% 15%, #db2777 0%, #db2777 50%, transparent 90%),
-                      radial-gradient(ellipse 45% 35% at 75% 25%, #e11d48 0%, #e11d48 45%, transparent 85%),
-                      radial-gradient(ellipse 40% 50% at 15% 85%, #f43f5e 0%, #f43f5e 55%, transparent 95%),
-                      radial-gradient(ellipse 50% 30% at 85% 80%, #ec4899 0%, #ec4899 40%, transparent 80%),
-                      radial-gradient(ellipse 45% 45% at 50% 50%, #f472b6 0%, #f472b6 45%, transparent 85%)
-                    ` : thought.tag === 'Scenario' ? `
-                      radial-gradient(ellipse 50% 40% at 25% 15%, #dc2626 0%, #dc2626 50%, transparent 90%),
-                      radial-gradient(ellipse 45% 35% at 75% 25%, #ea580c 0%, #ea580c 45%, transparent 85%),
-                      radial-gradient(ellipse 40% 50% at 15% 85%, #d97706 0%, #d97706 55%, transparent 95%),
-                      radial-gradient(ellipse 50% 30% at 85% 80%, #f59e0b 0%, #f59e0b 40%, transparent 80%),
-                      radial-gradient(ellipse 45% 45% at 50% 50%, #eab308 0%, #eab308 45%, transparent 85%)
-                    ` : `
-                      radial-gradient(ellipse 50% 40% at 25% 15%, #6366f1 0%, #6366f1 50%, transparent 90%),
-                      radial-gradient(ellipse 45% 35% at 75% 25%, #4f46e5 0%, #4f46e5 45%, transparent 85%),
-                      radial-gradient(ellipse 40% 50% at 15% 85%, #5b21b6 0%, #5b21b6 55%, transparent 95%),
-                      radial-gradient(ellipse 50% 30% at 85% 80%, #7c2d12 0%, #7c2d12 40%, transparent 80%),
-                      radial-gradient(ellipse 45% 45% at 50% 50%, #8b5a3c 0%, #8b5a3c 45%, transparent 85%)
-                    `,
-                    transform: 'scale(1.8) rotate(25deg)'
-                  }}
-                />
-
-                {/* Text Background for better readability when splatter is visible */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
+                {/* Paint Splatter Background - only for non-scenario cards */}
+                {thought.tag !== 'Scenario' && (
+                  <>
+                    <div
+                      className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
+                      style={{
+                        background: thought.tag === 'AI Alignment' ? `
+                          radial-gradient(ellipse 50% 40% at 25% 15%, #7c3aed 0%, #7c3aed 50%, transparent 90%),
+                          radial-gradient(ellipse 45% 35% at 75% 25%, #a855f7 0%, #a855f7 45%, transparent 85%),
+                          radial-gradient(ellipse 40% 50% at 15% 85%, #8b5cf6 0%, #8b5cf6 55%, transparent 95%),
+                          radial-gradient(ellipse 50% 30% at 85% 80%, #9333ea 0%, #9333ea 40%, transparent 80%),
+                          radial-gradient(ellipse 45% 45% at 50% 50%, #c084fc 0%, #c084fc 45%, transparent 85%)
+                        ` : thought.tag === 'Thought Bite' ? `
+                          radial-gradient(ellipse 50% 40% at 25% 15%, #059669 0%, #059669 50%, transparent 90%),
+                          radial-gradient(ellipse 45% 35% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 85%),
+                          radial-gradient(ellipse 40% 50% at 15% 85%, #0d9488 0%, #0d9488 55%, transparent 95%),
+                          radial-gradient(ellipse 50% 30% at 85% 80%, #0284c7 0%, #0284c7 40%, transparent 80%),
+                          radial-gradient(ellipse 45% 45% at 50% 50%, #0ea5e9 0%, #0ea5e9 45%, transparent 85%)
+                        ` : thought.tag === 'Philosophizing' ? `
+                          radial-gradient(ellipse 50% 40% at 25% 15%, #db2777 0%, #db2777 50%, transparent 90%),
+                          radial-gradient(ellipse 45% 35% at 75% 25%, #e11d48 0%, #e11d48 45%, transparent 85%),
+                          radial-gradient(ellipse 40% 50% at 15% 85%, #f43f5e 0%, #f43f5e 55%, transparent 95%),
+                          radial-gradient(ellipse 50% 30% at 85% 80%, #ec4899 0%, #ec4899 40%, transparent 80%),
+                          radial-gradient(ellipse 45% 45% at 50% 50%, #f472b6 0%, #f472b6 45%, transparent 85%)
+                        ` : `
+                          radial-gradient(ellipse 50% 40% at 25% 15%, #6366f1 0%, #6366f1 50%, transparent 90%),
+                          radial-gradient(ellipse 45% 35% at 75% 25%, #4f46e5 0%, #4f46e5 45%, transparent 85%),
+                          radial-gradient(ellipse 40% 50% at 15% 85%, #5b21b6 0%, #5b21b6 55%, transparent 95%),
+                          radial-gradient(ellipse 50% 30% at 85% 80%, #7c2d12 0%, #7c2d12 40%, transparent 80%),
+                          radial-gradient(ellipse 45% 45% at 50% 50%, #8b5a3c 0%, #8b5a3c 45%, transparent 85%)
+                        `,
+                        transform: 'scale(1.8) rotate(25deg)'
+                      }}
+                    />
+                    {/* Text Background for better readability when splatter is visible */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
+                  </>
+                )}
 
                 <div className="relative z-10">
                   <div className="flex flex-col items-start justify-start mb-2 sm:flex-row sm:items-center sm:justify-between">
-                    <span className="text-xs text-warm-brown font-medium group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500">{thought.tag}</span>
-                    <span className="text-xs text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">{thought.date || "Aug 7, 2025"}</span>
+                    <span className={`text-xs font-medium transition-all duration-500 ${
+                      thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
+                    }`}>{thought.tag}</span>
+                    <span className={`text-xs transition-all duration-500 ${
+                      thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
+                    }`}>{thought.date || "Aug 7, 2025"}</span>
                   </div>
                   
-                  {/* Special visual treatment for Scenario */}
-                  {thought.tag === 'Scenario' && (
-                    <div className="mb-4 flex justify-center">
-                      <svg width="120" height="80" viewBox="0 0 120 80" className="opacity-60 group-hover/card:opacity-80 transition-opacity duration-500">
-                        {/* Voting booth */}
-                        <rect x="45" y="25" width="30" height="40" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80" stroke="currentColor" strokeWidth="1"/>
-                        <rect x="42" y="22" width="36" height="6" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
-                        
-                        {/* Person figure */}
-                        <circle cx="60" cy="35" r="4" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
-                        <rect x="58" y="39" width="4" height="12" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
-                        <rect x="56" y="44" width="2" height="8" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
-                        <rect x="62" y="44" width="2" height="8" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
-                        <rect x="58" y="51" width="4" height="6" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
-                        
-                        {/* Empty voting booths in background */}
-                        <rect x="15" y="30" width="20" height="25" fill="none" stroke="currentColor" strokeWidth="1" className="text-warm-brown/30 group-hover/card:text-white/40" strokeDasharray="2,2"/>
-                        <rect x="85" y="30" width="20" height="25" fill="none" stroke="currentColor" strokeWidth="1" className="text-warm-brown/30 group-hover/card:text-white/40" strokeDasharray="2,2"/>
-                      </svg>
-                    </div>
+                  {/* Special treatment for Scenario - just title and image */}
+                  {thought.tag === 'Scenario' ? (
+                    <>
+                      <h3 className="text-lg font-medium text-warm-brown mb-4 text-center">
+                        {thought.title}
+                      </h3>
+                      <div className="flex-1 flex items-center justify-center">
+                        <img 
+                          src="/attached_assets/image_1754686959251.png"
+                          alt="Democracy's Last Voter illustration showing a person at voting booths with 'Manual Ballots Not Accepted' sign"
+                          className="max-w-full max-h-48 object-contain rounded-lg"
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' ? 'line-clamp-3' : 'line-clamp-2'}`}>
+                        {thought.title}
+                      </h3>
+                      <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' ? 'line-clamp-4' : ''}`}>
+                        {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
+                      </p>
+                    </>
                   )}
-                  
-                  <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' ? 'line-clamp-3' : thought.tag === 'Scenario' ? 'line-clamp-3' : 'line-clamp-2'}`}>
-                    {thought.title}
-                  </h3>
-                  <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' ? 'line-clamp-4' : thought.tag === 'Scenario' ? 'line-clamp-3' : ''}`}>
-                    {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
-                  </p>
 
-                  {/* Read time indicator - Skip for Thought Bite */}
-                  {thought.tag !== 'Thought Bite' && (
+                  {/* Read time indicator - Skip for Thought Bite and Scenario */}
+                  {thought.tag !== 'Thought Bite' && thought.tag !== 'Scenario' && (
                     <div className="flex items-center gap-1 mb-3">
                       <svg className="w-3 h-3 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
@@ -155,8 +154,8 @@ export default function Thoughts() {
                     </div>
                   )}
 
-                  {/* CTA Button - Only show if not Thought Bite */}
-                  {thought.tag !== 'Thought Bite' && (
+                  {/* CTA Button - Only show if not Thought Bite or Scenario */}
+                  {thought.tag !== 'Thought Bite' && thought.tag !== 'Scenario' && (
                     <>
                       {thought.status === 'wip' ? (
                         <div className="flex items-center justify-center gap-2 py-2">

@@ -110,17 +110,17 @@ export default function About() {
       </div>
 
       <div className="relative max-w-4xl mx-auto">
-        <div className="space-y-6">
-          {/* Timeline line - positioned to span from first to last item */}
-          {sortedEvents.length > 1 && (
-            <div
-              className="absolute left-1/2 transform -translate-x-1/2 w-px bg-warm-brown z-0"
-              style={{
-                top: '12px', // Start from middle of first dot
-                height: `${(sortedEvents.length - 1) * 144 + 24}px` // Adjust for actual spacing
-              }}
-            ></div>
-          )}
+        {/* Timeline line - positioned to span from first to last item */}
+        {sortedEvents.length > 1 && (
+          <div
+            className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown z-10"
+            style={{
+              top: '50px', // Start from middle of first item
+              height: `${(sortedEvents.length - 1) * 150}px` // Match actual item spacing
+            }}
+          ></div>
+        )}
+        <div className="space-y-6 relative z-0">
 
           {sortedEvents.map((event, index) => (
             <TimelineItem

@@ -110,7 +110,7 @@ export default function Thoughts() {
             key={thought.id}
             className="cursor-pointer group/card"
           >
-            <div className={`w-full bg-soft-cream backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[180px]' : 'min-h-[220px]'}`}>
+            <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[180px]' : 'min-h-[220px]'}`}>
               {/* Paint Splatter Background - appears on hover */}
               <div
                 className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"

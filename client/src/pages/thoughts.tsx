@@ -58,13 +58,13 @@ export default function Thoughts() {
               className={`group/card ${
                 thought.tag === 'Scenario' ? 'col-span-8 md:col-span-6' : 'cursor-pointer'
               } ${
-                thought.tag === 'Thought Bite' ? 'col-span-3' : 
+                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-3' : 
                 thought.tag === 'Scenario' ? '' : 
                 'col-span-4 md:col-span-4'
               }`}
             >
-              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
-                thought.tag === 'Thought Bite' ? 'min-h-[200px]' : 
+              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
+                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[200px]' : 
                 thought.tag === 'Scenario' ? 'min-h-[280px]' : 
                 'min-h-[220px]'
               }`}>
@@ -112,9 +112,18 @@ export default function Thoughts() {
                     <span className={`text-xs font-medium transition-all duration-500 ${
                       thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
                     }`}>{thought.tag}</span>
-                    <span className={`text-xs transition-all duration-500 ${
-                      thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                    }`}>{thought.date || "Aug 7, 2025"}</span>
+                    {thought.tag === 'Philosophizing' ? (
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-1.5 h-1.5 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                        <span className={`text-xs font-medium transition-all duration-500 ${
+                          'text-warm-brown/60 group-hover/card:text-white/70'
+                        }`}>Work in Progress</span>
+                      </div>
+                    ) : (
+                      <span className={`text-xs transition-all duration-500 ${
+                        thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
+                      }`}>{thought.date || "Aug 7, 2025"}</span>
+                    )}
                   </div>
                   
                   {/* Special treatment for Scenario - just title and image */}
@@ -133,17 +142,17 @@ export default function Thoughts() {
                     </>
                   ) : (
                     <>
-                      <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' ? 'line-clamp-3' : 'line-clamp-2'}`}>
+                      <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'line-clamp-3' : 'line-clamp-2'}`}>
                         {thought.title}
                       </h3>
-                      <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' ? 'line-clamp-4' : ''}`}>
+                      <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'line-clamp-4' : ''}`}>
                         {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
                       </p>
                     </>
                   )}
 
-                  {/* Read time indicator - Skip for Thought Bite and Scenario */}
-                  {thought.tag !== 'Thought Bite' && thought.tag !== 'Scenario' && (
+                  {/* Read time indicator - Skip for Thought Bite, Philosophizing, and Scenario */}
+                  {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                     <div className="flex items-center gap-1 mb-3">
                       <svg className="w-3 h-3 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
@@ -154,8 +163,8 @@ export default function Thoughts() {
                     </div>
                   )}
 
-                  {/* CTA Button - Only show if not Thought Bite or Scenario */}
-                  {thought.tag !== 'Thought Bite' && thought.tag !== 'Scenario' && (
+                  {/* CTA Button - Only show if not Thought Bite, Philosophizing, or Scenario */}
+                  {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                     <>
                       {thought.status === 'wip' ? (
                         <div className="flex items-center justify-center gap-2 py-2">

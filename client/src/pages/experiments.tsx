@@ -1,4 +1,3 @@
-
 import { ExperimentCard } from "@/components/experiment-card";
 import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
@@ -8,13 +7,15 @@ type ClusterBy = 'status' | 'collabType' | 'problemType';
 
 export default function Experiments() {
   const [clusterBy, setClusterBy] = useState<ClusterBy>('status');
+  const [isStatusHover, setIsStatusHover] = useState(false);
 
   const getClusterLabel = (key: string, clusterType: ClusterBy) => {
     const labels = {
       status: {
         learn: 'Learn',
         build: 'Build', 
-        scale: 'Scale'
+        scale: 'Scale',
+        wip: 'WIP' // Added for WIP status
       },
       collabType: {
         individual: 'Individual',
@@ -30,21 +31,36 @@ export default function Experiments() {
 
   const clusteredExperiments = () => {
     const clusters: Record<string, Experiment[]> = {};
-    
-    experiments.forEach(exp => {
+
+    // Add the new WIP experiment
+    const updatedExperiments = [
+      ...experiments,
+      {
+        id: 'wip-boyfriend-material',
+        title: 'Boyfriend Material',
+        date: 'Jul - Present',
+        collabType: 'Solo',
+        problemType: 'Vertical',
+        status: 'WIP',
+        description: 'AI-powered relationship insights and chat, rooted in your shared memories',
+        imageUrl: '/images/experiments/boyfriend-material.png' // Assuming an image path
+      }
+    ];
+
+    updatedExperiments.forEach(exp => {
       let key: string;
       if (clusterBy === 'status') {
         key = exp.status || 'unknown';
       } else {
         key = exp[clusterBy];
       }
-      
+
       if (!clusters[key]) {
         clusters[key] = [];
       }
       clusters[key].push(exp);
     });
-    
+
     return clusters;
   };
 
@@ -56,13 +72,15 @@ export default function Experiments() {
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-experiments-title">
           Experiments
         </h1>
-        
+
         {/* Cluster By Section - Inline */}
         <div className="flex items-center justify-center space-x-6 mb-6">
           <h2 className="text-lg font-medium text-warm-brown">Cluster by</h2>
           <div className="flex space-x-2">
             <button
               onClick={() => setClusterBy('status')}
+              onMouseEnter={() => setIsStatusHover(true)}
+              onMouseLeave={() => setIsStatusHover(false)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 border-2 ${
                 clusterBy === 'status' 
                   ? 'bg-warm-brown text-cream border-warm-brown shadow-sm' 
@@ -94,7 +112,7 @@ export default function Experiments() {
           </div>
         </div>
       </header>
-      
+
       <div className="h-[calc(100vh-14rem)] overflow-y-auto">
         <div 
           className="grid gap-6"
@@ -109,7 +127,12 @@ export default function Experiments() {
               </h2>
               <div className="space-y-3">
                 {clusterExperiments.map((experiment) => (
-                  <ExperimentCard key={experiment.id} experiment={experiment} variant="compact" />
+                  <ExperimentCard 
+                    key={experiment.id} 
+                    experiment={experiment} 
+                    variant="compact"
+                    showStatusIndicator={isStatusHover}
+                  />
                 ))}
               </div>
             </section>

@@ -12,5 +12,17 @@ export const experiments: Experiment[] = [
     timeframe: "Jun-Jul '25",
     collaborators: ["@kennyfung"],
     isActive: false
+  },
+  {
+    id: "boyfriend-material-1",
+    title: "Boyfriend Material",
+    description: "AI-powered relationship insights and chat, rooted in your shared memories",
+    status: "wip",
+    collaborationType: "solo",
+    problemType: "Vertical",
+    imageGradient: "from-yellow-200 to-yellow-600",
+    timeframe: "Jul - Present",
+    collaborators: [],
+    isActive: true
   }
 ];

@@ -3,31 +3,38 @@ import { Experiment } from "@shared/schema";
 interface ExperimentCardProps {
   experiment: Experiment;
   variant?: 'default' | 'compact';
+  showStatusIndicator?: boolean;
 }
 
-export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCardProps) {
+export function ExperimentCard({ experiment, variant = 'default', showStatusIndicator = false }: ExperimentCardProps) {
   // Compact variant for dashboard view
   if (variant === 'compact') {
     return (
-      <div className={`bg-light-brown rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-200 h-fit group relative overflow-hidden ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''}`}>
+      <div className={`bg-light-brown rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-200 h-fit group relative overflow-hidden ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''} ${showStatusIndicator ? 'ring-2 ring-offset-2' : ''} ${showStatusIndicator && experiment.status === 'sunset' ? 'ring-gray-400' : ''} ${showStatusIndicator && experiment.status === 'wip' ? 'ring-yellow-500' : ''} ${showStatusIndicator && experiment.isActive && experiment.status !== 'wip' && experiment.status !== 'sunset' ? 'ring-green-500' : ''}`}>
         {/* Paint Splatter Background - appears on hover */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg"
           style={{
             background: experiment.status === 'sunset' ? `
-              radial-gradient(ellipse 50% 40% at 25% 15%, #6b7280 0%, #6b7280 50%, transparent 90%),
-              radial-gradient(ellipse 45% 35% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 85%),
-              radial-gradient(ellipse 40% 50% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 95%),
-              radial-gradient(ellipse 50% 30% at 85% 80%, #374151 0%, #374151 40%, transparent 80%),
-              radial-gradient(ellipse 45% 45% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 85%)
+              radial-gradient(ellipse 80% 70% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 95%),
+              radial-gradient(ellipse 75% 60% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 90%),
+              radial-gradient(ellipse 70% 80% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 100%),
+              radial-gradient(ellipse 80% 50% at 85% 80%, #374151 0%, #374151 40%, transparent 85%),
+              radial-gradient(ellipse 75% 75% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 90%)
+            ` : experiment.status === 'wip' ? `
+              radial-gradient(ellipse 80% 70% at 30% 20%, #eab308 0%, #eab308 50%, transparent 95%),
+              radial-gradient(ellipse 75% 60% at 75% 25%, #f59e0b 0%, #f59e0b 45%, transparent 90%),
+              radial-gradient(ellipse 70% 80% at 15% 85%, #d97706 0%, #d97706 55%, transparent 100%),
+              radial-gradient(ellipse 80% 50% at 85% 80%, #fbbf24 0%, #fbbf24 40%, transparent 85%),
+              radial-gradient(ellipse 75% 75% at 50% 50%, #fde047 0%, #fde047 45%, transparent 90%)
             ` : `
-              radial-gradient(ellipse 50% 40% at 25% 15%, #06b6d4 0%, #06b6d4 50%, transparent 90%),
-              radial-gradient(ellipse 45% 35% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 85%),
-              radial-gradient(ellipse 40% 50% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 95%),
-              radial-gradient(ellipse 50% 30% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 80%),
-              radial-gradient(ellipse 45% 45% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 85%)
+              radial-gradient(ellipse 80% 70% at 30% 20%, #06b6d4 0%, #06b6d4 50%, transparent 95%),
+              radial-gradient(ellipse 75% 60% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 90%),
+              radial-gradient(ellipse 70% 80% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 100%),
+              radial-gradient(ellipse 80% 50% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 85%),
+              radial-gradient(ellipse 75% 75% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 90%)
             `,
-            transform: 'scale(1.8) rotate(25deg)'
+            transform: 'scale(2.2) rotate(25deg)'
           }}
         />
 
@@ -37,7 +44,7 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
         <div className="flex items-start relative z-10">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
-              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${experiment.status === 'sunset' ? 'bg-gray-400' : experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
+              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${experiment.status === 'sunset' ? 'bg-gray-400' : experiment.status === 'wip' ? 'bg-yellow-500' : experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
               <h3 
                 className="text-sm font-medium text-warm-brown leading-tight group-hover:text-white group-hover:font-semibold transition-all duration-500"
                 data-testid={`text-experiment-title-${experiment.id}`}
@@ -88,19 +95,25 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg"
         style={{
           background: experiment.status === 'sunset' ? `
-            radial-gradient(ellipse 50% 40% at 25% 15%, #6b7280 0%, #6b7280 50%, transparent 90%),
-            radial-gradient(ellipse 45% 35% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 85%),
-            radial-gradient(ellipse 40% 50% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 95%),
-            radial-gradient(ellipse 50% 30% at 85% 80%, #374151 0%, #374151 40%, transparent 80%),
-            radial-gradient(ellipse 45% 45% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 85%)
+            radial-gradient(ellipse 80% 70% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 95%),
+            radial-gradient(ellipse 75% 60% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 90%),
+            radial-gradient(ellipse 70% 80% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 100%),
+            radial-gradient(ellipse 80% 50% at 85% 80%, #374151 0%, #374151 40%, transparent 85%),
+            radial-gradient(ellipse 75% 75% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 90%)
+          ` : experiment.status === 'wip' ? `
+            radial-gradient(ellipse 80% 70% at 30% 20%, #eab308 0%, #eab308 50%, transparent 95%),
+            radial-gradient(ellipse 75% 60% at 75% 25%, #f59e0b 0%, #f59e0b 45%, transparent 90%),
+            radial-gradient(ellipse 70% 80% at 15% 85%, #d97706 0%, #d97706 55%, transparent 100%),
+            radial-gradient(ellipse 80% 50% at 85% 80%, #fbbf24 0%, #fbbf24 40%, transparent 85%),
+            radial-gradient(ellipse 75% 75% at 50% 50%, #fde047 0%, #fde047 45%, transparent 90%)
           ` : `
-            radial-gradient(ellipse 50% 40% at 25% 15%, #06b6d4 0%, #06b6d4 50%, transparent 90%),
-            radial-gradient(ellipse 45% 35% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 85%),
-            radial-gradient(ellipse 40% 50% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 95%),
-            radial-gradient(ellipse 50% 30% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 80%),
-            radial-gradient(ellipse 45% 45% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 85%)
+            radial-gradient(ellipse 80% 70% at 30% 20%, #06b6d4 0%, #06b6d4 50%, transparent 95%),
+            radial-gradient(ellipse 75% 60% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 90%),
+            radial-gradient(ellipse 70% 80% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 100%),
+            radial-gradient(ellipse 80% 50% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 85%),
+            radial-gradient(ellipse 75% 75% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 90%)
           `,
-          transform: 'scale(1.8) rotate(45deg)'
+          transform: 'scale(2.2) rotate(45deg)'
         }}
       />
 
@@ -110,7 +123,7 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
       <div className="flex items-start justify-between relative z-10">
         <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <div className={`w-3 h-3 rounded-full flex-shrink-0 ${experiment.status === 'sunset' ? 'bg-gray-400' : experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
+              <div className={`w-3 h-3 rounded-full flex-shrink-0 ${experiment.status === 'sunset' ? 'bg-gray-400' : experiment.status === 'wip' ? 'bg-yellow-500' : experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
               <h3 
                 className="text-xl font-medium text-warm-brown group-hover:text-white group-hover:font-semibold transition-all duration-500"
                 data-testid={`text-experiment-title-${experiment.id}`}

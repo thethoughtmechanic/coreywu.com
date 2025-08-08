@@ -103,21 +103,21 @@ export default function About() {
         </div>
       </div>
 
-      <div className="mb-8">
-        <h1 className="text-4xl font-light text-warm-brown mb-6 text-center">
+      <div className="mb-6">
+        <h1 className="text-3xl font-light text-warm-brown mb-4 text-center">
           Change Log
         </h1>
       </div>
 
-      <div className="relative">
-        <div className="space-y-8">
+      <div className="relative max-w-4xl mx-auto">
+        <div className="space-y-6">
           {/* Timeline line - positioned to span from first to last item */}
           {sortedEvents.length > 1 && (
             <div
-              className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-soft-black z-[-1]"
+              className="absolute left-1/2 transform -translate-x-1/2 w-px bg-warm-brown/30 z-[-1]"
               style={{
                 top: '0px',
-                height: `${(sortedEvents.length - 1) * 8 * 4 + 64}px` // space-y-8 = 32px, plus item height
+                height: `${(sortedEvents.length - 1) * 6 * 4 + 48}px` // space-y-6 = 24px, plus item height
               }}
             ></div>
           )}

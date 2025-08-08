@@ -9,11 +9,14 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
   return (
     <div className="relative flex items-center min-h-[100px]">
       {/* Center dot - positioned at middle of container */}
-      <div className={`absolute left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full border-2 border-cream z-30 ${
-        event.isActive 
-          ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' 
-          : 'bg-warm-brown'
-      }`}></div>
+      <div 
+        className={`absolute left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full border-2 border-cream ${
+          event.isActive 
+            ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]' 
+            : 'bg-warm-brown'
+        }`}
+        style={{ zIndex: 10 }}
+      ></div>
 
       {/* Content positioned left or right */}
       <div className={`w-1/2 ${isLeft ? 'pr-6 text-right' : 'pl-6 ml-auto'}`}>

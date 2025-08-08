@@ -13,12 +13,12 @@ export const thoughts: Thought[] = [
   },
   {
     id: "2", 
-    title: "What Makes Us Human When AI Can Do Everything?",
-    description: "Deep philosophical exploration of human identity, consciousness, and what remains uniquely human as AI capabilities expand into creative and emotional domains.",
-    tag: "Philosophizing",
-    readTime: "12 min read",
-    imageGradient: "from-pink-600 to-pink-400", 
-    status: "wip",
+    title: "Human-of-the-Gaps",
+    description: "What makes us human when AI can increasingly complete more of our 'uniquely human tasks'?",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400", 
+    status: "published",
     date: "Aug 5, 2025"
   },
   {

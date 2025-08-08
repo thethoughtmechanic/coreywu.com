@@ -10,15 +10,17 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
   if (variant === 'compact') {
     return (
       <div className={`bg-light-brown rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-200 h-fit group ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''}`}>
-        <div className="flex items-start space-x-3">
-          <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
+        <div className="flex items-start">
           <div className="flex-1 min-w-0">
-            <h3 
-              className="text-sm font-medium text-warm-brown mb-2 leading-tight group-hover:text-hover-brown transition-colors duration-200"
-              data-testid={`text-experiment-title-${experiment.id}`}
-            >
-              {experiment.title}
-            </h3>
+            <div className="flex items-center gap-2 mb-2">
+              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
+              <h3 
+                className="text-sm font-medium text-warm-brown leading-tight group-hover:text-hover-brown transition-colors duration-200"
+                data-testid={`text-experiment-title-${experiment.id}`}
+              >
+                {experiment.title}
+              </h3>
+            </div>
             <p 
               className="text-xs text-muted-grey mb-2"
               data-testid={`text-experiment-timeframe-${experiment.id}`}

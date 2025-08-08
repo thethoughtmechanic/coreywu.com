@@ -64,22 +64,26 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
             >
               {experiment.description}
             </p>
-            <div className="flex items-center justify-between">
-              {experiment.collaborators && experiment.collaborators.length > 0 && (
-                <div className="flex space-x-1" data-testid={`text-experiment-collaborators-${experiment.id}`}>
-                  {experiment.collaborators.slice(0, 2).map((collaborator, index) => (
-                    <span 
-                      key={index}
-                      className="text-xs px-1.5 py-0.5 bg-warm-brown/10 text-warm-brown rounded text-[10px] group-hover:bg-white/20 group-hover:text-white transition-all duration-500"
-                    >
-                      {collaborator}
-                    </span>
-                  ))}
-                  {experiment.collaborators.length > 2 && (
-                    <span className="text-xs text-muted-grey group-hover:text-white/70 transition-all duration-500">+{experiment.collaborators.length - 2}</span>
-                  )}
-                </div>
-              )}
+            <div className="flex items-center justify-between min-h-[20px]">
+              <div className="flex space-x-1" data-testid={`text-experiment-collaborators-${experiment.id}`}>
+                {experiment.collaborators && experiment.collaborators.length > 0 ? (
+                  <>
+                    {experiment.collaborators.slice(0, 2).map((collaborator, index) => (
+                      <span 
+                        key={index}
+                        className="text-xs px-1.5 py-0.5 bg-warm-brown/10 text-warm-brown rounded text-[10px] group-hover:bg-white/20 group-hover:text-white transition-all duration-500"
+                      >
+                        {collaborator}
+                      </span>
+                    ))}
+                    {experiment.collaborators.length > 2 && (
+                      <span className="text-xs text-muted-grey group-hover:text-white/70 transition-all duration-500">+{experiment.collaborators.length - 2}</span>
+                    )}
+                  </>
+                ) : (
+                  <div></div>
+                )}
+              </div>
             </div>
           </div>
         </div>

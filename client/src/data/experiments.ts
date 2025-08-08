@@ -21,7 +21,7 @@ export const experiments: Experiment[] = [
     collaborationType: "solo",
     problemType: "Vertical",
     imageGradient: "from-yellow-200 to-yellow-600",
-    timeframe: "Jul - Present",
+    timeframe: "Jul '25 - Present",
     collaborators: [],
     isActive: true
   }

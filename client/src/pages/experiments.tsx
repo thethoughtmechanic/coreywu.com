@@ -32,22 +32,7 @@ export default function Experiments() {
   const clusteredExperiments = () => {
     const clusters: Record<string, Experiment[]> = {};
 
-    // Add the new WIP experiment
-    const updatedExperiments = [
-      ...experiments,
-      {
-        id: 'wip-boyfriend-material',
-        title: 'Boyfriend Material',
-        date: 'Jul - Present',
-        collabType: 'Solo',
-        problemType: 'Vertical',
-        status: 'WIP',
-        description: 'AI-powered relationship insights and chat, rooted in your shared memories',
-        imageUrl: '/images/experiments/boyfriend-material.png' // Assuming an image path
-      }
-    ];
-
-    updatedExperiments.forEach(exp => {
+    experiments.forEach(exp => {
       let key: string;
       if (clusterBy === 'status') {
         key = exp.status || 'unknown';

@@ -37,7 +37,7 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
         <div className="flex items-start relative z-10">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
-              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
+              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${experiment.status === 'sunset' ? 'bg-gray-400' : experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
               <h3 
                 className="text-sm font-medium text-warm-brown leading-tight group-hover:text-white group-hover:font-semibold transition-all duration-500"
                 data-testid={`text-experiment-title-${experiment.id}`}
@@ -110,7 +110,7 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
       <div className="flex items-start justify-between relative z-10">
         <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <div className={`w-3 h-3 rounded-full flex-shrink-0 ${experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
+              <div className={`w-3 h-3 rounded-full flex-shrink-0 ${experiment.status === 'sunset' ? 'bg-gray-400' : experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'}`}></div>
               <h3 
                 className="text-xl font-medium text-warm-brown group-hover:text-white group-hover:font-semibold transition-all duration-500"
                 data-testid={`text-experiment-title-${experiment.id}`}

@@ -11,7 +11,8 @@ const sampleThoughts = [
    tag: "AI Research",
    readTime: "12 min read",
    imageGradient: "from-blue-500 to-purple-600",
-   date: "2023-10-26" // Added for consistency
+   date: "2023-10-26",
+   status: undefined
  },
  {
    id: "exp-2", 
@@ -20,7 +21,8 @@ const sampleThoughts = [
    tag: "Quick Thought",
    readTime: "2 min read",
    imageGradient: "from-green-400 to-blue-500",
-   date: "2023-10-25" // Added for consistency
+   date: "2023-10-25",
+   status: undefined
  },
  {
    id: "exp-3",
@@ -29,7 +31,8 @@ const sampleThoughts = [
    tag: "Article",
    readTime: "8 min read",
    imageGradient: "from-emerald-500 to-teal-600",
-   date: "2023-10-24" // Added for consistency
+   date: "2023-10-24",
+   status: undefined
  },
  {
    id: "exp-4",
@@ -38,7 +41,8 @@ const sampleThoughts = [
    tag: "Slides",
    readTime: "45 min presentation",
    imageGradient: "from-orange-400 to-red-500",
-   date: "2023-10-23" // Added for consistency
+   date: "2023-10-23",
+   status: undefined
  }
 ];
 

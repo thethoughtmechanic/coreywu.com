@@ -9,7 +9,8 @@ export const thoughts: Thought[] = [
     tag: "AI Alignment",
     readTime: "8 min read",
     date: "Aug 7, 2025",
-    imageGradient: "from-warmBrown to-hoverBrown"
+    imageGradient: "from-warmBrown to-hoverBrown",
+    status: "published"
   },
   {
     id: "2",
@@ -28,6 +29,7 @@ export const thoughts: Thought[] = [
     tag: "Thought Bite",
     readTime: "1 min read",
     date: "Aug 7, 2025",
-    imageGradient: "from-emerald-500 to-cyan-500"
+    imageGradient: "from-emerald-500 to-cyan-500",
+    status: "published"
   }
 ];

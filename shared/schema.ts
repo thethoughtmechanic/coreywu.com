@@ -25,6 +25,8 @@ export const thoughts = pgTable("thoughts", {
   tag: text("tag").notNull(),
   readTime: text("read_time").notNull(),
   imageGradient: text("image_gradient").notNull(),
+  date: text("date").notNull(),
+  status: text("status").$type<'wip' | 'published'>(),
 });
 
 export const experiments = pgTable("experiments", {

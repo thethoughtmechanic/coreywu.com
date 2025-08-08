@@ -11,9 +11,9 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
   if (variant === 'compact') {
     return (
       <div className={`bg-light-brown rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-200 h-fit group relative overflow-hidden ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''} ${showStatusIndicator ? 'ring-2 ring-offset-2' : ''} ${showStatusIndicator && experiment.status === 'sunset' ? 'ring-gray-400' : ''} ${showStatusIndicator && experiment.status === 'wip' ? 'ring-yellow-500' : ''} ${showStatusIndicator && experiment.isActive && experiment.status !== 'wip' && experiment.status !== 'sunset' ? 'ring-green-500' : ''}`}>
-        {/* Paint Splatter Background - appears on hover */}
+        {/* Paint Splatter Background - appears on hover or when status is highlighted */}
         <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg"
+          className={`absolute inset-0 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
           style={{
             background: experiment.status === 'sunset' ? `
               radial-gradient(ellipse 80% 70% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 95%),
@@ -34,12 +34,12 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
               radial-gradient(ellipse 80% 50% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 85%),
               radial-gradient(ellipse 75% 75% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 90%)
             `,
-            transform: 'scale(2.2) rotate(25deg)'
+            transform: 'scale(3.5) rotate(25deg)'
           }}
         />
 
         {/* Text Background for better readability when splatter is visible */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
+        <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
 
         <div className="flex items-start relative z-10">
           <div className="flex-1 min-w-0">
@@ -94,9 +94,9 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
   // Default variant (existing full-size layout)
   return (
     <div className={`bg-light-brown rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 relative overflow-hidden group ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''}`}>
-      {/* Paint Splatter Background - appears on hover */}
+      {/* Paint Splatter Background - appears on hover or when status is highlighted */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg"
+        className={`absolute inset-0 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
         style={{
           background: experiment.status === 'sunset' ? `
             radial-gradient(ellipse 80% 70% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 95%),
@@ -117,12 +117,12 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
             radial-gradient(ellipse 80% 50% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 85%),
             radial-gradient(ellipse 75% 75% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 90%)
           `,
-          transform: 'scale(2.2) rotate(45deg)'
+          transform: 'scale(3.5) rotate(45deg)'
         }}
       />
 
       {/* Text Background for better readability when splatter is visible */}
-      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
+      <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
 
       <div className="flex items-start justify-between relative z-10">
         <div className="flex-1">

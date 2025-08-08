@@ -80,6 +80,12 @@ export default function Thoughts() {
                       radial-gradient(ellipse 40% 50% at 15% 85%, #f43f5e 0%, #f43f5e 55%, transparent 95%),
                       radial-gradient(ellipse 50% 30% at 85% 80%, #ec4899 0%, #ec4899 40%, transparent 80%),
                       radial-gradient(ellipse 45% 45% at 50% 50%, #f472b6 0%, #f472b6 45%, transparent 85%)
+                    ` : thought.tag === 'Scenario' ? `
+                      radial-gradient(ellipse 50% 40% at 25% 15%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                      radial-gradient(ellipse 45% 35% at 75% 25%, #ea580c 0%, #ea580c 45%, transparent 85%),
+                      radial-gradient(ellipse 40% 50% at 15% 85%, #d97706 0%, #d97706 55%, transparent 95%),
+                      radial-gradient(ellipse 50% 30% at 85% 80%, #f59e0b 0%, #f59e0b 40%, transparent 80%),
+                      radial-gradient(ellipse 45% 45% at 50% 50%, #eab308 0%, #eab308 45%, transparent 85%)
                     ` : `
                       radial-gradient(ellipse 50% 40% at 25% 15%, #6366f1 0%, #6366f1 50%, transparent 90%),
                       radial-gradient(ellipse 45% 35% at 75% 25%, #4f46e5 0%, #4f46e5 45%, transparent 85%),

@@ -10,7 +10,7 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
   // Compact variant for dashboard view
   if (variant === 'compact') {
     return (
-      <div className={`bg-light-brown rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-200 h-fit group relative overflow-hidden ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''} ${showStatusIndicator ? 'ring-2 ring-offset-2' : ''} ${showStatusIndicator && experiment.status === 'sunset' ? 'ring-gray-400' : ''} ${showStatusIndicator && experiment.status === 'wip' ? 'ring-yellow-500' : ''} ${showStatusIndicator && experiment.isActive && experiment.status !== 'wip' && experiment.status !== 'sunset' ? 'ring-green-500' : ''}`}>
+      <div className={`bg-light-brown rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-200 h-fit group relative overflow-hidden ${!experiment.isActive ? 'opacity-75 hover:opacity-100' : ''}`}>
         {/* Paint Splatter Background - appears on hover or when status is highlighted */}
         <div
           className={`absolute inset-0 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}

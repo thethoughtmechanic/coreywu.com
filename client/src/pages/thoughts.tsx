@@ -7,10 +7,10 @@ export default function Thoughts() {
   const [, setLocation] = useLocation();
 
   // Group thoughts by content type for mixed layout
-  const articles = thoughts.filter(t => t.tag === 'Article' || (t.readTime && t.readTime.includes('min'))) || [];
-  const quickThoughts = thoughts.filter(t => t.tag === 'Quick Thought' || t.tag === 'Shower Thought') || [];
-  const mediaContent = thoughts.filter(t => ['Video', 'Audio', 'Slides'].includes(t.tag)) || [];
-  const categories = Array.from(new Set(thoughts.map(t => t.tag) || []));
+  const articles = thoughts?.filter(t => t.tag === 'Article' || (t.readTime && t.readTime.includes('min'))) || [];
+  const quickThoughts = thoughts?.filter(t => t.tag === 'Quick Thought' || t.tag === 'Shower Thought') || [];
+  const mediaContent = thoughts?.filter(t => ['Video', 'Audio', 'Slides'].includes(t.tag)) || [];
+  const categories = Array.from(new Set(thoughts?.map(t => t.tag) || []));
 
   // Group thoughts into collections for garden view (mock data structure)
   const collections = [
@@ -125,7 +125,7 @@ export default function Thoughts() {
                       </h3>
                       <div className="flex-1 flex items-center justify-center">
                         <img 
-                          src="/attached_assets/image_1754686959251.png"
+                          src="@assets/image_1754686959251.png"
                           alt="Democracy's Last Voter illustration showing a person at voting booths with 'Manual Ballots Not Accepted' sign"
                           className="max-w-full max-h-48 object-contain rounded-lg"
                         />

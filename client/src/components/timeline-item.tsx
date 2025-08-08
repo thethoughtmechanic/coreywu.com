@@ -13,7 +13,7 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
         className={`absolute left-1/2 transform -translate-x-1/2 rounded-full ${
           event.isActive 
             ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg' 
-            : 'w-3 h-3 bg-muted-grey/50 border-2 border-white'
+            : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
         }`}
         style={{ zIndex: 50 }}
       ></div>

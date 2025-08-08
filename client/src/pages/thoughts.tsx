@@ -55,9 +55,17 @@ export default function Thoughts() {
           {thoughts.map((thought, index) => (
             <div
               key={thought.id}
-              className={`cursor-pointer group/card ${thought.tag === 'Thought Bite' ? 'col-span-3' : 'col-span-4 md:col-span-4'}`}
+              className={`cursor-pointer group/card ${
+                thought.tag === 'Thought Bite' ? 'col-span-3' : 
+                thought.tag === 'Scenario' ? 'col-span-8 md:col-span-6' : 
+                'col-span-4 md:col-span-4'
+              }`}
             >
-              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${thought.tag === 'Thought Bite' ? 'min-h-[200px]' : 'min-h-[220px]'}`}>
+              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
+                thought.tag === 'Thought Bite' ? 'min-h-[200px]' : 
+                thought.tag === 'Scenario' ? 'min-h-[280px]' : 
+                'min-h-[220px]'
+              }`}>
                 {/* Paint Splatter Background - appears on hover */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
@@ -105,10 +113,33 @@ export default function Thoughts() {
                     <span className="text-xs text-warm-brown font-medium group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500">{thought.tag}</span>
                     <span className="text-xs text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">{thought.date || "Aug 7, 2025"}</span>
                   </div>
-                  <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' ? 'line-clamp-3' : 'line-clamp-2'}`}>
+                  
+                  {/* Special visual treatment for Scenario */}
+                  {thought.tag === 'Scenario' && (
+                    <div className="mb-4 flex justify-center">
+                      <svg width="120" height="80" viewBox="0 0 120 80" className="opacity-60 group-hover/card:opacity-80 transition-opacity duration-500">
+                        {/* Voting booth */}
+                        <rect x="45" y="25" width="30" height="40" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80" stroke="currentColor" strokeWidth="1"/>
+                        <rect x="42" y="22" width="36" height="6" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
+                        
+                        {/* Person figure */}
+                        <circle cx="60" cy="35" r="4" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
+                        <rect x="58" y="39" width="4" height="12" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
+                        <rect x="56" y="44" width="2" height="8" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
+                        <rect x="62" y="44" width="2" height="8" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
+                        <rect x="58" y="51" width="4" height="6" fill="currentColor" className="text-warm-brown group-hover/card:text-white/80"/>
+                        
+                        {/* Empty voting booths in background */}
+                        <rect x="15" y="30" width="20" height="25" fill="none" stroke="currentColor" strokeWidth="1" className="text-warm-brown/30 group-hover/card:text-white/40" strokeDasharray="2,2"/>
+                        <rect x="85" y="30" width="20" height="25" fill="none" stroke="currentColor" strokeWidth="1" className="text-warm-brown/30 group-hover/card:text-white/40" strokeDasharray="2,2"/>
+                      </svg>
+                    </div>
+                  )}
+                  
+                  <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' ? 'line-clamp-3' : thought.tag === 'Scenario' ? 'line-clamp-3' : 'line-clamp-2'}`}>
                     {thought.title}
                   </h3>
-                  <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' ? 'line-clamp-4' : ''}`}>
+                  <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' ? 'line-clamp-4' : thought.tag === 'Scenario' ? 'line-clamp-3' : ''}`}>
                     {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
                   </p>
 

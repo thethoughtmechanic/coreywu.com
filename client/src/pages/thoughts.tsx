@@ -7,7 +7,7 @@ export default function Thoughts() {
   const [, setLocation] = useLocation();
 
   // Group thoughts by content type for mixed layout
-  const articles = thoughts?.filter(t => t.tag === 'Article' || (t.readTime && t.readTime.includes('min'))) || [];
+  const articles = thoughts?.filter(t => t.tag === 'Article' || (t.readTime && typeof t.readTime === 'string' && t.readTime.includes('min'))) || [];
   const quickThoughts = thoughts?.filter(t => t.tag === 'Quick Thought' || t.tag === 'Shower Thought') || [];
   const mediaContent = thoughts?.filter(t => ['Video', 'Audio', 'Slides'].includes(t.tag)) || [];
   const categories = Array.from(new Set(thoughts?.map(t => t.tag) || []));

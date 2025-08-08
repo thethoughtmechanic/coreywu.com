@@ -8,8 +8,13 @@ export class Storage {
   constructor() {
     // Experiments
     const mockExperiments: Experiment[] = [
-      // Add your real experiments here
-    ];
+      {
+        id: "4",
+        title: "AI-Powered Code Review",
+        description: "Machine learning system for automated code quality analysis",
+        status: "build",
+        collaborationType: "Collaboration",
+        problemType: "Horizontal",
         imageGradient: "from-hoverBrown to-warmBrown",
         timeframe: "4 months",
         collaborators: ["ML Engineer", "UX Designer"],

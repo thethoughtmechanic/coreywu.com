@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { ThoughtCard } from "@/components/thought-card";
 import { thoughts } from "@/data/thoughts";
+import democracyImage from "@assets/image_1754686959251.png";
 
 export default function Thoughts() {
   const [, setLocation] = useLocation();
@@ -134,7 +135,7 @@ export default function Thoughts() {
                       </h3>
                       <div className="flex-1 flex items-center justify-center">
                         <img 
-                          src="/attached_assets/image_1754686959251.png"
+                          src={democracyImage}
                           alt="Democracy's Last Voter illustration showing a person at voting booths with 'Manual Ballots Not Accepted' sign"
                           className="max-w-full max-h-48 object-contain rounded-lg"
                         />

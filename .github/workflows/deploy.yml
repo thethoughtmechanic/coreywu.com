@@ -27,13 +27,15 @@ jobs:
     - name: Build
       run: npm run build:pages
 
-    - name: Copy index.html to 404.html for SPA routing
-      run: cp ./dist/public/index.html ./dist/public/404.html
-
-    - name: Copy build files to docs folder
+    - name: Setup SPA routing for GitHub Pages
       run: |
+        # Copy index.html to 404.html for SPA routing
+        cp ./dist/public/index.html ./dist/public/404.html
+        # Create docs folder and copy all files
         mkdir -p docs
         cp -r ./dist/public/* docs/
+        # Ensure 404.html exists in docs folder
+        cp ./dist/public/index.html docs/404.html
 
     - name: Commit and push to main branch
       run: |

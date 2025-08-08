@@ -47,12 +47,6 @@ export function ExperimentCard({ experiment, variant = 'default' }: ExperimentCa
                   )}
                 </div>
               )}
-              <button 
-                className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-xs font-medium ml-auto"
-                data-testid={`button-see-more-${experiment.id}`}
-              >
-                See More →
-              </button>
             </div>
           </div>
         </div>

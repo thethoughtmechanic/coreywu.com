@@ -10,12 +10,12 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
     <div className="relative flex items-center min-h-[100px]">
       {/* Center dot - positioned at middle of container */}
       <div 
-        className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white shadow-sm ${
+        className={`absolute left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full border-2 border-white shadow-lg ${
           event.isActive 
-            ? 'bg-active-green shadow-[0_0_15px_rgba(34,197,94,0.8)]' 
-            : 'bg-warm-brown'
+            ? 'bg-green-500 ring-2 ring-green-400/30' 
+            : 'bg-warm-brown ring-2 ring-warm-brown/30'
         }`}
-        style={{ zIndex: 20 }}
+        style={{ zIndex: 30 }}
       ></div>
 
       {/* Content positioned left or right */}

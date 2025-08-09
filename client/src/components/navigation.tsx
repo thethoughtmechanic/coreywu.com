@@ -81,11 +81,11 @@ export function Navigation() {
 
       {/* Mobile navigation menu */}
       <div className={cn(
-        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-gray-900/95 backdrop-blur-md border-l border-gray-700/50 transform transition-transform duration-300 ease-in-out z-40 md:hidden shadow-2xl",
+        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-gray-900/5 backdrop-blur-md border-l border-gray-600/20 transform transition-transform duration-300 ease-in-out z-40 md:hidden shadow-2xl",
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex flex-col p-6 space-y-6">
-          <div className="text-lg font-medium text-white mb-4">
+          <div className="text-lg font-semibold text-white mb-4">
             Corey Wu
           </div>
           {navItems.map((item) => (
@@ -94,8 +94,8 @@ export function Navigation() {
               href={item.path}
               onClick={closeMenu}
               className={cn(
-                "text-lg text-white/90 hover:text-white hover:bg-warm-brown/30 transition-all duration-200 py-3 px-4 rounded-lg border-l-4 border-transparent hover:border-l-warm-brown",
-                location === item.path && "border-l-warm-brown text-white bg-warm-brown/40 font-medium"
+                "text-lg text-white/90 hover:text-white hover:bg-gray-700/20 transition-all duration-200 py-3 px-4 rounded-lg border-l-4 border-transparent hover:border-l-white",
+                location === item.path && "border-l-white text-white bg-gray-700/30 font-medium"
               )}
               data-testid={`link-mobile-${item.label.toLowerCase().replace(" ", "-")}`}
             >

@@ -2,12 +2,14 @@ import { ExperimentCard } from "@/components/experiment-card";
 import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
 import { useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type ClusterBy = 'status' | 'collabType' | 'problemType';
 
 export default function Experiments() {
   const [clusterBy, setClusterBy] = useState<ClusterBy>('status');
   const [isStatusHover, setIsStatusHover] = useState(false);
+  const isMobile = useIsMobile();
 
   const getClusterLabel = (key: string, clusterType: ClusterBy) => {
     const labels = {
@@ -99,30 +101,54 @@ export default function Experiments() {
       </header>
 
       <div className="h-[calc(100vh-14rem)] overflow-y-auto">
-        <div 
-          className="grid gap-6"
-          style={{
-            gridTemplateColumns: `repeat(${Math.min(Object.keys(clusters).length, 4)}, 1fr)`
-          }}
-        >
-          {Object.entries(clusters).map(([clusterKey, clusterExperiments]) => (
-            <section key={clusterKey} className="space-y-3">
-              <h2 className="text-lg font-semibold text-warm-brown sticky top-0 bg-cream py-2 border-b border-warm-brown/20">
-                {getClusterLabel(clusterKey, clusterBy)} ({clusterExperiments.length})
-              </h2>
-              <div className="space-y-3">
-                {clusterExperiments.map((experiment) => (
-                  <ExperimentCard 
-                    key={experiment.id} 
-                    experiment={experiment} 
-                    variant="compact"
-                    showStatusIndicator={isStatusHover}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
+        {/* Mobile: Vertical stacked layout */}
+        {isMobile ? (
+          <div className="space-y-6">
+            {Object.entries(clusters).map(([clusterKey, clusterExperiments]) => (
+              <section key={clusterKey} className="space-y-4">
+                <h2 className="text-lg font-semibold text-warm-brown border-b border-warm-brown/20 pb-2">
+                  {getClusterLabel(clusterKey, clusterBy)} ({clusterExperiments.length})
+                </h2>
+                <div className="space-y-4">
+                  {clusterExperiments.map((experiment) => (
+                    <ExperimentCard 
+                      key={experiment.id} 
+                      experiment={experiment} 
+                      variant="default"
+                      showStatusIndicator={isStatusHover}
+                    />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        ) : (
+          /* Desktop: Grid layout */
+          <div 
+            className="grid gap-6"
+            style={{
+              gridTemplateColumns: `repeat(${Math.min(Object.keys(clusters).length, 4)}, 1fr)`
+            }}
+          >
+            {Object.entries(clusters).map(([clusterKey, clusterExperiments]) => (
+              <section key={clusterKey} className="space-y-3">
+                <h2 className="text-lg font-semibold text-warm-brown sticky top-0 bg-cream py-2 border-b border-warm-brown/20">
+                  {getClusterLabel(clusterKey, clusterBy)} ({clusterExperiments.length})
+                </h2>
+                <div className="space-y-3">
+                  {clusterExperiments.map((experiment) => (
+                    <ExperimentCard 
+                      key={experiment.id} 
+                      experiment={experiment} 
+                      variant="compact"
+                      showStatusIndicator={isStatusHover}
+                    />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { ThoughtCard } from "@/components/thought-card";
 import { thoughts } from "@/data/thoughts";
+import { useIsMobile } from "@/hooks/use-mobile";
 import democracyImage from "@assets/image_1754686959251.png";
 
 export default function Thoughts() {
   const [, setLocation] = useLocation();
+  const isMobile = useIsMobile();
 
   // Group thoughts by content type for mixed layout
   const articles = thoughts?.filter(t => t.tag === 'Article' || (t.readTime && typeof t.readTime === 'string' && t.readTime.includes('min'))) || [];
@@ -49,21 +51,148 @@ export default function Thoughts() {
       </header>
 
       {/* Idea Garden Content */}
-      <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-8">
-        {/* Garden Cards Grid */}
-        <div className="grid grid-cols-12 gap-4 md:gap-6">
-          {/* Main Thought Cards */}
-          {thoughts.map((thought, index) => (
-            <div
-              key={thought.id}
-              className={`group/card ${
-                thought.tag === 'Scenario' ? 'col-span-8 md:col-span-6' : 'cursor-pointer'
-              } ${
-                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-3' : 
-                thought.tag === 'Scenario' ? '' : 
-                'col-span-4 md:col-span-4'
-              }`}
-            >
+      <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
+        {/* Mobile: Instagram-style vertical feed */}
+        {isMobile ? (
+          <div className="space-y-4">
+            {thoughts.map((thought, index) => (
+              <div key={thought.id} className="group/card cursor-pointer">
+                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative">
+                  {/* Paint Splatter Background - only for non-scenario cards */}
+                  {thought.tag !== 'Scenario' && (
+                    <>
+                      <div
+                        className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
+                        style={{
+                          background: thought.tag === 'AI Alignment' ? `
+                            radial-gradient(ellipse 50% 40% at 25% 15%, #7c3aed 0%, #7c3aed 50%, transparent 90%),
+                            radial-gradient(ellipse 45% 35% at 75% 25%, #a855f7 0%, #a855f7 45%, transparent 85%),
+                            radial-gradient(ellipse 40% 50% at 15% 85%, #8b5cf6 0%, #8b5cf6 55%, transparent 95%),
+                            radial-gradient(ellipse 50% 30% at 85% 80%, #9333ea 0%, #9333ea 40%, transparent 80%),
+                            radial-gradient(ellipse 45% 45% at 50% 50%, #c084fc 0%, #c084fc 45%, transparent 85%)
+                          ` : thought.tag === 'Thought Bite' ? `
+                            radial-gradient(ellipse 50% 40% at 25% 15%, #059669 0%, #059669 50%, transparent 90%),
+                            radial-gradient(ellipse 45% 35% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 85%),
+                            radial-gradient(ellipse 40% 50% at 15% 85%, #0d9488 0%, #0d9488 55%, transparent 95%),
+                            radial-gradient(ellipse 50% 30% at 85% 80%, #0284c7 0%, #0284c7 40%, transparent 80%),
+                            radial-gradient(ellipse 45% 45% at 50% 50%, #0ea5e9 0%, #0ea5e9 45%, transparent 85%)
+                          ` : thought.tag === 'Philosophizing' ? `
+                            radial-gradient(ellipse 50% 40% at 25% 15%, #db2777 0%, #db2777 50%, transparent 90%),
+                            radial-gradient(ellipse 45% 35% at 75% 25%, #e11d48 0%, #e11d48 45%, transparent 85%),
+                            radial-gradient(ellipse 40% 50% at 15% 85%, #f43f5e 0%, #f43f5e 55%, transparent 95%),
+                            radial-gradient(ellipse 50% 30% at 85% 80%, #ec4899 0%, #ec4899 40%, transparent 80%),
+                            radial-gradient(ellipse 45% 45% at 50% 50%, #f472b6 0%, #f472b6 45%, transparent 85%)
+                          ` : `
+                            radial-gradient(ellipse 50% 40% at 25% 15%, #6366f1 0%, #6366f1 50%, transparent 90%),
+                            radial-gradient(ellipse 45% 35% at 75% 25%, #4f46e5 0%, #4f46e5 45%, transparent 85%),
+                            radial-gradient(ellipse 40% 50% at 15% 85%, #5b21b6 0%, #5b21b6 55%, transparent 95%),
+                            radial-gradient(ellipse 50% 30% at 85% 80%, #7c2d12 0%, #7c2d12 40%, transparent 80%),
+                            radial-gradient(ellipse 45% 45% at 50% 50%, #8b5a3c 0%, #8b5a3c 45%, transparent 85%)
+                          `,
+                          transform: 'scale(1.8) rotate(25deg)'
+                        }}
+                      />
+                      {/* Text Background for better readability when splatter is visible */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
+                    </>
+                  )}
+
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className={`text-sm font-medium transition-all duration-500 ${
+                        thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
+                      }`}>{thought.tag}</span>
+                      {thought.tag === 'Philosophizing' ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                          <span className={`text-sm font-medium transition-all duration-500 ${
+                            'text-warm-brown/60 group-hover/card:text-white/70'
+                          }`}>Work in Progress</span>
+                        </div>
+                      ) : (
+                        <span className={`text-sm transition-all duration-500 ${
+                          thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
+                        }`}>{thought.date || "Aug 7, 2025"}</span>
+                      )}
+                    </div>
+                    
+                    {/* Special treatment for Scenario - just title and image */}
+                    {thought.tag === 'Scenario' ? (
+                      <>
+                        <h3 className="text-xl font-medium text-warm-brown mb-6 text-center">
+                          {thought.title}
+                        </h3>
+                        <div className="flex items-center justify-center mb-4">
+                          <img 
+                            src={democracyImage}
+                            alt="Democracy's Last Voter illustration"
+                            className="max-w-full max-h-64 object-contain rounded-lg"
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <h3 className={`text-lg font-medium text-warm-brown mb-4 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500`}>
+                          {thought.title}
+                        </h3>
+                        <p className={`text-base text-soft-black/70 mb-6 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed`}>
+                          {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
+                        </p>
+                      </>
+                    )}
+
+                    {/* Read time indicator - Skip for Thought Bite, Philosophizing, and Scenario */}
+                    {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
+                      <div className="flex items-center gap-2 mb-4">
+                        <svg className="w-4 h-4 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-sm text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">
+                          {thought.readTime || "5 min read"}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* CTA Button - Only show if not Thought Bite, Philosophizing, or Scenario */}
+                    {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
+                      <>
+                        {thought.status === 'wip' ? (
+                          <div className="flex items-center justify-center gap-2 py-3">
+                            <div className="flex items-center gap-2 text-sm text-warm-brown/60 group-hover/card:text-white/70">
+                              <div className="w-2 h-2 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                              <span className="font-medium">Work in Progress</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => setLocation("/thoughts/1")}
+                            className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:bg-white/90 group-hover/card:text-warm-brown"
+                          >
+                            Read more
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Desktop: Garden Cards Grid */
+          <div className="grid grid-cols-12 gap-4 md:gap-6">
+            {/* Main Thought Cards */}
+            {thoughts.map((thought, index) => (
+              <div
+                key={thought.id}
+                className={`group/card ${
+                  thought.tag === 'Scenario' ? 'col-span-8 md:col-span-6' : 'cursor-pointer'
+                } ${
+                  thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-3' : 
+                  thought.tag === 'Scenario' ? '' : 
+                  'col-span-4 md:col-span-4'
+                }`}
+              >
               <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
                 thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[200px]' : 
                 thought.tag === 'Scenario' ? 'min-h-[280px]' : 
@@ -188,7 +317,8 @@ export default function Thoughts() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export const thoughts: Thought[] = [
     id: "1",
     title: "Addressing The AI x Human Gap",
     description: "Exploring 3 critical human breakdowns when AI continues to evolve and where humans need to recalibrate to stay relevant and thrive alongside intelligent systems.",
-    tag: "AI Alignment",
+    tag: "POV",
     readTime: "8 min read",
     imageGradient: "from-purple-600 to-purple-400",
     status: "published",

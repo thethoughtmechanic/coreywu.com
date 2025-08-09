@@ -115,7 +115,7 @@ export default function Thoughts() {
                         }`}>{thought.date || "Aug 7, 2025"}</span>
                       )}
                     </div>
-                    
+
                     {/* Special treatment for Scenario - just title and image */}
                     {thought.tag === 'Scenario' ? (
                       <>
@@ -186,7 +186,7 @@ export default function Thoughts() {
               <div
                 key={thought.id}
                 className={`group/card ${
-                  thought.tag === 'Scenario' ? 'col-span-12 md:col-span-8' : 'cursor-pointer'
+                  thought.tag === 'Scenario' ? 'col-span-8 md:col-span-4' : 'cursor-pointer'
                 } ${
                   thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-6 md:col-span-3' : 
                   thought.tag === 'Scenario' ? '' : 
@@ -255,7 +255,7 @@ export default function Thoughts() {
                       }`}>{thought.date || "Aug 7, 2025"}</span>
                     )}
                   </div>
-                  
+
                   {/* Special treatment for Scenario - just title and image */}
                   {thought.tag === 'Scenario' ? (
                     <>
@@ -266,7 +266,7 @@ export default function Thoughts() {
                         <img 
                           src={democracyImage}
                           alt="Democracy's Last Voter illustration showing a person at voting booths with 'Manual Ballots Not Accepted' sign"
-                          className="max-w-full max-h-48 object-contain rounded-lg"
+                          className="max-w-full max-h-64 object-contain rounded-lg"
                         />
                       </div>
                     </>

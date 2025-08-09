@@ -186,7 +186,7 @@ export default function Thoughts() {
               <div
                 key={thought.id}
                 className={`group/card ${
-                  thought.tag === 'Scenario' ? 'col-span-10 md:col-span-6' : 'cursor-pointer'
+                  thought.tag === 'Scenario' ? 'col-span-12 md:col-span-8' : 'cursor-pointer'
                 } ${
                   thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-6 md:col-span-3' : 
                   thought.tag === 'Scenario' ? '' : 

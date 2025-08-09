@@ -72,7 +72,7 @@ export function Navigation() {
 
       {/* Mobile navigation overlay */}
       {isMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={closeMenu}
           data-testid="overlay-mobile-menu"
@@ -81,12 +81,12 @@ export function Navigation() {
 
       {/* Mobile navigation menu */}
       <div className={cn(
-        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-gray-900/98 backdrop-blur-md border-l border-gray-700/50 transform transition-transform duration-300 ease-in-out z-40 md:hidden shadow-2xl",
+        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-gray-900/95 backdrop-blur-md border-l border-gray-700/50 transform transition-transform duration-300 ease-in-out z-40 md:hidden shadow-2xl",
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex flex-col p-6 space-y-6">
           <div className="text-lg font-medium text-white mb-4">
-            Navigation
+            Corey Wu
           </div>
           {navItems.map((item) => (
             <Link

@@ -9,7 +9,7 @@ export const experiments: Experiment[] = [
     collaborationType: "collaboration",
     problemType: "horizontal",
     imageGradient: "from-muted-grey to-soft-black",
-    timeframe: "Jun-Jul '25 (2 months)",
+    timeframe: "Jun-Jul '25",
     collaborators: ["@kennyfung"],
     technologies: ["Node.js", "TensorFlow", "AWS Lambda"],
     isActive: false

@@ -53,8 +53,8 @@ export const thoughts: Thought[] = [
   },
   {
     id: "6",
-    title: "Public Web | Digital Gardens | Cozy Webs",
-    description: "Public web is an editor's curated menu of signature dishes. Digital gardens are a curated dinner party. Cozy webs are the after-party conversations that last until 4 a.m. One feeds the brain, one feeds the heart, one feeds the soul.",
+    title: "Social Web | Digital Gardens | Cozy Webs",
+    description: "Social web is an editor's curated menu of trending dishes. Digital gardens are curated dinner parties. Cozy webs are the after-party conversations that last until 4 a.m. One feeds the brain, one feeds the heart, one feeds the soul.",
     tag: "Thought Bite",
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",

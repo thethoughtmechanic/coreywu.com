@@ -257,12 +257,16 @@ export default function Thoughts() {
                                 {/* Paint Splatter Background - only for non-scenario cards */}
                                 {thought.tag !== 'Scenario' && (
                                   <>
-                                    <div
-                                      className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
-                                      style={{
-                                        background: getPaintSplatter(thought.tag).background
-                                      }}
-                                    />
+                                    <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl overflow-hidden">
+                                      <div 
+                                        className="absolute inset-0 w-full h-full"
+                                        style={{
+                                          background: getPaintSplatter(thought.tag).background,
+                                          minHeight: '100%',
+                                          minWidth: '100%'
+                                        }}
+                                      />
+                                    </div>
                                     {/* Text Background for better readability when splatter is visible */}
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
                                   </>

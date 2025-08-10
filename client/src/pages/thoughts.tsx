@@ -4,6 +4,7 @@ import { ThoughtCard } from "@/components/thought-card";
 import { thoughts } from "@/data/thoughts";
 import { useIsMobile } from "@/hooks/use-mobile";
 import democracyImage from "@assets/image_1754686959251.png";
+import { getPaintSplatter } from "@/lib/paint-splatters";
 
 export default function Thoughts() {
   const [, setLocation] = useLocation();
@@ -259,32 +260,7 @@ export default function Thoughts() {
                                     <div
                                       className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
                                       style={{
-                                        background: thought.tag === 'AI Alignment' ? `
-                                          radial-gradient(ellipse 235px 175px at 20% 15%, #a855f7 0%, #a855f7 45%, transparent 85%),
-                                          radial-gradient(ellipse 205px 155px at 80% 25%, #ec4899 0%, #ec4899 40%, transparent 80%),
-                                          radial-gradient(ellipse 185px 215px at 10% 85%, #9333ea 0%, #9333ea 50%, transparent 90%),
-                                          radial-gradient(ellipse 225px 135px at 90% 80%, #d946ef 0%, #d946ef 35%, transparent 75%),
-                                          radial-gradient(ellipse 180px 190px at 40% 45%, #7c3aed 0%, #7c3aed 40%, transparent 80%)
-                                        ` : thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? `
-                                          radial-gradient(ellipse 225px 165px at 35% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
-                                          radial-gradient(ellipse 195px 145px at 65% 35%, #0891b2 0%, #0891b2 40%, transparent 80%),
-                                          radial-gradient(ellipse 180px 205px at 25% 80%, #0e7490 0%, #0e7490 50%, transparent 90%),
-                                          radial-gradient(ellipse 210px 125px at 75% 90%, #22d3ee 0%, #22d3ee 35%, transparent 75%),
-                                          radial-gradient(ellipse 170px 180px at 50% 60%, #0284c7 0%, #0284c7 40%, transparent 80%)
-                                        ` : thought.tag === 'POV' ? `
-                                          radial-gradient(ellipse 240px 180px at 25% 15%, #22c55e 0%, #22c55e 45%, transparent 85%),
-                                          radial-gradient(ellipse 210px 160px at 75% 25%, #16a34a 0%, #16a34a 40%, transparent 80%),
-                                          radial-gradient(ellipse 190px 220px at 15% 85%, #15803d 0%, #15803d 50%, transparent 90%),
-                                          radial-gradient(ellipse 220px 140px at 85% 80%, #84cc16 0%, #84cc16 35%, transparent 75%),
-                                          radial-gradient(ellipse 175px 185px at 45% 55%, #65a30d 0%, #65a30d 40%, transparent 80%)
-                                        ` : `
-                                          radial-gradient(ellipse 230px 170px at 25% 25%, #3b82f6 0%, #3b82f6 45%, transparent 85%),
-                                          radial-gradient(ellipse 200px 150px at 75% 15%, #6366f1 0%, #6366f1 40%, transparent 80%),
-                                          radial-gradient(ellipse 185px 210px at 5% 85%, #1d4ed8 0%, #1d4ed8 50%, transparent 90%),
-                                          radial-gradient(ellipse 215px 130px at 95% 90%, #8b5cf6 0%, #8b5cf6 35%, transparent 75%),
-                                          radial-gradient(ellipse 175px 185px at 45% 35%, #2563eb 0%, #2563eb 40%, transparent 80%)
-                                        `,
-                                        transform: 'scale(1.8) rotate(25deg)'
+                                        background: getPaintSplatter(thought.tag).background
                                       }}
                                     />
                                     {/* Text Background for better readability when splatter is visible */}

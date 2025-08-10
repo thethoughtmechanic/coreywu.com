@@ -16,23 +16,23 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
           className={`absolute inset-0 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
           style={{
             background: experiment.status === 'sunset' ? `
-              radial-gradient(ellipse 200% 200% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 75%),
-              radial-gradient(ellipse 200% 200% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 70%),
-              radial-gradient(ellipse 200% 200% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 80%),
-              radial-gradient(ellipse 200% 200% at 85% 80%, #374151 0%, #374151 40%, transparent 65%),
-              radial-gradient(ellipse 200% 200% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 75%)
+              radial-gradient(ellipse 235px 175px at 25% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+              radial-gradient(ellipse 205px 155px at 75% 20%, #3b82f6 0%, #3b82f6 40%, transparent 80%),
+              radial-gradient(ellipse 185px 215px at 5% 90%, #0891b2 0%, #0891b2 50%, transparent 90%),
+              radial-gradient(ellipse 220px 135px at 95% 75%, #6366f1 0%, #6366f1 35%, transparent 75%),
+              radial-gradient(ellipse 180px 190px at 45% 40%, #1e40af 0%, #1e40af 40%, transparent 80%)
             ` : experiment.status === 'wip' ? `
-              radial-gradient(ellipse 200% 200% at 30% 20%, #eab308 0%, #eab308 50%, transparent 75%),
-              radial-gradient(ellipse 200% 200% at 75% 25%, #f59e0b 0%, #f59e0b 45%, transparent 70%),
-              radial-gradient(ellipse 200% 200% at 15% 85%, #d97706 0%, #d97706 55%, transparent 80%),
-              radial-gradient(ellipse 200% 200% at 85% 80%, #fbbf24 0%, #fbbf24 40%, transparent 65%),
-              radial-gradient(ellipse 200% 200% at 50% 50%, #fde047 0%, #fde047 45%, transparent 75%)
+              radial-gradient(ellipse 230px 170px at 30% 20%, #f59e0b 0%, #f59e0b 45%, transparent 85%),
+              radial-gradient(ellipse 200px 150px at 70% 30%, #dc2626 0%, #dc2626 40%, transparent 80%),
+              radial-gradient(ellipse 185px 210px at 20% 75%, #ea580c 0%, #ea580c 50%, transparent 90%),
+              radial-gradient(ellipse 215px 130px at 80% 85%, #facc15 0%, #facc15 35%, transparent 75%),
+              radial-gradient(ellipse 175px 185px at 45% 55%, #ef4444 0%, #ef4444 40%, transparent 80%)
             ` : `
-              radial-gradient(ellipse 200% 200% at 30% 20%, #06b6d4 0%, #06b6d4 50%, transparent 75%),
-              radial-gradient(ellipse 200% 200% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 70%),
-              radial-gradient(ellipse 200% 200% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 80%),
-              radial-gradient(ellipse 200% 200% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 65%),
-              radial-gradient(ellipse 200% 200% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 75%)
+              radial-gradient(ellipse 225px 165px at 35% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+              radial-gradient(ellipse 195px 145px at 65% 35%, #0891b2 0%, #0891b2 40%, transparent 80%),
+              radial-gradient(ellipse 180px 205px at 25% 80%, #0e7490 0%, #0e7490 50%, transparent 90%),
+              radial-gradient(ellipse 210px 125px at 75% 90%, #22d3ee 0%, #22d3ee 35%, transparent 75%),
+              radial-gradient(ellipse 170px 180px at 50% 60%, #0284c7 0%, #0284c7 40%, transparent 80%)
             `,
             transform: 'scale(2.5) rotate(25deg)'
           }}
@@ -99,23 +99,23 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
         className={`absolute inset-0 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
         style={{
           background: experiment.status === 'sunset' ? `
-            radial-gradient(ellipse 150% 150% at 30% 20%, #6b7280 0%, #6b7280 50%, transparent 70%),
-            radial-gradient(ellipse 150% 150% at 75% 25%, #9ca3af 0%, #9ca3af 45%, transparent 65%),
-            radial-gradient(ellipse 150% 150% at 15% 85%, #4b5563 0%, #4b5563 55%, transparent 75%),
-            radial-gradient(ellipse 150% 150% at 85% 80%, #374151 0%, #374151 40%, transparent 60%),
-            radial-gradient(ellipse 150% 150% at 50% 50%, #d1d5db 0%, #d1d5db 45%, transparent 70%)
+            radial-gradient(ellipse 235px 175px at 25% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+            radial-gradient(ellipse 205px 155px at 75% 20%, #3b82f6 0%, #3b82f6 40%, transparent 80%),
+            radial-gradient(ellipse 185px 215px at 5% 90%, #0891b2 0%, #0891b2 50%, transparent 90%),
+            radial-gradient(ellipse 220px 135px at 95% 75%, #6366f1 0%, #6366f1 35%, transparent 75%),
+            radial-gradient(ellipse 180px 190px at 45% 40%, #1e40af 0%, #1e40af 40%, transparent 80%)
           ` : experiment.status === 'wip' ? `
-            radial-gradient(ellipse 150% 150% at 30% 20%, #eab308 0%, #eab308 50%, transparent 70%),
-            radial-gradient(ellipse 150% 150% at 75% 25%, #f59e0b 0%, #f59e0b 45%, transparent 65%),
-            radial-gradient(ellipse 150% 150% at 15% 85%, #d97706 0%, #d97706 55%, transparent 75%),
-            radial-gradient(ellipse 150% 150% at 85% 80%, #fbbf24 0%, #fbbf24 40%, transparent 60%),
-            radial-gradient(ellipse 150% 150% at 50% 50%, #fde047 0%, #fde047 45%, transparent 70%)
+            radial-gradient(ellipse 230px 170px at 30% 20%, #f59e0b 0%, #f59e0b 45%, transparent 85%),
+            radial-gradient(ellipse 200px 150px at 70% 30%, #dc2626 0%, #dc2626 40%, transparent 80%),
+            radial-gradient(ellipse 185px 210px at 20% 75%, #ea580c 0%, #ea580c 50%, transparent 90%),
+            radial-gradient(ellipse 215px 130px at 80% 85%, #facc15 0%, #facc15 35%, transparent 75%),
+            radial-gradient(ellipse 175px 185px at 45% 55%, #ef4444 0%, #ef4444 40%, transparent 80%)
           ` : `
-            radial-gradient(ellipse 150% 150% at 30% 20%, #06b6d4 0%, #06b6d4 50%, transparent 70%),
-            radial-gradient(ellipse 150% 150% at 75% 25%, #0891b2 0%, #0891b2 45%, transparent 65%),
-            radial-gradient(ellipse 150% 150% at 15% 85%, #0e7490 0%, #0e7490 55%, transparent 75%),
-            radial-gradient(ellipse 150% 150% at 85% 80%, #22d3ee 0%, #22d3ee 40%, transparent 60%),
-            radial-gradient(ellipse 150% 150% at 50% 50%, #0284c7 0%, #0284c7 45%, transparent 70%)
+            radial-gradient(ellipse 225px 165px at 35% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+            radial-gradient(ellipse 195px 145px at 65% 35%, #0891b2 0%, #0891b2 40%, transparent 80%),
+            radial-gradient(ellipse 180px 205px at 25% 80%, #0e7490 0%, #0e7490 50%, transparent 90%),
+            radial-gradient(ellipse 210px 125px at 75% 90%, #22d3ee 0%, #22d3ee 35%, transparent 75%),
+            radial-gradient(ellipse 170px 180px at 50% 60%, #0284c7 0%, #0284c7 40%, transparent 80%)
           `,
           transform: 'scale(4.0) rotate(45deg)'
         }}

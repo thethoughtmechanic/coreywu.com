@@ -100,74 +100,51 @@ export default function Experiments() {
     </div>
   );
 
-  // Mobile Card View with Expansion
+  // Mobile Card View
   const MobileView = () => (
     <div className="space-y-4">
-      {orderedExperiments.map((experiment) => {
-        const isExpanded = expandedCards.has(experiment.id);
-        return (
-          <div key={experiment.id} className="bg-light-brown rounded-lg overflow-hidden">
-            {/* Main card content - always visible */}
-            <div 
-              className="px-4 py-4 cursor-pointer hover:bg-warm-brown/5 transition-colors"
-              onClick={() => toggleCardExpansion(experiment.id)}
-            >
-              <div className="space-y-3">
-                {/* Status */}
-                <div>
-                  <StatusDot experiment={experiment} />
-                </div>
-                
-                {/* Project */}
-                <div>
-                  <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
-                </div>
-                
-                {/* Description */}
-                <div>
-                  <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>
-                </div>
-
-                {/* Expand indicator */}
-                <div className="flex justify-center pt-2">
-                  <div className={`w-6 h-6 flex items-center justify-center text-warm-brown transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="6,9 12,15 18,9"></polyline>
-                    </svg>
-                  </div>
-                </div>
-              </div>
+      {orderedExperiments.map((experiment) => (
+        <div key={experiment.id} className="bg-light-brown rounded-lg p-4">
+          <div className="space-y-3">
+            {/* Project title with status dot */}
+            <div className="flex items-center gap-2">
+              <div 
+                className={`w-3 h-3 rounded-full ${
+                  experiment.status === 'sunset' ? 'bg-red-500' : 
+                  experiment.status === 'wip' ? 'bg-green-500' : 
+                  'bg-gray-400'
+                }`} 
+              />
+              <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
+            </div>
+            
+            {/* Description */}
+            <div>
+              <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>
             </div>
 
-            {/* Expanded content - only visible when expanded */}
-            {isExpanded && (
-              <div className="px-4 pb-3 pt-2">
-                <div className="space-y-2">
-                  {/* Technologies as pills */}
-                  {experiment.technologies && experiment.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {experiment.technologies.map((tech, index) => (
-                        <span 
-                          key={index}
-                          className="text-xs px-2 py-1 bg-warm-brown/10 text-warm-brown rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  
-                  {/* Timeline and Team on same line */}
-                  <div className="flex justify-between items-center text-xs text-muted-grey">
-                    <span>{experiment.timeframe}</span>
-                    <span>{getTeamDisplay(experiment)}</span>
-                  </div>
-                </div>
+            {/* Technologies as pills */}
+            {experiment.technologies && experiment.technologies.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {experiment.technologies.map((tech, index) => (
+                  <span 
+                    key={index}
+                    className="text-xs px-2 py-1 bg-warm-brown/10 text-warm-brown rounded-full"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
             )}
+            
+            {/* Timeline and Team on same line */}
+            <div className="flex justify-between items-center text-xs text-muted-grey">
+              <span>{experiment.timeframe}</span>
+              <span>{getTeamDisplay(experiment)}</span>
+            </div>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 

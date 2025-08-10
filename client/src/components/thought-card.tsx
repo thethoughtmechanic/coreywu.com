@@ -173,7 +173,7 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
       <div className={`bg-gradient-to-br ${thought.imageGradient} ${isLarge ? 'h-64' : 'h-48'} relative overflow-hidden`}>
         <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl overflow-hidden">
                 <div 
-                  className="absolute inset-0 w-full h-full"
+                  className="absolute w-full h-full"
                   style={{
                     background: `
                       radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
@@ -182,8 +182,12 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
                       radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
                       radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
                     `,
-                    minHeight: '100%',
-                    minWidth: '100%'
+                    top: '-20%',
+                    left: '-20%',
+                    width: '140%',
+                    height: '140%',
+                    minHeight: '140%',
+                    minWidth: '140%'
                   }}
                 />
               </div>

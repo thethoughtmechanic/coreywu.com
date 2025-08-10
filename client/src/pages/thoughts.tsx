@@ -72,7 +72,7 @@ export default function Thoughts() {
           <div className="space-y-4">
             {thoughts.map((thought, index) => (
               <div key={thought.id} className="group/card cursor-pointer">
-                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative">
+                <div className="w-full bg-light-brown backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative"></div>
                   {/* Paint Splatter Background - only for non-scenario cards */}
                   {thought.tag !== 'Scenario' && (
                     <>
@@ -249,7 +249,7 @@ export default function Thoughts() {
                                   'col-span-12 md:col-span-6'
                                 }`}
                               >
-                              <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
+                              <div className={`w-full bg-light-brown backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
                                 thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[200px]' : 
                                 thought.tag === 'Scenario' ? 'min-h-[280px]' : 
                                 'min-h-[220px]'
@@ -259,11 +259,15 @@ export default function Thoughts() {
                                   <>
                                     <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl overflow-hidden">
                                       <div 
-                                        className="absolute inset-0 w-full h-full"
+                                        className="absolute w-full h-full"
                                         style={{
                                           background: getPaintSplatter(thought.tag).background,
-                                          minHeight: '100%',
-                                          minWidth: '100%'
+                                          top: '-20%',
+                                          left: '-20%',
+                                          width: '140%',
+                                          height: '140%',
+                                          minHeight: '140%',
+                                          minWidth: '140%'
                                         }}
                                       />
                                     </div>

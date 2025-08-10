@@ -1,4 +1,3 @@
-
 import { Link } from "wouter";
 
 export default function Home() {
@@ -12,14 +11,14 @@ export default function Home() {
             Welcome to my digital garden.
           </h1>
         </div>
-        
+
         {/* Three Card Navigation - Mobile Optimized */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs sm:max-w-lg lg:max-w-none mx-auto">
           {/* About Me Card */}
           <Link href="/about">
             <div className="relative bg-light-brown rounded-xl p-4 md:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-48 md:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for About Me */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
                 style={{
                   background: `
@@ -33,10 +32,10 @@ export default function Home() {
                   borderRadius: '24px'
                 }}
               />
-              
+
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl" />
-              
+
               <div className="relative z-10 text-center space-y-2 md:space-y-4 flex-1 flex flex-col justify-center">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
                   <svg className="w-6 h-6 md:w-8 md:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,7 +55,7 @@ export default function Home() {
             <div className="relative bg-light-brown rounded-xl p-4 md:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-48 md:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for Thoughts */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden">
-                <div 
+                <div
                   className="absolute inset-0 w-full h-full"
                   style={{
                     background: `
@@ -72,10 +71,10 @@ export default function Home() {
                   }}
                 />
               </div>
-              
+
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl" />
-              
+
               <div className="relative z-10 text-center space-y-2 md:space-y-4 flex-1 flex flex-col justify-center">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
                   <svg className="w-6 h-6 md:w-8 md:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +93,7 @@ export default function Home() {
           <Link href="/experiments">
             <div className="relative bg-light-brown rounded-xl p-4 md:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-48 md:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for Experiments */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
                 style={{
                   background: `
@@ -108,10 +107,10 @@ export default function Home() {
                   borderRadius: '24px'
                 }}
               />
-              
+
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl" />
-              
+
               <div className="relative z-10 text-center space-y-2 md:space-y-4 flex-1 flex flex-col justify-center">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
                   <svg className="w-6 h-6 md:w-8 md:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">

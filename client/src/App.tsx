@@ -28,7 +28,7 @@ function Router() {
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />
           <Route path="/experiments" component={Experiments} />
-          <Route path="/experiments-experimental" component={lazy(() => import("@/pages/experiments-experimental"))} />
+
           <Route path="/admin" component={Admin} />
           <Route path="/designsystem" component={DesignSystem} />
           <Route component={NotFound} />

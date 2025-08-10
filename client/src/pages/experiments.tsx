@@ -85,16 +85,17 @@ export default function Experiments() {
           </h2>
           <div className="bg-light-brown rounded-lg overflow-hidden">
             <div className="px-6 py-4 border-b border-warm-brown/20 bg-warm-brown/5">
-              <div className="grid grid-cols-3 gap-4 text-sm font-medium text-warm-brown">
+              <div className="grid grid-cols-4 gap-4 text-sm font-medium text-warm-brown">
                 <div>Status</div>
-                <div>Project Name</div>
+                <div>Project</div>
+                <div>Timeline</div>
                 <div>Team</div>
               </div>
             </div>
             <div className="divide-y divide-warm-brown/10">
               {clusterExperiments.map((experiment) => (
                 <div key={experiment.id} className="px-6 py-4">
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-4 gap-4">
                     <div className="flex items-start gap-2">
                       <StatusDot experiment={experiment} />
                       <span className="text-sm capitalize">{experiment.status}</span>
@@ -102,7 +103,9 @@ export default function Experiments() {
                     <div className="space-y-2">
                       <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
                       <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>
-                      <p className="text-xs text-muted-grey">{experiment.timeframe}</p>
+                    </div>
+                    <div className="text-sm text-muted-grey">
+                      {experiment.timeframe}
                     </div>
                     <div className="text-sm text-muted-grey">
                       {getTeamDisplay(experiment)}

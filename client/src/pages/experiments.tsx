@@ -22,25 +22,10 @@ export default function Experiments() {
     return experiment.collaborators.join(', ');
   };
 
-  // Group experiments by status - WIP first, then Sunset
+  // Order experiments with WIP first, then Sunset
   const wipExperiments = experiments.filter(exp => exp.status === 'wip');
   const sunsetExperiments = experiments.filter(exp => exp.status === 'sunset');
   const orderedExperiments = [...wipExperiments, ...sunsetExperiments];
-
-  // Get section label
-  const getSectionLabel = (status: string, count: number) => {
-    const labels = {
-      wip: 'WIP',
-      sunset: 'sunset'
-    };
-    return `${labels[status as keyof typeof labels] || status} (${count})`;
-  };
-
-  // Group experiments by status for section headers
-  const sections = [
-    { status: 'wip', experiments: wipExperiments },
-    { status: 'sunset', experiments: sunsetExperiments }
-  ].filter(section => section.experiments.length > 0);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -51,46 +36,37 @@ export default function Experiments() {
       </header>
 
       <main>
-        <div className="space-y-8">
-          {sections.map(({ status, experiments: sectionExperiments }) => (
-            <div key={status} className="space-y-4">
-              <h2 className="text-lg font-semibold text-warm-brown">
-                {getSectionLabel(status, sectionExperiments.length)}
-              </h2>
-              <div className="bg-light-brown rounded-lg overflow-hidden">
-                <div className="px-6 py-3 border-b border-warm-brown/20 bg-warm-brown/5">
-                  <div className="grid grid-cols-12 gap-4 text-sm font-medium text-warm-brown">
-                    <div className="col-span-2">Status</div>
-                    <div className="col-span-7">Project</div>
-                    <div className="col-span-2">Timeline</div>
-                    <div className="col-span-1">Team</div>
+        <div className="bg-light-brown rounded-lg overflow-hidden">
+          <div className="px-6 py-3 border-b border-warm-brown/20 bg-warm-brown/5">
+            <div className="grid grid-cols-12 gap-4 text-sm font-medium text-warm-brown">
+              <div className="col-span-2">Status</div>
+              <div className="col-span-7">Project</div>
+              <div className="col-span-2">Timeline</div>
+              <div className="col-span-1">Team</div>
+            </div>
+          </div>
+          <div className="divide-y divide-warm-brown/10">
+            {orderedExperiments.map((experiment) => (
+              <div key={experiment.id} className="px-6 py-3">
+                <div className="grid grid-cols-12 gap-4 items-center">
+                  <div className="col-span-2 flex items-center gap-2">
+                    <StatusDot experiment={experiment} />
+                    <span className="text-sm capitalize">{experiment.status}</span>
+                  </div>
+                  <div className="col-span-7">
+                    <h3 className="font-medium text-warm-brown inline">{experiment.title}</h3>
+                    <span className="text-sm text-soft-black ml-2">— {experiment.description}</span>
+                  </div>
+                  <div className="col-span-2 text-sm text-muted-grey">
+                    {experiment.timeframe}
+                  </div>
+                  <div className="col-span-1 text-sm text-muted-grey">
+                    {getTeamDisplay(experiment)}
                   </div>
                 </div>
-                <div className="divide-y divide-warm-brown/10">
-                  {sectionExperiments.map((experiment) => (
-                    <div key={experiment.id} className="px-6 py-3">
-                      <div className="grid grid-cols-12 gap-4 items-center">
-                        <div className="col-span-2 flex items-center gap-2">
-                          <StatusDot experiment={experiment} />
-                          <span className="text-sm capitalize">{experiment.status}</span>
-                        </div>
-                        <div className="col-span-7">
-                          <h3 className="font-medium text-warm-brown inline">{experiment.title}</h3>
-                          <span className="text-sm text-soft-black ml-2">— {experiment.description}</span>
-                        </div>
-                        <div className="col-span-2 text-sm text-muted-grey">
-                          {experiment.timeframe}
-                        </div>
-                        <div className="col-span-1 text-sm text-muted-grey">
-                          {getTeamDisplay(experiment)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </main>
     </div>

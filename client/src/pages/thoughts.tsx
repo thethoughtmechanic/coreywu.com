@@ -78,34 +78,34 @@ export default function Thoughts() {
                       <div
                         className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
                         style={{
-                          background: thought.tag === 'AI Alignment' ? `
-                                          radial-gradient(ellipse 235px 175px at 20% 15%, #a855f7 0%, #a855f7 45%, transparent 85%),
-                                          radial-gradient(ellipse 205px 155px at 80% 25%, #ec4899 0%, #ec4899 40%, transparent 80%),
-                                          radial-gradient(ellipse 185px 215px at 10% 85%, #9333ea 0%, #9333ea 50%, transparent 90%),
-                                          radial-gradient(ellipse 225px 135px at 90% 80%, #d946ef 0%, #d946ef 35%, transparent 75%),
-                                          radial-gradient(ellipse 180px 190px at 40% 45%, #7c3aed 0%, #7c3aed 40%, transparent 80%)
-                                        ` : thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? `
-                                          radial-gradient(ellipse 225px 165px at 35% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
-                                          radial-gradient(ellipse 195px 145px at 65% 35%, #0891b2 0%, #0891b2 40%, transparent 80%),
-                                          radial-gradient(ellipse 180px 205px at 25% 80%, #0e7490 0%, #0e7490 50%, transparent 90%),
-                                          radial-gradient(ellipse 210px 125px at 75% 90%, #22d3ee 0%, #22d3ee 35%, transparent 75%),
-                                          radial-gradient(ellipse 170px 180px at 50% 60%, #0284c7 0%, #0284c7 40%, transparent 80%)
-                                        ` : thought.tag === 'POV' ? `
-                                          radial-gradient(ellipse 240px 180px at 25% 15%, #22c55e 0%, #22c55e 45%, transparent 85%),
-                                          radial-gradient(ellipse 210px 160px at 75% 25%, #16a34a 0%, #16a34a 40%, transparent 80%),
-                                          radial-gradient(ellipse 190px 220px at 15% 85%, #15803d 0%, #15803d 50%, transparent 90%),
-                                          radial-gradient(ellipse 220px 140px at 85% 80%, #84cc16 0%, #84cc16 35%, transparent 75%),
-                                          radial-gradient(ellipse 175px 185px at 45% 55%, #65a30d 0%, #65a30d 40%, transparent 80%)
-                                        ` : `
-                                          radial-gradient(ellipse 230px 170px at 25% 25%, #3b82f6 0%, #3b82f6 45%, transparent 85%),
-                                          radial-gradient(ellipse 200px 150px at 75% 15%, #6366f1 0%, #6366f1 40%, transparent 80%),
-                                          radial-gradient(ellipse 185px 210px at 5% 85%, #1d4ed8 0%, #1d4ed8 50%, transparent 90%),
-                                          radial-gradient(ellipse 215px 130px at 95% 90%, #8b5cf6 0%, #8b5cf6 35%, transparent 75%),
-                                          radial-gradient(ellipse 175px 185px at 45% 35%, #2563eb 0%, #2563eb 40%, transparent 80%)
-                                        `,
-                                          transform: 'scale(1.8) rotate(25deg)'
-                                        }}
-                                      />
+                          background: thought.tag === 'POV' ? `
+                            radial-gradient(ellipse 280px 220px at 15% 25%, #84cc16 0%, #84cc16 50%, transparent 90%),
+                            radial-gradient(ellipse 250px 190px at 85% 15%, #22c55e 0%, #22c55e 45%, transparent 85%),
+                            radial-gradient(ellipse 220px 260px at 25% 85%, #16a34a 0%, #16a34a 55%, transparent 95%),
+                            radial-gradient(ellipse 290px 180px at 75% 90%, #65a30d 0%, #65a30d 40%, transparent 80%),
+                            radial-gradient(ellipse 210px 230px at 55% 45%, #15803d 0%, #15803d 50%, transparent 90%)
+                          ` : thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? `
+                            radial-gradient(ellipse 270px 210px at 20% 30%, #0ea5e9 0%, #0ea5e9 50%, transparent 90%),
+                            radial-gradient(ellipse 240px 180px at 80% 20%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+                            radial-gradient(ellipse 210px 250px at 10% 80%, #0891b2 0%, #0891b2 55%, transparent 95%),
+                            radial-gradient(ellipse 280px 170px at 90% 85%, #22d3ee 0%, #22d3ee 40%, transparent 80%),
+                            radial-gradient(ellipse 200px 220px at 50% 50%, #0284c7 0%, #0284c7 50%, transparent 90%)
+                          ` : thought.tag === 'Scenario' ? `
+                            radial-gradient(ellipse 260px 200px at 25% 20%, #f97316 0%, #f97316 50%, transparent 90%),
+                            radial-gradient(ellipse 230px 170px at 75% 30%, #ea580c 0%, #ea580c 45%, transparent 85%),
+                            radial-gradient(ellipse 200px 240px at 15% 75%, #dc2626 0%, #dc2626 55%, transparent 95%),
+                            radial-gradient(ellipse 270px 160px at 85% 80%, #fb923c 0%, #fb923c 40%, transparent 80%),
+                            radial-gradient(ellipse 190px 210px at 45% 55%, #ef4444 0%, #ef4444 50%, transparent 90%)
+                          ` : `
+                            radial-gradient(ellipse 275px 215px at 30% 25%, #a855f7 0%, #a855f7 50%, transparent 90%),
+                            radial-gradient(ellipse 245px 185px at 70% 15%, #8b5cf6 0%, #8b5cf6 45%, transparent 85%),
+                            radial-gradient(ellipse 215px 255px at 20% 80%, #9333ea 0%, #9333ea 55%, transparent 95%),
+                            radial-gradient(ellipse 285px 175px at 80% 90%, #d946ef 0%, #d946ef 40%, transparent 80%),
+                            radial-gradient(ellipse 205px 225px at 50% 40%, #7c3aed 0%, #7c3aed 50%, transparent 90%)
+                          `,
+                          transform: 'scale(1.8) rotate(25deg)'
+                        }}
+                      />
                                       {/* Text Background for better readability when splatter is visible */}
                                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
                                     </>

@@ -403,13 +403,9 @@ export default function Thoughts() {
                               </div>
                             </div>
                           )}
-                </div>
-              </div>
-            </div>
-          ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }

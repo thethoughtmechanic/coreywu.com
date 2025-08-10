@@ -209,10 +209,10 @@ export default function Admin() {
           <div className="grid grid-cols-2 gap-4">
             <input
               type="text"
-              value={thought.readTime}
+              value={thought.readTime || ""}
               onChange={(e) => {
                 const updated = [...localThoughts];
-                updated[index].readTime = e.target.value;
+                updated[index].readTime = e.target.value || null;
                 setLocalThoughts(updated);
               }}
               placeholder="Read Time"
@@ -240,7 +240,9 @@ export default function Admin() {
             description: "Description of the thought...",
             tag: "Category",
             readTime: "5 min read",
-            imageGradient: "from-warmBrown to-hoverBrown"
+            imageGradient: "from-warmBrown to-hoverBrown",
+            date: new Date().toISOString().split('T')[0],
+            status: "published"
           };
           setLocalThoughts([...localThoughts, newThought]);
         }}
@@ -269,10 +271,10 @@ export default function Admin() {
             />
             <input
               type="text"
-              value={experiment.timeframe}
+              value={experiment.timeframe || ""}
               onChange={(e) => {
                 const updated = [...localExperiments];
-                updated[index].timeframe = e.target.value;
+                updated[index].timeframe = e.target.value || null;
                 setLocalExperiments(updated);
               }}
               placeholder="Timeframe"
@@ -323,7 +325,11 @@ export default function Admin() {
             timeframe: "Present",
             description: "Description of the experiment...",
             collaborators: [],
-            isActive: true
+            isActive: true,
+            imageGradient: null,
+            status: "learn",
+            collaborationType: "Individual",
+            problemType: "Horizontal"
           };
           setLocalExperiments([...localExperiments, newExperiment]);
         }}

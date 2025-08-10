@@ -104,21 +104,21 @@ export default function DesignSystem() {
               <h3 className="text-lg font-medium text-warm-brown">Primary</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-cream border border-warm-brown/20"></div>
+                  <div className="w-12 h-12 rounded-lg bg-cream border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Cream</div>
                     <div className="text-xs text-muted-grey">hsl(35, 80%, 99%)</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-warm-brown"></div>
+                  <div className="w-12 h-12 rounded-lg bg-warm-brown border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Warm Brown</div>
                     <div className="text-xs text-muted-grey">hsl(28, 30%, 55%)</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-soft-black"></div>
+                  <div className="w-12 h-12 rounded-lg bg-soft-black border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Soft Black</div>
                     <div className="text-xs text-muted-grey">hsl(25, 25%, 22%)</div>
@@ -132,21 +132,21 @@ export default function DesignSystem() {
               <h3 className="text-lg font-medium text-warm-brown">Secondary</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-light-brown"></div>
+                  <div className="w-12 h-12 rounded-lg bg-light-brown border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Light Brown</div>
                     <div className="text-xs text-muted-grey">hsl(35, 20%, 94%)</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-hover-brown"></div>
+                  <div className="w-12 h-12 rounded-lg bg-hover-brown border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Hover Brown</div>
                     <div className="text-xs text-muted-grey">hsl(28, 28%, 43%)</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-muted-grey"></div>
+                  <div className="w-12 h-12 rounded-lg bg-muted-grey border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Muted Grey</div>
                     <div className="text-xs text-muted-grey">hsl(220, 13%, 64%)</div>
@@ -160,14 +160,14 @@ export default function DesignSystem() {
               <h3 className="text-lg font-medium text-warm-brown">Garden View</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-soft-cream border border-warm-brown/20"></div>
+                  <div className="w-12 h-12 rounded-lg bg-soft-cream border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Soft Cream</div>
                     <div className="text-xs text-muted-grey">hsl(42, 15%, 97%)</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#8B7355' }}></div>
+                  <div className="w-12 h-12 rounded-lg border-2 border-warm-brown/30" style={{ backgroundColor: '#8B7355' }}></div>
                   <div>
                     <div className="font-medium text-sm">Connection Brown</div>
                     <div className="text-xs text-muted-grey">#8B7355</div>
@@ -181,7 +181,7 @@ export default function DesignSystem() {
               <h3 className="text-lg font-medium text-warm-brown">Accent</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-active-green"></div>
+                  <div className="w-12 h-12 rounded-lg bg-active-green border-2 border-warm-brown/30"></div>
                   <div>
                     <div className="font-medium text-sm">Active Green</div>
                     <div className="text-xs text-muted-grey">hsl(142, 71%, 45%)</div>
@@ -202,15 +202,15 @@ export default function DesignSystem() {
                 <h4 className="text-sm font-medium text-warm-brown">Green Family</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#059669' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#059669' }}></div>
                     <span className="text-xs">#059669</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#0891b2' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#0891b2' }}></div>
                     <span className="text-xs">#0891b2</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#0d9488' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#0d9488' }}></div>
                     <span className="text-xs">#0d9488</span>
                   </div>
                 </div>
@@ -221,15 +221,15 @@ export default function DesignSystem() {
                 <h4 className="text-sm font-medium text-warm-brown">Blue Family</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#0284c7' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#0284c7' }}></div>
                     <span className="text-xs">#0284c7</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#0ea5e9' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#0ea5e9' }}></div>
                     <span className="text-xs">#0ea5e9</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#06b6d4' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#06b6d4' }}></div>
                     <span className="text-xs">#06b6d4</span>
                   </div>
                 </div>
@@ -240,15 +240,15 @@ export default function DesignSystem() {
                 <h4 className="text-sm font-medium text-warm-brown">Orange/Red</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#f59e0b' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#f59e0b' }}></div>
                     <span className="text-xs">#f59e0b</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#dc2626' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#dc2626' }}></div>
                     <span className="text-xs">#dc2626</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#ea580c' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#ea580c' }}></div>
                     <span className="text-xs">#ea580c</span>
                   </div>
                 </div>
@@ -259,11 +259,11 @@ export default function DesignSystem() {
                 <h4 className="text-sm font-medium text-warm-brown">Yellow</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#facc15' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#facc15' }}></div>
                     <span className="text-xs">#facc15</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#ef4444' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#ef4444' }}></div>
                     <span className="text-xs">#ef4444</span>
                   </div>
                 </div>
@@ -274,15 +274,15 @@ export default function DesignSystem() {
                 <h4 className="text-sm font-medium text-warm-brown">Purple</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#a855f7' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#a855f7' }}></div>
                     <span className="text-xs">#a855f7</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#ec4899' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#ec4899' }}></div>
                     <span className="text-xs">#ec4899</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded" style={{ backgroundColor: '#9333ea' }}></div>
+                    <div className="w-8 h-8 rounded border border-warm-brown/30" style={{ backgroundColor: '#9333ea' }}></div>
                     <span className="text-xs">#9333ea</span>
                   </div>
                 </div>
@@ -293,15 +293,15 @@ export default function DesignSystem() {
                 <h4 className="text-sm font-medium text-warm-brown">Neutrals</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded bg-white border border-warm-brown/20"></div>
+                    <div className="w-8 h-8 rounded bg-white border-2 border-warm-brown/30"></div>
                     <span className="text-xs">White</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded bg-stone-50 border border-warm-brown/20"></div>
+                    <div className="w-8 h-8 rounded bg-stone-50 border-2 border-warm-brown/30"></div>
                     <span className="text-xs">Stone 50</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded bg-gray-400"></div>
+                    <div className="w-8 h-8 rounded bg-gray-400 border border-warm-brown/30"></div>
                     <span className="text-xs">Gray 400</span>
                   </div>
                 </div>

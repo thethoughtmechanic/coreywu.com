@@ -23,9 +23,9 @@ export default function Experiments() {
   // Get team display text
   const getTeamDisplay = (experiment: Experiment) => {
     if (!experiment.collaborators || experiment.collaborators.length === 0) {
-      return 'Solo';
+      return 'Solo (My side project)';
     }
-    return experiment.collaborators.join(', ');
+    return `Team: ${experiment.collaborators.join(', ')} (My Role: Backend Dev)`;
   };
 
   // Get status display text with Archive instead of learn
@@ -64,11 +64,12 @@ export default function Experiments() {
           {!isMobile && (
             <div className="px-6 py-3 border-b border-warm-brown/20 bg-warm-brown/5">
               <div className="grid grid-cols-12 gap-4 text-sm font-medium text-warm-brown">
-                <div className="col-span-2">Status</div>
-                <div className="col-span-4">Project</div>
-                <div className="col-span-3">Tech</div>
+                <div className="col-span-1">Status</div>
+                <div className="col-span-2">Project</div>
+                <div className="col-span-3">Description</div>
+                <div className="col-span-2">Technologies</div>
                 <div className="col-span-2">Timeline</div>
-                <div className="col-span-1">Team</div>
+                <div className="col-span-2">Team</div>
               </div>
             </div>
           )}
@@ -80,21 +81,27 @@ export default function Experiments() {
                 {!isMobile && (
                   <div className="px-6 py-4">
                     <div className="grid grid-cols-12 gap-4 items-center">
-                      <div className="col-span-2 flex items-center gap-3">
+                      <div className="col-span-1 flex items-center gap-3">
                         <StatusDot experiment={experiment} />
                         <span className="text-sm font-medium">{getStatusDisplay(experiment.status)}</span>
                       </div>
-                      <div className="col-span-4">
-                        <h3 className="font-medium text-warm-brown mb-1">{experiment.title}</h3>
+                      <div className="col-span-2">
+                        <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
+                      </div>
+                      <div className="col-span-3">
                         <p className="text-sm text-soft-black">{experiment.description}</p>
                       </div>
-                      <div className="col-span-3 text-sm text-muted-grey">
-                        React, Node.js
+                      <div className="col-span-2 text-sm text-muted-grey">
+                        {experiment.id === 'boyfriend-material' ? (
+                          <>Python, LangChain, React, Figma</>
+                        ) : (
+                          <>Node.js, TensorFlow, AWS Lambda</>
+                        )}
                       </div>
                       <div className="col-span-2 text-sm text-muted-grey">
                         {experiment.timeframe}
                       </div>
-                      <div className="col-span-1 text-sm text-muted-grey">
+                      <div className="col-span-2 text-sm text-muted-grey">
                         {getTeamDisplay(experiment)}
                       </div>
                     </div>
@@ -116,7 +123,7 @@ export default function Experiments() {
                         </div>
                         
                         {/* Project Column */}
-                        <div className="flex-shrink-0 w-20">
+                        <div className="flex-shrink-0 w-24">
                           <h3 className="font-medium text-warm-brown text-sm leading-tight">{experiment.title}</h3>
                         </div>
                         
@@ -133,10 +140,15 @@ export default function Experiments() {
                     {/* Expanded Details - tech, timeline, team on second row */}
                     {expandedRows.has(experiment.id) && (
                       <div className="px-4 py-3 bg-warm-brown/5 border-t border-warm-brown/10">
-                        <div className="grid grid-cols-3 gap-4 text-sm">
+                        <div className="grid grid-cols-1 gap-3 text-sm">
                           <div>
-                            <span className="font-medium text-warm-brown block mb-1">Tech</span>
-                            <span className="text-soft-black">React, Node.js</span>
+                            <span className="font-medium text-warm-brown block mb-1">Technologies</span>
+                            <span className="text-soft-black">
+                              {experiment.id === 'boyfriend-material' ? 
+                                'Python, LangChain, React, Figma' : 
+                                'Node.js, TensorFlow, AWS Lambda'
+                              }
+                            </span>
                           </div>
                           <div>
                             <span className="font-medium text-warm-brown block mb-1">Timeline</span>
@@ -155,6 +167,7 @@ export default function Experiments() {
             ))}
           </div>
         </div>
+        {/* Export to Sheets button REMOVED */}
       </main>
     </div>
   );

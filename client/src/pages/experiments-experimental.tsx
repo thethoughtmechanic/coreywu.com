@@ -6,7 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function ExperimentsExperimental() {
   const [activeView, setActiveView] = useState<'minimal' | 'cards' | 'list'>('minimal');
-  const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  
   const isMobile = useIsMobile();
 
   // Simple status indicator
@@ -28,7 +28,7 @@ export default function ExperimentsExperimental() {
     return experiment.collaborators.join(', ');
   };
 
-  // Approach 1: Refined Table View with inline expansion
+  // Approach 1: Refined Table View with all content shown
   const MinimalView = () => (
     <div className="space-y-4">
       <div className="bg-light-brown rounded-lg overflow-hidden">
@@ -41,35 +41,21 @@ export default function ExperimentsExperimental() {
         </div>
         <div className="divide-y divide-warm-brown/10">
           {experiments.map((experiment) => (
-            <div key={experiment.id}>
-              {/* Main row */}
-              <div 
-                className="px-6 py-4 hover:bg-warm-brown/5 transition-colors cursor-pointer"
-                onClick={() => setExpandedRow(expandedRow === experiment.id ? null : experiment.id)}
-              >
-                <div className="grid grid-cols-3 gap-4 items-center">
-                  <div className="flex items-center gap-2">
-                    <StatusDot experiment={experiment} />
-                    <span className="text-sm capitalize">{experiment.status}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
-                  </div>
-                  <div className="text-sm text-muted-grey">
-                    {getTeamDisplay(experiment)}
-                  </div>
+            <div key={experiment.id} className="px-6 py-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="flex items-start gap-2">
+                  <StatusDot experiment={experiment} />
+                  <span className="text-sm capitalize">{experiment.status}</span>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
+                  <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>
+                  <p className="text-xs text-muted-grey">{experiment.timeframe}</p>
+                </div>
+                <div className="text-sm text-muted-grey">
+                  {getTeamDisplay(experiment)}
                 </div>
               </div>
-              
-              {/* Expanded content */}
-              {expandedRow === experiment.id && (
-                <div className="px-6 pb-4">
-                  <div className="mt-3 space-y-2 text-sm">
-                    <p className="text-soft-black leading-relaxed">{experiment.description}</p>
-                    <p className="text-muted-grey text-xs">{experiment.timeframe}</p>
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>

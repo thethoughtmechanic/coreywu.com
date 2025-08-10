@@ -72,7 +72,7 @@ export default function Thoughts() {
           <div className="space-y-4">
             {thoughts.map((thought, index) => (
               <div key={thought.id} className="group/card cursor-pointer">
-                <div className="w-full bg-light-brown backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative"></div>
+                <div className="w-full bg-light-brown backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative">
                   {/* Paint Splatter Background - only for non-scenario cards */}
                   {thought.tag !== 'Scenario' && (
                     <>
@@ -249,11 +249,11 @@ export default function Thoughts() {
                                   'col-span-12 md:col-span-6'
                                 }`}
                               >
-                              <div className={`w-full bg-light-brown backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
-                                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[200px]' : 
-                                thought.tag === 'Scenario' ? 'min-h-[280px]' : 
-                                'min-h-[220px]'
-                              }`}>
+                                <div className={`w-full bg-light-brown backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
+                                  thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[200px]' : 
+                                  thought.tag === 'Scenario' ? 'min-h-[280px]' : 
+                                  'min-h-[220px]'
+                                }`}>
                                 {/* Paint Splatter Background - only for non-scenario cards */}
                                 {thought.tag !== 'Scenario' && (
                                   <>
@@ -353,9 +353,10 @@ export default function Thoughts() {
                                     </>
                                   )}
                                 </div>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
 
                           {/* Modal for Desktop Slide Expansion */}
                           {modalSlide && (
@@ -401,9 +402,9 @@ export default function Thoughts() {
                               </div>
                             </div>
                           )}
-                          </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
-                  );
-                }
+                  </div>
+                );
+              }

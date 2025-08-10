@@ -7,9 +7,10 @@ export default function Experiments() {
   const StatusDot = ({ experiment }: { experiment: Experiment }) => (
     <div 
       className={`w-2 h-2 rounded-full ${
-        experiment.status === 'sunset' ? 'bg-gray-400' : 
-        experiment.status === 'wip' ? 'bg-yellow-500' : 
-        'bg-green-500'
+        experiment.status === 'learn' ? 'bg-blue-500' : 
+        experiment.status === 'build' ? 'bg-yellow-500' : 
+        experiment.status === 'scale' ? 'bg-green-500' :
+        'bg-gray-400'
       }`} 
     />
   );
@@ -22,10 +23,11 @@ export default function Experiments() {
     return experiment.collaborators.join(', ');
   };
 
-  // Order experiments with WIP first, then Sunset
-  const wipExperiments = experiments.filter(exp => exp.status === 'wip');
-  const sunsetExperiments = experiments.filter(exp => exp.status === 'sunset');
-  const orderedExperiments = [...wipExperiments, ...sunsetExperiments];
+  // Order experiments: build/scale (active) first, then learn (completed/learning)
+  const buildExperiments = experiments.filter(exp => exp.status === 'build');
+  const scaleExperiments = experiments.filter(exp => exp.status === 'scale');
+  const learnExperiments = experiments.filter(exp => exp.status === 'learn');
+  const orderedExperiments = [...buildExperiments, ...scaleExperiments, ...learnExperiments];
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">

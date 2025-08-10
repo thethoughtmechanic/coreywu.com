@@ -53,6 +53,33 @@ export default function Experiments() {
 
   const clusters = clusteredExperiments();
 
+  const getStatusLabel = (status: string) => {
+    const labels = {
+      learn: 'Learn',
+      build: 'Build',
+      scale: 'Scale',
+      wip: 'WIP',
+      sunset: 'Sunset'
+    };
+    return labels[status as keyof typeof labels] || status;
+  };
+
+  const getTeamDisplay = (experiment: Experiment) => {
+    if (!experiment.collaborators || experiment.collaborators.length === 0) {
+      return 'Solo';
+    }
+    return experiment.collaborators.map(collab => `@${collab}`).join(', ');
+  };
+
+  const StatusDot = ({ experiment }: { experiment: Experiment }) => (
+    <div className={`w-3 h-3 rounded-full ${
+      experiment.status === 'sunset' ? 'bg-gray-400' :
+      experiment.status === 'wip' ? 'bg-yellow-500' :
+      experiment.isActive ? 'bg-active-green' : 'bg-muted-grey'
+    }`} />
+  );
+
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 h-screen overflow-hidden">
       <header className="text-center mb-6 pt-4">

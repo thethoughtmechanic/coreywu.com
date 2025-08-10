@@ -154,6 +154,18 @@ export default function Experiments() {
         <h1 className="text-4xl font-light text-warm-brown mb-4" data-testid="text-experiments-title">
           Experiments
         </h1>
+        {isMobile && (
+          <div className="flex items-center justify-center gap-6 text-sm text-muted-grey mb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <span>Work in Progress</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <span>Sunset</span>
+            </div>
+          </div>
+        )}
       </header>
 
       <main>

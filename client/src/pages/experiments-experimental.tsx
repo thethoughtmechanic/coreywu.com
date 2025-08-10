@@ -63,16 +63,10 @@ export default function ExperimentsExperimental() {
               
               {/* Expanded content */}
               {expandedRow === experiment.id && (
-                <div className="px-6 py-4 bg-warm-brown/5 border-t border-warm-brown/10">
-                  <div className="grid grid-cols-1 gap-3 text-sm">
-                    <div>
-                      <span className="font-medium text-warm-brown">Description:</span>
-                      <p className="text-soft-black mt-1">{experiment.description}</p>
-                    </div>
-                    <div>
-                      <span className="font-medium text-warm-brown">Timeline:</span>
-                      <p className="text-muted-grey mt-1">{experiment.timeframe}</p>
-                    </div>
+                <div className="px-6 pb-4">
+                  <div className="mt-3 space-y-2 text-sm">
+                    <p className="text-soft-black leading-relaxed">{experiment.description}</p>
+                    <p className="text-muted-grey text-xs">{experiment.timeframe}</p>
                   </div>
                 </div>
               )}

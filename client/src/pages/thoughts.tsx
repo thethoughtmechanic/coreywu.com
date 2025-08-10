@@ -277,8 +277,7 @@ export default function Thoughts() {
                         </h3>
                         <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1`}>
                           {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
-                        {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
-                      </p>
+                        </p>
                     </>
                   )}
 

@@ -15,7 +15,7 @@ export default function Experiments() {
     const labels = {
       status: {
         learn: 'Learn',
-        build: 'Build', 
+        build: 'Build',
         scale: 'Scale',
         wip: 'WIP' // Added for WIP status
       },
@@ -69,8 +69,8 @@ export default function Experiments() {
               onMouseEnter={() => setIsStatusHover(true)}
               onMouseLeave={() => setIsStatusHover(false)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 border-2 ${
-                clusterBy === 'status' 
-                  ? 'bg-warm-brown text-cream border-warm-brown shadow-sm' 
+                clusterBy === 'status'
+                  ? 'bg-warm-brown text-cream border-warm-brown shadow-sm'
                   : 'bg-light-brown text-warm-brown border-transparent hover:bg-warm-brown/10 hover:border-warm-brown/30'
               }`}
             >
@@ -79,8 +79,8 @@ export default function Experiments() {
             <button
               onClick={() => setClusterBy('collabType')}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 border-2 ${
-                clusterBy === 'collabType' 
-                  ? 'bg-warm-brown text-cream border-warm-brown shadow-sm' 
+                clusterBy === 'collabType'
+                  ? 'bg-warm-brown text-cream border-warm-brown shadow-sm'
                   : 'bg-light-brown text-warm-brown border-transparent hover:bg-warm-brown/10 hover:border-warm-brown/30'
               }`}
             >
@@ -89,8 +89,8 @@ export default function Experiments() {
             <button
               onClick={() => setClusterBy('problemType')}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 border-2 ${
-                clusterBy === 'problemType' 
-                  ? 'bg-warm-brown text-cream border-warm-brown shadow-sm' 
+                clusterBy === 'problemType'
+                  ? 'bg-warm-brown text-cream border-warm-brown shadow-sm'
                   : 'bg-light-brown text-warm-brown border-transparent hover:bg-warm-brown/10 hover:border-warm-brown/30'
               }`}
             >
@@ -111,9 +111,9 @@ export default function Experiments() {
                 </h2>
                 <div className="space-y-4">
                   {clusterExperiments.map((experiment) => (
-                    <ExperimentCard 
-                      key={experiment.id} 
-                      experiment={experiment} 
+                    <ExperimentCard
+                      key={experiment.id}
+                      experiment={experiment}
                       variant="default"
                       showStatusIndicator={isStatusHover}
                     />
@@ -124,7 +124,7 @@ export default function Experiments() {
           </div>
         ) : (
           /* Desktop: Grid layout */
-          <div 
+          <div
             className="grid gap-6"
             style={{
               gridTemplateColumns: `repeat(${Math.min(Object.keys(clusters).length, 4)}, 1fr)`
@@ -137,9 +137,9 @@ export default function Experiments() {
                 </h2>
                 <div className="space-y-3">
                   {clusterExperiments.map((experiment) => (
-                    <ExperimentCard 
-                      key={experiment.id} 
-                      experiment={experiment} 
+                    <ExperimentCard
+                      key={experiment.id}
+                      experiment={experiment}
                       variant="compact"
                       showStatusIndicator={isStatusHover}
                     />

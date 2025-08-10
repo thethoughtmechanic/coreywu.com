@@ -13,8 +13,8 @@ export default function Experiments() {
     <div className="flex items-center gap-2">
       <div 
         className={`w-3 h-3 rounded-full ${
-          experiment.status === 'sunset' ? 'bg-red-500' : 
-          experiment.status === 'wip' ? 'bg-green-500' : 
+          experiment.status === 'sunset' ? 'bg-gray-500' : 
+          experiment.status === 'wip' ? 'bg-yellow-500' : 
           'bg-gray-400'
         }`} 
       />
@@ -110,8 +110,8 @@ export default function Experiments() {
             <div className="flex items-center gap-3 mb-2">
               <div 
                 className={`w-3 h-3 rounded-full flex-shrink-0 ${
-                  experiment.status === 'sunset' ? 'bg-red-500' : 
-                  experiment.status === 'wip' ? 'bg-green-500' : 
+                  experiment.status === 'sunset' ? 'bg-gray-500' : 
+                  experiment.status === 'wip' ? 'bg-yellow-500' : 
                   'bg-gray-400'
                 }`} 
               />
@@ -157,11 +157,11 @@ export default function Experiments() {
         {isMobile && (
           <div className="flex items-center justify-center gap-6 text-sm text-muted-grey mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <span>Work in Progress</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-gray-500"></div>
               <span>Sunset</span>
             </div>
           </div>
@@ -171,6 +171,18 @@ export default function Experiments() {
       <main>
         {isMobile ? <MobileView /> : <DesktopView />}
       </main>
+
+      <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
+        <p className="text-sm text-muted-grey">
+          Interested in collaborating on an experiment? Reach out at{' '}
+          <a 
+            href="mailto:me@coreywu.com" 
+            className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
+          >
+            me@coreywu.com
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

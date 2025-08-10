@@ -106,16 +106,22 @@ export default function Experiments() {
       {orderedExperiments.map((experiment) => (
         <div key={experiment.id} className="bg-light-brown rounded-lg p-4">
           <div className="space-y-3">
-            {/* Project title with status dot */}
-            <div className="flex items-center gap-2">
-              <div 
-                className={`w-3 h-3 rounded-full ${
-                  experiment.status === 'sunset' ? 'bg-red-500' : 
-                  experiment.status === 'wip' ? 'bg-green-500' : 
-                  'bg-gray-400'
-                }`} 
-              />
-              <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
+            {/* Top row: Status dot + Title + Date + Collaborator */}
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <div 
+                  className={`w-3 h-3 rounded-full flex-shrink-0 ${
+                    experiment.status === 'sunset' ? 'bg-red-500' : 
+                    experiment.status === 'wip' ? 'bg-green-500' : 
+                    'bg-gray-400'
+                  }`} 
+                />
+                <h3 className="font-medium text-warm-brown text-lg truncate">{experiment.title}</h3>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-grey flex-shrink-0">
+                <span>{experiment.timeframe}</span>
+                <span className="text-warm-brown font-medium">{getTeamDisplay(experiment)}</span>
+              </div>
             </div>
             
             {/* Description */}
@@ -123,25 +129,19 @@ export default function Experiments() {
               <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>
             </div>
 
-            {/* Technologies as pills */}
+            {/* Technologies as pills with improved styling */}
             {experiment.technologies && experiment.technologies.length > 0 && (
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1.5">
                 {experiment.technologies.map((tech, index) => (
                   <span 
                     key={index}
-                    className="text-xs px-2 py-1 bg-warm-brown/10 text-warm-brown rounded-full"
+                    className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
             )}
-            
-            {/* Timeline and Team on same line */}
-            <div className="flex justify-between items-center text-xs text-muted-grey">
-              <span>{experiment.timeframe}</span>
-              <span>{getTeamDisplay(experiment)}</span>
-            </div>
           </div>
         </div>
       ))}

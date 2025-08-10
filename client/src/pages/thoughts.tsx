@@ -9,6 +9,7 @@ export default function Thoughts() {
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
                   const [expandedSlide, setExpandedSlide] = useState<string | null>(null);
+                  const [modalSlide, setModalSlide] = useState<string | null>(null); // State for modal slide
 
                   // Group thoughts by content type for mixed layout
                   const articles = thoughts?.filter(t => t.tag === 'Article' || (t.readTime && typeof t.readTime === 'string' && t.readTime.includes('min'))) || [];
@@ -190,7 +191,18 @@ export default function Thoughts() {
                                     {/* Inline Google Slides - Mobile */}
                                     {expandedSlide === thought.id && getGoogleSlidesUrl(thought.id) && (
                                       <div className="mt-4 bg-light-brown rounded-xl p-4">
-                                        <div className="w-full h-[300px] bg-light-brown rounded-lg overflow-hidden">
+                                        <div className="flex items-center justify-between mb-3">
+                                          <h4 className="text-sm font-medium text-warm-brown">Presentation</h4>
+                                          <button
+                                            onClick={() => setExpandedSlide(null)}
+                                            className="text-warm-brown hover:text-hover-brown"
+                                          >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                          </button>
+                                        </div>
+                                        <div className="w-full h-[400px] bg-light-brown rounded-lg overflow-hidden">
                                           <iframe
                                             src={getGoogleSlidesUrl(thought.id)}
                                             width="100%"
@@ -210,7 +222,7 @@ export default function Thoughts() {
                                           >
                                             <span>Open in Google Slides</span>
                                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                             </svg>
                                           </a>
                                         </div>
@@ -229,7 +241,7 @@ export default function Thoughts() {
                               <div
                                 key={thought.id}
                                 className={`group/card ${
-                                  thought.tag === 'Scenario' ? 'col-span-8 md:col-span-4' : 'cursor-pointer'
+                                  thought.tag === 'Scenario' ? 'col-span-8 md:col-span-4' : ''
                                 } ${
                                   thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-6 md:col-span-3' : 
                                   thought.tag === 'Scenario' ? '' : 
@@ -348,10 +360,10 @@ export default function Thoughts() {
                                         </div>
                                       ) : (
                                         <button
-                                          onClick={() => handleSlideExpansion(thought.id)}
+                                          onClick={() => setModalSlide(thought.id)}
                                           className="w-full text-xs py-2 px-3 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:text-warm-brown group-hover/card:bg-white/90"
                                         >
-                                          {expandedSlide === thought.id ? 'Hide slides' : 'View slides'}
+                                          View slides
                                         </button>
                                       )}
                                     </>
@@ -361,45 +373,47 @@ export default function Thoughts() {
                             </div>
                           ))}
 
-                          {/* Inline Google Slides Expansion - Desktop */}
-                          {expandedSlide && getGoogleSlidesUrl(expandedSlide) && (
-                            <div className="col-span-12 mt-6 bg-light-brown rounded-xl p-6">
-                              <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-lg font-medium text-warm-brown">
-                                  {thoughts.find(t => t.id === expandedSlide)?.title}
-                                </h3>
-                                <button
-                                  onClick={() => setExpandedSlide(null)}
-                                  className="text-warm-brown hover:text-hover-brown transition-colors duration-200"
-                                >
-                                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                  </svg>
-                                </button>
-                              </div>
-                              <div className="w-full h-[500px] bg-light-brown rounded-lg overflow-hidden mb-4">
-                                <iframe
-                                  src={getGoogleSlidesUrl(expandedSlide)}
-                                  width="100%"
-                                  height="100%"
-                                  allowFullScreen
-                                  frameBorder="0"
-                                  className="rounded-lg"
-                                  title={`${thoughts.find(t => t.id === expandedSlide)?.title} Presentation`}
-                                />
-                              </div>
-                              <div className="flex justify-center">
-                                <a 
-                                  href="https://docs.google.com/presentation/d/13caT7YIdBzGhW89Wv2a0RxOFCgxq1m0swQpde1wzEOo/edit?usp=sharing"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-warm-brown hover:text-hover-brown text-sm font-medium flex items-center gap-2"
-                                >
-                                  <span>Open in Google Slides</span>
-                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                  </svg>
-                                </a>
+                          {/* Modal for Desktop Slide Expansion */}
+                          {modalSlide && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
+                              <div className="relative w-full max-w-4xl max-h-[80vh] bg-white rounded-xl p-8 shadow-xl overflow-hidden">
+                                <div className="flex items-center justify-between mb-4">
+                                  <h3 className="text-xl font-medium text-warm-brown">
+                                    {thoughts.find(t => t.id === modalSlide)?.title}
+                                  </h3>
+                                  <button
+                                    onClick={() => setModalSlide(null)}
+                                    className="text-warm-brown hover:text-hover-brown transition-colors duration-200"
+                                  >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <div className="w-full h-[60vh] bg-light-brown rounded-lg overflow-hidden mb-4">
+                                  <iframe
+                                    src={getGoogleSlidesUrl(modalSlide)}
+                                    width="100%"
+                                    height="100%"
+                                    allowFullScreen
+                                    frameBorder="0"
+                                    className="rounded-lg"
+                                    title={`${thoughts.find(t => t.id === modalSlide)?.title} Presentation`}
+                                  />
+                                </div>
+                                <div className="flex justify-center">
+                                  <a 
+                                    href="https://docs.google.com/presentation/d/13caT7YIdBzGhW89Wv2a0RxOFCgxq1m0swQpde1wzEOo/edit?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-warm-brown hover:text-hover-brown text-sm font-medium flex items-center gap-2"
+                                  >
+                                    <span>Open in Google Slides</span>
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                  </a>
+                                </div>
                               </div>
                             </div>
                           )}

@@ -14,6 +14,7 @@ import Admin from "@/pages/admin";
 import DesignSystem from "@/pages/designsystem";
 import NotFound from "@/pages/not-found";
 import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the new component
+import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the new component
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />
           <Route path="/experiments" component={Experiments} />
+          <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
 
           <Route path="/admin" component={Admin} />
           <Route path="/designsystem" component={DesignSystem} />

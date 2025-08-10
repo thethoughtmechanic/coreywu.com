@@ -272,10 +272,11 @@ export default function Thoughts() {
                     </>
                   ) : (
                     <>
-                      <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500 ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'line-clamp-3' : 'line-clamp-2'}`}>
-                        {thought.title}
-                      </h3>
-                      <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1 ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'line-clamp-4' : ''}`}>
+                        <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500`}>
+                          {thought.title}
+                        </h3>
+                        <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1`}>
+                          {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
                         {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
                       </p>
                     </>

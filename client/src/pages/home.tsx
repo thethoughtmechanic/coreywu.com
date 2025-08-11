@@ -1,4 +1,3 @@
-
 import { Link } from "wouter";
 
 export default function Home() {
@@ -12,14 +11,14 @@ export default function Home() {
             Welcome to my digital garden.
           </h1>
         </div>
-        
+
         {/* Three Card Navigation - Mobile Optimized */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs sm:max-w-lg lg:max-w-none mx-auto">
           {/* About Me Card */}
           <Link href="/about">
-            <div className="relative bg-light-brown rounded-xl p-4 md:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-48 md:h-64 flex flex-col overflow-hidden">
+            <div className="relative bg-light-brown rounded-xl p-4 md:p-6 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-40 md:h-56 lg:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for About Me */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
                 style={{
                   background: `
@@ -33,13 +32,13 @@ export default function Home() {
                   borderRadius: '24px'
                 }}
               />
-              
+
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl" />
-              
+
               <div className="relative z-10 text-center space-y-2 md:space-y-4 flex-1 flex flex-col justify-center">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
-                  <svg className="w-6 h-6 md:w-8 md:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
@@ -53,10 +52,10 @@ export default function Home() {
 
           {/* Thoughts Card */}
           <Link href="/thoughts">
-            <div className="relative bg-light-brown rounded-xl p-4 md:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-48 md:h-64 flex flex-col overflow-hidden">
+            <div className="relative bg-light-brown rounded-xl p-4 md:p-6 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-40 md:h-56 lg:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for Thoughts */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden">
-                <div 
+                <div
                   className="absolute inset-0 w-full h-full"
                   style={{
                     background: `
@@ -72,13 +71,13 @@ export default function Home() {
                   }}
                 />
               </div>
-              
+
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl" />
-              
+
               <div className="relative z-10 text-center space-y-2 md:space-y-4 flex-1 flex flex-col justify-center">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
-                  <svg className="w-6 h-6 md:w-8 md:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
@@ -92,9 +91,9 @@ export default function Home() {
 
           {/* Experiments Card */}
           <Link href="/experiments">
-            <div className="relative bg-light-brown rounded-xl p-4 md:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-48 md:h-64 flex flex-col overflow-hidden">
+            <div className="relative bg-light-brown rounded-xl p-4 md:p-6 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-40 md:h-56 lg:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for Experiments */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
                 style={{
                   background: `
@@ -108,13 +107,13 @@ export default function Home() {
                   borderRadius: '24px'
                 }}
               />
-              
+
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl" />
-              
+
               <div className="relative z-10 text-center space-y-2 md:space-y-4 flex-1 flex flex-col justify-center">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
-                  <svg className="w-6 h-6 md:w-8 md:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-warm-brown rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition-transform duration-200 group-hover:bg-white/90">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 text-cream group-hover:text-warm-brown transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                   </svg>
                 </div>

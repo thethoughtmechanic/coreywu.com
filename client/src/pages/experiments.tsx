@@ -63,8 +63,8 @@ export default function Experiments() {
         <div className="grid grid-cols-12 gap-4 text-sm font-medium text-warm-brown">
           <div className="col-span-1">Status</div>
           <div className="col-span-2">Project</div>
-          <div className="col-span-4">Description</div>
-          <div className="col-span-2">Technologies</div>
+          <div className="col-span-3">Description</div>
+          <div className="col-span-3">Technologies</div>
           <div className="col-span-2">Timeline</div>
           <div className="col-span-1">Team</div>
         </div>
@@ -79,10 +79,10 @@ export default function Experiments() {
               <div className="col-span-2">
                 <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
               </div>
-              <div className="col-span-4">
+              <div className="col-span-3">
                 <p className="text-sm text-soft-black">{experiment.description}</p>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-3">
                 <div className="text-sm text-muted-grey">
                   {getTechnologiesDisplay(experiment)}
                 </div>

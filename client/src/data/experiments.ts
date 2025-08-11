@@ -11,7 +11,7 @@ export const experiments: Experiment[] = [
     imageGradient: "from-muted-grey to-soft-black",
     timeframe: "Jun-Jul '25",
     collaborators: ["@kennyfung"],
-    technologies: ["Node.js", "TensorFlow", "AWS Lambda"],
+    technologies: ["Perplexity + Gemini APIs", "Vector Embeddings", "Real-time Web Search", "PostgreSQL with Drizzle ORM", "TypeScript", "Node-cron Scheduling System"],
     isActive: false
   },
   {

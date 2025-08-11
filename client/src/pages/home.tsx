@@ -19,17 +19,15 @@ export default function Home() {
             <div className="relative bg-light-brown rounded-xl p-4 md:p-6 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-40 md:h-56 lg:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for About Me */}
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
                 style={{
                   background: `
-                    radial-gradient(ellipse 50% 40% at 25% 15%, #8b5cf6 0%, #8b5cf6 50%, transparent 90%),
-                    radial-gradient(ellipse 45% 35% at 75% 25%, #ec4899 0%, #ec4899 45%, transparent 85%),
-                    radial-gradient(ellipse 40% 50% at 15% 85%, #a855f7 0%, #a855f7 55%, transparent 95%),
-                    radial-gradient(ellipse 50% 30% at 85% 80%, #d946ef 0%, #d946ef 40%, transparent 80%),
-                    radial-gradient(ellipse 45% 45% at 50% 50%, #9333ea 0%, #9333ea 45%, transparent 85%)
-                  `,
-                  transform: 'scale(1.8) rotate(25deg)',
-                  borderRadius: '24px'
+                    radial-gradient(ellipse 120% 100% at 25% 15%, #8b5cf6 0%, #8b5cf6 50%, transparent 90%),
+                    radial-gradient(ellipse 110% 85% at 75% 25%, #ec4899 0%, #ec4899 45%, transparent 85%),
+                    radial-gradient(ellipse 100% 120% at 15% 85%, #a855f7 0%, #a855f7 55%, transparent 95%),
+                    radial-gradient(ellipse 120% 75% at 85% 80%, #d946ef 0%, #d946ef 40%, transparent 80%),
+                    radial-gradient(ellipse 110% 110% at 50% 50%, #9333ea 0%, #9333ea 45%, transparent 85%)
+                  `
                 }}
               />
 
@@ -54,23 +52,18 @@ export default function Home() {
           <Link href="/thoughts">
             <div className="relative bg-light-brown rounded-xl p-4 md:p-6 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-40 md:h-56 lg:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for Thoughts */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden">
-                <div
-                  className="absolute inset-0 w-full h-full"
-                  style={{
-                    background: `
-                      radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
-                      radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
-                      radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
-                      radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
-                      radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
-                    `,
-                    minHeight: '100%',
-                    minWidth: '100%',
-                    transform: 'scale(1.2)'
-                  }}
-                />
-              </div>
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
+                style={{
+                  background: `
+                    radial-gradient(ellipse 120% 100% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
+                    radial-gradient(ellipse 110% 90% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                    radial-gradient(ellipse 100% 120% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
+                    radial-gradient(ellipse 110% 85% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
+                    radial-gradient(ellipse 105% 110% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
+                  `
+                }}
+              />
 
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl" />
@@ -94,17 +87,15 @@ export default function Home() {
             <div className="relative bg-light-brown rounded-xl p-4 md:p-6 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-40 md:h-56 lg:h-64 flex flex-col overflow-hidden">
               {/* Paint Splatter Background for Experiments */}
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
                 style={{
                   background: `
-                    radial-gradient(ellipse 48% 42% at 35% 25%, #06b6d4 0%, #06b6d4 50%, transparent 90%),
-                    radial-gradient(ellipse 42% 30% at 75% 20%, #0891b2 0%, #0891b2 45%, transparent 85%),
-                    radial-gradient(ellipse 38% 46% at 15% 80%, #0e7490 0%, #0e7490 55%, transparent 95%),
-                    radial-gradient(ellipse 46% 32% at 85% 75%, #22d3ee 0%, #22d3ee 40%, transparent 80%),
-                    radial-gradient(ellipse 36% 40% at 50% 45%, #0284c7 0%, #0284c7 45%, transparent 85%)
-                  `,
-                  transform: 'scale(1.8) rotate(45deg)',
-                  borderRadius: '24px'
+                    radial-gradient(ellipse 115% 105% at 35% 25%, #06b6d4 0%, #06b6d4 50%, transparent 90%),
+                    radial-gradient(ellipse 105% 80% at 75% 20%, #0891b2 0%, #0891b2 45%, transparent 85%),
+                    radial-gradient(ellipse 95% 115% at 15% 80%, #0e7490 0%, #0e7490 55%, transparent 95%),
+                    radial-gradient(ellipse 115% 85% at 85% 75%, #22d3ee 0%, #22d3ee 40%, transparent 80%),
+                    radial-gradient(ellipse 90% 100% at 50% 45%, #0284c7 0%, #0284c7 45%, transparent 85%)
+                  `
                 }}
               />
 

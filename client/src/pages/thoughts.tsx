@@ -124,20 +124,9 @@ export default function Thoughts() {
                                           </span>
                                         )}
                                       </div>
-                                      {thought.status === 'wip' ? (
-                                        <div className="flex items-center gap-2">
-                                          <div className={`w-2 h-2 rounded-full animate-pulse ${
-                                            thought.tag === 'Scenario' ? 'bg-warm-brown/40' : 'bg-warm-brown/40 group-hover/card:bg-white/50'
-                                          }`}></div>
-                                          <span className={`text-sm font-medium transition-all duration-500 ${
-                                            thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                                          }`}>Work in Progress</span>
-                                        </div>
-                                      ) : (
-                                        <span className={`text-sm transition-all duration-500 ${
-                                          thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                                        }`}>{thought.date || "Aug 11, 2025"}</span>
-                                      )}
+                                      <span className={`text-sm transition-all duration-500 ${
+                                        thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
+                                      }`}>{thought.date || "Aug 11, 2025"}</span>
                                     </div>
 
                                     {/* Special treatment for Scenario - just title and image */}
@@ -199,7 +188,7 @@ export default function Thoughts() {
                                           </div>
                                         ) : (
                                           <button
-                                            onClick={() => handleSlideExpansion(thought.id)}
+                                            onClick={() => setModalSlide(thought.id)}
                                             className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:bg-white/90 group-hover/card:text-warm-brown"
                                           >
                                             {expandedSlide === thought.id ? 'Hide slides' : 'View slides'}
@@ -303,20 +292,9 @@ export default function Thoughts() {
                                         </span>
                                       )}
                                     </div>
-                                    {thought.status === 'wip' ? (
-                                      <div className="flex items-center gap-1.5">
-                                        <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${
-                                          thought.tag === 'Scenario' ? 'bg-warm-brown/40' : 'bg-warm-brown/40 group-hover/card:bg-white/50'
-                                        }`}></div>
-                                        <span className={`text-xs font-medium transition-all duration-500 ${
-                                          thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                                        }`}>Work in Progress</span>
-                                      </div>
-                                    ) : (
-                                      <span className={`text-xs transition-all duration-500 ${
-                                        thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                                      }`}>{thought.date || "Aug 11, 2025"}</span>
-                                    )}
+                                    <span className={`text-xs transition-all duration-500 ${
+                                      thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
+                                    }`}>{thought.date || "Aug 11, 2025"}</span>
                                   </div>
 
                                   {/* Special treatment for Democracy's Last Voter scenario - just title and image */}

@@ -176,10 +176,10 @@ export default function Experiments() {
         <p className="text-sm text-muted-grey">
           Interested in collaborating on an experiment? Reach out at{' '}
           <a 
-            href="mailto:me@coreywu.com" 
+            href="mailto:coreydavidwu@gmail.com" 
             className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
           >
-            me@coreywu.com
+            coreydavidwu@gmail.com
           </a>
         </p>
       </footer>

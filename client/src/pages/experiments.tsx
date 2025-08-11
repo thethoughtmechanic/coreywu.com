@@ -15,7 +15,7 @@ export default function Experiments() {
         className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
           experiment.status === 'sunset' ? 'bg-gray-500' : 
           experiment.status === 'wip' ? 'bg-yellow-500' : 
-          experiment.status === 'shipped' ? 'bg-green-500' :
+          experiment.status === 'shipped' ? 'bg-blue-500' :
           'bg-gray-400'
         }`} 
       />
@@ -117,7 +117,7 @@ export default function Experiments() {
                 className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
                   experiment.status === 'sunset' ? 'bg-gray-500' : 
                   experiment.status === 'wip' ? 'bg-yellow-500' : 
-                  experiment.status === 'shipped' ? 'bg-green-500' :
+                  experiment.status === 'shipped' ? 'bg-blue-500' :
                   'bg-gray-400'
                 }`} 
               />
@@ -167,7 +167,7 @@ export default function Experiments() {
               <span>Work in Progress</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-green-500 flex-shrink-0"></div>
+              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-blue-500 flex-shrink-0"></div>
               <span>Shipped</span>
             </div>
             <div className="flex items-center gap-2">

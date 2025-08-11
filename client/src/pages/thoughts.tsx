@@ -143,7 +143,7 @@ export default function Thoughts() {
                                     {/* Special treatment for Scenario - just title and image */}
                                     {thought.tag === 'Scenario' ? (
                                       <>
-                                        <h3 className="text-xl font-medium text-warm-brown mb-4 text-center">
+                                        <h3 className="text-lg font-medium text-warm-brown mb-4 text-left">
                                           {thought.title}
                                         </h3>
                                         {thought.id === '4' ? (
@@ -155,7 +155,7 @@ export default function Thoughts() {
                                             />
                                           </div>
                                         ) : (
-                                          <div className="text-base text-soft-black/70 mb-4 leading-relaxed">
+                                          <div className="text-sm text-soft-black/70 mb-4 leading-relaxed">
                                             {(thought.description || '').split('\n').map((line, index) => (
                                               <p key={index} className="mb-1">{line}</p>
                                             ))}
@@ -322,7 +322,7 @@ export default function Thoughts() {
                                   {/* Special treatment for Democracy's Last Voter scenario - just title and image */}
                                   {thought.tag === 'Scenario' ? (
                                     <>
-                                      <h3 className="text-xl font-medium text-warm-brown mb-4 text-center">
+                                      <h3 className="text-sm font-medium text-warm-brown mb-2 text-left">
                                         {thought.title}
                                       </h3>
                                       {thought.id === '4' ? (
@@ -334,9 +334,9 @@ export default function Thoughts() {
                                           />
                                         </div>
                                       ) : (
-                                        <div className="text-base text-soft-black/70 mb-4 leading-relaxed">
+                                        <div className="text-xs text-soft-black/70 mb-3 leading-relaxed flex-1">
                                           {(thought.description || '').split('\n').map((line, index) => (
-                                            <p key={index} className="mb-1">{line}</p>
+                                            <p key={index} className="mb-0.5">{line}</p>
                                           ))}
                                         </div>
                                       )}

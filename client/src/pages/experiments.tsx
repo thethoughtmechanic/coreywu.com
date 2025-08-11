@@ -15,11 +15,15 @@ export default function Experiments() {
         className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
           experiment.status === 'sunset' ? 'bg-gray-500' : 
           experiment.status === 'wip' ? 'bg-yellow-500' : 
+          experiment.status === 'shipped' ? 'bg-green-500' :
           'bg-gray-400'
         }`} 
       />
       <span className="text-sm capitalize">
-        {experiment.status === 'sunset' ? 'Sunset' : experiment.status === 'wip' ? 'Wip' : experiment.status}
+        {experiment.status === 'sunset' ? 'Sunset' : 
+         experiment.status === 'wip' ? 'Wip' : 
+         experiment.status === 'shipped' ? 'Shipped' : 
+         experiment.status}
       </span>
     </div>
   );
@@ -51,10 +55,11 @@ export default function Experiments() {
     setExpandedCards(newExpanded);
   };
 
-  // Order experiments with WIP first, then Sunset
+  // Order experiments with WIP first, then Shipped, then Sunset
   const wipExperiments = experiments.filter(exp => exp.status === 'wip');
+  const shippedExperiments = experiments.filter(exp => exp.status === 'shipped');
   const sunsetExperiments = experiments.filter(exp => exp.status === 'sunset');
-  const orderedExperiments = [...wipExperiments, ...sunsetExperiments];
+  const orderedExperiments = [...wipExperiments, ...shippedExperiments, ...sunsetExperiments];
 
   // Desktop Table View
   const DesktopView = () => (
@@ -112,6 +117,7 @@ export default function Experiments() {
                 className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
                   experiment.status === 'sunset' ? 'bg-gray-500' : 
                   experiment.status === 'wip' ? 'bg-yellow-500' : 
+                  experiment.status === 'shipped' ? 'bg-green-500' :
                   'bg-gray-400'
                 }`} 
               />
@@ -155,10 +161,14 @@ export default function Experiments() {
           Experiments
         </h1>
         {isMobile && (
-          <div className="flex items-center justify-center gap-6 text-sm text-muted-grey mb-4">
+          <div className="flex items-center justify-center gap-4 text-sm text-muted-grey mb-4">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-yellow-500 flex-shrink-0"></div>
               <span>Work in Progress</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-green-500 flex-shrink-0"></div>
+              <span>Shipped</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-gray-500 flex-shrink-0"></div>

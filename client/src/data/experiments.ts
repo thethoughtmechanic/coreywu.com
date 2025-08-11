@@ -26,5 +26,18 @@ export const experiments: Experiment[] = [
     collaborators: [],
     technologies: ["Dual RAG Architecture", "OpenAI + Gemini APIs", "Vector Embeddings + ChromaDB", "Zero-Knowledge Encryption", "React + TypeScript", "PostgreSQL + Drizzle ORM"],
     isActive: true
+  },
+  {
+    id: "food-for-thought-1",
+    title: "Food for Thought",
+    description: "A serious game designed to codify and facilitate an innovation process for a Fortune 100 alcoholic beverage company.",
+    status: "shipped",
+    collaborationType: "collaboration",
+    problemType: "vertical",
+    imageGradient: "from-green-200 to-green-600",
+    timeframe: "2020",
+    collaborators: ["@kylebrown"],
+    technologies: ["Game Mechanics", "Thematic Roleplay", "Scenario Building", "Physical Components"],
+    isActive: false
   }
 ];

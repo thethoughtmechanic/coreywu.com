@@ -23,7 +23,7 @@ export function Navigation() {
 
   return (
     <>
-      <nav className="w-full bg-cream/70 border-b border-warm-brown/20 sticky top-0 z-50 backdrop-blur-sm h-16 md:h-20">
+      <nav className="w-full bg-cream/95 border-b border-warm-brown/20 sticky top-0 z-50 backdrop-blur-sm h-16 md:h-20">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 h-full">
           <div className="flex items-center justify-between h-full">
             {/* Home button */}
@@ -81,7 +81,7 @@ export function Navigation() {
 
       {/* Mobile navigation menu */}
       <div className={cn(
-        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-cream border-l border-warm-brown/20 transform transition-transform duration-300 ease-in-out z-40 md:hidden shadow-2xl",
+        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-cream/98 backdrop-blur-md border-l border-warm-brown/30 transform transition-transform duration-300 ease-in-out z-40 md:hidden shadow-2xl",
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex flex-col p-6 space-y-6">

@@ -9,7 +9,7 @@ export const thoughts: Thought[] = [
     readTime: "8 min read",
     imageGradient: "from-purple-600 to-purple-400",
     status: "published",
-    date: "Aug 7, 2025"
+    date: "Aug 5, 2025"
   },
   {
     id: "2", 
@@ -19,7 +19,7 @@ export const thoughts: Thought[] = [
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400", 
     status: "published",
-    date: "Aug 5, 2025"
+    date: "Aug 7, 2025"
   },
   {
     id: "3",
@@ -29,7 +29,7 @@ export const thoughts: Thought[] = [
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",
     status: "published",
-    date: "Aug 3, 2025"
+    date: "Aug 8, 2025"
   },
   {
     id: "4",
@@ -39,7 +39,7 @@ export const thoughts: Thought[] = [
     readTime: "6 min read",
     imageGradient: "from-orange-600 to-orange-400", 
     status: "published",
-    date: "Aug 8, 2025"
+    date: "Aug 9, 2025"
   },
   {
     id: "5",
@@ -49,7 +49,7 @@ export const thoughts: Thought[] = [
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",
     status: "published",
-    date: "Aug 8, 2025"
+    date: "Aug 10, 2025"
   },
   {
     id: "6",

@@ -182,21 +182,6 @@ export default function Thoughts() {
             {sortedThoughts.map((thought, index) => (
               <div key={thought.id} className="group/card cursor-pointer">
                 <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative">
-                  {/* Paint Splatter Background - only for non-scenario cards */}
-                  {thought.tag !== 'Scenario' && (
-                    <>
-                      <div
-                        className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
-                        style={{
-                          background: getPaintSplatter(thought.tag).background,
-                          transform: 'scale(1.8) rotate(25deg)'
-                        }}
-                      />
-                      {/* Text Background for better readability when splatter is visible */}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
-                    </>
-                  )}
-
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
@@ -218,9 +203,7 @@ export default function Thoughts() {
                           </span>
                         )}
                       </div>
-                      <span className={`text-sm transition-all duration-500 ${
-                        thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                      }`}>{thought.date || "Aug 11, 2025"}</span>
+                      <span className="text-sm text-warm-brown/60">{thought.date || "Aug 11, 2025"}</span>
                     </div>
 
                     {/* Special treatment for Scenario - just title and image */}
@@ -247,10 +230,10 @@ export default function Thoughts() {
                       </>
                     ) : (
                       <>
-                        <h3 className={`text-lg font-medium text-warm-brown mb-4 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500`}>
+                        <h3 className="text-lg font-medium text-warm-brown mb-4">
                           {thought.title}
                         </h3>
-                        <div className={`text-base text-soft-black/70 mb-6 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed`}>
+                        <div className="text-base text-soft-black/70 mb-6 leading-relaxed">
                           {(thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.').split('\n').map((line, index) => (
                             <p key={index} className="mb-1">{line}</p>
                           ))}
@@ -261,10 +244,10 @@ export default function Thoughts() {
                     {/* Read time indicator - Skip for Thought Bite, Philosophizing, and Scenario */}
                     {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                       <div className="flex items-center gap-2 mb-4">
-                        <svg className="w-4 h-4 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-sm text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">
+                        <span className="text-sm text-warm-brown/60">
                           {thought.readTime || "5 min read"}
                         </span>
                       </div>
@@ -275,15 +258,15 @@ export default function Thoughts() {
                       <>
                         {thought.status === 'wip' ? (
                           <div className="flex items-center justify-center gap-2 py-3">
-                            <div className="flex items-center gap-2 text-sm text-warm-brown/60 group-hover/card:text-white/70">
-                              <div className="w-2 h-2 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                            <div className="flex items-center gap-2 text-sm text-warm-brown/60">
+                              <div className="w-2 h-2 bg-warm-brown/40 rounded-full animate-pulse"></div>
                               <span className="font-medium">Work in Progress</span>
                             </div>
                           </div>
                         ) : (
                           <button
                             onClick={() => setModalSlide(thought.id)}
-                            className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:bg-white/90 group-hover/card:text-warm-brown"
+                            className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown"
                           >
                             {expandedSlide === thought.id ? 'Hide slides' : 'View slides'}
                           </button>

@@ -181,7 +181,7 @@ export default function Thoughts() {
           <div className="space-y-4">
             {sortedThoughts.map((thought, index) => (
               <div key={thought.id} className="group/card cursor-pointer">
-                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative">
+                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative">
                   {/* Paint Splatter Background - only for non-scenario cards */}
                   {thought.tag !== 'Scenario' && (
                     <>
@@ -224,9 +224,18 @@ export default function Thoughts() {
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
-                        <span className={`text-sm font-medium transition-all duration-500 ${
-                          thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
-                        }`}>{thought.tag}</span>
+                        {/* Tag pill with border default and paint splatter hover */}
+                        <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
+                          {/* Default border state - visible by default */}
+                          <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
+                            {thought.tag}
+                          </span>
+                          {/* Paint splatter background - appears on hover */}
+                          <div 
+                            className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
+                            style={getPillHoverStyle(thought.tag)}
+                          />
+                        </span>
                         {thought.status === 'wip' && (
                           <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
                             WIP

@@ -24,7 +24,7 @@ export const experiments: Experiment[] = [
     imageGradient: "from-yellow-200 to-yellow-600",
     timeframe: "Jul '25 - Present",
     collaborators: [],
-    technologies: ["Python", "LangChain", "React", "Figma"],
+    technologies: ["Dual RAG Architecture", "OpenAI + Gemini APIs", "Vector Embeddings + ChromaDB", "Zero-Knowledge Encryption", "React + TypeScript", "PostgreSQL + Drizzle ORM"],
     isActive: true
   }
 ];

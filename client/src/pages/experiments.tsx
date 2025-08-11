@@ -1,4 +1,3 @@
-
 import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
 import { useState } from "react";
@@ -15,6 +14,7 @@ export default function Experiments() {
         className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
           experiment.status === 'sunset' ? 'bg-gray-500' : 
           experiment.status === 'wip' ? 'bg-yellow-500' : 
+          experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
           experiment.status === 'shipped' ? 'bg-blue-500' :
           'bg-gray-400'
         }`} 
@@ -22,6 +22,7 @@ export default function Experiments() {
       <span className="text-sm capitalize">
         {experiment.status === 'sunset' ? 'Sunset' : 
          experiment.status === 'wip' ? 'Wip' : 
+         experiment.status === 'shipped' && experiment.isActive ? 'Active Shipped' :
          experiment.status === 'shipped' ? 'Shipped' : 
          experiment.status}
       </span>
@@ -55,11 +56,14 @@ export default function Experiments() {
     setExpandedCards(newExpanded);
   };
 
-  // Order experiments with WIP first, then Shipped, then Sunset
-  const wipExperiments = experiments.filter(exp => exp.status === 'wip');
-  const shippedExperiments = experiments.filter(exp => exp.status === 'shipped');
-  const sunsetExperiments = experiments.filter(exp => exp.status === 'sunset');
-  const orderedExperiments = [...wipExperiments, ...shippedExperiments, ...sunsetExperiments];
+  // Order experiments by date (assuming timeframe is sortable by date)
+  const orderedExperiments = [...experiments].sort((a, b) => {
+    // Basic date comparison, assuming timeframe is in a sortable format like 'YYYY-MM-DD' or similar
+    // For robust sorting, you might need to parse dates properly
+    if (a.timeframe < b.timeframe) return -1;
+    if (a.timeframe > b.timeframe) return 1;
+    return 0;
+  });
 
   // Desktop Table View
   const DesktopView = () => (
@@ -117,19 +121,20 @@ export default function Experiments() {
                 className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
                   experiment.status === 'sunset' ? 'bg-gray-500' : 
                   experiment.status === 'wip' ? 'bg-yellow-500' : 
+                  experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
                   experiment.status === 'shipped' ? 'bg-blue-500' :
                   'bg-gray-400'
                 }`} 
               />
               <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
             </div>
-            
+
             {/* Row 2: Date and collaborator */}
             <div className="flex items-center justify-between text-sm mb-1">
               <span className="text-muted-grey">{experiment.timeframe}</span>
               <span className="text-warm-brown font-medium">{getTeamDisplay(experiment)}</span>
             </div>
-            
+
             {/* Description */}
             <div>
               <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>

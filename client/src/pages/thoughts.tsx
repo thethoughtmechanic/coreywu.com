@@ -126,9 +126,11 @@ export default function Thoughts() {
                                       </div>
                                       {thought.status === 'wip' ? (
                                         <div className="flex items-center gap-2">
-                                          <div className="w-2 h-2 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                                          <div className={`w-2 h-2 rounded-full animate-pulse ${
+                                            thought.tag === 'Scenario' ? 'bg-warm-brown/40' : 'bg-warm-brown/40 group-hover/card:bg-white/50'
+                                          }`}></div>
                                           <span className={`text-sm font-medium transition-all duration-500 ${
-                                            'text-warm-brown/60 group-hover/card:text-white/70'
+                                            thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
                                           }`}>Work in Progress</span>
                                         </div>
                                       ) : (
@@ -303,9 +305,11 @@ export default function Thoughts() {
                                     </div>
                                     {thought.status === 'wip' ? (
                                       <div className="flex items-center gap-1.5">
-                                        <div className="w-1.5 h-1.5 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                                        <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${
+                                          thought.tag === 'Scenario' ? 'bg-warm-brown/40' : 'bg-warm-brown/40 group-hover/card:bg-white/50'
+                                        }`}></div>
                                         <span className={`text-xs font-medium transition-all duration-500 ${
-                                          'text-warm-brown/60 group-hover/card:text-white/70'
+                                          thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
                                         }`}>Work in Progress</span>
                                       </div>
                                     ) : (

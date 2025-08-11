@@ -157,9 +157,11 @@ export default function Thoughts() {
                                         <h3 className={`text-lg font-medium text-warm-brown mb-4 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500`}>
                                           {thought.title}
                                         </h3>
-                                        <p className={`text-base text-soft-black/70 mb-6 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed`}>
-                                          {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
-                                        </p>
+                                        <div className={`text-base text-soft-black/70 mb-6 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed`}>
+                                          {(thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.').split('\n').map((line, index) => (
+                                            <p key={index} className="mb-1">{line}</p>
+                                          ))}
+                                        </div>
                                       </>
                                     )}
 
@@ -324,9 +326,11 @@ export default function Thoughts() {
                                         <h3 className={`text-sm font-medium text-warm-brown mb-2 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500`}>
                                           {thought.title}
                                         </h3>
-                                        <p className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1`}>
-                                          {thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.'}
-                                        </p>
+                                        <div className={`text-xs text-soft-black/70 mb-3 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed flex-1`}>
+                                          {(thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.').split('\n').map((line, index) => (
+                                            <p key={index} className="mb-0.5">{line}</p>
+                                          ))}
+                                        </div>
                                     </>
                                   )}
 

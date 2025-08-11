@@ -60,5 +60,15 @@ export const thoughts: Thought[] = [
     imageGradient: "from-teal-600 to-teal-400",
     status: "published",
     date: "Aug 10, 2025"
+  },
+  {
+    id: "7",
+    title: "Mind Your Manners, Human",
+    description: "1/ The AI Babysitter\n2/ Employee Courtesy Score\n3/ The Rudeness Penalty\n4/ My AI God-Parent",
+    tag: "Scenario",
+    readTime: "4 min read",
+    imageGradient: "from-orange-600 to-orange-400",
+    status: "wip",
+    date: "Aug 11, 2025"
   }
 ];

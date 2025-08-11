@@ -17,16 +17,11 @@ export default function ThoughtsExperimental() {
     return dateB.getTime() - dateA.getTime();
   });
 
-  // Get paint splatter color for pill background
-  const getPillStyle = (tag: string) => {
+  // Get paint splatter for pill hover background
+  const getPillHoverStyle = (tag: string) => {
     const splatter = getPaintSplatter(tag);
-    // Extract the first color from the background gradient for solid pill color
-    const colorMatch = splatter.background.match(/#[a-fA-F0-9]{6}/);
-    const color = colorMatch ? colorMatch[0] : '#8B4513';
-    
     return {
-      backgroundColor: color,
-      color: 'white'
+      background: splatter.background
     };
   };
 
@@ -39,43 +34,35 @@ export default function ThoughtsExperimental() {
             thought.tag === 'Scenario' ? 'min-h-[260px]' :
             index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
           }`}>
-            {/* Paint Splatter Background - for ALL cards including scenarios */}
-            <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl overflow-hidden">
-              <div
-                className="absolute inset-0 w-full h-full"
-                style={{
-                  background: getPaintSplatter(thought.tag).background,
-                  minHeight: '100%',
-                  minWidth: '100%'
-                }}
-              />
-            </div>
-            {/* Text Background for better readability when splatter is visible */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
-
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span 
-                    className="text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500"
-                    style={getPillStyle(thought.tag)}
-                  >
-                    {thought.tag}
+                  {/* Tag pill with border default and paint splatter hover */}
+                  <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
+                    {/* Default border state - visible by default */}
+                    <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
+                      {thought.tag}
+                    </span>
+                    {/* Paint splatter background - appears on hover */}
+                    <div 
+                      className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
+                      style={getPillHoverStyle(thought.tag)}
+                    />
                   </span>
                   {thought.status === 'wip' && (
-                    <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium group-hover/card:text-white">
+                    <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
                       WIP
                     </span>
                   )}
                 </div>
-                <span className="text-sm text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">
+                <span className="text-sm text-warm-brown/60">
                   {thought.date || "Aug 11, 2025"}
                 </span>
               </div>
 
               {thought.tag === 'Scenario' && thought.id === '4' ? (
                 <>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4 group-hover/card:text-white transition-all duration-500">
+                  <h3 className="text-lg font-medium text-warm-brown mb-4">
                     {thought.title}
                   </h3>
                   <div className="flex items-center justify-center mb-4">
@@ -88,10 +75,10 @@ export default function ThoughtsExperimental() {
                 </>
               ) : (
                 <>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4 group-hover/card:text-white transition-all duration-500">
+                  <h3 className="text-lg font-medium text-warm-brown mb-4">
                     {thought.title}
                   </h3>
-                  <div className="text-sm text-soft-black/70 mb-6 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed">
+                  <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                     {(thought.description || '').split('\n').map((line, idx) => (
                       <p key={idx} className="mb-1">{line}</p>
                     ))}
@@ -101,10 +88,10 @@ export default function ThoughtsExperimental() {
 
               {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                 <div className="flex items-center gap-2 mb-6">
-                  <svg className="w-4 h-4 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">
+                  <span className="text-sm text-warm-brown/60">
                     {thought.readTime || "5 min read"}
                   </span>
                 </div>
@@ -113,13 +100,13 @@ export default function ThoughtsExperimental() {
               {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                 thought.status === 'wip' ? (
                   <div className="flex items-center justify-center gap-2 py-3">
-                    <div className="flex items-center gap-2 text-sm text-warm-brown/60 group-hover/card:text-white/70">
-                      <div className="w-2 h-2 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
+                    <div className="flex items-center gap-2 text-sm text-warm-brown/60">
+                      <div className="w-2 h-2 bg-warm-brown/40 rounded-full animate-pulse"></div>
                       <span className="font-medium">Work in Progress</span>
                     </div>
                   </div>
                 ) : (
-                  <button className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:bg-white/90 group-hover/card:text-warm-brown">
+                  <button className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown">
                     Read more
                   </button>
                 )

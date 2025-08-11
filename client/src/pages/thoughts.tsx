@@ -134,23 +134,31 @@ export default function Thoughts() {
                                       ) : (
                                         <span className={`text-sm transition-all duration-500 ${
                                           thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                                        }`}>{thought.date || "Aug 7, 2025"}</span>
+                                        }`}>{thought.date || "Aug 11, 2025"}</span>
                                       )}
                                     </div>
 
                                     {/* Special treatment for Scenario - just title and image */}
                                     {thought.tag === 'Scenario' ? (
                                       <>
-                                        <h3 className="text-xl font-medium text-warm-brown mb-6 text-center">
+                                        <h3 className="text-xl font-medium text-warm-brown mb-4 text-center">
                                           {thought.title}
                                         </h3>
-                                        <div className="flex items-center justify-center mb-4">
-                                          <img 
-                                            src={democracyImage}
-                                            alt="Democracy's Last Voter illustration"
-                                            className="max-w-full max-h-64 object-contain rounded-lg"
-                                          />
-                                        </div>
+                                        {thought.id === '4' ? (
+                                          <div className="flex items-center justify-center mb-4">
+                                            <img
+                                              src={democracyImage}
+                                              alt="Democracy's Last Voter illustration"
+                                              className="max-w-full max-h-64 object-contain rounded-lg"
+                                            />
+                                          </div>
+                                        ) : (
+                                          <div className="text-base text-soft-black/70 mb-4 leading-relaxed">
+                                            {(thought.description || '').split('\n').map((line, index) => (
+                                              <p key={index} className="mb-1">{line}</p>
+                                            ))}
+                                          </div>
+                                        )}
                                       </>
                                     ) : (
                                       <>
@@ -224,7 +232,7 @@ export default function Thoughts() {
                                           />
                                         </div>
                                         <div className="mt-3 flex justify-center">
-                                          <a 
+                                          <a
                                             href="https://docs.google.com/presentation/d/13caT7YIdBzGhW89Wv2a0RxOFCgxq1m0swQpde1wzEOo/edit?usp=sharing"
                                             target="_blank"
                                             rel="noopener noreferrer"
@@ -253,21 +261,21 @@ export default function Thoughts() {
                                 className={`group/card ${
                                   thought.tag === 'Scenario' ? 'col-span-8 md:col-span-4' : ''
                                 } ${
-                                  thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-6 md:col-span-3' : 
-                                  thought.tag === 'Scenario' ? '' : 
+                                  thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'col-span-6 md:col-span-3' :
+                                  thought.tag === 'Scenario' ? '' :
                                   'col-span-12 md:col-span-6'
                                 }`}
                               >
                               <div className={`w-full bg-white backdrop-blur-none rounded-2xl ${thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'p-4' : 'p-6'} shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative flex flex-col ${
-                                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[200px]' : 
-                                thought.tag === 'Scenario' ? 'min-h-[280px]' : 
+                                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[200px]' :
+                                thought.tag === 'Scenario' ? 'min-h-[280px]' :
                                 'min-h-[220px]'
                               }`}>
                                 {/* Paint Splatter Background - only for non-scenario cards */}
                                 {thought.tag !== 'Scenario' && (
                                   <>
                                     <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl overflow-hidden">
-                                      <div 
+                                      <div
                                         className="absolute inset-0 w-full h-full"
                                         style={{
                                           background: getPaintSplatter(thought.tag).background,
@@ -303,23 +311,31 @@ export default function Thoughts() {
                                     ) : (
                                       <span className={`text-xs transition-all duration-500 ${
                                         thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
-                                      }`}>{thought.date || "Aug 7, 2025"}</span>
+                                      }`}>{thought.date || "Aug 11, 2025"}</span>
                                     )}
                                   </div>
 
                                   {/* Special treatment for Democracy's Last Voter scenario - just title and image */}
-                                  {thought.id === '4' ? (
+                                  {thought.tag === 'Scenario' ? (
                                     <>
-                                      <h3 className="text-lg font-medium text-warm-brown mb-4 text-center">
+                                      <h3 className="text-xl font-medium text-warm-brown mb-4 text-center">
                                         {thought.title}
                                       </h3>
-                                      <div className="flex-1 flex items-center justify-center">
-                                        <img 
-                                          src={democracyImage}
-                                          alt="Democracy's Last Voter illustration showing a person at voting booths with 'Manual Ballots Not Accepted' sign"
-                                          className="max-w-full max-h-64 object-contain rounded-lg"
-                                        />
-                                      </div>
+                                      {thought.id === '4' ? (
+                                        <div className="flex items-center justify-center mb-4">
+                                          <img
+                                            src={democracyImage}
+                                            alt="Democracy's Last Voter illustration showing a person at voting booths with 'Manual Ballots Not Accepted' sign"
+                                            className="max-w-full max-h-64 object-contain rounded-lg"
+                                          />
+                                        </div>
+                                      ) : (
+                                        <div className="text-base text-soft-black/70 mb-4 leading-relaxed">
+                                          {(thought.description || '').split('\n').map((line, index) => (
+                                            <p key={index} className="mb-1">{line}</p>
+                                          ))}
+                                        </div>
+                                      )}
                                     </>
                                   ) : (
                                     <>
@@ -400,7 +416,7 @@ export default function Thoughts() {
                                   />
                                 </div>
                                 <div className="flex justify-center">
-                                  <a 
+                                  <a
                                     href="https://docs.google.com/presentation/d/13caT7YIdBzGhW89Wv2a0RxOFCgxq1m0swQpde1wzEOo/edit?usp=sharing"
                                     target="_blank"
                                     rel="noopener noreferrer"

@@ -22,7 +22,7 @@ export default function Experiments() {
       <span className="text-sm capitalize">
         {experiment.status === 'sunset' ? 'Sunset' : 
          experiment.status === 'wip' ? 'Wip' : 
-         experiment.status === 'shipped' && experiment.isActive ? 'Active Shipped' :
+         experiment.status === 'shipped' && experiment.isActive ? 'Active' :
          experiment.status === 'shipped' ? 'Shipped' : 
          experiment.status}
       </span>

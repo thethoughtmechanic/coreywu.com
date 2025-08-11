@@ -114,10 +114,17 @@ export default function Thoughts() {
 
                                   <div className="relative z-10">
                                     <div className="flex items-center justify-between mb-3">
-                                      <span className={`text-sm font-medium transition-all duration-500 ${
-                                        thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
-                                      }`}>{thought.tag}</span>
-                                      {thought.tag === 'Philosophizing' ? (
+                                      <div className="flex items-center gap-2">
+                                        <span className={`text-sm font-medium transition-all duration-500 ${
+                                          thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
+                                        }`}>{thought.tag}</span>
+                                        {thought.status === 'wip' && (
+                                          <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
+                                            WIP
+                                          </span>
+                                        )}
+                                      </div>
+                                      {thought.status === 'wip' ? (
                                         <div className="flex items-center gap-2">
                                           <div className="w-2 h-2 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
                                           <span className={`text-sm font-medium transition-all duration-500 ${
@@ -274,10 +281,17 @@ export default function Thoughts() {
 
                                 <div className="relative z-10">
                                   <div className="flex flex-col items-start justify-start mb-2 sm:flex-row sm:items-center sm:justify-between">
-                                    <span className={`text-xs font-medium transition-all duration-500 ${
-                                      thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
-                                    }`}>{thought.tag}</span>
-                                    {thought.tag === 'Philosophizing' ? (
+                                    <div className="flex items-center gap-2">
+                                      <span className={`text-xs font-medium transition-all duration-500 ${
+                                        thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
+                                      }`}>{thought.tag}</span>
+                                      {thought.status === 'wip' && (
+                                        <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
+                                          WIP
+                                        </span>
+                                      )}
+                                    </div>
+                                    {thought.status === 'wip' ? (
                                       <div className="flex items-center gap-1.5">
                                         <div className="w-1.5 h-1.5 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
                                         <span className={`text-xs font-medium transition-all duration-500 ${
@@ -291,8 +305,8 @@ export default function Thoughts() {
                                     )}
                                   </div>
 
-                                  {/* Special treatment for Scenario - just title and image */}
-                                  {thought.tag === 'Scenario' ? (
+                                  {/* Special treatment for Democracy's Last Voter scenario - just title and image */}
+                                  {thought.id === '4' ? (
                                     <>
                                       <h3 className="text-lg font-medium text-warm-brown mb-4 text-center">
                                         {thought.title}

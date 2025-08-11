@@ -32,7 +32,7 @@ export const experiments: Experiment[] = [
     id: "friday-home-1",
     title: "Friday Home",
     description: "A 'cozy' pop/funk/R&B band.",
-    status: "wip",
+    status: "shipped",
     collaborationType: "collaboration",
     problemType: "vertical",
     imageGradient: "from-purple-200 to-purple-600",

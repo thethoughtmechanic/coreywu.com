@@ -56,14 +56,8 @@ export default function Experiments() {
     setExpandedCards(newExpanded);
   };
 
-  // Order experiments by date (assuming timeframe is sortable by date)
-  const orderedExperiments = [...experiments].sort((a, b) => {
-    // Basic date comparison, assuming timeframe is in a sortable format like 'YYYY-MM-DD' or similar
-    // For robust sorting, you might need to parse dates properly
-    if (a.timeframe < b.timeframe) return -1;
-    if (a.timeframe > b.timeframe) return 1;
-    return 0;
-  });
+  // Use experiments in their defined order from data file
+  const orderedExperiments = experiments;
 
   // Desktop Table View
   const DesktopView = () => (

@@ -2,17 +2,45 @@ import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 
-// Import Mister Misu images
-import grandCoffeeHallImage from "@assets/1_1755012742431.png";
-import guestListImage from "@assets/2_1755012742432.png";
+// Import Mister Misu images - using public folder paths
+const grandCoffeeHallImage = "/mister-misu-grand-coffee-hall.png";
+const guestListImage = "/mister-misu-guest-list.png";
+
+// Import Mister Misu images for the December 2024 event
+import fm1 from "@assets/dec-2024-coffee-event/1.png";
+import fm2 from "@assets/dec-2024-coffee-event/2.png";
+import fm3 from "@assets/dec-2024-coffee-event/3.png";
+import fm4 from "@assets/dec-2024-coffee-event/4.png";
+import fm5 from "@assets/dec-2024-coffee-event/5.png";
+import fm6 from "@assets/dec-2024-coffee-event/6.png";
+import fm7 from "@assets/dec-2024-coffee-event/7.png";
+
+// Import Mister Misu images for the June 2025 event
+import fm8 from "@assets/june-2025-coffee-event/1.png";
+import fm9 from "@assets/june-2025-coffee-event/2.png";
+
 
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
   const [isMisterMisuModalOpen, setIsMisterMisuModalOpen] = useState(false);
+  const [currentMisterMisuEventIndex, setCurrentMisterMisuEventIndex] = useState(0); // State to track current event in modal
   const isMobile = useIsMobile();
+
+  // Mister Misu event data structure
+  const misterMisuEvents = [
+    {
+      title: "Frozen Archives - Dec 2024",
+      images: [fm1, fm2, fm3, fm4, fm5, fm6, fm7],
+      description: "An exploration of curated coffee experiences from December 2024.",
+    },
+    {
+      title: "June 2025 Coffee Experience",
+      images: [fm8, fm9],
+      description: "A glimpse into the upcoming coffee event in June 2025.",
+    },
+  ];
 
   // Simple status indicator with correct colors
   const StatusDot = ({ experiment }: { experiment: Experiment }) => (
@@ -70,10 +98,10 @@ export default function Experiments() {
       const match = timeframe.match(/(\d{4})/);
       return match ? parseInt(match[1]) : 0;
     };
-    
+
     const yearA = getYear(a.timeframe || '');
     const yearB = getYear(b.timeframe || '');
-    
+
     return yearB - yearA; // Descending order
   });
 
@@ -100,7 +128,10 @@ export default function Experiments() {
               <div className="col-span-2">
                 {experiment.id === 'mister-misu-1' ? (
                   <button
-                    onClick={() => setIsMisterMisuModalOpen(true)}
+                    onClick={() => {
+                      setIsMisterMisuModalOpen(true);
+                      setCurrentMisterMisuEventIndex(0); // Set to the first event (Dec 2024)
+                    }}
                     className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2"
                   >
                     {experiment.title}
@@ -149,7 +180,10 @@ export default function Experiments() {
               />
               {experiment.id === 'mister-misu-1' ? (
                 <button
-                  onClick={() => setIsMisterMisuModalOpen(true)}
+                  onClick={() => {
+                    setIsMisterMisuModalOpen(true);
+                    setCurrentMisterMisuEventIndex(0); // Set to the first event (Dec 2024)
+                  }}
                   className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2 text-lg"
                 >
                   {experiment.title}
@@ -188,6 +222,16 @@ export default function Experiments() {
       ))}
     </div>
   );
+
+  // Function to handle navigation within the modal
+  const handleModalNav = (direction: 'prev' | 'next') => {
+    const eventCount = misterMisuEvents.length;
+    if (direction === 'prev') {
+      setCurrentMisterMisuEventIndex((prevIndex) => (prevIndex - 1 + eventCount) % eventCount);
+    } else {
+      setCurrentMisterMisuEventIndex((prevIndex) => (prevIndex + 1) % eventCount);
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -233,7 +277,7 @@ export default function Experiments() {
       {isMisterMisuModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
           <div className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden mx-4">
-            {/* Close button - moved outside content with better styling */}
+            {/* Close button */}
             <button
               onClick={() => setIsMisterMisuModalOpen(false)}
               className="absolute top-4 right-4 z-50 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-all duration-200"
@@ -245,29 +289,39 @@ export default function Experiments() {
             <div className="p-8">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-light text-amber-700 mb-2">Mister Misu</h2>
-                <p className="text-warm-brown/70">June 2025 Coffee Experience</p>
+                <p className="text-warm-brown/70">{misterMisuEvents[currentMisterMisuEventIndex].description}</p>
               </div>
 
-              {/* Images side by side */}
+              {/* Image Gallery */}
               <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} max-h-[60vh] overflow-auto`}>
-                {/* The Grand Coffee Hall */}
-                <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-                  <img 
-                    src={grandCoffeeHallImage} 
-                    alt="The Grand Coffee Hall - An elegant gathering of coffee enthusiasts in a classical setting"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-
-                {/* The Guest List */}
-                <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-                  <img 
-                    src={guestListImage} 
-                    alt="The Guest List - Detailed coffee profiles and character descriptions"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
+                {misterMisuEvents[currentMisterMisuEventIndex].images.map((image, index) => (
+                  <div key={index} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
+                    <img 
+                      src={image} 
+                      alt={`Mister Misu event image ${index + 1}`}
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                ))}
               </div>
+
+              {/* Navigation Buttons */}
+              {misterMisuEvents.length > 1 && (
+                <div className="flex justify-center gap-4 mt-6">
+                  <button
+                    onClick={() => handleModalNav('prev')}
+                    className="px-4 py-2 bg-warm-brown/20 text-warm-brown rounded-full hover:bg-warm-brown/30 transition-colors duration-200"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={() => handleModalNav('next')}
+                    className="px-4 py-2 bg-amber-700 text-white rounded-full hover:bg-amber-800 transition-colors duration-200"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

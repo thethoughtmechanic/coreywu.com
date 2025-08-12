@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
@@ -7,6 +8,13 @@ export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
   const [isStrategicFuturistMode, setIsStrategicFuturistMode] = useState(false);
   
+  // Quiz state
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [answers, setAnswers] = useState<string[]>([]);
+  const [showResults, setShowResults] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+
   const systemPromptRoles = [
     "Product Manager",
     "Strategic Futurist",
@@ -17,6 +25,132 @@ export default function AboutExperimental() {
     "Husband + Father",
     "Human"
   ];
+
+  const quizQuestions = [
+    {
+      question: "Your phone dies permanently. Your first feeling is...",
+      options: [
+        { text: "Relief - finally free from constant pings", value: "A", techIntegration: -2, valuePriority: 0 },
+        { text: "Panic - how will I function?", value: "B", techIntegration: 2, valuePriority: 0 },
+        { text: "Curiosity - what will I discover without it?", value: "C", techIntegration: -1, valuePriority: 1 },
+        { text: "Frustration - I need my tools to help others", value: "D", techIntegration: 1, valuePriority: 2 }
+      ]
+    },
+    {
+      question: "An AI can perfectly predict what content will make you happy. Do you...",
+      options: [
+        { text: "Block it - I'll choose my own path", value: "A", techIntegration: -2, valuePriority: -1 },
+        { text: "Use it sparingly - for important decisions only", value: "B", techIntegration: 0, valuePriority: 0 },
+        { text: "Embrace it fully - optimize my happiness", value: "C", techIntegration: 2, valuePriority: -2 },
+        { text: "Share it widely - everyone should benefit", value: "D", techIntegration: 1, valuePriority: 2 }
+      ]
+    },
+    {
+      question: "You discover you have 2 free hours. Without thinking, you typically...",
+      options: [
+        { text: "Seek human connection - call family/friends", value: "A", techIntegration: -1, valuePriority: 2 },
+        { text: "Consume digital content - browse/stream/scroll", value: "B", techIntegration: 2, valuePriority: -1 },
+        { text: "Create something - art, writing, cooking", value: "C", techIntegration: 0, valuePriority: 1 },
+        { text: "Optimize something - inbox zero, plan, organize", value: "D", techIntegration: 1, valuePriority: -2 }
+      ]
+    },
+    {
+      question: "A new technology could make your job obsolete in 5 years. You...",
+      options: [
+        { text: "Start learning the technology to stay ahead", value: "A", techIntegration: 2, valuePriority: -1 },
+        { text: "Focus on uniquely human skills tech can't replace", value: "B", techIntegration: -1, valuePriority: 1 },
+        { text: "Organize with others facing similar challenges", value: "C", techIntegration: 0, valuePriority: 2 },
+        { text: "Begin transitioning to a tech-minimal lifestyle", value: "D", techIntegration: -2, valuePriority: -1 }
+      ]
+    },
+    {
+      question: "In your ideal future, technology should...",
+      options: [
+        { text: "Seamlessly handle all tedious tasks so humans can focus on meaning", value: "A", techIntegration: 2, valuePriority: 1 },
+        { text: "Be completely optional - available but never required", value: "B", techIntegration: -2, valuePriority: 0 },
+        { text: "Enhance human capabilities without replacing human judgment", value: "C", techIntegration: 0, valuePriority: 1 },
+        { text: "Be distributed equally so no one has unfair advantages", value: "D", techIntegration: 1, valuePriority: 2 }
+      ]
+    }
+  ];
+
+  const calculateResults = () => {
+    let techIntegration = 0;
+    let valuePriority = 0;
+
+    answers.forEach((answerValue, questionIndex) => {
+      const question = quizQuestions[questionIndex];
+      const selectedOption = question.options.find(opt => opt.value === answerValue);
+      if (selectedOption) {
+        techIntegration += selectedOption.techIntegration;
+        valuePriority += selectedOption.valuePriority;
+      }
+    });
+
+    // Determine quadrant
+    if (techIntegration >= 0 && valuePriority >= 0) {
+      return {
+        title: "Collective Accelerator",
+        description: "You see technology as a powerful tool for collective good. You embrace AI and automation when it can benefit everyone and build stronger communities."
+      };
+    } else if (techIntegration >= 0 && valuePriority < 0) {
+      return {
+        title: "Personal Optimizer",
+        description: "You leverage technology to maximize your individual potential. You're comfortable with AI assistance and automation when it enhances your personal capabilities."
+      };
+    } else if (techIntegration < 0 && valuePriority >= 0) {
+      return {
+        title: "Human-Centered Collaborator",
+        description: "You prioritize human connection and collective action while being selective about technology. You prefer solutions that strengthen human bonds."
+      };
+    } else {
+      return {
+        title: "Intentional Minimalist",
+        description: "You value personal autonomy and are skeptical of technological dependence. You prefer simple, human-scale solutions and direct control over your environment."
+      };
+    }
+  };
+
+  const getRandomPositions = (questionIndex: number) => {
+    // Create a deterministic but seemingly random pattern based on question index
+    const positions = [0, 1, 2, 3, 4, 5, 6, 7];
+    const seed = questionIndex * 31; // Simple seeding
+    
+    // Shuffle positions based on seed
+    for (let i = positions.length - 1; i > 0; i--) {
+      const j = (seed + i) % (i + 1);
+      [positions[i], positions[j]] = [positions[j], positions[i]];
+    }
+    
+    return positions.slice(0, 4); // Take first 4 positions for the options
+  };
+
+  const handleAnswerSelect = (answerValue: string) => {
+    setSelectedAnswer(answerValue);
+  };
+
+  const handleNext = () => {
+    if (selectedAnswer) {
+      const newAnswers = [...answers, selectedAnswer];
+      setAnswers(newAnswers);
+      setSelectedAnswer(null);
+
+      if (currentQuestion < quizQuestions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        setQuizCompleted(true);
+        setShowResults(true);
+      }
+    }
+  };
+
+  const restartQuiz = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setAnswers([]);
+    setShowResults(false);
+    setQuizCompleted(false);
+  };
 
   // Sort events by order
   const sortedEvents = [...timelineEvents].sort((a, b) => parseInt(a.order) - parseInt(b.order));
@@ -35,6 +169,7 @@ export default function AboutExperimental() {
 
   const exitStrategicFuturistMode = () => {
     setIsStrategicFuturistMode(false);
+    restartQuiz(); // Reset quiz when exiting
   };
 
   if (isGameMode) {
@@ -105,6 +240,10 @@ export default function AboutExperimental() {
   }
 
   if (isStrategicFuturistMode) {
+    const currentQuestionData = quizQuestions[currentQuestion];
+    const randomPositions = getRandomPositions(currentQuestion);
+    const results = showResults ? calculateResults() : null;
+
     return (
       <div className="min-h-screen bg-gray-900 text-white relative">
         {/* Exit button */}
@@ -119,53 +258,129 @@ export default function AboutExperimental() {
         <div className="max-w-4xl mx-auto px-6 py-8">
           <header className="text-center mb-12 pt-4">
             <h1 className="text-4xl font-light text-white mb-6 text-center" data-testid="text-strategic-futurist-mode-title">
-              Welcome to Strategic Futurist Mode
+              AI Adaptation Assessment
             </h1>
-            <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
-              Corey, You are a
-            </p>
+            {!showResults && (
+              <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
+                {currentQuestionData.question}
+              </p>
+            )}
+            {showResults && (
+              <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
+                Assessment Complete
+              </p>
+            )}
           </header>
 
-          {/* Strategic Futurist Mode System Prompt Role Cards */}
+          {/* Quiz Progress */}
+          {!showResults && (
+            <div className="flex justify-center mb-8">
+              <div className="flex gap-2">
+                {quizQuestions.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                      index < currentQuestion ? 'bg-amber-500' :
+                      index === currentQuestion ? 'bg-amber-400' :
+                      'bg-gray-600'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Quiz Boxes */}
           <div className="mb-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {systemPromptRoles.map((role, index) => (
-                <button
-                  key={index}
-                  className="relative group bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-amber-500 rounded-lg p-6 text-center text-sm text-white leading-relaxed transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
-                  data-testid={`button-strategic-futurist-role-${index}`}
-                >
-                  {/* Glowing effect */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"
-                    style={{
-                      background: `radial-gradient(circle, ${
-                        index === 0 ? '#22c55e' :
-                        index === 1 ? '#f59e0b' :
-                        index === 2 ? '#06b6d4' :
-                        index === 3 ? '#a855f7' :
-                        index === 4 ? '#ef4444' :
-                        index === 5 ? '#3b82f6' :
-                        index === 6 ? '#f97316' :
-                        '#06b6d4'
-                      } 50%, transparent 70%)`
-                    }}
-                  />
-                  
-                  {/* Pulsing border effect */}
-                  <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-amber-400 group-hover:animate-pulse" />
-                  
-                  {/* Content */}
-                  <span className="relative z-10 font-semibold group-hover:text-amber-200 transition-colors duration-300">
-                    {role}
-                  </span>
+              {[...Array(8)].map((_, index) => {
+                const optionIndex = randomPositions.indexOf(index);
+                const hasOption = optionIndex !== -1;
+                const option = hasOption ? currentQuestionData?.options[optionIndex] : null;
+                const isSelected = selectedAnswer === option?.value;
 
-                  {/* Light up effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
-                </button>
-              ))}
+                return (
+                  <button
+                    key={index}
+                    onClick={() => option && handleAnswerSelect(option.value)}
+                    disabled={!option || showResults}
+                    className={`relative group rounded-lg p-6 text-center text-sm leading-relaxed transition-all duration-300 transform min-h-[120px] flex items-center justify-center ${
+                      !option ? 'bg-gray-800/50 cursor-default' :
+                      isSelected ? 'bg-amber-600 border-2 border-amber-400 text-white scale-105 shadow-2xl shadow-amber-500/20' :
+                      'bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-amber-500 text-white hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20'
+                    }`}
+                    data-testid={`button-quiz-option-${index}`}
+                  >
+                    {option && (
+                      <>
+                        {/* Glowing effect for selected */}
+                        {isSelected && (
+                          <div className="absolute inset-0 opacity-20 rounded-lg bg-gradient-to-br from-amber-400 to-yellow-500" />
+                        )}
+                        
+                        {/* Hover glow effect */}
+                        {!isSelected && option && (
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg bg-gradient-to-br from-amber-500/50 to-yellow-500/50" />
+                        )}
+                        
+                        {/* Content */}
+                        <span className={`relative z-10 transition-colors duration-300 ${
+                          isSelected ? 'font-semibold text-white' : 'group-hover:text-amber-200'
+                        }`}>
+                          {option.text}
+                        </span>
+                      </>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
+
+          {/* Next Button */}
+          {selectedAnswer && !showResults && (
+            <div className="flex justify-center mb-8">
+              <button
+                onClick={handleNext}
+                className="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+              >
+                {currentQuestion < quizQuestions.length - 1 ? 'Next Question' : 'View Results'}
+              </button>
+            </div>
+          )}
+
+          {/* Results */}
+          {showResults && results && (
+            <div className="bg-gray-800 rounded-lg p-8 max-w-2xl mx-auto">
+              <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-amber-400 mb-4">
+                  {results.title}
+                </h2>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  {results.description}
+                </p>
+              </div>
+
+              <div className="border-t border-gray-600 pt-6 mt-6">
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  This assessment reveals how you might adapt to an AI-integrated future. 
+                  Your approach reflects your values around technology adoption and whether 
+                  you prioritize individual optimization or collective benefit. Remember, 
+                  there's no single "right" way to navigate our technological future - 
+                  diversity of approaches strengthens our collective resilience.
+                </p>
+                
+                <div className="flex justify-center">
+                  <button
+                    onClick={restartQuiz}
+                    className="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-300"
+                  >
+                    Take Assessment Again
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -260,9 +475,12 @@ export default function AboutExperimental() {
                 {role}
               </span>
               
-              {/* Special indicator for Game Designer */}
+              {/* Special indicator for Game Designer and Strategic Futurist */}
               {role === "Game Designer" && (
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full animate-pulse" />
+              )}
+              {role === "Strategic Futurist" && (
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full animate-pulse" />
               )}
             </div>
           ))}

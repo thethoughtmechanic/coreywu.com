@@ -249,7 +249,7 @@ export default function Experiments() {
                 {/* The Grand Coffee Hall */}
                 <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
                   <img 
-                    src="mister-misu-grand-coffee-hall.png" 
+                    src="/mister-misu-grand-coffee-hall.png" 
                     alt="The Grand Coffee Hall - An elegant gathering of coffee enthusiasts in a classical setting"
                     className="w-full h-auto object-contain"
                     onError={(e) => {
@@ -262,7 +262,7 @@ export default function Experiments() {
                 {/* The Guest List */}
                 <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
                   <img 
-                    src="mister-misu-guest-list.png" 
+                    src="/mister-misu-guest-list.png" 
                     alt="The Guest List - Detailed coffee profiles and character descriptions"
                     className="w-full h-auto object-contain"
                     onError={(e) => {

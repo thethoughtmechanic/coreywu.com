@@ -1,0 +1,182 @@
+Quiz Questions & Scoring System
+Scoring Logic
+
+Each answer assigns points on two axes:
+
+Tech Integration (T): -2 to +2 scale
+Value Priority (V): -2 to +2 scale (negative = individual, positive = collective)
+
+
+Final quadrant determined by sum of all scores
+
+Question 1: "Your phone dies permanently. Your first feeling is..."
+A) Relief - finally free from constant pings
+
+Tech Integration: -2
+Value Priority: 0
+You see technology as a burden to escape
+
+B) Panic - how will I function?
+
+Tech Integration: +2
+Value Priority: 0
+You're deeply integrated with digital tools
+
+C) Curiosity - what will I discover without it?
+
+Tech Integration: -1
+Value Priority: +1
+You're open to exploring life at different paces
+
+D) Frustration - I need my tools to help others
+
+Tech Integration: +1
+Value Priority: +2
+You see tech as enabling community connection
+
+Question 2: "An AI can perfectly predict what content will make you happy. Do you..."
+A) Block it - I'll choose my own path
+
+Tech Integration: -2
+Value Priority: -1
+You prioritize personal autonomy over optimization
+
+B) Use it sparingly - for important decisions only
+
+Tech Integration: 0
+Value Priority: 0
+You seek balance between AI help and human judgment
+
+C) Embrace it fully - optimize my happiness
+
+Tech Integration: +2
+Value Priority: -2
+You trust AI to enhance your individual experience
+
+D) Share it widely - everyone should benefit
+
+Tech Integration: +1
+Value Priority: +2
+You see AI's potential for collective good
+
+Question 3: "You discover you have 2 free hours. Without thinking, you typically..."
+A) Seek human connection - call family/friends
+
+Tech Integration: -1
+Value Priority: +2
+You default to human-scale interactions
+
+B) Consume digital content - browse/stream/scroll
+
+Tech Integration: +2
+Value Priority: -1
+You're drawn to algorithmic entertainment
+
+C) Create something - art, writing, cooking
+
+Tech Integration: 0
+Value Priority: +1
+You balance consumption with creation
+
+D) Optimize something - inbox zero, plan, organize
+
+Tech Integration: +1
+Value Priority: -2
+You focus on personal productivity
+
+Question 4: "A new technology could make your job obsolete in 5 years. You..."
+A) Start learning the technology to stay ahead
+
+Tech Integration: +2
+Value Priority: -1
+You adapt through acceleration
+
+B) Focus on uniquely human skills tech can't replace
+
+Tech Integration: -1
+Value Priority: +1
+You differentiate through human qualities
+
+C) Organize with others facing similar challenges
+
+Tech Integration: 0
+Value Priority: +2
+You seek collective solutions
+
+D) Begin transitioning to a tech-minimal lifestyle
+
+Tech Integration: -2
+Value Priority: -1
+You prepare for personal independence
+
+Question 5: "In your ideal future, technology should..."
+A) Seamlessly handle all tedious tasks so humans can focus on meaning
+
+Tech Integration: +2
+Value Priority: +1
+You envision harmonious augmentation
+
+B) Remain a tool we consciously choose when needed
+
+Tech Integration: -1
+Value Priority: +1
+You want intentional tech relationships
+
+C) Push human capabilities to new heights
+
+Tech Integration: +2
+Value Priority: -2
+You embrace enhancement and competition
+
+D) Be confined to specific domains, preserving human spaces
+
+Tech Integration: -2
+Value Priority: +2
+You seek protected human experiences
+
+Scoring Results & Scenario Descriptions
+Calculate Final Position:
+
+Tech Integration Score: Sum of all T scores (-10 to +10)
+Value Priority Score: Sum of all V scores (-10 to +10)
+
+Quadrant Assignment:
+Quadrant 1: Augmented Harmony (T > 0, V > 0)
+High Tech + Collective Focus
+Title: "The Symbiotic Synthesizer"
+You believe in technology's power to elevate humanity collectively. In your future, AI doesn't replace human connection—it amplifies it. You see every advancement as an opportunity to solve shared challenges and bring people together in new ways.
+Your world is one of seamless integration where technology invisibly supports human flourishing. Smart cities respond to collective needs, AI mediates conflicts with perfect cultural sensitivity, and virtual spaces become venues for deeper human connection than ever before.
+Your Strength: Building bridges between human wisdom and machine intelligence
+Your Challenge: Ensuring no one gets left behind in the acceleration
+Your Role: Architect of inclusive technological futures
+
+Quadrant 2: Digital Darwinism (T > 0, V < 0)
+High Tech + Individual Focus
+Title: "The Sovereign Accelerant"
+You're racing ahead, embracing every technological edge to maximize your potential. In your future, those who merge with technology thrive, while others choose their own pace. You believe in individual optimization and the freedom to enhance yourself without limits.
+Your world rewards the technologically fluent. Brain-computer interfaces, AI assistants, and augmented reality create a playground for the ambitious. Success comes to those who iterate fastest and adapt most boldly.
+Your Strength: Pushing the boundaries of human-machine possibility
+Your Challenge: Maintaining authentic purpose amid endless optimization
+Your Role: Pioneer of human enhancement
+
+Quadrant 3: Neo-Tribalism (T < 0, V > 0)
+Low Tech + Collective Focus
+Title: "The Community Keeper"
+You're building tomorrow's arks—communities that thrive by choosing their own pace. In your future, groups consciously design their relationship with technology, creating islands of human-scale meaning in an accelerating world.
+Your world features digital sabbaths, technology cooperatives, and intentional communities. Wisdom traditions merge with selective tech adoption. Local resilience trumps global efficiency.
+Your Strength: Preserving human-scale relationships and rhythms
+Your Challenge: Engaging with beneficial tech without losing your center
+Your Role: Guardian of collective wisdom
+
+Quadrant 4: Sovereign Minimalism (T < 0, V < 0)
+Low Tech + Individual Focus
+Title: "The Autonomous Navigator"
+You're charting an independent course, maintaining personal sovereignty in an increasingly connected world. In your future, true luxury is the ability to choose your level of technological engagement without penalty.
+Your world values self-reliance, minimal digital footprints, and the right to disconnect. You've mastered the art of selective engagement—using technology as a tool without becoming its product.
+Your Strength: Maintaining clarity and autonomy in a noisy world
+Your Challenge: Balancing independence with beneficial connection
+Your Role: Model of intentional living
+
+Post-Quiz Message (All Quadrants):
+"Your result reveals your instinctive response to the widening gap between technological pace and human adaptation. Remember: there's no 'right' position—each quadrant offers vital perspectives for navigating our shared future. The key is understanding your natural tendencies while remaining open to wisdom from other approaches.
+In the game ahead, you'll need to work with players from all quadrants to prevent the Adaptation Gap from tearing our collective future apart. Your unique perspective is essential—but so is everyone else's."

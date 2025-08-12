@@ -130,23 +130,7 @@ export default function AboutExperimental() {
     }
   ];
 
-  // Function to get shuffled icons for the current round (exactly 8 total)
-  // Keep the same order throughout the round
-  const [roundIconOrder, setRoundIconOrder] = useState<number[]>([]);
-
-  const getShuffledIcons = (roundIndex: number) => {
-    const round = gameRounds[roundIndex];
-    const allIcons = [...round.correctIcons, ...round.distractorIcons];
-
-    // If we don't have an order for this round yet, or if we've moved to a new round
-    if (roundIconOrder.length === 0 || currentRound !== roundIndex) {
-      const shuffled = [...Array(allIcons.length).keys()].sort(() => Math.random() - 0.5);
-      setRoundIconOrder(shuffled);
-      return shuffled.map(index => allIcons[index]);
-    }
-
-    return roundIconOrder.map(index => allIcons[index]);
-  };
+  
 
   // Function to get shuffled icons for the current round (exactly 8 total)
   // Keep the same order throughout the round
@@ -154,7 +138,7 @@ export default function AboutExperimental() {
 
   const getShuffledIconIndices = (roundIndex: number) => {
     const round = gameRounds[roundIndex];
-    const allIcons = [...round.correctIcons, ...round.distractorIcons];
+    const allIcons = round.allIcons;
 
     // If we don't have an order for this round yet, or if we've moved to a new round
     if (roundIconOrderIndices.length === 0 || currentRound !== roundIndex) {

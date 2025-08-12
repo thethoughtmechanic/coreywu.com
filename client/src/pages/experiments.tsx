@@ -35,12 +35,12 @@ export default function Experiments() {
     {
       title: "Frozen Archives - Dec 2024",
       images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
-      description: "An exploration of curated coffee experiences from December 2024.",
+      description: "December 2024",
     },
     {
       title: "June 2025 Coffee Experience", 
       images: [fm1, fm2], // 1-2 sequence
-      description: "A glimpse into the upcoming coffee event in June 2025.",
+      description: "June 2025",
     },
   ];
 

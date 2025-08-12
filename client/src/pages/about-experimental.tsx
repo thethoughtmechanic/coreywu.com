@@ -90,23 +90,43 @@ export default function AboutExperimental() {
     // Determine quadrant
     if (techIntegration >= 0 && valuePriority >= 0) {
       return {
-        title: "Collective Accelerator",
-        description: "You see technology as a powerful tool for collective good. You embrace AI and automation when it can benefit everyone and build stronger communities."
+        title: "The Symbiotic Synthesizer",
+        subtitle: "Augmented Harmony (High Tech + Collective Focus)",
+        description: "You believe in technology's power to elevate humanity collectively. In your future, AI doesn't replace human connection—it amplifies it. You see every advancement as an opportunity to solve shared challenges and bring people together in new ways.",
+        worldVision: "Your world is one of seamless integration where technology invisibly supports human flourishing. Smart cities respond to collective needs, AI mediates conflicts with perfect cultural sensitivity, and virtual spaces become venues for deeper human connection than ever before.",
+        strength: "Building bridges between human wisdom and machine intelligence",
+        challenge: "Ensuring no one gets left behind in the acceleration",
+        role: "Architect of inclusive technological futures"
       };
     } else if (techIntegration >= 0 && valuePriority < 0) {
       return {
-        title: "Personal Optimizer",
-        description: "You leverage technology to maximize your individual potential. You're comfortable with AI assistance and automation when it enhances your personal capabilities."
+        title: "The Sovereign Accelerant",
+        subtitle: "Digital Darwinism (High Tech + Individual Focus)",
+        description: "You're racing ahead, embracing every technological edge to maximize your potential. In your future, those who merge with technology thrive, while others choose their own pace. You believe in individual optimization and the freedom to enhance yourself without limits.",
+        worldVision: "Your world rewards the technologically fluent. Brain-computer interfaces, AI assistants, and augmented reality create a playground for the ambitious. Success comes to those who iterate fastest and adapt most boldly.",
+        strength: "Pushing the boundaries of human-machine possibility",
+        challenge: "Maintaining authentic purpose amid endless optimization",
+        role: "Pioneer of human enhancement"
       };
     } else if (techIntegration < 0 && valuePriority >= 0) {
       return {
-        title: "Human-Centered Collaborator",
-        description: "You prioritize human connection and collective action while being selective about technology. You prefer solutions that strengthen human bonds."
+        title: "The Community Keeper",
+        subtitle: "Neo-Tribalism (Low Tech + Collective Focus)",
+        description: "You're building tomorrow's arks—communities that thrive by choosing their own pace. In your future, groups consciously design their relationship with technology, creating islands of human-scale meaning in an accelerating world.",
+        worldVision: "Your world features digital sabbaths, technology cooperatives, and intentional communities. Wisdom traditions merge with selective tech adoption. Local resilience trumps global efficiency.",
+        strength: "Preserving human-scale relationships and rhythms",
+        challenge: "Engaging with beneficial tech without losing your center",
+        role: "Guardian of collective wisdom"
       };
     } else {
       return {
-        title: "Intentional Minimalist",
-        description: "You value personal autonomy and are skeptical of technological dependence. You prefer simple, human-scale solutions and direct control over your environment."
+        title: "The Autonomous Navigator",
+        subtitle: "Sovereign Minimalism (Low Tech + Individual Focus)",
+        description: "You're charting an independent course, maintaining personal sovereignty in an increasingly connected world. In your future, true luxury is the ability to choose your level of technological engagement without penalty.",
+        worldVision: "Your world values self-reliance, minimal digital footprints, and the right to disconnect. You've mastered the art of selective engagement—using technology as a tool without becoming its product.",
+        strength: "Maintaining clarity and autonomy in a noisy world",
+        challenge: "Balancing independence with beneficial connection",
+        role: "Model of intentional living"
       };
     }
   };
@@ -351,18 +371,45 @@ export default function AboutExperimental() {
 
           {/* Results */}
           {showResults && results && (
-            <div className="bg-gray-800 rounded-lg p-8 max-w-2xl mx-auto">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-amber-400 mb-4">
+            <div className="bg-gray-800 rounded-lg p-8 max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-amber-400 mb-2">
                   {results.title}
                 </h2>
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <p className="text-amber-300/80 text-lg mb-6">
+                  {results.subtitle}
+                </p>
+                <p className="text-gray-300 text-lg leading-relaxed mb-6">
                   {results.description}
+                </p>
+                <p className="text-gray-300 text-base leading-relaxed">
+                  {results.worldVision}
                 </p>
               </div>
 
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-gray-700/50 rounded-lg p-6">
+                  <h3 className="text-amber-400 font-semibold mb-3">Your Strength</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {results.strength}
+                  </p>
+                </div>
+                <div className="bg-gray-700/50 rounded-lg p-6">
+                  <h3 className="text-amber-400 font-semibold mb-3">Your Challenge</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {results.challenge}
+                  </p>
+                </div>
+                <div className="bg-gray-700/50 rounded-lg p-6">
+                  <h3 className="text-amber-400 font-semibold mb-3">Your Role</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {results.role}
+                  </p>
+                </div>
+              </div>
+
               <div className="border-t border-gray-600 pt-6 mt-6">
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                <p className="text-gray-400 text-sm leading-relaxed mb-6 text-center">
                   This assessment reveals how you might adapt to an AI-integrated future. 
                   Your approach reflects your values around technology adoption and whether 
                   you prioritize individual optimization or collective benefit. Remember, 

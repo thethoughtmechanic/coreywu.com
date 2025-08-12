@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
@@ -17,7 +16,7 @@ export default function AboutExperimental() {
 
   // Game Mode State
   const [currentRound, setCurrentRound] = useState(0);
-  const [selectedIcons, setSelectedIcons] = useState<string[]>([]);
+  const [selectedIcons, setSelectedIcons] = useState<number[]>([]);
   const [gameCompleted, setGameCompleted] = useState(false);
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
 
@@ -32,69 +31,160 @@ export default function AboutExperimental() {
     "Human"
   ];
 
-  // Exact game rounds from your specification
+  // Round definitions with SVG icons and phrases
   const gameRounds = [
     {
-      phrase: "Empathy is our greatest interface.",
-      correctIcons: ["❤️", "🤝", "💻"],
-      distractorIcons: ["🤷‍♀️", "🌐", "🤖", "💡", "🔑"]
+      id: 1,
+      title: "Empathy is our greatest interface.",
+      correctIcons: [
+        <svg key="computer" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+        <svg key="handshake" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>,
+        <svg key="heart" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+      ],
+      allIcons: [
+        <svg key="computer" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+        <svg key="handshake" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>,
+        <svg key="heart" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>,
+        <svg key="game" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-7 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+        <svg key="tool" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+        <svg key="lightbulb" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+        <svg key="target" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>,
+        <svg key="rocket" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+      ]
     },
     {
-      phrase: "A different world is possible.",
-      correctIcons: ["🌍", "✨", "🔮"],
-      distractorIcons: ["🚧", "⚖️", "🗂️", "🗓️", "🗺️"]
+      id: 2,
+      title: "Technology should amplify human connection, not replace it.",
+      correctIcons: [
+        <svg key="globe" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
+        <svg key="users" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" /></svg>,
+        <svg key="link" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+      ],
+      allIcons: [
+        <svg key="globe" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
+        <svg key="users" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" /></svg>,
+        <svg key="link" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>,
+        <svg key="robot" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>,
+        <svg key="device" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 00-1 1v16a1 1 0 001 1z" /></svg>,
+        <svg key="zap" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+        <svg key="palette" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5a2 2 0 00-2 2v1m16-3v9a4 4 0 01-4 4H5" /></svg>,
+        <svg key="cube" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+      ]
     },
     {
-      phrase: "Digital spaces need human gardens.",
-      correctIcons: ["🖥️", "🌱", "🧘‍♀️"],
-      distractorIcons: ["📈", "🧠", "🫂", "⚙️", "🧭"]
+      id: 3,
+      title: "Design is the bridge between what is and what could be.",
+      correctIcons: [
+        <svg key="palette" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5a2 2 0 00-2 2v1m16-3v9a4 4 0 01-4 4H5" /></svg>,
+        <svg key="bridge" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 12l1.6 1.2c.8.6 2.4.6 3.2 0l.4-.3c.8-.6 2.4-.6 3.2 0l.4.3c.8.6 2.4.6 3.2 0l.4-.3c.8-.6 2.4-.6 3.2 0L20 12M4 12V8h16v4M4 18h16" /></svg>,
+        <svg key="sparkles" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+      ],
+      allIcons: [
+        <svg key="palette" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5a2 2 0 00-2 2v1m16-3v9a4 4 0 01-4 4H5" /></svg>,
+        <svg key="bridge" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 12l1.6 1.2c.8.6 2.4.6 3.2 0l.4-.3c.8-.6 2.4-.6 3.2 0l.4.3c.8.6 2.4.6 3.2 0l.4-.3c.8-.6 2.4-.6 3.2 0L20 12M4 12V8h16v4M4 18h16" /></svg>,
+        <svg key="sparkles" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>,
+        <svg key="hammer" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /></svg>,
+        <svg key="ruler" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>,
+        <svg key="mask" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-7 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+        <svg key="star" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>,
+        <svg key="magic" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+      ]
     },
     {
-      phrase: "Balance is found, not given.",
-      correctIcons: ["⚖️", "🕵️‍♀️", "🎯"],
-      distractorIcons: ["⏳", "🗣️", "🗓️", "🏁", "🧘‍♀️"]
+      id: 4,
+      title: "The best interfaces are invisible until they're needed.",
+      correctIcons: [
+        <svg key="eye-off" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" /></svg>,
+        <svg key="search" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>,
+        <svg key="zap" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+      ],
+      allIcons: [
+        <svg key="eye-off" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" /></svg>,
+        <svg key="search" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>,
+        <svg key="zap" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+        <svg key="monitor" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
+        <svg key="smartphone" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 00-1 1v16a1 1 0 001 1z" /></svg>,
+        <svg key="target" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+        <svg key="tool" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /></svg>,
+        <svg key="lightbulb" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+      ]
     },
     {
-      phrase: "Technology amplifies human potential.",
-      correctIcons: ["⚙️", "🔊", "💡"],
-      distractorIcons: ["📉", "🗺️", "🤝", "🧠", "🌱"]
+      id: 5,
+      title: "Innovation happens at the intersection of disciplines.",
+      correctIcons: [
+        <svg key="plus" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" /></svg>,
+        <svg key="brain" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+        <svg key="star" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+      ],
+      allIcons: [
+        <svg key="plus" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" /></svg>,
+        <svg key="brain" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+        <svg key="star" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>,
+        <svg key="beaker" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>,
+        <svg key="academic" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>,
+        <svg key="target2" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+        <svg key="rocket" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+        <svg key="gem" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+      ]
     }
   ];
 
   // Function to get shuffled icons for the current round (exactly 8 total)
   // Keep the same order throughout the round
-  const [roundIconOrder, setRoundIconOrder] = useState<string[]>([]);
-  
+  const [roundIconOrder, setRoundIconOrder] = useState<number[]>([]);
+
   const getShuffledIcons = (roundIndex: number) => {
     const round = gameRounds[roundIndex];
     const allIcons = [...round.correctIcons, ...round.distractorIcons];
-    
+
     // If we don't have an order for this round yet, or if we've moved to a new round
     if (roundIconOrder.length === 0 || currentRound !== roundIndex) {
-      const shuffled = [...allIcons].sort(() => Math.random() - 0.5);
+      const shuffled = [...Array(allIcons.length).keys()].sort(() => Math.random() - 0.5);
       setRoundIconOrder(shuffled);
-      return shuffled;
+      return shuffled.map(index => allIcons[index]);
     }
-    
-    return roundIconOrder;
+
+    return roundIconOrder.map(index => allIcons[index]);
   };
 
-  const handleIconSelect = (icon: string) => {
-    if (selectedIcons.includes(icon)) {
-      // Deselect if already selected
-      setSelectedIcons(selectedIcons.filter(i => i !== icon));
-    } else if (selectedIcons.length < 3) {
-      // Select if less than 3 are selected
-      setSelectedIcons([...selectedIcons, icon]);
+  // Function to get shuffled icons for the current round (exactly 8 total)
+  // Keep the same order throughout the round
+  const [roundIconOrderIndices, setRoundIconOrderIndices] = useState<number[]>([]);
+
+  const getShuffledIconIndices = (roundIndex: number) => {
+    const round = gameRounds[roundIndex];
+    const allIcons = [...round.correctIcons, ...round.distractorIcons];
+
+    // If we don't have an order for this round yet, or if we've moved to a new round
+    if (roundIconOrderIndices.length === 0 || currentRound !== roundIndex) {
+      const shuffledIndices = [...Array(allIcons.length).keys()].sort(() => Math.random() - 0.5);
+      setRoundIconOrderIndices(shuffledIndices);
+      return shuffledIndices;
+    }
+
+    return roundIconOrderIndices;
+  };
+
+
+  const handleIconSelect = (iconIndex: number) => {
+    if (selectedIcons.includes(iconIndex)) {
+      setSelectedIcons(selectedIcons.filter(i => i !== iconIndex));
+    } else {
+      // Only allow selecting up to 3 icons
+      if (selectedIcons.length < 3) {
+        setSelectedIcons([...selectedIcons, iconIndex]);
+      }
     }
   };
 
   const checkPattern = () => {
-    const correctIcons = gameRounds[currentRound].correctIcons;
-    const isCorrect = correctIcons.every(icon => selectedIcons.includes(icon)) && 
-                     selectedIcons.length === 3 &&
-                     selectedIcons.every(icon => correctIcons.includes(icon));
-    
+    const currentRoundData = gameRounds[currentRound];
+    const correctIconIndices = currentRoundData.correctIcons.map((_, index) => index);
+    const isCorrect = selectedIcons.length === 3 &&
+                     correctIconIndices.every(index => selectedIcons.includes(index)) &&
+                     selectedIcons.every(index => correctIconIndices.includes(index));
+
     if (isCorrect) {
       setShowSuccessAnimation(true);
       setTimeout(() => {
@@ -102,7 +192,7 @@ export default function AboutExperimental() {
           setCurrentRound(currentRound + 1);
           setSelectedIcons([]);
           setShowSuccessAnimation(false);
-          setRoundIconOrder([]); // Reset icon order for new round
+          setRoundIconOrderIndices([]); // Reset icon order for new round
         } else {
           setGameCompleted(true);
         }
@@ -115,7 +205,7 @@ export default function AboutExperimental() {
     setSelectedIcons([]);
     setGameCompleted(false);
     setShowSuccessAnimation(false);
-    setRoundIconOrder([]); // Reset icon order for new game
+    setRoundIconOrderIndices([]); // Reset icon order for new game
   };
 
   const quizQuestions = [
@@ -222,7 +312,7 @@ export default function AboutExperimental() {
       return {
         title: "The Pragmatic Augmentist",
         subtitle: "Between Augmented Harmony & Digital Darwinism",
-        description: "You embrace technology without ideology. Neither saving the world nor optimizing just yourself, you see AI and human enhancement as inevitable tools to be wielded wisely. You're equally comfortable building community platforms or personal productivity systems.",
+        description: "You embrace technology without ideology. Neither building communes nor optimizing just yourself, you see AI and human enhancement as inevitable tools to be wielded wisely. You're equally comfortable building community platforms or personal productivity systems.",
         worldVision: "Your future is one of practical experimentation. You'll test brain implants not for transcendence but for utility. You'll use AI not for revolution but for incremental improvement. Progress without philosophy.",
         strength: "Implementing technology without emotional attachment",
         challenge: "Finding deeper purpose beyond efficiency",
@@ -356,9 +446,11 @@ export default function AboutExperimental() {
   };
 
   // Check if all correct icons are selected
-  const allCorrectSelected = selectedIcons.length === 3 && 
-    gameRounds[currentRound].correctIcons.every(icon => selectedIcons.includes(icon)) &&
-    selectedIcons.every(icon => gameRounds[currentRound].correctIcons.includes(icon));
+  const currentRoundData = gameRounds[currentRound];
+  const correctIconIndices = currentRoundData.correctIcons.map((_, index) => index);
+  const allCorrectSelected = selectedIcons.length === 3 &&
+    correctIconIndices.every(index => selectedIcons.includes(index)) &&
+    selectedIcons.every(index => correctIconIndices.includes(index));
 
   if (isGameMode) {
     return (
@@ -380,7 +472,7 @@ export default function AboutExperimental() {
                   Pattern Recognition
                 </h1>
                 <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg mb-8">
-                  {gameRounds[currentRound].phrase}
+                  {gameRounds[currentRound].title}
                 </p>
                 <p className="text-gray-400 text-sm">
                   Find the 3 icons that match the pattern • Round {currentRound + 1} of {gameRounds.length}
@@ -405,36 +497,37 @@ export default function AboutExperimental() {
 
               {/* Game Cards */}
               <div className="mb-8">
-                <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
-                  {getShuffledIcons(currentRound).map((icon, index) => {
-                    const isSelected = selectedIcons.includes(icon);
+                <div className="grid grid-cols-4 gap-4 mb-8">
+                  {getShuffledIconIndices(currentRound).map((index) => {
+                    const icon = gameRounds[currentRound].allIcons[index];
+                    const isSelected = selectedIcons.includes(index);
 
                     return (
-                      <button
+                      <div
                         key={index}
-                        onClick={() => handleIconSelect(icon)}
-                        className={`relative group bg-gray-800 hover:bg-gray-700 border-2 rounded-lg p-8 text-center transition-all duration-300 transform hover:scale-105 min-h-[120px] flex items-center justify-center
+                        onClick={() => handleIconSelect(index)}
+                        className={`
+                          relative h-24 w-24 rounded-lg border-2 cursor-pointer transition-all duration-300
                           ${isSelected
-                            ? 'border-purple-500 bg-gray-700 scale-105'
-                            : 'border-gray-600 hover:border-gray-500'
-                          }`}
-                        data-testid={`game-card-${index}`}
+                            ? 'border-purple-500 bg-purple-500/20 transform-none'
+                            : 'border-slate-600 bg-slate-700/50 hover:border-slate-500 hover:transform hover:rotate-1 hover:scale-105'
+                          }
+                          flex items-center justify-center text-white
+                        `}
                       >
-                        {/* Emoji - shown on hover or when selected */}
-                        <span className={`text-4xl transition-all duration-300 ${
-                          isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                        }`}>
-                          {icon}
-                        </span>
-
-                        {/* Selected indicator */}
-                        {isSelected && (
-                          <div className="absolute top-2 right-2 w-3 h-3 bg-purple-500 rounded-full"></div>
+                        {isSelected ? (
+                          <div className="text-white">
+                            {icon}
+                          </div>
+                        ) : (
+                          <div className="opacity-0 hover:opacity-100 transition-opacity duration-200">
+                            {icon}
+                          </div>
                         )}
-
-                        {/* Hover glow effect */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg bg-gradient-to-br from-purple-500/30 to-blue-500/30" />
-                      </button>
+                        {isSelected && (
+                          <div className="absolute top-1 right-1 w-3 h-3 bg-purple-500 rounded-full"></div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>
@@ -446,8 +539,8 @@ export default function AboutExperimental() {
                   <button
                     onClick={checkPattern}
                     className={`px-8 py-3 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
-                      allCorrectSelected 
-                        ? 'bg-green-600 hover:bg-green-700' 
+                      allCorrectSelected
+                        ? 'bg-green-600 hover:bg-green-700'
                         : 'bg-red-600 hover:bg-red-700'
                     }`}
                   >
@@ -754,8 +847,8 @@ export default function AboutExperimental() {
                     radial-gradient(ellipse 245px 185px at 20% 10%, #f97316 0%, #f97316 45%, transparent 85%),
                     radial-gradient(ellipse 215px 165px at 80% 30%, #ec4899 0%, #ec4899 40%, transparent 80%),
                     radial-gradient(ellipse 195px 225px at 10% 85%, #ea580c 0%, #ea580c 50%, transparent 90%),
-                    radial-gradient(ellipse 225px 145px at 90% 80%, #a855f7 0%, #a855f7 35%, transparent 75%),
-                    radial-gradient(ellipse 185px 195px at 50% 45%, #d946ef 0%, #d946ef 40%, transparent 80%)
+                    radial-gradient(ellipse 225px 135px at 90% 80%, #a855f7 0%, #a855f7 35%, transparent 75%),
+                    radial-gradient(ellipse 180px 190px at 40% 45%, #d946ef 0%, #d946ef 40%, transparent 80%)
                   ` : `
                     radial-gradient(ellipse 235px 175px at 25% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
                     radial-gradient(ellipse 205px 155px at 75% 20%, #3b82f6 0%, #3b82f6 40%, transparent 80%),

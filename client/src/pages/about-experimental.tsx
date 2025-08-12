@@ -372,10 +372,11 @@ export default function AboutExperimental() {
             </div>
           )}
 
-          {/* Quiz Boxes */}
-          <div className="mb-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {[...Array(8)].map((_, index) => {
+          {/* Quiz Boxes - Hidden when results are shown */}
+          {!showResults && (
+            <div className="mb-16">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                {[...Array(8)].map((_, index) => {
                 const optionIndex = randomPositions.indexOf(index);
                 const hasOption = optionIndex !== -1;
                 const option = hasOption ? currentQuestionData?.options[optionIndex] : null;
@@ -416,8 +417,9 @@ export default function AboutExperimental() {
                   </button>
                 );
               })}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Next Button */}
           {selectedAnswer && !showResults && (

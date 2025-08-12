@@ -3,7 +3,11 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-export function Navigation() {
+interface NavigationProps {
+  isDarkMode?: boolean;
+}
+
+export function Navigation({ isDarkMode = false }: NavigationProps) {
   const [location] = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -23,13 +27,23 @@ export function Navigation() {
 
   return (
     <>
-      <nav className="w-full bg-cream/95 border-b border-warm-brown/20 sticky top-0 z-50 backdrop-blur-sm h-16 md:h-20">
+      <nav className={cn(
+        "w-full border-b sticky top-0 z-50 backdrop-blur-sm h-16 md:h-20",
+        isDarkMode 
+          ? "bg-gray-900/95 border-gray-700/30" 
+          : "bg-cream/95 border-warm-brown/20"
+      )}>
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 h-full">
           <div className="flex items-center justify-between h-full">
             {/* Home button */}
             <Link
               href="/"
-              className="text-lg md:text-xl font-semibold text-warm-brown hover:text-hover-brown transition-colors duration-200"
+              className={cn(
+                "text-lg md:text-xl font-semibold transition-colors duration-200",
+                isDarkMode 
+                  ? "text-white hover:text-gray-300" 
+                  : "text-warm-brown hover:text-hover-brown"
+              )}
               data-testid="link-home"
               onClick={closeMenu}
             >
@@ -43,8 +57,16 @@ export function Navigation() {
                   key={item.path}
                   href={item.path}
                   className={cn(
-                    "text-soft-black hover:text-warm-brown transition-colors duration-200 pb-1",
-                    location === item.path && "border-b-2 border-warm-brown text-warm-brown"
+                    "transition-colors duration-200 pb-1",
+                    isDarkMode 
+                      ? cn(
+                          "text-gray-300 hover:text-white",
+                          location === item.path && "border-b-2 border-white text-white"
+                        )
+                      : cn(
+                          "text-soft-black hover:text-warm-brown",
+                          location === item.path && "border-b-2 border-warm-brown text-warm-brown"
+                        )
                   )}
                   data-testid={`link-${item.label.toLowerCase().replace(" ", "-")}`}
                 >
@@ -56,7 +78,12 @@ export function Navigation() {
             {/* Mobile hamburger menu button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden p-2 text-warm-brown hover:text-hover-brown transition-colors duration-200"
+              className={cn(
+                "md:hidden p-2 transition-colors duration-200",
+                isDarkMode 
+                  ? "text-white hover:text-gray-300" 
+                  : "text-warm-brown hover:text-hover-brown"
+              )}
               data-testid="button-mobile-menu"
               aria-label="Toggle navigation menu"
             >
@@ -73,7 +100,10 @@ export function Navigation() {
       {/* Mobile navigation overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-warm-brown/20 backdrop-blur-sm z-[60] md:hidden"
+          className={cn(
+            "fixed inset-0 backdrop-blur-sm z-[60] md:hidden",
+            isDarkMode ? "bg-black/40" : "bg-warm-brown/20"
+          )}
           onClick={closeMenu}
           data-testid="overlay-mobile-menu"
         />
@@ -81,11 +111,17 @@ export function Navigation() {
 
       {/* Mobile navigation menu */}
       <div className={cn(
-        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-cream/98 backdrop-blur-md border-l border-warm-brown/30 transform transition-transform duration-300 ease-in-out z-[60] md:hidden shadow-2xl",
+        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 backdrop-blur-md border-l transform transition-transform duration-300 ease-in-out z-[60] md:hidden shadow-2xl",
+        isDarkMode 
+          ? "bg-gray-900/98 border-gray-700/30" 
+          : "bg-cream/98 border-warm-brown/30",
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex flex-col p-6 space-y-6">
-          <div className="text-lg font-medium text-warm-brown mb-4">
+          <div className={cn(
+            "text-lg font-medium mb-4",
+            isDarkMode ? "text-white" : "text-warm-brown"
+          )}>
             Navigation
           </div>
           {navItems.map((item) => (
@@ -94,8 +130,16 @@ export function Navigation() {
               href={item.path}
               onClick={closeMenu}
               className={cn(
-                "text-lg text-soft-black hover:text-warm-brown transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-light-brown border-l-4 border-transparent",
-                location === item.path && "border-l-warm-brown text-warm-brown bg-light-brown font-medium"
+                "text-lg transition-colors duration-200 py-3 px-4 rounded-lg border-l-4 border-transparent",
+                isDarkMode 
+                  ? cn(
+                      "text-gray-300 hover:text-white hover:bg-gray-800",
+                      location === item.path && "border-l-white text-white bg-gray-800 font-medium"
+                    )
+                  : cn(
+                      "text-soft-black hover:text-warm-brown hover:bg-light-brown",
+                      location === item.path && "border-l-warm-brown text-warm-brown bg-light-brown font-medium"
+                    )
               )}
               data-testid={`link-mobile-${item.label.toLowerCase().replace(" ", "-")}`}
             >

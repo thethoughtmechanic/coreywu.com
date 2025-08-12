@@ -16,6 +16,7 @@ import DesignSystem from "@/pages/designsystem";
 import NotFound from "@/pages/not-found";
 import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the new component
 import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the new component
+import { useLocation } from "wouter";
 
 function Router() {
   return (
@@ -43,6 +44,9 @@ function Router() {
 }
 
 function App() {
+  const [location] = useLocation();
+  const isDarkMode = location === "/about-experimental";
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

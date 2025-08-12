@@ -86,39 +86,66 @@ export default function AboutExperimental() {
       }
     });
 
-    // Handle all edge cases with Universal Edge Case Message
-    if ((techIntegration === 0 && valuePriority === 0) ||
-        (techIntegration === 0 && valuePriority !== 0) ||
-        (techIntegration !== 0 && valuePriority === 0)) {
-      
-      // Determine the specific edge case title and subtitle
-      let title, subtitle;
-      
-      if (techIntegration === 0 && valuePriority === 0) {
-        title = "The Adaptive Centrist";
-        subtitle = "The Fulcrum of All Futures";
-      } else if (techIntegration === 0 && valuePriority > 0) {
-        title = "The Conscious Equilibrist";
-        subtitle = "Between Augmented Harmony & Neo-Tribalism";
-      } else if (techIntegration === 0 && valuePriority < 0) {
-        title = "The Selective Optimizer";
-        subtitle = "Between Digital Darwinism & Sovereign Minimalism";
-      } else if (techIntegration > 0 && valuePriority === 0) {
-        title = "The Pragmatic Augmentist";
-        subtitle = "Between Augmented Harmony & Digital Darwinism";
-      } else if (techIntegration < 0 && valuePriority === 0) {
-        title = "The Mindful Abstainer";
-        subtitle = "Between Neo-Tribalism & Sovereign Minimalism";
-      }
-      
+    // Handle edge cases first - Perfect Center
+    if (techIntegration === 0 && valuePriority === 0) {
       return {
-        title,
-        subtitle,
-        description: "You've landed on a boundary—neither fully here nor there. This liminal space is both challenging and powerful. While others have clear quadrants to defend, you have the gift of perspective. In the coming game, you'll need to help others see beyond their positions while finding your own moments of commitment. Remember: sometimes the edge is exactly where we need to be.",
-        worldVision: "",
-        strength: "",
-        challenge: "",
-        role: ""
+        title: "The Adaptive Centrist",
+        subtitle: "The Fulcrum of All Futures",
+        description: "You are the rare individual who holds perfect neutrality—not from indecision, but from profound flexibility. You can shift into any quadrant as circumstances demand, understanding that rigidity is the enemy of survival in rapidly changing times.",
+        worldVision: "Your future is radically contextual. In crisis, you might become highly collective. When exploring, you might go full tech. You're water, taking the shape of whatever container serves the moment while maintaining your essential nature.",
+        strength: "Ultimate adaptability without losing core identity",
+        challenge: "Avoiding drift into permanent uncertainty",
+        role: "The wild card that could tip any future"
+      };
+    }
+    
+    // Handle edge cases - Vertical Axis (T = 0, V ≠ 0)
+    if (techIntegration === 0 && valuePriority > 0) {
+      return {
+        title: "The Conscious Equilibrist",
+        subtitle: "Between Augmented Harmony & Neo-Tribalism",
+        description: "You've found the razor's edge—neither rejecting technology nor embracing it, but consciously choosing moment by moment based on collective benefit. You're the rare individual who can code-switch between digital and analog worlds without losing your center.",
+        worldVision: "Your future is one of deliberate balance. Communities hire you as a \"Pace Mediator\"—someone who can speak both languages and design hybrid solutions. You create \"gradient zones\" where high-tech and low-tech communities interface without conflict.",
+        strength: "Translating between accelerated and grounded worldviews",
+        challenge: "Avoiding paralysis in the face of constant choice",
+        role: "Bridge between worlds, interpreter of possibilities"
+      };
+    }
+    
+    if (techIntegration === 0 && valuePriority < 0) {
+      return {
+        title: "The Selective Optimizer",
+        subtitle: "Between Digital Darwinism & Sovereign Minimalism",
+        description: "You treat technology like a master chef treats ingredients—selecting only what serves your personal goals, discarding the rest. Neither luddite nor technophile, you're ruthlessly pragmatic about what earns space in your life.",
+        worldVision: "Your future is perfectly curated. You might use AI for complex decisions but journal by hand. You'll upgrade your brain-computer interface while maintaining a flip phone. Every choice is intentional, nothing is default.",
+        strength: "Immunity to both FOMO and technophobia",
+        challenge: "Missing synergies that come from full commitment",
+        role: "Curator of personal technological boundaries"
+      };
+    }
+    
+    // Handle edge cases - Horizontal Axis (T ≠ 0, V = 0)
+    if (techIntegration > 0 && valuePriority === 0) {
+      return {
+        title: "The Pragmatic Augmentist",
+        subtitle: "Between Augmented Harmony & Digital Darwinism",
+        description: "You embrace technology without ideology. Neither saving the world nor optimizing just yourself, you see AI and human enhancement as inevitable tools to be wielded wisely. You're equally comfortable building community platforms or personal productivity systems.",
+        worldVision: "Your future is one of practical experimentation. You'll test brain implants not for transcendence but for utility. You'll use AI not for revolution but for incremental improvement. Progress without philosophy.",
+        strength: "Implementing technology without emotional attachment",
+        challenge: "Finding deeper purpose beyond efficiency",
+        role: "Builder of functional futures"
+      };
+    }
+    
+    if (techIntegration < 0 && valuePriority === 0) {
+      return {
+        title: "The Mindful Abstainer",
+        subtitle: "Between Neo-Tribalism & Sovereign Minimalism",
+        description: "You've stepped back from the digital rush not out of fear or ideology, but from a place of conscious choice. You're neither building communes nor living off-grid—just maintaining healthy distance from the acceleration.",
+        worldVision: "Your future involves strategic disengagement. You might work in tech but live analog. You understand both worlds but choose presence over connectivity, depth over speed. You're the calm in the storm.",
+        strength: "Clarity unclouded by digital noise",
+        challenge: "Staying relevant without losing your grounding",
+        role: "Keeper of human-pace wisdom"
       };
     }
 

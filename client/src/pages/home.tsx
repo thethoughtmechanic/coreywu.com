@@ -12,7 +12,7 @@ export default function Home() {
           </h1>
         </div>
 
-        <p className="text-sm md:text-base text-soft-black/60 mb-8 md:mb-12 leading-relaxed max-w-2xl mx-auto">
+        <p className="text-sm md:text-base text-soft-black/60 mb-8 md:mb-12 leading-relaxed max-w-2xl mx-auto mt-4 md:mt-6">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more humane and more intentional. Let's tend to these ideas and see what they grow into.
         </p>
 

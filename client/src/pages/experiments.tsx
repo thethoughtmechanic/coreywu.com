@@ -5,6 +5,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 
+// Import images explicitly
+import grandCoffeeHallImage from "/mister-misu-grand-coffee-hall.png";
+import guestListImage from "/mister-misu-guest-list.png";
+
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
   const [isMisterMisuModalOpen, setIsMisterMisuModalOpen] = useState(false);
@@ -249,7 +253,7 @@ export default function Experiments() {
                 {/* The Grand Coffee Hall */}
                 <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
                   <img 
-                    src="/mister-misu-grand-coffee-hall.png" 
+                    src={grandCoffeeHallImage} 
                     alt="The Grand Coffee Hall - An elegant gathering of coffee enthusiasts in a classical setting"
                     className="w-full h-auto object-contain"
                     onError={(e) => {
@@ -262,7 +266,7 @@ export default function Experiments() {
                 {/* The Guest List */}
                 <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
                   <img 
-                    src="/mister-misu-guest-list.png" 
+                    src={guestListImage} 
                     alt="The Guest List - Detailed coffee profiles and character descriptions"
                     className="w-full h-auto object-contain"
                     onError={(e) => {

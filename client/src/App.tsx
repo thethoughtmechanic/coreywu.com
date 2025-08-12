@@ -8,6 +8,7 @@ import Home from "@/pages/home";
 import About from "@/pages/about";
 import AboutProfessional from "@/pages/about-professional"; // Import the new component
 import AboutExperimental from "@/pages/about-experimental"; // Import the new component
+import AboutGame from "@/pages/about-game"; // Import the new component
 import Thoughts from "@/pages/thoughts";
 import ThoughtDetail from "@/pages/thought-detail";
 import Experiments from "@/pages/experiments";
@@ -59,6 +60,7 @@ function Router() {
           <Route path="/about-professional" component={AboutProfessional} />
           <Route path="/about-classic" component={About} />
           <Route path="/about-expnew" component={AboutExpNew} />
+          <Route path="/about-game" component={AboutGame} />
           <Route path="/thoughts" component={Thoughts} />
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />

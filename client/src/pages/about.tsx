@@ -110,19 +110,18 @@ export default function About() {
       </div>
 
       <div className="relative max-w-4xl mx-auto">
-        <div className="relative">
-          {/* Timeline line using pseudo-element for automatic sizing */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30 top-12 bottom-12 z-10"></div>
+        <div className="relative space-y-8">
+          {/* Continuous timeline line that spans the full height */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30 z-10" 
+               style={{ top: '50px', height: `${(sortedEvents.length - 1) * 144 + 50}px` }}></div>
 
-          <div className="space-y-8">
-            {sortedEvents.map((event, index) => (
-              <TimelineItem
-                key={event.id}
-                event={event}
-                isLeft={index % 2 === 0}
-              />
-            ))}
-          </div>
+          {sortedEvents.map((event, index) => (
+            <TimelineItem
+              key={event.id}
+              event={event}
+              isLeft={index % 2 === 0}
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -382,8 +382,8 @@ export default function AboutExperimental() {
 
           {/* Quiz Boxes - Hidden when results are shown */}
           {!showResults && (
-            <div className="mb-16">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div className="mb-8 md:mb-16">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-sm md:max-w-4xl mx-auto">
                 {[...Array(8)].map((_, index) => {
                 const optionIndex = randomPositions.indexOf(index);
                 const hasOption = optionIndex !== -1;
@@ -395,7 +395,7 @@ export default function AboutExperimental() {
                     key={index}
                     onClick={() => option && handleAnswerSelect(option.value)}
                     disabled={!option || showResults}
-                    className={`relative group rounded-lg p-6 text-center text-sm leading-relaxed transition-all duration-300 transform min-h-[120px] flex items-center justify-center ${
+                    className={`relative group rounded-lg p-4 text-center text-sm leading-relaxed transition-all duration-300 transform min-h-[80px] md:min-h-[120px] flex items-center justify-center ${
                       !option ? 'bg-gray-800/50 cursor-default' :
                       isSelected ? 'bg-amber-600 border-2 border-amber-400 text-white scale-105 shadow-2xl shadow-amber-500/20' :
                       'bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-amber-500 text-white hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20'

@@ -14,6 +14,12 @@ export default function AboutExperimental() {
   const [showResults, setShowResults] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
+  // New Game Mode State
+  const [currentRound, setCurrentRound] = useState(0);
+  const [selectedIcons, setSelectedIcons] = useState<string[]>([]);
+  const [gameCompleted, setGameCompleted] = useState(false);
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
+
   const systemPromptRoles = [
     "Product Manager",
     "Strategic Futurist",
@@ -24,6 +30,80 @@ export default function AboutExperimental() {
     "Husband + Father",
     "Human"
   ];
+
+  // Mock emojis for the game
+  const allEmojis = ["😀", "😂", "😍", "🤔", "🚀", "💡", "🌈", "⭐", "🎶", "🍕", "🐶", "🐱", "🌳", "🌊", "⛰️"];
+
+  // Define game rounds with phrases and correct icons
+  const gameRounds = [
+    {
+      phrase: "The rapid advancement of AI and its integration into daily life.",
+      correctIcons: ["🚀", "💡", "⭐"]
+    },
+    {
+      phrase: "The balance between technological progress and human well-being.",
+      correctIcons: ["🌳", "❤️", "⚖️"] // Placeholder emojis
+    },
+    {
+      phrase: "The potential for virtual reality to reshape social interactions.",
+      correctIcons: ["🌐", "🤝", "💬"] // Placeholder emojis
+    },
+    {
+      phrase: "The ethical considerations surrounding data privacy in the digital age.",
+      correctIcons: ["🔒", "🕵️", "🛡️"] // Placeholder emojis
+    },
+    {
+      phrase: "The future of work in an increasingly automated world.",
+      correctIcons: ["💼", "🤖", "🔄"] // Placeholder emojis
+    }
+  ];
+
+  // Function to get shuffled icons for the current round
+  const getShuffledIcons = (roundIndex: number) => {
+    const correct = gameRounds[roundIndex].correctIcons;
+    const distractors = allEmojis.filter(emoji => !correct.includes(emoji));
+    const shuffledDistractors = [...distractors].sort(() => Math.random() - 0.5).slice(0, 5); // Get 5 distractors
+    const all = [...correct, ...shuffledDistractors];
+    return [...all].sort(() => Math.random() - 0.5); // Shuffle all 8 icons
+  };
+
+  const handleIconSelect = (icon: string) => {
+    if (selectedIcons.length < 3 && !selectedIcons.includes(icon)) {
+      setSelectedIcons([...selectedIcons, icon]);
+    } else if (selectedIcons.includes(icon)) {
+      // Deselect if already selected
+      setSelectedIcons(selectedIcons.filter(i => i !== icon));
+    }
+  };
+
+  const checkPattern = () => {
+    const isMatch = gameRounds[currentRound].correctIcons.every(icon => selectedIcons.includes(icon));
+    if (isMatch && selectedIcons.length === 3) {
+      setShowSuccessAnimation(true);
+      setTimeout(() => {
+        if (currentRound < gameRounds.length - 1) {
+          setCurrentRound(currentRound + 1);
+          setSelectedIcons([]);
+          setShowSuccessAnimation(false);
+        } else {
+          setGameCompleted(true);
+        }
+      }, 1500); // Show success animation for 1.5 seconds
+    } else if (selectedIcons.length === 3) {
+      // If 3 are selected but not correct, reset for next attempt (or show feedback)
+      // As per instructions, "don't show anything" if wrong, implies reset or no proceed.
+      // For now, let's allow deselection, but the button won't change.
+      // If the goal is to not let them proceed, we don't change the button text.
+    }
+  };
+
+  const resetGame = () => {
+    setCurrentRound(0);
+    setSelectedIcons([]);
+    setGameCompleted(false);
+    setShowSuccessAnimation(false);
+  };
+
 
   const quizQuestions = [
     {
@@ -98,7 +178,7 @@ export default function AboutExperimental() {
         role: "The wild card that could tip any future"
       };
     }
-    
+
     // Handle edge cases - Vertical Axis (T = 0, V ≠ 0)
     if (techIntegration === 0 && valuePriority > 0) {
       return {
@@ -111,7 +191,7 @@ export default function AboutExperimental() {
         role: "Bridge between worlds, interpreter of possibilities"
       };
     }
-    
+
     if (techIntegration === 0 && valuePriority < 0) {
       return {
         title: "The Selective Optimizer",
@@ -123,7 +203,7 @@ export default function AboutExperimental() {
         role: "Curator of personal technological boundaries"
       };
     }
-    
+
     // Handle edge cases - Horizontal Axis (T ≠ 0, V = 0)
     if (techIntegration > 0 && valuePriority === 0) {
       return {
@@ -136,7 +216,7 @@ export default function AboutExperimental() {
         role: "Builder of functional futures"
       };
     }
-    
+
     if (techIntegration < 0 && valuePriority === 0) {
       return {
         title: "The Mindful Abstainer",
@@ -275,50 +355,116 @@ export default function AboutExperimental() {
         </button>
 
         <div className="max-w-4xl mx-auto px-6 py-8">
-          <header className="text-center mb-12 pt-4">
-            <h1 className="text-4xl font-light text-white mb-6 text-center" data-testid="text-game-mode-title">
-              Welcome to Game Mode
-            </h1>
-            <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
-              WIP, Stay Tuned!
-            </p>
-          </header>
+          {!gameCompleted ? (
+            <>
+              <header className="text-center mb-8 pt-4">
+                <h1 className="text-4xl font-light text-white mb-6 text-center" data-testid="text-game-mode-title">
+                  Pattern Recognition
+                </h1>
+                <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg mb-8">
+                  {gameRounds[currentRound].phrase}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Find the 3 icons that match the pattern
+                </p>
+              </header>
 
-          {/* Game Mode System Prompt Role Cards */}
-          <div className="mb-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {systemPromptRoles.map((role, index) => (
-                <button
-                  key={index}
-                  className="relative group bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-purple-500 rounded-lg p-6 text-center text-sm text-white leading-relaxed transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 min-h-[120px]"
-                  data-testid={`button-game-role-${index}`}
-                >
-                  {/* Glowing effect */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"
-                    style={{
-                      background: `radial-gradient(circle, ${
-                        index === 0 ? '#22c55e' :
-                        index === 1 ? '#f59e0b' :
-                        index === 2 ? '#06b6d4' :
-                        index === 3 ? '#a855f7' :
-                        index === 4 ? '#ef4444' :
-                        index === 5 ? '#3b82f6' :
-                        index === 6 ? '#f97316' :
-                        '#06b6d4'
-                      } 50%, transparent 70%)`
-                    }}
-                  />
+              {/* Progress dots */}
+              <div className="flex justify-center mb-8">
+                <div className="flex gap-2">
+                  {gameRounds.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                        index < currentRound ? 'bg-green-500' :
+                        index === currentRound ? 'bg-purple-400' :
+                        'bg-gray-600'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
 
-                  {/* Pulsing border effect */}
-                  <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-purple-400 group-hover:animate-pulse" />
+              {/* Game Cards */}
+              <div className="mb-8">
+                <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
+                  {getShuffledIcons(currentRound).map((icon, index) => {
+                    const isSelected = selectedIcons.includes(icon);
+                    const isCorrect = gameRounds[currentRound].correctIcons.includes(icon);
 
-                  {/* Light up effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
-                </button>
-              ))}
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => handleIconSelect(icon)}
+                        className={`relative group bg-gray-800 hover:bg-gray-700 border-2 rounded-lg p-8 text-center transition-all duration-300 transform hover:scale-105 min-h-[120px] flex items-center justify-center
+                          ${isSelected
+                            ? 'border-purple-500 bg-gray-700 scale-105'
+                            : 'border-gray-600 hover:border-gray-500'
+                          }`}
+                        data-testid={`game-card-${index}`}
+                      >
+                        {/* Emoji - shown on hover or when selected */}
+                        <span className={`text-4xl transition-opacity duration-200 ${
+                          isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                        }`}>
+                          {icon}
+                        </span>
+
+                        {/* Selected indicator */}
+                        {isSelected && (
+                          <div className="absolute top-2 right-2 w-3 h-3 bg-purple-500 rounded-full"></div>
+                        )}
+
+                        {/* Hover glow effect */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg bg-gradient-to-br from-purple-500/30 to-blue-500/30" />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Action Button */}
+              {selectedIcons.length === 3 && !showSuccessAnimation && (
+                <div className="flex justify-center mb-8">
+                  <button
+                    onClick={checkPattern}
+                    className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                  >
+                    Not quite!
+                  </button>
+                </div>
+              )}
+
+              {/* Success Animation */}
+              {showSuccessAnimation && (
+                <div className="flex justify-center mb-8">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4 animate-bounce">🎉</div>
+                    <p className="text-green-400 text-xl font-semibold animate-pulse">
+                      Perfect!
+                    </p>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            /* Game Completed */
+            <div className="text-center py-16">
+              <div className="text-8xl mb-8 animate-bounce">🎊</div>
+              <h1 className="text-5xl font-light text-white mb-6">
+                Congratulations!
+              </h1>
+              <p className="text-gray-300 text-xl mb-12 max-w-2xl mx-auto">
+                You've successfully identified all the patterns! Your ability to see connections between concepts and symbols shows great pattern recognition skills.
+              </p>
+              <button
+                onClick={resetGame}
+                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+              >
+                Play Again
+              </button>
             </div>
-          </div>
+          )}
         </div>
       </div>
     );
@@ -495,7 +641,7 @@ export default function AboutExperimental() {
 
                 <div className="border-t border-gray-600 pt-6 mt-6">
                   <p className="text-gray-400 text-sm leading-relaxed mb-6 text-center">
-                    {isEdgeCase ? 
+                    {isEdgeCase ?
                       "You've landed on a boundary—neither fully here nor there. This liminal space is both challenging and powerful. While others have clear quadrants to defend, you have the gift of perspective. In the coming game, you'll need to help others see beyond their positions while finding your own moments of commitment. Remember: sometimes the edge is exactly where we need to be." :
                       "This assessment reveals how you might adapt to an AI-integrated future. Your approach reflects your values around technology adoption and whether you prioritize individual optimization or collective benefit. Remember, there's no single \"right\" way to navigate our technological future - diversity of approaches strengthens our collective resilience."
                     }
@@ -537,8 +683,8 @@ export default function AboutExperimental() {
               key={index}
               onClick={() => handleRoleClick(role)}
               className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
-                role === "Strategic Futurist" || role === "Game Designer" 
-                  ? "hover:scale-110 hover:rotate-2" 
+                role === "Strategic Futurist" || role === "Game Designer"
+                  ? "hover:scale-110 hover:rotate-2"
                   : ""
               }`}
               data-testid={`card-role-${index}`}

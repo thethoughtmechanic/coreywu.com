@@ -38,7 +38,7 @@ export const experiments: Experiment[] = [
     imageGradient: "from-purple-200 to-purple-600",
     timeframe: "2023 - Present",
     collaborators: ["@tonychen", "@michaelmurphy", "@adrianlo"],
-    technologies: ["Guitar", "Vocals", "Bass", "Drums"],
+    technologies: ["5W Power-Scaling Amp", "Fender Jazzmaster", "Supro Vibrato", "MAE Part Garden Ge", "EAE Citadel"],
     isActive: true
   },
   {

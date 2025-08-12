@@ -62,10 +62,21 @@ export default function AboutExperimental() {
   ];
 
   // Function to get shuffled icons for the current round (exactly 8 total)
+  // Keep the same order throughout the round
+  const [roundIconOrder, setRoundIconOrder] = useState<string[]>([]);
+  
   const getShuffledIcons = (roundIndex: number) => {
     const round = gameRounds[roundIndex];
     const allIcons = [...round.correctIcons, ...round.distractorIcons];
-    return [...allIcons].sort(() => Math.random() - 0.5);
+    
+    // If we don't have an order for this round yet, or if we've moved to a new round
+    if (roundIconOrder.length === 0 || currentRound !== roundIndex) {
+      const shuffled = [...allIcons].sort(() => Math.random() - 0.5);
+      setRoundIconOrder(shuffled);
+      return shuffled;
+    }
+    
+    return roundIconOrder;
   };
 
   const handleIconSelect = (icon: string) => {
@@ -91,6 +102,7 @@ export default function AboutExperimental() {
           setCurrentRound(currentRound + 1);
           setSelectedIcons([]);
           setShowSuccessAnimation(false);
+          setRoundIconOrder([]); // Reset icon order for new round
         } else {
           setGameCompleted(true);
         }
@@ -103,6 +115,7 @@ export default function AboutExperimental() {
     setSelectedIcons([]);
     setGameCompleted(false);
     setShowSuccessAnimation(false);
+    setRoundIconOrder([]); // Reset icon order for new game
   };
 
   const quizQuestions = [
@@ -408,7 +421,7 @@ export default function AboutExperimental() {
                         data-testid={`game-card-${index}`}
                       >
                         {/* Emoji - shown on hover or when selected */}
-                        <span className={`text-4xl transition-opacity duration-200 ${
+                        <span className={`text-4xl transition-all duration-300 ${
                           isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                         }`}>
                           {icon}

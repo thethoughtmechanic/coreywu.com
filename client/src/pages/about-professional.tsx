@@ -175,9 +175,15 @@ export default function AboutProfessional() {
         
         <div className="relative max-w-4xl mx-auto">
           <div className="relative">
-            {/* Timeline line using flexible positioning for automatic sizing */}
+            {/* Timeline line - spans the full vertical area where dots are positioned */}
             {sortedEvents.length > 1 && (
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/70 top-12 bottom-12 z-10"></div>
+              <div 
+                className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/50 z-10"
+                style={{
+                  top: '50px', // Start from first timeline item center
+                  height: `${(sortedEvents.length - 1) * (100 + 32)}px` // Each item is min-h-[100px] + space-y-8 (32px)
+                }}
+              ></div>
             )}
 
             <div className="space-y-8">

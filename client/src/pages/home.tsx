@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Lightbulb, Flask } from "lucide-react";
 
 export default function Home() {
 

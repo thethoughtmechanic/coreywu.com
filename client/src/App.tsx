@@ -19,12 +19,9 @@ import ExperimentsExperimental from "@/pages/experiments-experimental"; // Impor
 import { useLocation } from "wouter";
 
 function Router() {
-  const [location] = useLocation();
-  const isDarkMode = location === "/about-experimental";
-
   return (
     <>
-      <Navigation isDarkMode={isDarkMode} />
+      <Navigation />
       <main className="min-h-screen">
         <Switch>
           <Route path="/" component={Home} />
@@ -47,13 +44,10 @@ function Router() {
 }
 
 function App() {
-  const [location] = useLocation();
-  const isDarkMode = location === "/about-experimental";
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className={isDarkMode ? "bg-gray-900 min-h-screen" : "bg-cream min-h-screen"}>
+        <div className="bg-cream min-h-screen">
           <Toaster />
           <Router />
         </div>

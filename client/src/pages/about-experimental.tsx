@@ -256,7 +256,7 @@ export default function AboutExperimental() {
 
   if (isGameMode) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white relative">
+      <div className="fixed inset-0 z-50 min-h-screen bg-gray-900 text-white relative">
         {/* Exit button */}
         <button
           onClick={exitGameMode}
@@ -327,7 +327,7 @@ export default function AboutExperimental() {
     const results = showResults ? calculateResults() : null;
 
     return (
-      <div className="min-h-screen bg-gray-900 text-white relative">
+      <div className="fixed inset-0 z-50 min-h-screen bg-gray-900 text-white relative">
         {/* Exit button */}
         <button
           onClick={exitStrategicFuturistMode}

@@ -12,7 +12,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "About Me", path: "/about-experimental" },
+    { label: "About Me", path: "/about" },
     { label: "Thoughts", path: "/thoughts" },
     { label: "Experiments", path: "/experiments" },
   ];

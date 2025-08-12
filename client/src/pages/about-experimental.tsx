@@ -536,7 +536,11 @@ export default function AboutExperimental() {
             <div
               key={index}
               onClick={() => handleRoleClick(role)}
-              className="relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer"
+              className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
+                role === "Strategic Futurist" || role === "Game Designer" 
+                  ? "hover:scale-110 hover:rotate-2" 
+                  : ""
+              }`}
               data-testid={`card-role-${index}`}
             >
               {/* Paint Splatter Background - Hidden by default, shown on hover */}
@@ -600,8 +604,8 @@ export default function AboutExperimental() {
 
               {/* Content with special hover effects for Game Designer and Strategic Futurist */}
               <span className={`relative z-10 transition-all duration-500 ${
-                role === "Game Designer" ? "group-hover:text-white group-hover:font-bold group-hover:scale-110" :
-                role === "Strategic Futurist" ? "group-hover:text-white group-hover:font-bold group-hover:scale-110" :
+                role === "Game Designer" ? "group-hover:text-white group-hover:font-bold" :
+                role === "Strategic Futurist" ? "group-hover:text-white group-hover:font-bold" :
                 "group-hover:text-white group-hover:font-semibold"
               }`}>
                 {role}

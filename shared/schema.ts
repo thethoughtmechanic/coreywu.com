@@ -35,10 +35,11 @@ export const experiments = pgTable("experiments", {
   timeframe: text("timeframe"),
   description: text("description").notNull(),
   collaborators: text("collaborators").array(),
+  technologies: text("technologies").array(),
   isActive: boolean("is_active").notNull().default(false),
-  status: text("status").$type<'learn' | 'build' | 'scale'>(),
-  collaborationType: text("collaboration_type").$type<'Individual' | 'Collaboration'>(),
-  problemType: text("problem_type").$type<'Horizontal' | 'Vertical'>(),
+  status: text("status").$type<'wip' | 'shipped' | 'sunset'>(),
+  collaborationType: text("collaboration_type").$type<'solo' | 'collaboration'>(),
+  problemType: text("problem_type").$type<'horizontal' | 'vertical'>(),
   imageGradient: text("image_gradient"),
 });
 

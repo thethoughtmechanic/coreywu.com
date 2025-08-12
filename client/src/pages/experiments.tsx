@@ -5,9 +5,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 
-// Import images explicitly
-import grandCoffeeHallImage from "/mister-misu-grand-coffee-hall.png";
-import guestListImage from "/mister-misu-guest-list.png";
+// Images for Mister Misu modal (placeholder until actual images are available)
 
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
@@ -71,8 +69,8 @@ export default function Experiments() {
       return match ? parseInt(match[1]) : 0;
     };
     
-    const yearA = getYear(a.timeframe);
-    const yearB = getYear(b.timeframe);
+    const yearA = getYear(a.timeframe || '');
+    const yearB = getYear(b.timeframe || '');
     
     return yearB - yearA; // Descending order
   });
@@ -248,32 +246,26 @@ export default function Experiments() {
                 <p className="text-warm-brown/70">June 2025 Coffee Experience</p>
               </div>
 
-              {/* Images side by side */}
+              {/* Content sections */}
               <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} max-h-[60vh] overflow-auto`}>
                 {/* The Grand Coffee Hall */}
-                <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-                  <img 
-                    src={grandCoffeeHallImage} 
-                    alt="The Grand Coffee Hall - An elegant gathering of coffee enthusiasts in a classical setting"
-                    className="w-full h-auto object-contain"
-                    onError={(e) => {
-                      console.error('Failed to load grand coffee hall image');
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-6 shadow-md">
+                  <h3 className="text-xl font-medium text-amber-800 mb-4">The Grand Coffee Hall</h3>
+                  <p className="text-amber-700/80 leading-relaxed">
+                    An elegant gathering space where coffee enthusiasts come together to explore the artistry of brewing. 
+                    Each session features carefully curated beans, precision brewing techniques, and meaningful conversations 
+                    about the craft that brings us together.
+                  </p>
                 </div>
 
-                {/* The Guest List */}
-                <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-                  <img 
-                    src={guestListImage} 
-                    alt="The Guest List - Detailed coffee profiles and character descriptions"
-                    className="w-full h-auto object-contain"
-                    onError={(e) => {
-                      console.error('Failed to load guest list image');
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
+                {/* The Guest Experience */}
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-6 shadow-md">
+                  <h3 className="text-xl font-medium text-amber-800 mb-4">The Guest Experience</h3>
+                  <p className="text-amber-700/80 leading-relaxed">
+                    Every visitor receives a personalized coffee journey, from bean selection to brewing method. 
+                    We explore the stories behind each origin, the science of extraction, and the art of creating 
+                    the perfect cup for each individual palate.
+                  </p>
                 </div>
               </div>
             </div>

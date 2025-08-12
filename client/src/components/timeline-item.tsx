@@ -15,7 +15,7 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
             ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg' 
             : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
         }`}
-        style={{ zIndex: 50 }}
+        style={{ zIndex: 10 }}
       ></div>
 
       {/* Content positioned left or right */}

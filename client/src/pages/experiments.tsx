@@ -2,9 +2,12 @@ import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
+  const [isMisterMisuModalOpen, setIsMisterMisuModalOpen] = useState(false);
   const isMobile = useIsMobile();
 
   // Simple status indicator with correct colors
@@ -91,7 +94,16 @@ export default function Experiments() {
                 <StatusDot experiment={experiment} />
               </div>
               <div className="col-span-2">
-                <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
+                {experiment.id === 'mister-misu-1' ? (
+                  <button
+                    onClick={() => setIsMisterMisuModalOpen(true)}
+                    className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2"
+                  >
+                    {experiment.title}
+                  </button>
+                ) : (
+                  <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
+                )}
               </div>
               <div className="col-span-3">
                 <p className="text-sm text-soft-black">{experiment.description}</p>
@@ -131,7 +143,16 @@ export default function Experiments() {
                   'bg-gray-400'
                 }`} 
               />
-              <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
+              {experiment.id === 'mister-misu-1' ? (
+                <button
+                  onClick={() => setIsMisterMisuModalOpen(true)}
+                  className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2 text-lg"
+                >
+                  {experiment.title}
+                </button>
+              ) : (
+                <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
+              )}
             </div>
 
             {/* Row 2: Date and collaborator */}
@@ -203,6 +224,50 @@ export default function Experiments() {
           </a>
         </p>
       </footer>
+
+      {/* Mister Misu Modal */}
+      {isMisterMisuModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
+          <div className="relative w-full max-w-6xl max-h-[90vh] bg-cream rounded-xl shadow-xl overflow-hidden mx-4">
+            {/* Close button */}
+            <button
+              onClick={() => setIsMisterMisuModalOpen(false)}
+              className="absolute top-6 right-6 z-50 text-warm-brown hover:text-hover-brown transition-colors duration-200"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Modal content */}
+            <div className="p-8 pt-16">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-light text-amber-700 mb-2">Mister Misu</h2>
+                <p className="text-warm-brown/70">June 2025 Coffee Experience</p>
+              </div>
+
+              {/* Images side by side */}
+              <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} max-h-[60vh] overflow-auto`}>
+                {/* The Grand Coffee Hall */}
+                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                  <img 
+                    src="/mister-misu-grand-coffee-hall.png" 
+                    alt="The Grand Coffee Hall - An elegant gathering of coffee enthusiasts in a classical setting"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+
+                {/* The Guest List */}
+                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                  <img 
+                    src="/mister-misu-guest-list.png" 
+                    alt="The Guest List - Detailed coffee profiles and character descriptions"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

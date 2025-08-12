@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
+  const [isStrategicFuturistMode, setIsStrategicFuturistMode] = useState(false);
   
   const systemPromptRoles = [
     "Product Manager",
@@ -23,11 +24,17 @@ export default function AboutExperimental() {
   const handleRoleClick = (role: string) => {
     if (role === "Game Designer") {
       setIsGameMode(true);
+    } else if (role === "Strategic Futurist") {
+      setIsStrategicFuturistMode(true);
     }
   };
 
   const exitGameMode = () => {
     setIsGameMode(false);
+  };
+
+  const exitStrategicFuturistMode = () => {
+    setIsStrategicFuturistMode(false);
   };
 
   if (isGameMode) {
@@ -97,6 +104,73 @@ export default function AboutExperimental() {
     );
   }
 
+  if (isStrategicFuturistMode) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white relative">
+        {/* Exit button */}
+        <button
+          onClick={exitStrategicFuturistMode}
+          className="absolute top-6 right-6 z-50 bg-gray-800 hover:bg-gray-700 rounded-full p-3 transition-colors"
+          data-testid="button-exit-strategic-futurist-mode"
+        >
+          <X className="w-6 h-6" />
+        </button>
+
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          <header className="text-center mb-12 pt-4">
+            <h1 className="text-4xl font-light text-white mb-6 text-center" data-testid="text-strategic-futurist-mode-title">
+              Welcome to Strategic Futurist Mode
+            </h1>
+            <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
+              Corey, You are a
+            </p>
+          </header>
+
+          {/* Strategic Futurist Mode System Prompt Role Cards */}
+          <div className="mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+              {systemPromptRoles.map((role, index) => (
+                <button
+                  key={index}
+                  className="relative group bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-amber-500 rounded-lg p-6 text-center text-sm text-white leading-relaxed transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+                  data-testid={`button-strategic-futurist-role-${index}`}
+                >
+                  {/* Glowing effect */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"
+                    style={{
+                      background: `radial-gradient(circle, ${
+                        index === 0 ? '#22c55e' :
+                        index === 1 ? '#f59e0b' :
+                        index === 2 ? '#06b6d4' :
+                        index === 3 ? '#a855f7' :
+                        index === 4 ? '#ef4444' :
+                        index === 5 ? '#3b82f6' :
+                        index === 6 ? '#f97316' :
+                        '#06b6d4'
+                      } 50%, transparent 70%)`
+                    }}
+                  />
+                  
+                  {/* Pulsing border effect */}
+                  <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-amber-400 group-hover:animate-pulse" />
+                  
+                  {/* Content */}
+                  <span className="relative z-10 font-semibold group-hover:text-amber-200 transition-colors duration-300">
+                    {role}
+                  </span>
+
+                  {/* Light up effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-8">
       <header className="text-center mb-12 pt-4">
@@ -115,8 +189,10 @@ export default function AboutExperimental() {
             <div
               key={index}
               onClick={() => handleRoleClick(role)}
-              className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
-                role === "Game Designer" ? "ring-2 ring-purple-500/50 ring-offset-2" : ""
+              className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border overflow-hidden cursor-pointer ${
+                role === "Game Designer" ? "border-purple-500/60 hover:border-purple-500 hover:ring-2 hover:ring-purple-500/30" :
+                role === "Strategic Futurist" ? "border-amber-500/60 hover:border-amber-500 hover:ring-2 hover:ring-amber-500/30" :
+                "border-warm-brown/20 hover:border-warm-brown/30"
               }`}
               data-testid={`card-role-${index}`}
             >

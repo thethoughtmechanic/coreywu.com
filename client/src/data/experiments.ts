@@ -49,7 +49,7 @@ export const experiments: Experiment[] = [
     collaborationType: "collaboration",
     problemType: "horizontal",
     imageGradient: "from-muted-grey to-soft-black",
-    timeframe: "2022",
+    timeframe: "2025",
     collaborators: ["@kennyfung"],
     technologies: ["Perplexity + Gemini APIs", "Vector Embeddings", "Real-time Web Search", "PostgreSQL with Drizzle ORM", "TypeScript", "Node-cron Scheduling System"],
     isActive: false

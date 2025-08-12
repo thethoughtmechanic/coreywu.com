@@ -8,18 +8,18 @@ import { X } from "lucide-react";
 const grandCoffeeHallImage = "/mister-misu-grand-coffee-hall.png";
 const guestListImage = "/mister-misu-guest-list.png";
 
-// Import Mister Misu images for the December 2024 event
-import fm1 from "@assets/dec-2024-coffee-event/1.png";
-import fm2 from "@assets/dec-2024-coffee-event/2.png";
-import fm3 from "@assets/dec-2024-coffee-event/3.png";
-import fm4 from "@assets/dec-2024-coffee-event/4.png";
-import fm5 from "@assets/dec-2024-coffee-event/5.png";
-import fm6 from "@assets/dec-2024-coffee-event/6.png";
-import fm7 from "@assets/dec-2024-coffee-event/7.png";
+// Import Mister Misu images using available assets
+import fm1 from "@assets/1_1755009695189.png";
+import fm2 from "@assets/2_1755009695190.png";
+import fm3 from "@assets/1_1755012742431.png";
+import fm4 from "@assets/2_1755012742432.png";
+import fm5 from "@assets/01_1755014357426.png";
+import fm6 from "@assets/02_1755014357425.png";
+import fm7 from "@assets/03_1755014357425.png";
 
 // Import Mister Misu images for the June 2025 event
-import fm8 from "@assets/june-2025-coffee-event/1.png";
-import fm9 from "@assets/june-2025-coffee-event/2.png";
+import fm8 from "@assets/04_1755014357427.png";
+import fm9 from "@assets/05_1755014357426.png";
 
 
 export default function Experiments() {

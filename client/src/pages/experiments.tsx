@@ -17,9 +17,11 @@ import fm5 from "@assets/01_1755014357426.png";
 import fm6 from "@assets/02_1755014357425.png";
 import fm7 from "@assets/03_1755014357425.png";
 
-// Import Mister Misu images for the June 2025 event
+// Import remaining December images
 import fm8 from "@assets/04_1755014357427.png";
 import fm9 from "@assets/05_1755014357426.png";
+import fm10 from "@assets/06_1755014357426.jpg";
+import fm11 from "@assets/07_1755014357426.png";
 
 
 export default function Experiments() {
@@ -32,12 +34,12 @@ export default function Experiments() {
   const misterMisuEvents = [
     {
       title: "Frozen Archives - Dec 2024",
-      images: [fm1, fm2, fm3, fm4, fm5, fm6, fm7],
+      images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
       description: "An exploration of curated coffee experiences from December 2024.",
     },
     {
-      title: "June 2025 Coffee Experience",
-      images: [fm8, fm9],
+      title: "June 2025 Coffee Experience", 
+      images: [fm1, fm2], // 1-2 sequence
       description: "A glimpse into the upcoming coffee event in June 2025.",
     },
   ];

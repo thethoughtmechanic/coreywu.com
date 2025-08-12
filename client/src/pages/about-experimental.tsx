@@ -290,7 +290,7 @@ export default function AboutExperimental() {
               {systemPromptRoles.map((role, index) => (
                 <button
                   key={index}
-                  className="relative group bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-purple-500 rounded-lg p-6 text-center text-sm text-white leading-relaxed transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20"
+                  className="relative group bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-purple-500 rounded-lg p-6 text-center text-sm text-white leading-relaxed transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 min-h-[120px]"
                   data-testid={`button-game-role-${index}`}
                 >
                   {/* Glowing effect */}
@@ -312,11 +312,6 @@ export default function AboutExperimental() {
 
                   {/* Pulsing border effect */}
                   <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-purple-400 group-hover:animate-pulse" />
-
-                  {/* Content */}
-                  <span className="relative z-10 font-semibold group-hover:text-purple-200 transition-colors duration-300">
-                    {role}
-                  </span>
 
                   {/* Light up effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />

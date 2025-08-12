@@ -17,11 +17,40 @@ import NotFound from "@/pages/not-found";
 import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the new component
 import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the new component
 import { useLocation } from "wouter";
+import { useState, useEffect } from "react";
 
 function Router() {
+  const [location] = useLocation();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Listen for dark mode changes from AboutExperimental page
+  useEffect(() => {
+    const handleDarkModeChange = (event: CustomEvent) => {
+      setIsDarkMode(event.detail.isDarkMode);
+    };
+
+    window.addEventListener('darkModeChange', handleDarkModeChange as EventListener);
+    
+    // Check if we're on about-experimental page to determine initial dark mode state
+    if (location === '/about-experimental') {
+      // Check localStorage or other method to get current dark mode state
+      const savedDarkMode = sessionStorage.getItem('isDarkMode');
+      if (savedDarkMode === 'true') {
+        setIsDarkMode(true);
+      }
+    } else {
+      setIsDarkMode(false);
+      sessionStorage.removeItem('isDarkMode');
+    }
+
+    return () => {
+      window.removeEventListener('darkModeChange', handleDarkModeChange as EventListener);
+    };
+  }, [location]);
+
   return (
     <>
-      <Navigation />
+      <Navigation isDarkMode={isDarkMode} />
       <main className="min-h-screen">
         <Switch>
           <Route path="/" component={Home} />

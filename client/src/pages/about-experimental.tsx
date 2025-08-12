@@ -240,18 +240,26 @@ export default function AboutExperimental() {
   const handleRoleClick = (role: string) => {
     if (role === "Game Designer") {
       setIsGameMode(true);
+      sessionStorage.setItem('isDarkMode', 'true');
+      window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { isDarkMode: true } }));
     } else if (role === "Strategic Futurist") {
       setIsStrategicFuturistMode(true);
+      sessionStorage.setItem('isDarkMode', 'true');
+      window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { isDarkMode: true } }));
     }
   };
 
   const exitGameMode = () => {
     setIsGameMode(false);
+    sessionStorage.removeItem('isDarkMode');
+    window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { isDarkMode: false } }));
   };
 
   const exitStrategicFuturistMode = () => {
     setIsStrategicFuturistMode(false);
     restartQuiz(); // Reset quiz when exiting
+    sessionStorage.removeItem('isDarkMode');
+    window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { isDarkMode: false } }));
   };
 
   if (isGameMode) {

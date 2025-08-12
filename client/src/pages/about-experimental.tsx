@@ -66,8 +66,8 @@ export default function AboutExperimental() {
       question: "In your ideal future, technology should...",
       options: [
         { text: "Seamlessly handle all tedious tasks so humans can focus on meaning", value: "A", techIntegration: 2, valuePriority: 1 },
-        { text: "Be completely optional - available but never required", value: "B", techIntegration: -2, valuePriority: 0 },
-        { text: "Enhance human capabilities without replacing human judgment", value: "C", techIntegration: 0, valuePriority: 1 },
+        { text: "Remain a tool we consciously choose when needed", value: "B", techIntegration: -1, valuePriority: 1 },
+        { text: "Push human capabilities to new heights", value: "C", techIntegration: 2, valuePriority: -2 },
         { text: "Be distributed equally so no one has unfair advantages", value: "D", techIntegration: 1, valuePriority: 2 }
       ]
     }

@@ -119,7 +119,7 @@ export default function About() {
               height: `${(sortedEvents.length - 1) * 120 + 50}px`, 
               zIndex: 1 
             }}
-          ></div></div>
+          ></div>
 
           {sortedEvents.map((event, index) => (
             <TimelineItem

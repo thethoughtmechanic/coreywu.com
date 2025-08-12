@@ -73,7 +73,7 @@ export function Navigation() {
       {/* Mobile navigation overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-warm-brown/20 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-warm-brown/20 backdrop-blur-sm z-[60] md:hidden"
           onClick={closeMenu}
           data-testid="overlay-mobile-menu"
         />
@@ -81,9 +81,9 @@ export function Navigation() {
 
       {/* Mobile navigation menu */}
       <div className={cn(
-        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-cream/98 backdrop-blur-md border-l border-warm-brown/30 transform transition-transform duration-300 ease-in-out z-40 md:hidden shadow-2xl",
+        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-cream/98 backdrop-blur-md border-l border-warm-brown/30 transform transition-transform duration-300 ease-in-out z-[60] md:hidden shadow-2xl",
         isMenuOpen ? "translate-x-0" : "translate-x-full"
-      )}>
+      )}></div>
         <div className="flex flex-col p-6 space-y-6">
           <div className="text-lg font-medium text-warm-brown mb-4">
             Navigation

@@ -451,11 +451,7 @@ export default function AboutExperimental() {
             <div
               key={index}
               onClick={() => handleRoleClick(role)}
-              className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border overflow-hidden cursor-pointer ${
-                role === "Game Designer" ? "border-purple-500/60 hover:border-purple-500 hover:ring-2 hover:ring-purple-500/30" :
-                role === "Strategic Futurist" ? "border-amber-500/60 hover:border-amber-500 hover:ring-2 hover:ring-amber-500/30" :
-                "border-warm-brown/20 hover:border-warm-brown/30"
-              }`}
+              className="relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer"
               data-testid={`card-role-${index}`}
             >
               {/* Paint Splatter Background - Hidden by default, shown on hover */}
@@ -517,18 +513,14 @@ export default function AboutExperimental() {
               {/* Text Background for better readability */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
 
-              {/* Content */}
-              <span className="relative z-10 group-hover:text-white group-hover:font-semibold transition-all duration-500">
+              {/* Content with special hover effects for Game Designer and Strategic Futurist */}
+              <span className={`relative z-10 transition-all duration-500 ${
+                role === "Game Designer" ? "group-hover:text-white group-hover:font-bold group-hover:scale-110" :
+                role === "Strategic Futurist" ? "group-hover:text-white group-hover:font-bold group-hover:scale-110" :
+                "group-hover:text-white group-hover:font-semibold"
+              }`}>
                 {role}
               </span>
-              
-              {/* Special indicator for Game Designer and Strategic Futurist */}
-              {role === "Game Designer" && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full animate-pulse" />
-              )}
-              {role === "Strategic Futurist" && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full animate-pulse" />
-              )}
             </div>
           ))}
         </div>

@@ -8,14 +8,14 @@ interface TimelineItemProps {
 export function TimelineItem({ event, isLeft }: TimelineItemProps) {
   return (
     <div className="relative flex items-center min-h-[100px]">
-      {/* Center dot - positioned at middle of container */}
+      {/* Center dot - positioned at middle of container with higher z-index to appear above line */}
       <div 
         className={`absolute left-1/2 transform -translate-x-1/2 rounded-full ${
           event.isActive 
             ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg' 
             : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
         }`}
-        style={{ zIndex: 10 }}
+        style={{ zIndex: 20 }}
       ></div>
 
       {/* Content positioned left or right */}

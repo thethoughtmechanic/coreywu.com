@@ -17,7 +17,7 @@ import NotFound from "@/pages/not-found";
 import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the new component
 import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the new component
 import { useLocation } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy } from "react";
 
 function Router() {
   const [location] = useLocation();
@@ -30,7 +30,7 @@ function Router() {
     };
 
     window.addEventListener('darkModeChange', handleDarkModeChange as EventListener);
-    
+
     // Check if we're on about-experimental page to determine initial dark mode state
     if (location === '/about-experimental') {
       // Check localStorage or other method to get current dark mode state
@@ -57,6 +57,7 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/about-professional" component={AboutProfessional} />
           <Route path="/about-experimental" component={AboutExperimental} />
+          <Route path="/about-expnew" component={lazy(() => import("./pages/about-expnew"))} />
           <Route path="/thoughts" component={Thoughts} />
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />

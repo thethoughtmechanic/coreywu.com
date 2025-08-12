@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
@@ -7,7 +6,7 @@ import { X } from "lucide-react";
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
   const [isStrategicFuturistMode, setIsStrategicFuturistMode] = useState(false);
-  
+
   // Quiz state
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -87,7 +86,7 @@ export default function AboutExperimental() {
       }
     });
 
-    // Determine quadrant
+    // Determine quadrant and result
     if (techIntegration >= 0 && valuePriority >= 0) {
       return {
         title: "The Symbiotic Synthesizer",
@@ -135,13 +134,13 @@ export default function AboutExperimental() {
     // Create a deterministic but seemingly random pattern based on question index
     const positions = [0, 1, 2, 3, 4, 5, 6, 7];
     const seed = questionIndex * 31; // Simple seeding
-    
+
     // Shuffle positions based on seed
     for (let i = positions.length - 1; i > 0; i--) {
       const j = (seed + i) % (i + 1);
       [positions[i], positions[j]] = [positions[j], positions[i]];
     }
-    
+
     return positions.slice(0, 4); // Take first 4 positions for the options
   };
 
@@ -239,10 +238,10 @@ export default function AboutExperimental() {
                       } 50%, transparent 70%)`
                     }}
                   />
-                  
+
                   {/* Pulsing border effect */}
                   <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-purple-400 group-hover:animate-pulse" />
-                  
+
                   {/* Content */}
                   <span className="relative z-10 font-semibold group-hover:text-purple-200 transition-colors duration-300">
                     {role}
@@ -337,12 +336,12 @@ export default function AboutExperimental() {
                         {isSelected && (
                           <div className="absolute inset-0 opacity-20 rounded-lg bg-gradient-to-br from-amber-400 to-yellow-500" />
                         )}
-                        
+
                         {/* Hover glow effect */}
                         {!isSelected && option && (
                           <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg bg-gradient-to-br from-amber-500/50 to-yellow-500/50" />
                         )}
-                        
+
                         {/* Content */}
                         <span className={`relative z-10 transition-colors duration-300 ${
                           isSelected ? 'font-semibold text-white' : 'group-hover:text-amber-200'
@@ -416,7 +415,7 @@ export default function AboutExperimental() {
                   there's no single "right" way to navigate our technological future - 
                   diversity of approaches strengthens our collective resilience.
                 </p>
-                
+
                 <div className="flex justify-center">
                   <button
                     onClick={restartQuiz}

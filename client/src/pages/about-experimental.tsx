@@ -472,11 +472,12 @@ export default function AboutExperimental() {
 
               <div className="border-t border-gray-600 pt-6 mt-6">
                 <p className="text-gray-400 text-sm leading-relaxed mb-6 text-center">
-                  This assessment reveals how you might adapt to an AI-integrated future. 
-                  Your approach reflects your values around technology adoption and whether 
-                  you prioritize individual optimization or collective benefit. Remember, 
-                  there's no single "right" way to navigate our technological future - 
-                  diversity of approaches strengthens our collective resilience.
+                  {((techIntegration === 0 && valuePriority === 0) ||
+                    (techIntegration === 0 && valuePriority !== 0) ||
+                    (techIntegration !== 0 && valuePriority === 0)) ? 
+                    "You've landed on a boundary—neither fully here nor there. This liminal space is both challenging and powerful. While others have clear quadrants to defend, you have the gift of perspective. In the coming game, you'll need to help others see beyond their positions while finding your own moments of commitment. Remember: sometimes the edge is exactly where we need to be." :
+                    "This assessment reveals how you might adapt to an AI-integrated future. Your approach reflects your values around technology adoption and whether you prioritize individual optimization or collective benefit. Remember, there's no single \"right\" way to navigate our technological future - diversity of approaches strengthens our collective resilience."
+                  }
                 </p>
 
                 <div className="flex justify-center">

@@ -55,9 +55,9 @@ function Router() {
       <main className="min-h-screen">
         <Switch>
           <Route path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <Route path="/about" component={AboutExperimental} />
           <Route path="/about-professional" component={AboutProfessional} />
-          <Route path="/about-experimental" component={AboutExperimental} />
+          <Route path="/about-classic" component={About} />
           <Route path="/about-expnew" component={AboutExpNew} />
           <Route path="/thoughts" component={Thoughts} />
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}

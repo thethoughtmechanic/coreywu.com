@@ -10,22 +10,9 @@ export const experiments: Experiment[] = [
     collaborationType: "solo",
     problemType: "vertical",
     imageGradient: "from-yellow-200 to-yellow-600",
-    timeframe: "Jul '25 - Present",
+    timeframe: "2025 - Present",
     collaborators: [],
     technologies: ["Dual RAG Architecture", "OpenAI + Gemini APIs", "Vector Embeddings + ChromaDB", "Zero-Knowledge Encryption", "React + TypeScript", "PostgreSQL + Drizzle ORM"],
-    isActive: true
-  },
-  {
-    id: "friday-home-1",
-    title: "Friday Home",
-    description: "A 'cozy' pop/funk/R&B band.",
-    status: "shipped",
-    collaborationType: "collaboration",
-    problemType: "vertical",
-    imageGradient: "from-purple-200 to-purple-600",
-    timeframe: "2023 - Present",
-    collaborators: ["@tonychen", "@michaelmurphy", "@adrianlo"],
-    technologies: ["Guitar", "Vocals", "Bass", "Drums"],
     isActive: true
   },
   {
@@ -42,6 +29,19 @@ export const experiments: Experiment[] = [
     isActive: true
   },
   {
+    id: "friday-home-1",
+    title: "Friday Home",
+    description: "A 'cozy' pop/funk/R&B band.",
+    status: "shipped",
+    collaborationType: "collaboration",
+    problemType: "vertical",
+    imageGradient: "from-purple-200 to-purple-600",
+    timeframe: "2023 - Present",
+    collaborators: ["@tonychen", "@michaelmurphy", "@adrianlo"],
+    technologies: ["Guitar", "Vocals", "Bass", "Drums"],
+    isActive: true
+  },
+  {
     id: "prompt-pulse-1",
     title: "Prompt Pulse",
     description: "An automation tool for AI Prompt Monitoring that sends notifications when key metrics change.",
@@ -49,7 +49,7 @@ export const experiments: Experiment[] = [
     collaborationType: "collaboration",
     problemType: "horizontal",
     imageGradient: "from-muted-grey to-soft-black",
-    timeframe: "Jun-Jul '25",
+    timeframe: "2022",
     collaborators: ["@kennyfung"],
     technologies: ["Perplexity + Gemini APIs", "Vector Embeddings", "Real-time Web Search", "PostgreSQL with Drizzle ORM", "TypeScript", "Node-cron Scheduling System"],
     isActive: false

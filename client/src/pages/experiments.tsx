@@ -56,13 +56,18 @@ export default function Experiments() {
     setExpandedCards(newExpanded);
   };
 
-  // Order experiments by date (assuming timeframe is sortable by date)
+  // Order experiments by date (descending order - most recent first)
   const orderedExperiments = [...experiments].sort((a, b) => {
-    // Basic date comparison, assuming timeframe is in a sortable format like 'YYYY-MM-DD' or similar
-    // For robust sorting, you might need to parse dates properly
-    if (a.timeframe < b.timeframe) return -1;
-    if (a.timeframe > b.timeframe) return 1;
-    return 0;
+    // Extract year from timeframe for sorting (e.g., "2025 - Present" -> 2025)
+    const getYear = (timeframe: string) => {
+      const match = timeframe.match(/(\d{4})/);
+      return match ? parseInt(match[1]) : 0;
+    };
+    
+    const yearA = getYear(a.timeframe);
+    const yearB = getYear(b.timeframe);
+    
+    return yearB - yearA; // Descending order
   });
 
   // Desktop Table View

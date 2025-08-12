@@ -9,7 +9,7 @@ export default function AboutExperimental() {
 
   // Quiz state
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [selewelcctedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [answers, setAnswers] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -280,7 +280,7 @@ export default function AboutExperimental() {
               Welcome to Game Mode
             </h1>
             <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-lg">
-              Corey, You are a
+              WIP, Stay Tuned!
             </p>
           </header>
 

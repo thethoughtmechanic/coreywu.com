@@ -432,65 +432,82 @@ export default function AboutExperimental() {
           )}
 
           {/* Results */}
-          {showResults && results && (
-            <div className="bg-gray-800 rounded-lg p-8 max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-amber-400 mb-2">
-                  {results.title}
-                </h2>
-                <p className="text-amber-300/80 text-lg mb-6">
-                  {results.subtitle}
-                </p>
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                  {results.description}
-                </p>
-                <p className="text-gray-300 text-base leading-relaxed">
-                  {results.worldVision}
-                </p>
-              </div>
+          {showResults && results && (() => {
+            // Calculate scores to determine edge case message
+            let techIntegration = 0;
+            let valuePriority = 0;
 
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-gray-700/50 rounded-lg p-6">
-                  <h3 className="text-amber-400 font-semibold mb-3">Your Strength</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {results.strength}
+            answers.forEach((answerValue, questionIndex) => {
+              const question = quizQuestions[questionIndex];
+              const selectedOption = question.options.find(opt => opt.value === answerValue);
+              if (selectedOption) {
+                techIntegration += selectedOption.techIntegration;
+                valuePriority += selectedOption.valuePriority;
+              }
+            });
+
+            const isEdgeCase = (techIntegration === 0 && valuePriority === 0) ||
+                              (techIntegration === 0 && valuePriority !== 0) ||
+                              (techIntegration !== 0 && valuePriority === 0);
+
+            return (
+              <div className="bg-gray-800 rounded-lg p-8 max-w-4xl mx-auto">
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl font-bold text-amber-400 mb-2">
+                    {results.title}
+                  </h2>
+                  <p className="text-amber-300/80 text-lg mb-6">
+                    {results.subtitle}
+                  </p>
+                  <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                    {results.description}
+                  </p>
+                  <p className="text-gray-300 text-base leading-relaxed">
+                    {results.worldVision}
                   </p>
                 </div>
-                <div className="bg-gray-700/50 rounded-lg p-6">
-                  <h3 className="text-amber-400 font-semibold mb-3">Your Challenge</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {results.challenge}
-                  </p>
+
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  <div className="bg-gray-700/50 rounded-lg p-6">
+                    <h3 className="text-amber-400 font-semibold mb-3">Your Strength</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {results.strength}
+                    </p>
+                  </div>
+                  <div className="bg-gray-700/50 rounded-lg p-6">
+                    <h3 className="text-amber-400 font-semibold mb-3">Your Challenge</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {results.challenge}
+                    </p>
+                  </div>
+                  <div className="bg-gray-700/50 rounded-lg p-6">
+                    <h3 className="text-amber-400 font-semibold mb-3">Your Role</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {results.role}
+                    </p>
+                  </div>
                 </div>
-                <div className="bg-gray-700/50 rounded-lg p-6">
-                  <h3 className="text-amber-400 font-semibold mb-3">Your Role</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {results.role}
+
+                <div className="border-t border-gray-600 pt-6 mt-6">
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6 text-center">
+                    {isEdgeCase ? 
+                      "You've landed on a boundary—neither fully here nor there. This liminal space is both challenging and powerful. While others have clear quadrants to defend, you have the gift of perspective. In the coming game, you'll need to help others see beyond their positions while finding your own moments of commitment. Remember: sometimes the edge is exactly where we need to be." :
+                      "This assessment reveals how you might adapt to an AI-integrated future. Your approach reflects your values around technology adoption and whether you prioritize individual optimization or collective benefit. Remember, there's no single \"right\" way to navigate our technological future - diversity of approaches strengthens our collective resilience."
+                    }
                   </p>
+
+                  <div className="flex justify-center">
+                    <button
+                      onClick={restartQuiz}
+                      className="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-300"
+                    >
+                      Take Assessment Again
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              <div className="border-t border-gray-600 pt-6 mt-6">
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 text-center">
-                  {((techIntegration === 0 && valuePriority === 0) ||
-                    (techIntegration === 0 && valuePriority !== 0) ||
-                    (techIntegration !== 0 && valuePriority === 0)) ? 
-                    "You've landed on a boundary—neither fully here nor there. This liminal space is both challenging and powerful. While others have clear quadrants to defend, you have the gift of perspective. In the coming game, you'll need to help others see beyond their positions while finding your own moments of commitment. Remember: sometimes the edge is exactly where we need to be." :
-                    "This assessment reveals how you might adapt to an AI-integrated future. Your approach reflects your values around technology adoption and whether you prioritize individual optimization or collective benefit. Remember, there's no single \"right\" way to navigate our technological future - diversity of approaches strengthens our collective resilience."
-                  }
-                </p>
-
-                <div className="flex justify-center">
-                  <button
-                    onClick={restartQuiz}
-                    className="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-300"
-                  >
-                    Take Assessment Again
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
       </div>
     );

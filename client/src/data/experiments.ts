@@ -25,7 +25,7 @@ export const experiments: Experiment[] = [
     imageGradient: "from-amber-200 to-amber-600",
     timeframe: "2024 - Present",
     collaborators: [],
-    technologies: ["Pour-over"],
+    technologies: ["Zerno Grinder", "64mm Blind Brew Burrs", "Orea Wide v4", "Sibarist Booster", "Fellow Tally", "Fellow Kettle"],
     isActive: true
   },
   {

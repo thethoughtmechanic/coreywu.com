@@ -111,8 +111,13 @@ export default function About() {
 
       <div className="relative max-w-4xl mx-auto">
         <div className="relative space-y-8">
-          {/* Timeline line that automatically spans the height of the content */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30 z-10 inset-y-0"></div>
+          {/* Timeline line - positioned to span from first to last item */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30 z-10" 
+               style={{
+                 top: '50px', 
+                 height: `${(sortedEvents.length - 1) * 120 + 100}px`
+               }}>
+          </div>
 
           {sortedEvents.map((event, index) => (
             <TimelineItem

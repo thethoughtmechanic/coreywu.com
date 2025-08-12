@@ -19,10 +19,10 @@ export default function Experiments() {
           'bg-gray-400'
         }`} 
       />
-      <span className="text-sm capitalize">
+      <span className="text-sm capitalize whitespace-nowrap">
         {experiment.status === 'sunset' ? 'Sunset' : 
          experiment.status === 'wip' ? 'Wip' : 
-         experiment.status === 'shipped' && experiment.isActive ? 'Active Shipped' :
+         experiment.status === 'shipped' && experiment.isActive ? 'Active' :
          experiment.status === 'shipped' ? 'Shipped' : 
          experiment.status}
       </span>
@@ -70,10 +70,10 @@ export default function Experiments() {
     <div className="bg-light-brown rounded-lg overflow-hidden">
       <div className="px-6 py-3 border-b border-warm-brown/20 bg-warm-brown/5">
         <div className="grid grid-cols-12 gap-4 text-sm font-medium text-warm-brown">
-          <div className="col-span-1">Status</div>
+          <div className="col-span-2">Status</div>
           <div className="col-span-2">Project</div>
           <div className="col-span-3">Description</div>
-          <div className="col-span-3">Technologies</div>
+          <div className="col-span-2">Technologies</div>
           <div className="col-span-2">Timeline</div>
           <div className="col-span-1">Team</div>
         </div>
@@ -82,7 +82,7 @@ export default function Experiments() {
         {orderedExperiments.map((experiment) => (
           <div key={experiment.id} className="px-6 py-4">
             <div className="grid grid-cols-12 gap-4 items-start">
-              <div className="col-span-1">
+              <div className="col-span-2">
                 <StatusDot experiment={experiment} />
               </div>
               <div className="col-span-2">
@@ -91,7 +91,7 @@ export default function Experiments() {
               <div className="col-span-3">
                 <p className="text-sm text-soft-black">{experiment.description}</p>
               </div>
-              <div className="col-span-3">
+              <div className="col-span-2">
                 <div className="text-sm text-muted-grey">
                   {getTechnologiesDisplay(experiment)}
                 </div>

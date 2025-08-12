@@ -481,7 +481,7 @@ export default function AboutExperimental() {
 
               {/* Game Cards */}
               <div className="mb-8">
-                <div className="grid grid-cols-4 gap-4 mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-sm md:max-w-4xl mx-auto">
                   {getShuffledIconIndices(currentRound).map((index) => {
                     const icon = gameRounds[currentRound].allIcons[index];
                     const isSelected = selectedIcons.includes(index);
@@ -491,12 +491,12 @@ export default function AboutExperimental() {
                         key={index}
                         onClick={() => handleIconSelect(index)}
                         className={`
-                          relative h-24 w-24 rounded-lg border-2 cursor-pointer transition-all duration-300
+                          relative min-h-[80px] md:min-h-[120px] rounded-lg border-2 cursor-pointer transition-all duration-300 transform
                           ${isSelected
-                            ? 'border-purple-500 bg-purple-500/20 transform-none'
-                            : 'border-slate-600 bg-slate-700/50 hover:border-slate-500 hover:transform hover:rotate-1 hover:scale-105'
+                            ? 'border-purple-500 bg-purple-500/20 scale-105 shadow-2xl shadow-purple-500/20'
+                            : 'border-slate-600 bg-slate-700/50 hover:border-slate-500 hover:scale-105 hover:shadow-2xl hover:shadow-slate-500/20'
                           }
-                          flex items-center justify-center text-white
+                          flex items-center justify-center text-white group
                         `}
                       >
                         {isSelected ? (
@@ -504,12 +504,12 @@ export default function AboutExperimental() {
                             {icon}
                           </div>
                         ) : (
-                          <div className="opacity-0 hover:opacity-100 transition-opacity duration-200">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             {icon}
                           </div>
                         )}
                         {isSelected && (
-                          <div className="absolute top-1 right-1 w-3 h-3 bg-purple-500 rounded-full"></div>
+                          <div className="absolute top-2 right-2 w-3 h-3 bg-purple-500 rounded-full"></div>
                         )}
                       </div>
                     );

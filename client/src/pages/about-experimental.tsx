@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
@@ -14,7 +15,7 @@ export default function AboutExperimental() {
   const [showResults, setShowResults] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
-  // New Game Mode State
+  // Game Mode State
   const [currentRound, setCurrentRound] = useState(0);
   const [selectedIcons, setSelectedIcons] = useState<string[]>([]);
   const [gameCompleted, setGameCompleted] = useState(false);
@@ -31,54 +32,59 @@ export default function AboutExperimental() {
     "Human"
   ];
 
-  // Mock emojis for the game
-  const allEmojis = ["😀", "😂", "😍", "🤔", "🚀", "💡", "🌈", "⭐", "🎶", "🍕", "🐶", "🐱", "🌳", "🌊", "⛰️"];
-
-  // Define game rounds with phrases and correct icons
+  // Exact game rounds from your specification
   const gameRounds = [
     {
-      phrase: "The rapid advancement of AI and its integration into daily life.",
-      correctIcons: ["🚀", "💡", "⭐"]
+      phrase: "Empathy is our greatest interface.",
+      correctIcons: ["❤️", "🤝", "💻"],
+      distractorIcons: ["🤷‍♀️", "🌐", "🤖", "💡", "🔑"]
     },
     {
-      phrase: "The balance between technological progress and human well-being.",
-      correctIcons: ["🌳", "❤️", "⚖️"] // Placeholder emojis
+      phrase: "A different world is possible.",
+      correctIcons: ["🌍", "✨", "🔮"],
+      distractorIcons: ["🚧", "⚖️", "🗂️", "🗓️", "🗺️"]
     },
     {
-      phrase: "The potential for virtual reality to reshape social interactions.",
-      correctIcons: ["🌐", "🤝", "💬"] // Placeholder emojis
+      phrase: "Digital spaces need human gardens.",
+      correctIcons: ["🖥️", "🌱", "🧘‍♀️"],
+      distractorIcons: ["📈", "🧠", "🫂", "⚙️", "🧭"]
     },
     {
-      phrase: "The ethical considerations surrounding data privacy in the digital age.",
-      correctIcons: ["🔒", "🕵️", "🛡️"] // Placeholder emojis
+      phrase: "Balance is found, not given.",
+      correctIcons: ["⚖️", "🕵️‍♀️", "🎯"],
+      distractorIcons: ["⏳", "🗣️", "🗓️", "🏁", "🧘‍♀️"]
     },
     {
-      phrase: "The future of work in an increasingly automated world.",
-      correctIcons: ["💼", "🤖", "🔄"] // Placeholder emojis
+      phrase: "Technology amplifies human potential.",
+      correctIcons: ["⚙️", "🔊", "💡"],
+      distractorIcons: ["📉", "🗺️", "🤝", "🧠", "🌱"]
     }
   ];
 
-  // Function to get shuffled icons for the current round
+  // Function to get shuffled icons for the current round (exactly 8 total)
   const getShuffledIcons = (roundIndex: number) => {
-    const correct = gameRounds[roundIndex].correctIcons;
-    const distractors = allEmojis.filter(emoji => !correct.includes(emoji));
-    const shuffledDistractors = [...distractors].sort(() => Math.random() - 0.5).slice(0, 5); // Get 5 distractors
-    const all = [...correct, ...shuffledDistractors];
-    return [...all].sort(() => Math.random() - 0.5); // Shuffle all 8 icons
+    const round = gameRounds[roundIndex];
+    const allIcons = [...round.correctIcons, ...round.distractorIcons];
+    return [...allIcons].sort(() => Math.random() - 0.5);
   };
 
   const handleIconSelect = (icon: string) => {
-    if (selectedIcons.length < 3 && !selectedIcons.includes(icon)) {
-      setSelectedIcons([...selectedIcons, icon]);
-    } else if (selectedIcons.includes(icon)) {
+    if (selectedIcons.includes(icon)) {
       // Deselect if already selected
       setSelectedIcons(selectedIcons.filter(i => i !== icon));
+    } else if (selectedIcons.length < 3) {
+      // Select if less than 3 are selected
+      setSelectedIcons([...selectedIcons, icon]);
     }
   };
 
   const checkPattern = () => {
-    const isMatch = gameRounds[currentRound].correctIcons.every(icon => selectedIcons.includes(icon));
-    if (isMatch && selectedIcons.length === 3) {
+    const correctIcons = gameRounds[currentRound].correctIcons;
+    const isCorrect = correctIcons.every(icon => selectedIcons.includes(icon)) && 
+                     selectedIcons.length === 3 &&
+                     selectedIcons.every(icon => correctIcons.includes(icon));
+    
+    if (isCorrect) {
       setShowSuccessAnimation(true);
       setTimeout(() => {
         if (currentRound < gameRounds.length - 1) {
@@ -88,12 +94,7 @@ export default function AboutExperimental() {
         } else {
           setGameCompleted(true);
         }
-      }, 1500); // Show success animation for 1.5 seconds
-    } else if (selectedIcons.length === 3) {
-      // If 3 are selected but not correct, reset for next attempt (or show feedback)
-      // As per instructions, "don't show anything" if wrong, implies reset or no proceed.
-      // For now, let's allow deselection, but the button won't change.
-      // If the goal is to not let them proceed, we don't change the button text.
+      }, 1500);
     }
   };
 
@@ -103,7 +104,6 @@ export default function AboutExperimental() {
     setGameCompleted(false);
     setShowSuccessAnimation(false);
   };
-
 
   const quizQuestions = [
     {
@@ -342,6 +342,11 @@ export default function AboutExperimental() {
     window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { isDarkMode: false } }));
   };
 
+  // Check if all correct icons are selected
+  const allCorrectSelected = selectedIcons.length === 3 && 
+    gameRounds[currentRound].correctIcons.every(icon => selectedIcons.includes(icon)) &&
+    selectedIcons.every(icon => gameRounds[currentRound].correctIcons.includes(icon));
+
   if (isGameMode) {
     return (
       <div className="fixed inset-0 z-50 min-h-screen bg-gray-900 text-white relative">
@@ -365,7 +370,7 @@ export default function AboutExperimental() {
                   {gameRounds[currentRound].phrase}
                 </p>
                 <p className="text-gray-400 text-sm">
-                  Find the 3 icons that match the pattern
+                  Find the 3 icons that match the pattern • Round {currentRound + 1} of {gameRounds.length}
                 </p>
               </header>
 
@@ -390,7 +395,6 @@ export default function AboutExperimental() {
                 <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
                   {getShuffledIcons(currentRound).map((icon, index) => {
                     const isSelected = selectedIcons.includes(icon);
-                    const isCorrect = gameRounds[currentRound].correctIcons.includes(icon);
 
                     return (
                       <button
@@ -428,9 +432,13 @@ export default function AboutExperimental() {
                 <div className="flex justify-center mb-8">
                   <button
                     onClick={checkPattern}
-                    className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                    className={`px-8 py-3 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
+                      allCorrectSelected 
+                        ? 'bg-green-600 hover:bg-green-700' 
+                        : 'bg-red-600 hover:bg-red-700'
+                    }`}
                   >
-                    Not quite!
+                    {allCorrectSelected ? (currentRound === gameRounds.length - 1 ? 'Finish' : 'Next') : 'Try Again'}
                   </button>
                 </div>
               )}

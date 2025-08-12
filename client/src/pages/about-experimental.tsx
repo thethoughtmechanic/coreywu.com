@@ -9,7 +9,7 @@ export default function AboutExperimental() {
 
   // Quiz state
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selewelcctedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [answers, setAnswers] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);

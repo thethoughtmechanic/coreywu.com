@@ -112,7 +112,14 @@ export default function About() {
       <div className="relative max-w-4xl mx-auto">
         <div className="space-y-8 relative">
           {/* Timeline line - extends from top to bottom of all timeline items */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30" style={{ top: 0, bottom: 0, height: '100%', zIndex: 1 }}></div>
+          <div 
+            className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30" 
+            style={{ 
+              top: '50px', 
+              height: `${(sortedEvents.length - 1) * 120 + 50}px`, 
+              zIndex: 1 
+            }}
+          ></div></div>
 
           {sortedEvents.map((event, index) => (
             <TimelineItem

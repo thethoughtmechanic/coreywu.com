@@ -477,6 +477,18 @@ export default function AboutExperimental() {
   if (isGameMode) {
     return (
       <div className="fixed inset-0 z-50 min-h-screen bg-gray-900 text-white relative">
+        {/* Secret Mode Indicator */}
+        <div className="absolute top-4 left-4 z-40">
+          <div className="bg-amber-900/90 border border-amber-700/50 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+              <span className="text-xs text-amber-100 font-mono tracking-wider font-semibold">
+                SECRET MODE
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Exit button */}
         <button
           onClick={exitGameMode}
@@ -613,6 +625,18 @@ export default function AboutExperimental() {
 
     return (
       <div className="fixed inset-0 z-50 min-h-screen bg-gray-900 text-white relative">
+        {/* Secret Mode Indicator */}
+        <div className="absolute top-4 left-4 z-40">
+          <div className="bg-amber-900/90 border border-amber-700/50 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+              <span className="text-xs text-amber-100 font-mono tracking-wider font-semibold">
+                SECRET MODE
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Exit button */}
         <button
           onClick={exitStrategicFuturistMode}
@@ -802,19 +826,7 @@ export default function AboutExperimental() {
 
   return (
     <div className="min-h-screen relative bg-cream">
-      {/* Secret Mode Indicator - positioned to be visible in all modes */}
-      {(isGameMode || isStrategicFuturistMode) && (
-        <div className="fixed top-4 left-4 z-50">
-          <div className="bg-amber-900/90 border border-amber-700/50 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-              <span className="text-xs text-amber-100 font-mono tracking-wider font-semibold">
-                SECRET MODE
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
+      
       <div className="max-w-4xl mx-auto px-6 py-12">
       <header className="text-center mb-12 pt-4">
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-about-experimental-title">
@@ -832,11 +844,7 @@ export default function AboutExperimental() {
             <div
               key={index}
               onClick={() => handleRoleClick(role)}
-              className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
-                role === "Strategic Futurist" || role === "Game Designer"
-                  ? "hover:scale-110 hover:rotate-2"
-                  : ""
-              }`}
+              className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer`}
               data-testid={`card-role-${index}`}
             >
               {/* Paint Splatter Background - Hidden by default, shown on hover */}
@@ -899,7 +907,7 @@ export default function AboutExperimental() {
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
 
               {/* Content with special hover effects for Game Designer and Strategic Futurist */}
-              <span className={`relative z-10 transition-all duration-500 ${
+              <span className={`relative z-10 ${
                 role === "Game Designer" ? "group-hover:text-white group-hover:font-bold" :
                 role === "Strategic Futurist" ? "group-hover:text-white group-hover:font-bold" :
                 "group-hover:text-white group-hover:font-semibold"

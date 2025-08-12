@@ -17,7 +17,7 @@ export default function Home() {
         </p>
 
         {/* Three Card Navigation - Mobile Optimized */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs sm:max-w-lg lg:max-w-none mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs lg:max-w-none mx-auto">
           {/* About Me Card */}
           <Link href="/about">
             <div className="relative bg-light-brown rounded-xl p-4 md:p-6 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-40 md:h-56 lg:h-64 flex flex-col overflow-hidden">

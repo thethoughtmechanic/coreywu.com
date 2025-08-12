@@ -45,7 +45,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h2 className="text-lg md:text-xl font-medium text-warm-brown group-hover:text-white group-hover:font-semibold transition-all duration-500">About Me</h2>
-                <p className="text-soft-black/70 text-xs md:text-sm leading-relaxed group-hover:text-white/90 transition-all duration-500 px-2 md:px-0">
+                <p className="hidden md:block text-soft-black/70 text-xs md:text-sm leading-relaxed group-hover:text-white/90 transition-all duration-500 px-2 md:px-0">
                   Learn who I am through my system prompts and journey
                 </p>
               </div>
@@ -79,7 +79,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h2 className="text-lg md:text-xl font-medium text-warm-brown group-hover:text-white group-hover:font-semibold transition-all duration-500">Thoughts</h2>
-                <p className="text-soft-black/70 text-xs md:text-sm leading-relaxed group-hover:text-white/90 transition-all duration-500 px-2 md:px-0">
+                <p className="hidden md:block text-soft-black/70 text-xs md:text-sm leading-relaxed group-hover:text-white/90 transition-all duration-500 px-2 md:px-0">
                   Reflections on design, strategy, and the intersection of technology and humanity
                 </p>
               </div>
@@ -113,7 +113,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h2 className="text-lg md:text-xl font-medium text-warm-brown group-hover:text-white group-hover:font-semibold transition-all duration-500">Experiments</h2>
-                <p className="text-soft-black/70 text-xs md:text-sm leading-relaxed group-hover:text-white/90 transition-all duration-500 px-2 md:px-0">
+                <p className="hidden md:block text-soft-black/70 text-xs md:text-sm leading-relaxed group-hover:text-white/90 transition-all duration-500 px-2 md:px-0">
                   Projects and prototypes exploring the future of user experience
                 </p>
               </div>

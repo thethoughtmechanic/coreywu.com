@@ -1,0 +1,135 @@
+Quiz Questions & Scoring System
+Scoring Logic
+
+Each answer assigns points on two axes:
+
+Tech Integration (T): -2 to +2 scale
+Value Priority (V): -2 to +2 scale (negative = individual, positive = collective)
+
+
+Final quadrant determined by sum of all scores
+
+Question 1: "Your phone dies permanently. Your first feeling is..."
+A) Relief - finally free from constant pings
+
+Tech Integration: -2
+Value Priority: 0
+You see technology as a burden to escape
+
+B) Panic - how will I function?
+
+Tech Integration: +2
+Value Priority: 0
+You're deeply integrated with digital tools
+
+C) Curiosity - what will I discover without it?
+
+Tech Integration: -1
+Value Priority: +1
+You're open to exploring life at different paces
+
+D) Frustration - I need my tools to help others
+
+Tech Integration: +1
+Value Priority: +2
+You see tech as enabling community connection
+
+Question 2: "An AI can perfectly predict what content will make you happy. Do you..."
+A) Block it - I'll choose my own path
+
+Tech Integration: -2
+Value Priority: -1
+You prioritize personal autonomy over optimization
+
+B) Use it sparingly - for important decisions only
+
+Tech Integration: 0
+Value Priority: 0
+You seek balance between AI help and human judgment
+
+C) Embrace it fully - optimize my happiness
+
+Tech Integration: +2
+Value Priority: -2
+You trust AI to enhance your individual experience
+
+D) Share it widely - everyone should benefit
+
+Tech Integration: +1
+Value Priority: +2
+You see AI's potential for collective good
+
+Question 3: "You discover you have 2 free hours. Without thinking, you typically..."
+A) Seek human connection - call family/friends
+
+Tech Integration: -1
+Value Priority: +2
+You default to human-scale interactions
+
+B) Consume digital content - browse/stream/scroll
+
+Tech Integration: +2
+Value Priority: -1
+You're drawn to algorithmic entertainment
+
+C) Create something - art, writing, cooking
+
+Tech Integration: 0
+Value Priority: +1
+You balance consumption with creation
+
+D) Optimize something - inbox zero, plan, organize
+
+Tech Integration: +1
+Value Priority: -2
+You focus on personal productivity
+
+Question 4: "A new technology could make your job obsolete in 5 years. You..."
+A) Start learning the technology to stay ahead
+
+Tech Integration: +2
+Value Priority: -1
+You adapt through acceleration
+
+B) Focus on uniquely human skills tech can't replace
+
+Tech Integration: -1
+Value Priority: +1
+You differentiate through human qualities
+
+C) Organize with others facing similar challenges
+
+Tech Integration: 0
+Value Priority: +2
+You seek collective solutions
+
+D) Begin transitioning to a tech-minimal lifestyle
+
+Tech Integration: -2
+Value Priority: -1
+You prepare for personal independence
+
+Question 5: "In your ideal future, technology should..."
+A) Seamlessly handle all tedious tasks so humans can focus on meaning
+
+Tech Integration: +2
+Value Priority: +1
+You envision harmonious augmentation
+
+B) Remain a tool we consciously choose when needed
+
+Tech Integration: -1
+Value Priority: +1
+You want intentional tech relationships
+
+C) Push human capabilities to new heights
+
+Tech Integration: +2
+Value Priority: -2
+You embrace enhancement and competition
+
+D) Be confined to specific domains, preserving human spaces
+
+Tech Integration: -2
+Value Priority: +2
+You seek protected human experiences

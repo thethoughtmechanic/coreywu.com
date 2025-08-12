@@ -480,7 +480,7 @@ export default function AboutExperimental() {
         {/* Exit button */}
         <button
           onClick={exitGameMode}
-          className="absolute top-6 right-6 z-50 bg-gray-800 hover:bg-gray-700 rounded-full p-3 transition-colors"
+          className="absolute top-6 right-6 z-50 bg-gray-800 hover:bg-gray-700 rounded-full p-3"
           data-testid="button-exit-game-mode"
         >
           <X className="w-6 h-6" />
@@ -529,10 +529,10 @@ export default function AboutExperimental() {
                         key={index}
                         onClick={() => handleIconSelect(index)}
                         className={`
-                          relative min-h-[80px] md:min-h-[120px] rounded-lg border-2 cursor-pointer transition-all duration-300 transform
+                          relative min-h-[80px] md:min-h-[120px] rounded-lg border-2 cursor-pointer
                           ${isSelected
-                            ? 'border-purple-500 bg-purple-500/20 scale-105 shadow-2xl shadow-purple-500/20'
-                            : 'border-slate-600 bg-slate-700/50 hover:border-slate-500 hover:scale-105 hover:shadow-2xl hover:shadow-slate-500/20'
+                            ? 'border-purple-500 bg-purple-500/20'
+                            : 'border-slate-600 bg-slate-700/50 hover:border-slate-500'
                           }
                           flex items-center justify-center text-white group
                         `}
@@ -616,7 +616,7 @@ export default function AboutExperimental() {
         {/* Exit button */}
         <button
           onClick={exitStrategicFuturistMode}
-          className="absolute top-6 right-6 z-50 bg-gray-800 hover:bg-gray-700 rounded-full p-3 transition-colors"
+          className="absolute top-6 right-6 z-50 bg-gray-800 hover:bg-gray-700 rounded-full p-3"
           data-testid="button-exit-strategic-futurist-mode"
         >
           <X className="w-6 h-6" />
@@ -672,10 +672,10 @@ export default function AboutExperimental() {
                     key={index}
                     onClick={() => option && handleAnswerSelect(option.value)}
                     disabled={!option || showResults}
-                    className={`relative group rounded-lg p-4 text-center text-sm leading-relaxed transition-all duration-300 transform min-h-[80px] md:min-h-[120px] flex items-center justify-center ${
+                    className={`relative group rounded-lg p-4 text-center text-sm leading-relaxed min-h-[80px] md:min-h-[120px] flex items-center justify-center ${
                       !option ? 'bg-gray-800/50 cursor-default' :
-                      isSelected ? 'bg-amber-600 border-2 border-amber-400 text-white scale-105 shadow-2xl shadow-amber-500/20' :
-                      'bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-amber-500 text-white hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20'
+                      isSelected ? 'bg-amber-600 border-2 border-amber-400 text-white' :
+                      'bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-amber-500 text-white'
                     }`}
                     data-testid={`button-quiz-option-${index}`}
                   >
@@ -802,13 +802,13 @@ export default function AboutExperimental() {
 
   return (
     <div className="min-h-screen relative bg-cream">
-      {/* Secret Mode Indicator */}
+      {/* Secret Mode Indicator - positioned to be visible in all modes */}
       {(isGameMode || isStrategicFuturistMode) && (
-        <div className="fixed top-1/2 left-4 transform -translate-y-1/2 z-50">
-          <div className="bg-amber-900/20 border border-amber-700/30 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg">
+        <div className="fixed top-4 left-4 z-50">
+          <div className="bg-amber-900/90 border border-amber-700/50 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-              <span className="text-xs text-amber-300 font-mono tracking-wider">
+              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+              <span className="text-xs text-amber-100 font-mono tracking-wider font-semibold">
                 SECRET MODE
               </span>
             </div>

@@ -228,17 +228,17 @@ export default function Experiments() {
       {/* Mister Misu Modal */}
       {isMisterMisuModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
-          <div className="relative w-full max-w-6xl max-h-[90vh] bg-cream rounded-xl shadow-xl overflow-hidden mx-4">
-            {/* Close button */}
+          <div className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden mx-4">
+            {/* Close button - moved outside content with better styling */}
             <button
               onClick={() => setIsMisterMisuModalOpen(false)}
-              className="absolute top-6 right-6 z-50 text-warm-brown hover:text-hover-brown transition-colors duration-200"
+              className="absolute top-4 right-4 z-50 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-all duration-200"
             >
-              <X className="w-8 h-8" />
+              <X className="w-6 h-6" />
             </button>
 
             {/* Modal content */}
-            <div className="p-8 pt-16">
+            <div className="p-8">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-light text-amber-700 mb-2">Mister Misu</h2>
                 <p className="text-warm-brown/70">June 2025 Coffee Experience</p>
@@ -247,20 +247,28 @@ export default function Experiments() {
               {/* Images side by side */}
               <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} max-h-[60vh] overflow-auto`}>
                 {/* The Grand Coffee Hall */}
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
                   <img 
-                    src="/mister-misu-grand-coffee-hall.png" 
+                    src="mister-misu-grand-coffee-hall.png" 
                     alt="The Grand Coffee Hall - An elegant gathering of coffee enthusiasts in a classical setting"
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-contain"
+                    onError={(e) => {
+                      console.error('Failed to load grand coffee hall image');
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
                 </div>
 
                 {/* The Guest List */}
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
                   <img 
-                    src="/mister-misu-guest-list.png" 
+                    src="mister-misu-guest-list.png" 
                     alt="The Guest List - Detailed coffee profiles and character descriptions"
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-contain"
+                    onError={(e) => {
+                      console.error('Failed to load guest list image');
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
                 </div>
               </div>

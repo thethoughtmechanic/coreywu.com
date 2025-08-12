@@ -16,6 +16,20 @@ export default function About() {
   // Sort events by order
   const sortedEvents = [...timelineEvents].sort((a, b) => parseInt(a.order) - parseInt(b.order));
 
+  const isSpecialCard = (role: string) => {
+    return role === "Strategic Futurist" || role === "Game Designer";
+  };
+
+  const getCardClasses = (role: string, index: number) => {
+    const baseClasses = "relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden";
+
+    if (isSpecialCard(role)) {
+      return `${baseClasses} hover:scale-110 hover:rotate-2 cursor-pointer`;
+    }
+
+    return baseClasses;
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-8">
       <header className="text-center mb-12 pt-4">
@@ -33,7 +47,7 @@ export default function About() {
           {systemPromptRoles.map((role, index) => (
             <div
               key={index}
-              className="relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer"
+              className={getCardClasses(role, index)}
             >
               {/* Paint Splatter Background - Hidden by default, shown on hover */}
               <div
@@ -95,7 +109,10 @@ export default function About() {
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
 
               {/* Content */}
-              <span className="relative z-10 group-hover:text-white group-hover:font-semibold transition-all duration-500">
+              <span className={`relative z-10 transition-all duration-500 ${
+                isSpecialCard(role) ? "group-hover:text-white group-hover:font-bold group-hover:scale-110" :
+                "group-hover:text-white group-hover:font-semibold"
+              }`}>
                 {role}
               </span>
             </div>

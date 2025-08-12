@@ -111,9 +111,8 @@ export default function About() {
 
       <div className="relative max-w-4xl mx-auto">
         <div className="relative space-y-8">
-          {/* Continuous timeline line that spans the full height */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30 z-10" 
-               style={{ top: '50px', height: `${(sortedEvents.length - 1) * 144 + 50}px` }}></div>
+          {/* Timeline line that automatically spans the height of the content */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/30 z-10 inset-y-0"></div>
 
           {sortedEvents.map((event, index) => (
             <TimelineItem

@@ -111,16 +111,15 @@ export default function About() {
 
       <div className="relative max-w-4xl mx-auto">
         <div className="relative">
-          {/* Timeline line - positioned to connect all dots */}
-          {sortedEvents.length > 1 && (
-            <div 
-              className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/50 z-10"
-              style={{
-                top: '50px', // Start from first timeline item center
-                height: `${(sortedEvents.length - 1) * (100 + 32)}px` // Each item is min-h-[100px] + space-y-8 (32px)
-              }}
-            ></div>
-          )}
+          {/* Timeline line - thick visible line connecting all dots */}
+          <div 
+            className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-warm-brown"
+            style={{
+              top: '50px',
+              height: '400px', // Fixed height for testing
+              zIndex: 10
+            }}
+          ></div>
 
           <div className="space-y-8">
             {sortedEvents.map((event, index) => (

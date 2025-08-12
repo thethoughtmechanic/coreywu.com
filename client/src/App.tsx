@@ -16,8 +16,9 @@ import DesignSystem from "@/pages/designsystem";
 import NotFound from "@/pages/not-found";
 import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the new component
 import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the new component
+import AboutExpNew from "@/pages/about-expnew"; // Import the new component
 import { useLocation } from "wouter";
-import { useState, useEffect, lazy } from "react";
+import { useState, useEffect } from "react";
 
 function Router() {
   const [location] = useLocation();
@@ -57,7 +58,7 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/about-professional" component={AboutProfessional} />
           <Route path="/about-experimental" component={AboutExperimental} />
-          <Route path="/about-expnew" component={lazy(() => import("./pages/about-expnew"))} />
+          <Route path="/about-expnew" component={AboutExpNew} />
           <Route path="/thoughts" component={Thoughts} />
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />

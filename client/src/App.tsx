@@ -52,7 +52,7 @@ function Router() {
   return (
     <>
       <Navigation isDarkMode={isDarkMode} />
-      <main className="min-h-screen">
+      <main className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : ''}`}>
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/about" component={AboutExperimental} />

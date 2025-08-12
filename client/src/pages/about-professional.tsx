@@ -174,27 +174,26 @@ export default function AboutProfessional() {
         </h2>
         
         <div className="relative max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Timeline line - spans the full vertical area where dots are positioned */}
+          <div className="space-y-8 relative">
+            {/* Timeline line - positioned behind the items with explicit height */}
             {sortedEvents.length > 1 && (
-              <div 
-                className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-warm-brown/50 z-10"
+              <div
+                className="absolute left-1/2 transform -translate-x-1/2 w-px border-l-2 border-warm-brown/70"
                 style={{
-                  top: '50px', // Start from first timeline item center
-                  height: `${(sortedEvents.length - 1) * (100 + 32)}px` // Each item is min-h-[100px] + space-y-8 (32px)
+                  top: '60px',
+                  height: `${(sortedEvents.length - 1) * 140 + 60}px`,
+                  zIndex: 1
                 }}
-              ></div>
+              />
             )}
 
-            <div className="space-y-8">
-              {sortedEvents.map((event, index) => (
-                <TimelineItem
-                  key={event.id}
-                  event={event}
-                  isLeft={index % 2 === 0}
-                />
-              ))}
-            </div>
+            {sortedEvents.map((event, index) => (
+              <TimelineItem
+                key={event.id}
+                event={event}
+                isLeft={index % 2 === 0}
+              />
+            ))}
           </div>
         </div>
       </section>

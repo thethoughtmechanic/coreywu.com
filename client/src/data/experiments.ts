@@ -16,19 +16,6 @@ export const experiments: Experiment[] = [
     isActive: true
   },
   {
-    id: "mister-misu-1",
-    title: "Mister Misu",
-    description: "Experimental coffee pop-ups exploring the intersection of craft brewing and community connection.",
-    status: "shipped",
-    collaborationType: "solo",
-    problemType: "vertical",
-    imageGradient: "from-amber-200 to-amber-600",
-    timeframe: "2024 - Present",
-    collaborators: [],
-    technologies: ["Pour-over"],
-    isActive: true
-  },
-  {
     id: "friday-home-1",
     title: "Friday Home",
     description: "A 'cozy' pop/funk/R&B band.",
@@ -39,6 +26,19 @@ export const experiments: Experiment[] = [
     timeframe: "2023 - Present",
     collaborators: ["@tonychen", "@michaelmurphy", "@adrianlo"],
     technologies: ["Guitar", "Vocals", "Bass", "Drums"],
+    isActive: true
+  },
+  {
+    id: "mister-misu-1",
+    title: "Mister Misu",
+    description: "Experimental coffee pop-ups exploring the intersection of craft brewing and community connection.",
+    status: "shipped",
+    collaborationType: "solo",
+    problemType: "vertical",
+    imageGradient: "from-amber-200 to-amber-600",
+    timeframe: "2024 - Present",
+    collaborators: [],
+    technologies: ["Pour-over"],
     isActive: true
   },
   {

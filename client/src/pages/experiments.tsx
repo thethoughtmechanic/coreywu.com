@@ -22,7 +22,7 @@ export default function Experiments() {
       <span className="text-sm capitalize">
         {experiment.status === 'sunset' ? 'Sunset' : 
          experiment.status === 'wip' ? 'Wip' : 
-         experiment.status === 'shipped' && experiment.isActive ? 'Active' :
+         experiment.status === 'shipped' && experiment.isActive ? 'Active Shipped' :
          experiment.status === 'shipped' ? 'Shipped' : 
          experiment.status}
       </span>
@@ -56,8 +56,14 @@ export default function Experiments() {
     setExpandedCards(newExpanded);
   };
 
-  // Use experiments in their defined order from data file
-  const orderedExperiments = experiments;
+  // Order experiments by date (assuming timeframe is sortable by date)
+  const orderedExperiments = [...experiments].sort((a, b) => {
+    // Basic date comparison, assuming timeframe is in a sortable format like 'YYYY-MM-DD' or similar
+    // For robust sorting, you might need to parse dates properly
+    if (a.timeframe < b.timeframe) return -1;
+    if (a.timeframe > b.timeframe) return 1;
+    return 0;
+  });
 
   // Desktop Table View
   const DesktopView = () => (
@@ -162,12 +168,8 @@ export default function Experiments() {
         {isMobile && (
           <div className="flex items-center justify-center gap-4 text-sm text-muted-grey mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-green-500 flex-shrink-0"></div>
-              <span>Active</span>
-            </div>
-            <div className="flex items-center gap-2">
               <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-yellow-500 flex-shrink-0"></div>
-              <span>Wip</span>
+              <span>Work in Progress</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-blue-500 flex-shrink-0"></div>

@@ -103,55 +103,35 @@ export default function About() {
         </div>
       </div>
 
-      {/* Change Log Section */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-light text-warm-brown mb-12 text-center">
+      <div className="mb-6">
+        <h1 className="text-3xl font-light text-warm-brown mb-4 text-center">
           Change Log
-        </h2>
-        
-        {/* Timeline Container with proper structure */}
-        <div className="relative max-w-5xl mx-auto">
-          {/* Central Timeline Line - Always visible */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-warm-brown transform -translate-x-1/2" style={{ zIndex: 1 }}></div>
-          
-          {/* Timeline Items */}
-          <div className="relative" style={{ zIndex: 2 }}>
-            {sortedEvents.map((event, index) => (
-              <div key={event.id} className="relative mb-12 last:mb-0">
-                {/* Timeline Dot */}
-                <div 
-                  className={`absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white shadow-lg ${
-                    event.isActive 
-                      ? 'w-4 h-4 bg-green-500' 
-                      : 'w-3 h-3 bg-gray-400'
-                  }`}
-                  style={{ 
-                    top: '24px',
-                    zIndex: 10 
-                  }}
-                ></div>
-                
-                {/* Content Card */}
-                <div className={`flex ${index % 2 === 0 ? 'justify-start pr-8' : 'justify-end pl-8'}`}>
-                  <div className={`w-5/12 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                    <div className="bg-light-brown/90 rounded-xl p-6 shadow-sm border border-warm-brown/20 hover:shadow-md hover:border-warm-brown/30 transition-all duration-300">
-                      <h3 className="text-lg font-medium text-warm-brown mb-2">
-                        {event.title}
-                      </h3>
-                      <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-3">
-                        {event.date}
-                      </div>
-                      <p className="text-sm text-soft-black/80 leading-relaxed">
-                        {event.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        </h1>
+      </div>
+
+      <div className="relative max-w-4xl mx-auto">
+        <div className="space-y-8 relative">
+          {/* Timeline line - positioned behind the items with explicit height */}
+          {sortedEvents.length > 1 && (
+            <div
+              className="absolute left-1/2 transform -translate-x-1/2 w-px border-l-2 border-warm-brown/70"
+              style={{
+                top: '60px',
+                height: `${(sortedEvents.length - 1) * 140 + 60}px`,
+                zIndex: 1
+              }}
+            />
+          )}
+
+          {sortedEvents.map((event, index) => (
+            <TimelineItem
+              key={event.id}
+              event={event}
+              isLeft={index % 2 === 0}
+            />
+          ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

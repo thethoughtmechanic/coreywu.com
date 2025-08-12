@@ -181,29 +181,61 @@ export default function Thoughts() {
           <div className="space-y-4">
             {sortedThoughts.map((thought, index) => (
               <div key={thought.id} className="group/card cursor-pointer">
-                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative">
+                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative">
+                  {/* Paint Splatter Background - only for non-scenario cards */}
+                  {thought.tag !== 'Scenario' && (
+                    <>
+                      <div
+                        className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl"
+                        style={{
+                          background: thought.tag === 'POV' ? `
+                            radial-gradient(ellipse 280px 220px at 15% 25%, #84cc16 0%, #84cc16 50%, transparent 90%),
+                            radial-gradient(ellipse 250px 190px at 85% 15%, #22c55e 0%, #22c55e 45%, transparent 85%),
+                            radial-gradient(ellipse 220px 260px at 25% 85%, #16a34a 0%, #16a34a 55%, transparent 95%),
+                            radial-gradient(ellipse 290px 180px at 75% 90%, #65a30d 0%, #65a30d 40%, transparent 80%),
+                            radial-gradient(ellipse 210px 230px at 55% 45%, #15803d 0%, #15803d 50%, transparent 90%)
+                          ` : thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? `
+                            radial-gradient(ellipse 270px 210px at 20% 30%, #0ea5e9 0%, #0ea5e9 50%, transparent 90%),
+                            radial-gradient(ellipse 240px 180px at 80% 20%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+                            radial-gradient(ellipse 210px 250px at 10% 80%, #0891b2 0%, #0891b2 55%, transparent 95%),
+                            radial-gradient(ellipse 280px 170px at 90% 85%, #22d3ee 0%, #22d3ee 40%, transparent 80%),
+                            radial-gradient(ellipse 200px 220px at 50% 50%, #0284c7 0%, #0284c7 50%, transparent 90%)
+                          ` : thought.tag === 'Scenario' ? `
+                            radial-gradient(ellipse 260px 200px at 25% 20%, #f97316 0%, #f97316 50%, transparent 90%),
+                            radial-gradient(ellipse 230px 170px at 75% 30%, #ea580c 0%, #ea580c 45%, transparent 85%),
+                            radial-gradient(ellipse 200px 240px at 15% 75%, #dc2626 0%, #dc2626 55%, transparent 95%),
+                            radial-gradient(ellipse 270px 160px at 85% 80%, #fb923c 0%, #fb923c 40%, transparent 80%),
+                            radial-gradient(ellipse 190px 210px at 45% 55%, #ef4444 0%, #ef4444 50%, transparent 90%)
+                          ` : `
+                            radial-gradient(ellipse 275px 215px at 30% 25%, #a855f7 0%, #a855f7 50%, transparent 90%),
+                            radial-gradient(ellipse 245px 185px at 70% 15%, #8b5cf6 0%, #8b5cf6 45%, transparent 85%),
+                            radial-gradient(ellipse 215px 255px at 20% 80%, #9333ea 0%, #9333ea 55%, transparent 95%),
+                            radial-gradient(ellipse 285px 175px at 80% 90%, #d946ef 0%, #d946ef 40%, transparent 80%),
+                            radial-gradient(ellipse 205px 225px at 50% 40%, #7c3aed 0%, #7c3aed 50%, transparent 90%)
+                          `,
+                          transform: 'scale(1.8) rotate(25deg)'
+                        }}
+                      />
+                      {/* Text Background for better readability when splatter is visible */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ease-out rounded-2xl" />
+                    </>
+                  )}
+
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
-                        {/* Tag pill with border default and paint splatter hover */}
-                        <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
-                          {/* Default border state - visible by default */}
-                          <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
-                            {thought.tag}
-                          </span>
-                          {/* Paint splatter background - appears on hover */}
-                          <div 
-                            className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
-                            style={getPillHoverStyle(thought.tag)}
-                          />
-                        </span>
+                        <span className={`text-sm font-medium transition-all duration-500 ${
+                          thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
+                        }`}>{thought.tag}</span>
                         {thought.status === 'wip' && (
                           <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
                             WIP
                           </span>
                         )}
                       </div>
-                      <span className="text-sm text-warm-brown/60">{thought.date || "Aug 11, 2025"}</span>
+                      <span className={`text-sm transition-all duration-500 ${
+                        thought.tag === 'Scenario' ? 'text-warm-brown/60' : 'text-warm-brown/60 group-hover/card:text-white/70'
+                      }`}>{thought.date || "Aug 11, 2025"}</span>
                     </div>
 
                     {/* Special treatment for Scenario - just title and image */}
@@ -230,10 +262,10 @@ export default function Thoughts() {
                       </>
                     ) : (
                       <>
-                        <h3 className="text-lg font-medium text-warm-brown mb-4">
+                        <h3 className={`text-lg font-medium text-warm-brown mb-4 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500`}>
                           {thought.title}
                         </h3>
-                        <div className="text-base text-soft-black/70 mb-6 leading-relaxed">
+                        <div className={`text-base text-soft-black/70 mb-6 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed`}>
                           {(thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.').split('\n').map((line, index) => (
                             <p key={index} className="mb-1">{line}</p>
                           ))}
@@ -244,10 +276,10 @@ export default function Thoughts() {
                     {/* Read time indicator - Skip for Thought Bite, Philosophizing, and Scenario */}
                     {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                       <div className="flex items-center gap-2 mb-4">
-                        <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-sm text-warm-brown/60">
+                        <span className="text-sm text-warm-brown/60 group-hover/card:text-white/70 transition-all duration-500">
                           {thought.readTime || "5 min read"}
                         </span>
                       </div>
@@ -258,15 +290,15 @@ export default function Thoughts() {
                       <>
                         {thought.status === 'wip' ? (
                           <div className="flex items-center justify-center gap-2 py-3">
-                            <div className="flex items-center gap-2 text-sm text-warm-brown/60">
-                              <div className="w-2 h-2 bg-warm-brown/40 rounded-full animate-pulse"></div>
+                            <div className="flex items-center gap-2 text-sm text-warm-brown/60 group-hover/card:text-white/70">
+                              <div className="w-2 h-2 bg-warm-brown/40 group-hover/card:bg-white/50 rounded-full animate-pulse"></div>
                               <span className="font-medium">Work in Progress</span>
                             </div>
                           </div>
                         ) : (
                           <button
                             onClick={() => setModalSlide(thought.id)}
-                            className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown"
+                            className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown group-hover/card:bg-white/90 group-hover/card:text-warm-brown"
                           >
                             {expandedSlide === thought.id ? 'Hide slides' : 'View slides'}
                           </button>

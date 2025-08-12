@@ -22,7 +22,9 @@ export default function Home() {
           <Link href="/about" className="group block">
             <div className="bg-white backdrop-blur-none rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-105">
               <div className="flex items-center justify-center mb-6">
-                <User className="w-12 h-12 text-warm-brown" />
+                <svg className="w-12 h-12 text-warm-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
               </div>
               <h3 className="text-xl font-medium text-warm-brown mb-4 text-center">About Me</h3>
               <p className="text-soft-black text-center leading-relaxed">

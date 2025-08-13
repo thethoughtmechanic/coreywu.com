@@ -64,7 +64,7 @@ export const thoughts: Thought[] = [
   {
     id: "7",
     title: "Mind Your Manners, Human",
-    description: "1/ The AI Babysitter\n2/ Employee Courtesy Score\n3/ The Rudeness Penalty\n4/ My AI God-Parent",
+    description: "The AI Babysitter\nEmployee Courtesy Score\nThe Rudeness Penalty\nMy AI God-Parent",
     tag: "Scenario",
     readTime: "4 min read",
     imageGradient: "from-orange-600 to-orange-400",

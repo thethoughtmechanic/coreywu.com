@@ -787,12 +787,18 @@ export default function AboutExperimental() {
                     }
                   </p>
 
-                  <div className="flex justify-center">
+                  <div className="flex justify-center gap-4">
                     <button
                       onClick={restartQuiz}
                       className="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-300"
                     >
                       Take Assessment Again
+                    </button>
+                    <button
+                      onClick={() => setShowPersonasModal(true)}
+                      className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-medium transition-colors duration-300"
+                    >
+                      View all AI adaptation personas
                     </button>
                   </div>
                 </div>

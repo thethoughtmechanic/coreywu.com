@@ -5,6 +5,11 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import democracyImage from "@assets/image_1754686959251.png";
 import { getPaintSplatter } from "@/lib/paint-splatters";
 
+// Written notes data - matches thought IDs to handwritten notes
+const writtenNotes: Record<string, string> = {
+  "8": "Inspired by convo with Mel Y"
+};
+
 export default function ThoughtsExperimental() {
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
@@ -97,6 +102,52 @@ export default function ThoughtsExperimental() {
                       </div>
                     )}
                   </>
+                )}
+
+                {/* Written Notes - appears like pencil handwriting */}
+                {writtenNotes[thought.id] && (
+                  <div className="mt-4 mb-4">
+                    <div 
+                      className="relative inline-block transform -rotate-1 px-3 py-2 rounded-lg border-2 border-dashed opacity-80"
+                      style={{
+                        borderColor: getPaintSplatter(thought.tag).className.includes('green') ? '#22c55e' :
+                                   getPaintSplatter(thought.tag).className.includes('blue') ? '#06b6d4' :
+                                   getPaintSplatter(thought.tag).className.includes('purple') ? '#a855f7' :
+                                   getPaintSplatter(thought.tag).className.includes('red') ? '#ef4444' :
+                                   getPaintSplatter(thought.tag).className.includes('orange') ? '#f97316' :
+                                   getPaintSplatter(thought.tag).className.includes('amber') ? '#f59e0b' :
+                                   getPaintSplatter(thought.tag).className.includes('pink') ? '#ec4899' :
+                                   getPaintSplatter(thought.tag).className.includes('slate') ? '#64748b' :
+                                   '#22c55e'
+                      }}
+                    >
+                      <p 
+                        className="text-sm font-mono tracking-wide transform rotate-1"
+                        style={{
+                          fontFamily: "'Kalam', 'Comic Sans MS', cursive",
+                          color: getPaintSplatter(thought.tag).className.includes('green') ? '#166534' :
+                                getPaintSplatter(thought.tag).className.includes('blue') ? '#0e7490' :
+                                getPaintSplatter(thought.tag).className.includes('purple') ? '#7c2d12' :
+                                getPaintSplatter(thought.tag).className.includes('red') ? '#991b1b' :
+                                getPaintSplatter(thought.tag).className.includes('orange') ? '#c2410c' :
+                                getPaintSplatter(thought.tag).className.includes('amber') ? '#d97706' :
+                                getPaintSplatter(thought.tag).className.includes('pink') ? '#be185d' :
+                                getPaintSplatter(thought.tag).className.includes('slate') ? '#475569' :
+                                '#166534',
+                          textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)',
+                          letterSpacing: '0.02em'
+                        }}
+                      >
+                        {writtenNotes[thought.id]}
+                      </p>
+                      {/* Small pencil icon */}
+                      <div className="absolute -top-1 -right-1 w-3 h-3 opacity-60">
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-gray-600">
+                          <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 )}
 
                 {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (

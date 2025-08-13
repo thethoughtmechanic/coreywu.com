@@ -13,6 +13,8 @@ export default function AboutExperimental() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [showPersonasModal, setShowPersonasModal] = useState(false);
+
 
   // Game Mode State
   const [currentRound, setCurrentRound] = useState(0);
@@ -106,7 +108,7 @@ export default function AboutExperimental() {
         <svg key="smartphone" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg>,
         <svg key="target" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" /></svg>,
         <svg key="tool" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655-4.653a2.548 2.548 0 010-3.586l.853-.853a2.548 2.548 0 013.586 0l4.655 4.653M15.125 9.375l-2.5-2.5M15.125 9.375l.005-.005A2.501 2.501 0 0117.625 7h.005A2.501 2.501 0 0120.125 9.5v.005c0 .69-.28 1.316-.73 1.77l-.005.005" /></svg>,
-        <svg key="book" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+        <svg key="book" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 8h.01M16 8h.01" /></svg>
       ]
     },
     {
@@ -929,6 +931,31 @@ export default function AboutExperimental() {
         </div>
       </div>
     </div>
-    </div>
+
+    {/* Personas Modal */}
+    {showPersonasModal && (
+      <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="bg-gray-800 rounded-lg p-8 max-w-4xl max-h-[80vh] w-full mx-4 relative overflow-y-auto">
+          {/* Close button */}
+          <button
+            onClick={() => setShowPersonasModal(false)}
+            className="absolute top-4 right-4 z-50 bg-gray-700 hover:bg-gray-600 rounded-full p-2"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+
+          {/* Modal content - empty for now */}
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-amber-400 mb-4">
+              AI Adaptation Personas
+            </h2>
+            <p className="text-gray-300">
+              Content coming soon...
+            </p>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
   );
 }

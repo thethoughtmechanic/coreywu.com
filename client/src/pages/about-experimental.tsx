@@ -480,7 +480,7 @@ export default function AboutExperimental() {
                     <div
                       key={index}
                       className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                        index < currentRound ? 'bg-white' :
+                        index < currentRound ? 'bg-purple-500' :
                         index === currentRound ? 'bg-purple-400' :
                         'bg-gray-600'
                       }`}

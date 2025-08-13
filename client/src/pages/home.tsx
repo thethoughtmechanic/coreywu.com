@@ -16,8 +16,97 @@ export default function Home() {
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more humane and more intentional. Let's tend to these ideas and see what they grow into.
         </p>
 
+        {/* Contact Form - Prominent Section */}
+        <div className="bg-light-brown/70 rounded-xl p-6 md:p-8 mb-8 md:mb-12 border border-warm-brown/20 max-w-2xl mx-auto">
+          <div className="text-center mb-6">
+            <h2 className="text-xl md:text-2xl font-light text-warm-brown mb-3">
+              Let's Connect
+            </h2>
+            <p className="text-sm md:text-base text-soft-black/70 leading-relaxed">
+              Have a project idea, want to collaborate, or just want to chat about design and technology? I'd love to hear from you.
+            </p>
+          </div>
+          
+          <form className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-warm-brown mb-1">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="w-full px-3 py-2 bg-cream/80 border border-warm-brown/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-warm-brown/50 focus:border-transparent text-soft-black"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-warm-brown mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="w-full px-3 py-2 bg-cream/80 border border-warm-brown/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-warm-brown/50 focus:border-transparent text-soft-black"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium text-warm-brown mb-1">
+                Subject
+              </label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                className="w-full px-3 py-2 bg-cream/80 border border-warm-brown/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-warm-brown/50 focus:border-transparent text-soft-black"
+                placeholder="What would you like to discuss?"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-warm-brown mb-1">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                className="w-full px-3 py-2 bg-cream/80 border border-warm-brown/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-warm-brown/50 focus:border-transparent text-soft-black resize-none"
+                placeholder="Tell me about your project, idea, or just say hello..."
+              ></textarea>
+            </div>
+            
+            <div className="text-center">
+              <button
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget.closest('form') as HTMLFormElement;
+                  const formData = new FormData(form);
+                  const name = formData.get('name') as string;
+                  const email = formData.get('email') as string;
+                  const subject = formData.get('subject') as string;
+                  const message = formData.get('message') as string;
+                  
+                  const emailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+                  const mailtoLink = `mailto:corey.david.wu@gmail.com?subject=${encodeURIComponent(subject || 'Contact from coreywu.com')}&body=${encodeURIComponent(emailBody)}`;
+                  window.open(mailtoLink);
+                }}
+                className="bg-warm-brown text-cream px-8 py-3 rounded-lg hover:bg-hover-brown transition-all duration-300 font-medium text-lg shadow-md hover:shadow-lg transform hover:scale-105"
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+
         {/* Three Card Navigation - Mobile Optimized */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs lg:max-w-none mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs lg:max-w-none mx-auto"></div>
           {/* About Me Card */}
           <Link href="/about">
             <div className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden">

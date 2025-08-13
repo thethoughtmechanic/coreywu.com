@@ -84,6 +84,32 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
                   <div></div>
                 )}
               </div>
+              
+              {/* Feedback buttons */}
+              <div className="flex items-center gap-1">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const hasReacted = localStorage.getItem(`reaction-${experiment.id}`) === 'true';
+                    if (!hasReacted) {
+                      localStorage.setItem(`reaction-${experiment.id}`, 'true');
+                      // You could add a toast notification here
+                    }
+                  }}
+                  className={`text-warm-brown/60 hover:text-warm-brown transition-colors duration-200 text-xs group-hover:text-white/70 group-hover:hover:text-white ${showStatusIndicator ? 'text-white/70 hover:text-white' : ''}`}
+                  title="React to this experiment"
+                >
+                  👍
+                </button>
+                <a 
+                  href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(experiment.title)}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className={`text-warm-brown/60 hover:text-warm-brown transition-colors duration-200 text-xs group-hover:text-white/70 group-hover:hover:text-white ${showStatusIndicator ? 'text-white/70 hover:text-white' : ''}`}
+                  title="Send message about this experiment"
+                >
+                  💬
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -147,19 +173,47 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
             >
               {experiment.description}
             </p>
-            <div className="flex items-center space-x-4">
-              {experiment.collaborators && experiment.collaborators.length > 0 && (
-                <div className="flex space-x-2" data-testid={`text-experiment-collaborators-${experiment.id}`}>
-                  {experiment.collaborators.map((collaborator, index) => (
-                    <span 
-                      key={index}
-                      className="text-xs px-2 py-1 bg-warm-brown/20 text-warm-brown rounded group-hover:bg-white/20 group-hover:text-white transition-all duration-500"
-                    >
-                      {collaborator}
-                    </span>
-                  ))}
-                </div>
-              )}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                {experiment.collaborators && experiment.collaborators.length > 0 && (
+                  <div className="flex space-x-2" data-testid={`text-experiment-collaborators-${experiment.id}`}>
+                    {experiment.collaborators.map((collaborator, index) => (
+                      <span 
+                        key={index}
+                        className="text-xs px-2 py-1 bg-warm-brown/20 text-warm-brown rounded group-hover:bg-white/20 group-hover:text-white transition-all duration-500"
+                      >
+                        {collaborator}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* Feedback buttons */}
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const hasReacted = localStorage.getItem(`reaction-${experiment.id}`) === 'true';
+                    if (!hasReacted) {
+                      localStorage.setItem(`reaction-${experiment.id}`, 'true');
+                      // You could add a toast notification here
+                    }
+                  }}
+                  className={`text-warm-brown/60 hover:text-warm-brown transition-colors duration-200 group-hover:text-white/70 group-hover:hover:text-white ${showStatusIndicator ? 'text-white/70 hover:text-white' : ''}`}
+                  title="React to this experiment"
+                >
+                  👍
+                </button>
+                <a 
+                  href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(experiment.title)}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className={`text-warm-brown/60 hover:text-warm-brown transition-colors duration-200 group-hover:text-white/70 group-hover:hover:text-white ${showStatusIndicator ? 'text-white/70 hover:text-white' : ''}`}
+                  title="Send message about this experiment"
+                >
+                  💬
+                </a>
+              </div>
             </div>
           </div>
         </div>

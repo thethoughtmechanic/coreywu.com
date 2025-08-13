@@ -3,7 +3,6 @@ import { Experiment } from "@shared/schema";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { X } from "lucide-react";
-import ContactModal from "@/components/contact-modal";
 
 // Import Mister Misu images - using public folder paths
 const grandCoffeeHallImage = "/mister-misu-grand-coffee-hall.png";
@@ -29,7 +28,6 @@ export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
   const [isMisterMisuModalOpen, setIsMisterMisuModalOpen] = useState(false);
   const [currentMisterMisuEventIndex, setCurrentMisterMisuEventIndex] = useState(0); // State to track current event in modal
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false); // State for the contact modal
   const isMobile = useIsMobile();
 
   // Mister Misu event data structure
@@ -267,13 +265,13 @@ export default function Experiments() {
 
       <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
-          Interested in collaborating on an experiment? Reach out at{' '}
-          <button
-            onClick={() => setIsContactModalOpen(true)} // Open the shared modal
+          Interested in collaborating or just want to chat? Reach out at{' '}
+          <a 
+            href="mailto:coreydavidwu@gmail.com"
             className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
           >
             coreydavidwu@gmail.com
-          </button>
+          </a>
         </p>
       </footer>
 
@@ -331,12 +329,6 @@ export default function Experiments() {
         </div>
       )}
 
-      {/* Shared Contact Modal */}
-      <ContactModal 
-        isOpen={isContactModalOpen} 
-        onClose={() => setIsContactModalOpen(false)}
-        closeButtonPosition="top-left" // Example prop for positioning
-      />
-    </div>
+      </div>
   );
 }

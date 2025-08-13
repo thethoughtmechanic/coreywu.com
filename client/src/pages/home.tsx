@@ -1,9 +1,6 @@
 import { Link } from "wouter";
-import { useState } from "react";
-import ContactModal from "@/components/contact-modal";
 
 export default function Home() {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] flex items-center justify-center py-6 md:py-8">
@@ -130,21 +127,15 @@ export default function Home() {
         <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
           <p className="text-sm text-muted-grey">
             Interested in collaborating or just want to chat? Reach out at{' '}
-            <button 
-              onClick={() => setIsContactModalOpen(true)}
-              className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline cursor-pointer"
+            <a 
+              href="mailto:coreydavidwu@gmail.com"
+              className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
             >
-              Contact Me
-            </button>
+              coreydavidwu@gmail.com
+            </a>
           </p>
         </footer>
       </div>
-
-      <ContactModal 
-        isOpen={isContactModalOpen} 
-        onClose={() => setIsContactModalOpen(false)}
-        closeButtonPosition="top-right"
-      />
     </div>
   );
 }

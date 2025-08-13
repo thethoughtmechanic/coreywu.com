@@ -480,7 +480,7 @@ export default function AboutExperimental() {
                     <div
                       key={index}
                       className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                        index < currentRound ? 'bg-green-500' :
+                        index < currentRound ? 'bg-white' :
                         index === currentRound ? 'bg-purple-400' :
                         'bg-gray-600'
                       }`}
@@ -557,7 +557,7 @@ export default function AboutExperimental() {
                         <path d="M6 9H4.5a1 1 0 0 1 0-5H6"/>
                       </svg>
                     </div>
-                    <p className="text-green-400 text-xl font-semibold animate-pulse">
+                    <p className="text-white text-xl font-semibold animate-pulse">
                       Perfect!
                     </p>
                   </div>

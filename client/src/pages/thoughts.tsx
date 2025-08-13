@@ -413,11 +413,11 @@ export default function Thoughts() {
                               )}
                             </>
                           ) : (
-                            <>
-                              {(thought.description || '').split('\n').map((line, index) => (
+                            <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
+                              {thought.description?.split('\n').map((line, index) => (
                                 <p key={index} className="mb-1">{line}</p>
                               ))}
-                            </>
+                            </div>
                           )}
                         </div>
                       </>

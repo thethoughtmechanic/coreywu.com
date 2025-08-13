@@ -74,7 +74,8 @@ export const thoughts: Thought[] = [
   {
     id: "8",
     title: "AI Tolerances for Type I & II Errors",
-    description: "The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics). Optimists see missed breakthroughs as moral failures—every delayed cure costs lives. Pessimists see rushed deployments as existential risks—one bad AI launch undermines decades of progress. Short-term, reversible decisions favour Type 1 tolerance (try fast, fail fast). Long-term, irreversible ones favour Type 2 tolerance (genetic modifications, climate interventions can't be easily undone). The question isn't which error type to avoid, but developing better mechanisms to adjust our tolerance based on context, stakes, and reversibility.",
+    description: "The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).",
+    fullDescription: "The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).\n\nOptimists see missed breakthroughs as moral failures—every delayed cure costs lives. Pessimists see rushed deployments as existential risks—one bad AI launch undermines decades of progress.\n\nShort-term, reversible decisions favour Type 1 tolerance (try fast, fail fast). Long-term, irreversible ones favour Type 2 tolerance (genetic modifications, climate interventions can't be easily undone).\n\nThe question isn't which error type to avoid, but developing better mechanisms to adjust our tolerance based on context, stakes, and reversibility.",
     tag: "Thought Bite",
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",

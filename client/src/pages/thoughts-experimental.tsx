@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { thoughts } from "@/data/thoughts";
@@ -9,6 +8,7 @@ import { getPaintSplatter } from "@/lib/paint-splatters";
 export default function ThoughtsExperimental() {
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
+  const [expandedThought, setExpandedThought] = useState<string | null>(null);
 
   // Sort thoughts by date (most recent first)
   const sortedThoughts = [...thoughts].sort((a, b) => {
@@ -27,94 +27,108 @@ export default function ThoughtsExperimental() {
 
   const MasonryLayout = () => (
     <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-      {sortedThoughts.map((thought, index) => (
-        <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card">
-          <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
-            thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
-            thought.tag === 'Scenario' ? 'min-h-[260px]' :
-            index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
-          }`}>
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  {/* Tag pill with border default and paint splatter hover */}
-                  <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
-                    {/* Default border state - visible by default */}
-                    <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
-                      {thought.tag}
-                    </span>
-                    {/* Paint splatter background - appears on hover */}
-                    <div 
-                      className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
-                      style={getPillHoverStyle(thought.tag)}
-                    />
-                  </span>
-                  {thought.status === 'wip' && (
-                    <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
-                      WIP
-                    </span>
-                  )}
-                </div>
-                <span className="text-sm text-warm-brown/60">
-                  {thought.date || "Aug 11, 2025"}
-                </span>
-              </div>
+      {sortedThoughts.map((thought, index) => {
+        const isExpanded = expandedThought === thought.id;
+        const descriptionLines = (thought.description || '').split('\n');
+        const shortDescription = descriptionLines.slice(0, 1).join('\n');
+        const fullDescription = descriptionLines.join('\n');
 
-              {thought.tag === 'Scenario' && thought.id === '4' ? (
-                <>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4">
-                    {thought.title}
-                  </h3>
-                  <div className="flex items-center justify-center mb-4">
-                    <img
-                      src={democracyImage}
-                      alt="Democracy's Last Voter illustration"
-                      className="max-w-full max-h-48 object-contain rounded-lg"
-                    />
+        return (
+          <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card" onClick={() => thought.id === '8' && setExpandedThought(isExpanded ? null : thought.id)}>
+            <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
+              thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
+              thought.tag === 'Scenario' ? 'min-h-[260px]' :
+              index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
+            }`}>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    {/* Tag pill with border default and paint splatter hover */}
+                    <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
+                      {/* Default border state - visible by default */}
+                      <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
+                        {thought.tag}
+                      </span>
+                      {/* Paint splatter background - appears on hover */}
+                      <div 
+                        className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
+                        style={getPillHoverStyle(thought.tag)}
+                      />
+                    </span>
+                    {thought.status === 'wip' && (
+                      <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
+                        WIP
+                      </span>
+                    )}
                   </div>
-                </>
-              ) : (
-                <>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4">
-                    {thought.title}
-                  </h3>
-                  <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
-                    {(thought.description || '').split('\n').map((line, idx) => (
-                      <p key={idx} className="mb-1">{line}</p>
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
-                <div className="flex items-center gap-2 mb-6">
-                  <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                  </svg>
                   <span className="text-sm text-warm-brown/60">
-                    {thought.readTime || "5 min read"}
+                    {thought.date || "Aug 11, 2025"}
                   </span>
                 </div>
-              )}
 
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
-                thought.status === 'wip' ? (
-                  <div className="flex items-center justify-center gap-2 py-3">
-                    <div className="flex items-center gap-2 text-sm text-warm-brown/60">
-                      <div className="w-2 h-2 bg-warm-brown/40 rounded-full animate-pulse"></div>
-                      <span className="font-medium">Work in Progress</span>
+                {thought.tag === 'Scenario' && thought.id === '4' ? (
+                  <>
+                    <h3 className="text-lg font-medium text-warm-brown mb-4">
+                      {thought.title}
+                    </h3>
+                    <div className="flex items-center justify-center mb-4">
+                      <img
+                        src={democracyImage}
+                        alt="Democracy's Last Voter illustration"
+                        className="max-w-full max-h-48 object-contain rounded-lg"
+                      />
                     </div>
-                  </div>
+                  </>
                 ) : (
-                  <button className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown">
-                    Read more
-                  </button>
-                )
-              )}
+                  <>
+                    <h3 className="text-lg font-medium text-warm-brown mb-4">
+                      {thought.title}
+                    </h3>
+                    <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
+                      {(thought.id === '8' ? (isExpanded ? fullDescription : shortDescription) : fullDescription).split('\n').map((line, idx) => (
+                        <p key={idx} className="mb-1">{line}</p>
+                      ))}
+                    </div>
+                    {thought.id === '8' && (
+                      <div className="text-center">
+                        <button className="text-sm font-medium text-warm-brown hover:underline">
+                          {isExpanded ? "See less" : "See more"}
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
+                  <div className="flex items-center gap-2 mb-6">
+                    <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-warm-brown/60">
+                      {thought.readTime || "5 min read"}
+                    </span>
+                  </div>
+                )}
+
+                {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
+                  thought.status === 'wip' ? (
+                    <div className="flex items-center justify-center gap-2 py-3">
+                      <div className="flex items-center gap-2 text-sm text-warm-brown/60">
+                        <div className="w-2 h-2 bg-warm-brown/40 rounded-full animate-pulse"></div>
+                        <span className="font-medium">Work in Progress</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <button className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown">
+                      Read more
+                    </button>
+                  )
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 

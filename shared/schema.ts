@@ -22,6 +22,7 @@ export const thoughts = pgTable("thoughts", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   title: text("title").notNull(),
   description: text("description").notNull(),
+  fullDescription: text("full_description"),
   tag: text("tag").notNull(),
   readTime: text("read_time"),
   imageGradient: text("image_gradient"),

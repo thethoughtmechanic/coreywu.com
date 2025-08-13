@@ -11,6 +11,7 @@ export default function Thoughts() {
   const isMobile = useIsMobile();
   const [expandedSlide, setExpandedSlide] = useState<string | null>(null);
   const [modalSlide, setModalSlide] = useState<string | null>(null); // State for modal slide
+  const [expandedThought, setExpandedThought] = useState<string | null>(null);
 
   // Group thoughts by content type for mixed layout
   const articles = thoughts?.filter(t => t.tag === 'Article' || (t.readTime && typeof t.readTime === 'string' && t.readTime.includes('min'))) || [];
@@ -82,7 +83,7 @@ export default function Thoughts() {
                       {thought.tag}
                     </span>
                     {/* Paint splatter background - appears on hover */}
-                    <div 
+                    <div
                       className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
                       style={getPillHoverStyle(thought.tag)}
                     />
@@ -144,7 +145,7 @@ export default function Thoughts() {
                     </div>
                   </div>
                 ) : (
-                  <button 
+                  <button
                     onClick={() => setModalSlide(thought.id)}
                     className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown"
                   >
@@ -265,10 +266,48 @@ export default function Thoughts() {
                         <h3 className={`text-lg font-medium text-warm-brown mb-4 group-hover/card:text-white group-hover/card:font-semibold transition-all duration-500`}>
                           {thought.title}
                         </h3>
-                        <div className={`text-base text-soft-black/70 mb-6 group-hover/card:text-white/90 transition-all duration-500 leading-relaxed`}>
-                          {(thought.description || 'Exploring fundamental questions about what makes us human in an era where artificial intelligence increasingly mirrors human capabilities.').split('\n').map((line, index) => (
-                            <p key={index} className="mb-1">{line}</p>
-                          ))}
+                        <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
+                          {thought.id === '8' ? (
+                            <>
+                              {expandedThought === thought.id ? (
+                                <>
+                                  {(thought.fullDescription || thought.description).split('\n').map((line, index) => (
+                                    <p key={index} className="mb-2">{line}</p>
+                                  ))}
+                                  <button
+                                    onClick={() => setExpandedThought(null)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    Show less
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  {thought.description.split('\n').map((line, index) => (
+                                    <p key={index} className="mb-2">{line}</p>
+                                  ))}
+                                  <button
+                                    onClick={() => setExpandedThought(thought.id)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    See more
+                                  </button>
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {(thought.description || '').split('\n').map((line, index) => (
+                                <p key={index} className="mb-1">{line}</p>
+                              ))}
+                            </>
+                          )}
                         </div>
                       </>
                     )}

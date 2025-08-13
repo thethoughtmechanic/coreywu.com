@@ -236,9 +236,9 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
             </button>
           )}
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* Feedback buttons */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2">
               <button 
                 onClick={(e) => {
                   e.stopPropagation();
@@ -246,17 +246,18 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
                   if (!hasReacted) {
                     localStorage.setItem(`reaction-${thought.id}`, 'true');
                     // You could add a toast notification here
+                    console.log(`Reacted to thought: ${thought.title}`);
                   }
                 }}
-                className="text-warm-brown/60 hover:text-warm-brown transition-colors duration-200 text-xs"
+                className="flex items-center justify-center w-8 h-8 rounded-full bg-warm-brown/10 hover:bg-warm-brown/20 text-warm-brown hover:text-hover-brown transition-all duration-200 text-sm"
                 title="React to this thought"
               >
                 👍
               </button>
               <a 
-                href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(thought.title)}`}
+                href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(thought.title)}&body=Hi Corey,%0A%0AI wanted to share my thoughts on "${encodeURIComponent(thought.title)}":%0A%0A`}
                 onClick={(e) => e.stopPropagation()}
-                className="text-warm-brown/60 hover:text-warm-brown transition-colors duration-200 text-xs"
+                className="flex items-center justify-center w-8 h-8 rounded-full bg-warm-brown/10 hover:bg-warm-brown/20 text-warm-brown hover:text-hover-brown transition-all duration-200 text-sm"
                 title="Send message about this thought"
               >
                 💬

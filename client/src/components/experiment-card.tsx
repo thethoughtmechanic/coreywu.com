@@ -84,7 +84,7 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
                   <div></div>
                 )}
               </div>
-              
+
               {/* Feedback buttons */}
               <div className="flex items-center gap-1">
                 <button 
@@ -188,7 +188,7 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
                   </div>
                 )}
               </div>
-              
+
               {/* Feedback buttons */}
               <div className="flex items-center gap-2">
                 <button 

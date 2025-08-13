@@ -414,10 +414,23 @@ export default function Thoughts() {
                             </>
                           ) : (
                             <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
-                              {thought.description?.split('\n').map((line, index) => (
-                                <p key={index} className="mb-1">{line}</p>
-                              ))}
-                            </div>
+                            {thought.id === '7' ? (
+                              <>
+                                {thought.description?.split('\n').map((line, index) => (
+                                  <div key={index} className="flex items-start gap-2 mb-2">
+                                    <span className="text-warm-brown font-medium">•</span>
+                                    <p>{line}</p>
+                                  </div>
+                                ))}
+                              </>
+                            ) : (
+                              <>
+                                {thought.description?.split('\n').map((line, index) => (
+                                  <p key={index} className="mb-1">{line}</p>
+                                ))}
+                              </>
+                            )}
+                          </div>
                           )}
                         </div>
                       </>

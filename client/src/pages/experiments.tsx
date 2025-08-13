@@ -3,7 +3,7 @@ import { Experiment } from "@shared/schema";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { X } from "lucide-react";
-import ContactModal from "@/components/ContactModal"; // Assuming ContactModal is in this path
+import ContactModal from "@/components/contact-modal";
 
 // Import Mister Misu images - using public folder paths
 const grandCoffeeHallImage = "/mister-misu-grand-coffee-hall.png";

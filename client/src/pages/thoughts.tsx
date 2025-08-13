@@ -126,25 +126,25 @@ export default function Thoughts() {
                     </div>
                   </div>
                 </>
-              ) : thought.tag === 'Scenario' && thought.id === '5' ? (
+              ) : thought.id === '7' ? (
                 <>
                   <h3 className="text-lg font-medium text-warm-brown mb-4">
                     {thought.title}
                   </h3>
-                  <div className="text-sm text-soft-black/70 mb-4 leading-relaxed">
-                    <div className="flex items-start gap-2 mb-2">
+                  <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed mb-4">
+                    <div className="flex items-start gap-2">
                       <span className="text-warm-brown font-medium">•</span>
                       <p>The AI Babysitter</p>
                     </div>
-                    <div className="flex items-start gap-2 mb-2">
+                    <div className="flex items-start gap-2">
                       <span className="text-warm-brown font-medium">•</span>
                       <p>Employee Courtesy Score</p>
                     </div>
-                    <div className="flex items-start gap-2 mb-2">
+                    <div className="flex items-start gap-2">
                       <span className="text-warm-brown font-medium">•</span>
                       <p>The Rudeness Penalty</p>
                     </div>
-                    <div className="flex items-start gap-2 mb-2">
+                    <div className="flex items-start gap-2">
                       <span className="text-warm-brown font-medium">•</span>
                       <p>My AI God-Parent</p>
                     </div>
@@ -344,27 +344,25 @@ export default function Thoughts() {
                               </div>
                             </div>
                           </>
-                        ) : thought.id === '5' ? (
-                          <>
-                            <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed">
-                              <div className="flex items-start gap-2">
-                                <span className="text-warm-brown font-medium">•</span>
-                                <p>The AI Babysitter</p>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <span className="text-warm-brown font-medium">•</span>
-                                <p>Employee Courtesy Score</p>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <span className="text-warm-brown font-medium">•</span>
-                                <p>The Rudeness Penalty</p>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <span className="text-warm-brown font-medium">•</span>
-                                <p>My AI God-Parent</p>
-                              </div>
+                        ) : thought.id === '7' ? (
+                          <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed">
+                            <div className="flex items-start gap-2">
+                              <span className="text-warm-brown font-medium">•</span>
+                              <p>The AI Babysitter</p>
                             </div>
-                          </>
+                            <div className="flex items-start gap-2">
+                              <span className="text-warm-brown font-medium">•</span>
+                              <p>Employee Courtesy Score</p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <span className="text-warm-brown font-medium">•</span>
+                              <p>The Rudeness Penalty</p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <span className="text-warm-brown font-medium">•</span>
+                              <p>My AI God-Parent</p>
+                            </div>
+                          </div>
                         ) : (
                           <div className="text-sm text-soft-black/70 mb-4 leading-relaxed">
                             {(thought.description || '').split('\n').map((line, index) => (
@@ -412,15 +410,6 @@ export default function Thoughts() {
                                 </>
                               )}
                             </>
-                          ) : thought.id === '7' ? (
-                            <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
-                              {thought.description?.split('\n').map((line, index) => (
-                                <div key={index} className="flex items-start gap-2 mb-2">
-                                  <span className="text-warm-brown font-medium">•</span>
-                                  <p>{line}</p>
-                                </div>
-                              ))}
-                            </div>
                           ) : (
                             <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                               {thought.description?.split('\n').map((line, index) => (

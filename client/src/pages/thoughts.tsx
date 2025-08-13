@@ -113,16 +113,40 @@ export default function Thoughts() {
                   </div>
                   <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed mb-4">
                     <div className="flex items-start gap-2">
-                      <span className="text-warm-brown font-medium">1.</span>
+                      <span className="text-warm-brown font-medium">•</span>
                       <p>Will AI know what we believe better than we do?</p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <span className="text-warm-brown font-medium">2.</span>
+                      <span className="text-warm-brown font-medium">•</span>
                       <p>Is human voting unethical if AI governs better?</p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <span className="text-warm-brown font-medium">3.</span>
+                      <span className="text-warm-brown font-medium">•</span>
                       <p>Will AI discover our beliefs or shape them?</p>
+                    </div>
+                  </div>
+                </>
+              ) : thought.tag === 'Scenario' && thought.id === '5' ? (
+                <>
+                  <h3 className="text-lg font-medium text-warm-brown mb-4">
+                    {thought.title}
+                  </h3>
+                  <div className="text-sm text-soft-black/70 mb-4 leading-relaxed">
+                    <div className="flex items-start gap-2 mb-2">
+                      <span className="text-warm-brown font-medium">•</span>
+                      <p>The AI Babysitter</p>
+                    </div>
+                    <div className="flex items-start gap-2 mb-2">
+                      <span className="text-warm-brown font-medium">•</span>
+                      <p>Employee Courtesy Score</p>
+                    </div>
+                    <div className="flex items-start gap-2 mb-2">
+                      <span className="text-warm-brown font-medium">•</span>
+                      <p>The Rudeness Penalty</p>
+                    </div>
+                    <div className="flex items-start gap-2 mb-2">
+                      <span className="text-warm-brown font-medium">•</span>
+                      <p>My AI God-Parent</p>
                     </div>
                   </div>
                 </>
@@ -317,6 +341,27 @@ export default function Thoughts() {
                               <div className="flex items-start gap-2">
                                 <span className="text-warm-brown font-medium">•</span>
                                 <p>Will AI discover our beliefs or shape them?</p>
+                              </div>
+                            </div>
+                          </>
+                        ) : thought.id === '5' ? (
+                          <>
+                            <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed">
+                              <div className="flex items-start gap-2">
+                                <span className="text-warm-brown font-medium">•</span>
+                                <p>The AI Babysitter</p>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="text-warm-brown font-medium">•</span>
+                                <p>Employee Courtesy Score</p>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="text-warm-brown font-medium">•</span>
+                                <p>The Rudeness Penalty</p>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="text-warm-brown font-medium">•</span>
+                                <p>My AI God-Parent</p>
                               </div>
                             </div>
                           </>

@@ -220,6 +220,33 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
         </p>
 
         <div className="mt-auto">
+          {/* Feedback buttons - always visible */}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log(`Reacted to: ${thought.title}`);
+                }}
+                className="flex items-center gap-1 text-sm text-warm-brown hover:text-hover-brown transition-colors group"
+                title="React to this thought"
+              >
+                <span className="text-base group-hover:scale-110 transition-transform">👍</span>
+                <span>React</span>
+              </button>
+              <a 
+                href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(thought.title)}`}
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1 text-sm text-warm-brown hover:text-hover-brown transition-colors group"
+                title="Send message about this thought"
+              >
+                <span className="text-base group-hover:scale-110 transition-transform">💬</span>
+                <span>Message</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Bottom row with action button and progress dots */}
           <div className="flex items-center justify-between">
             {thought.status === 'wip' ? (
               <div className="flex items-center gap-2">
@@ -236,28 +263,6 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
                 </svg>
               </button>
             )}
-
-            {/* Simple feedback buttons */}
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log(`Reacted to: ${thought.title}`);
-                }}
-                className="text-lg hover:scale-110 transition-transform"
-                title="React to this thought"
-              >
-                👍
-              </button>
-              <a 
-                href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(thought.title)}`}
-                onClick={(e) => e.stopPropagation()}
-                className="text-lg hover:scale-110 transition-transform"
-                title="Send message about this thought"
-              >
-                💬
-              </a>
-            </div>
             
             <div className="flex items-center gap-1">
               {[...Array(3)].map((_, i) => (

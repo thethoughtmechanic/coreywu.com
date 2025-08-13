@@ -219,50 +219,55 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
           {thought.description}
         </p>
 
-        <div className="flex items-center justify-between mt-auto">
-          {thought.status === 'wip' ? (
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 text-xs text-muted-grey">
-                <div className="w-1.5 h-1.5 bg-warm-brown/40 rounded-full animate-pulse"></div>
-                <span className="font-medium">Work in Progress</span>
-              </div>
-            </div>
-          ) : (
-            <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-              <span>See more</span>
-              <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+        <div className="mt-auto">
+          {/* Feedback buttons row */}
+          <div className="flex items-center justify-center gap-3 mb-4 py-2 border-t border-warm-brown/10 pt-4">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                const hasReacted = localStorage.getItem(`reaction-${thought.id}`) === 'true';
+                if (!hasReacted) {
+                  localStorage.setItem(`reaction-${thought.id}`, 'true');
+                  console.log(`Reacted to thought: ${thought.title}`);
+                  // Add visual feedback
+                  e.currentTarget.style.transform = 'scale(1.2)';
+                  setTimeout(() => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }, 200);
+                }
+              }}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-warm-brown/10 hover:bg-warm-brown/20 text-warm-brown hover:text-hover-brown transition-all duration-200 text-lg"
+              title="React to this thought"
+            >
+              👍
             </button>
-          )}
+            <a 
+              href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(thought.title)}&body=Hi Corey,%0A%0AI wanted to share my thoughts on "${encodeURIComponent(thought.title)}":%0A%0A`}
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-warm-brown/10 hover:bg-warm-brown/20 text-warm-brown hover:text-hover-brown transition-all duration-200 text-lg"
+              title="Send message about this thought"
+            >
+              💬
+            </a>
+          </div>
 
-          <div className="flex items-center gap-3">
-            {/* Feedback buttons */}
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const hasReacted = localStorage.getItem(`reaction-${thought.id}`) === 'true';
-                  if (!hasReacted) {
-                    localStorage.setItem(`reaction-${thought.id}`, 'true');
-                    // You could add a toast notification here
-                    console.log(`Reacted to thought: ${thought.title}`);
-                  }
-                }}
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-warm-brown/10 hover:bg-warm-brown/20 text-warm-brown hover:text-hover-brown transition-all duration-200 text-sm"
-                title="React to this thought"
-              >
-                👍
+          {/* Bottom row with CTA and decorative elements */}
+          <div className="flex items-center justify-between">
+            {thought.status === 'wip' ? (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 text-xs text-muted-grey">
+                  <div className="w-1.5 h-1.5 bg-warm-brown/40 rounded-full animate-pulse"></div>
+                  <span className="font-medium">Work in Progress</span>
+                </div>
+              </div>
+            ) : (
+              <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
+                <span>See more</span>
+                <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </button>
-              <a 
-                href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(thought.title)}&body=Hi Corey,%0A%0AI wanted to share my thoughts on "${encodeURIComponent(thought.title)}":%0A%0A`}
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-warm-brown/10 hover:bg-warm-brown/20 text-warm-brown hover:text-hover-brown transition-all duration-200 text-sm"
-                title="Send message about this thought"
-              >
-                💬
-              </a>
-            </div>
+            )}
             
             <div className="flex items-center gap-1">
               {[...Array(3)].map((_, i) => (

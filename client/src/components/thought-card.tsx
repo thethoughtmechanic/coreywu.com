@@ -220,58 +220,21 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
         </p>
 
         <div className="mt-auto">
-          {/* Feedback buttons - always visible */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-3">
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log(`Reacted to: ${thought.title}`);
-                }}
-                className="flex items-center gap-1 text-sm text-warm-brown hover:text-hover-brown transition-colors group"
-                title="React to this thought"
-              >
-                <span className="text-base group-hover:scale-110 transition-transform">👍</span>
-                <span>React</span>
-              </button>
-              <a 
-                href={`mailto:corey.david.wu@gmail.com?subject=RE: ${encodeURIComponent(thought.title)}`}
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1 text-sm text-warm-brown hover:text-hover-brown transition-colors group"
-                title="Send message about this thought"
-              >
-                <span className="text-base group-hover:scale-110 transition-transform">💬</span>
-                <span>Message</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Bottom row with action button and progress dots */}
-          <div className="flex items-center justify-between">
-            {thought.status === 'wip' ? (
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 text-xs text-muted-grey">
-                  <div className="w-1.5 h-1.5 bg-warm-brown/40 rounded-full animate-pulse"></div>
-                  <span className="font-medium">Work in Progress</span>
-                </div>
+          {thought.status === 'wip' ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 text-xs text-muted-grey">
+                <div className="w-1.5 h-1.5 bg-warm-brown/40 rounded-full animate-pulse"></div>
+                <span className="font-medium">Work in Progress</span>
               </div>
-            ) : (
-              <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-                <span>See more</span>
-                <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
-            )}
-            
-            <div className="flex items-center gap-1">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className={`h-1 w-6 rounded-full ${
-                    i === 0 ? 'bg-warm-brown' : 'bg-warm-brown/20'
-                  }`}></div>
-              ))}
             </div>
-          </div>
+          ) : (
+            <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
+              <span>See more</span>
+              <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
     </article>

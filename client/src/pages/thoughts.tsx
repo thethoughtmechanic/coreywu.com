@@ -113,15 +113,15 @@ export default function Thoughts() {
                   </div>
                   <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed mb-4">
                     <div className="flex items-start gap-2">
-                      <span className="text-warm-brown font-medium">1.</span>
+                      <span className="text-warm-brown font-medium">•</span>
                       <p>Will AI know what we believe better than we do?</p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <span className="text-warm-brown font-medium">2.</span>
+                      <span className="text-warm-brown font-medium">•</span>
                       <p>Is human voting unethical if AI governs better?</p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <span className="text-warm-brown font-medium">3.</span>
+                      <span className="text-warm-brown font-medium">•</span>
                       <p>Will AI discover our beliefs or shape them?</p>
                     </div>
                   </div>

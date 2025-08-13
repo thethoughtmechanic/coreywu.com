@@ -88,22 +88,7 @@ export default function Thoughts() {
                       style={getPillHoverStyle(thought.tag)}
                     />
                   </span>
-                  {thought.status === 'wip' && thought.id === '7' && (
-                    <div className="relative inline-block transform -rotate-1">
-                      <span 
-                        className="text-xs font-mono tracking-wide transform rotate-1"
-                        style={{
-                          fontFamily: "'Kalam', 'Comic Sans MS', cursive",
-                          color: '#166534',
-                          textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)',
-                          letterSpacing: '0.02em'
-                        }}
-                      >
-                        V1
-                      </span>
-                    </div>
-                  )}
-                  {thought.status === 'wip' && thought.id !== '7' && (
+                  {thought.status === 'wip' && (
                     <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
                       WIP
                     </span>
@@ -318,22 +303,7 @@ export default function Thoughts() {
                         <span className={`text-sm font-medium transition-all duration-500 ${
                           thought.tag === 'Scenario' ? 'text-warm-brown' : 'text-warm-brown group-hover/card:text-white group-hover/card:font-semibold'
                         }`}>{thought.tag}</span>
-                        {thought.status === 'wip' && thought.id === '7' && (
-                          <div className="relative inline-block transform -rotate-1">
-                            <span 
-                              className="text-xs font-mono tracking-wide transform rotate-1"
-                              style={{
-                                fontFamily: "'Kalam', 'Comic Sans MS', cursive",
-                                color: '#166534',
-                                textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)',
-                                letterSpacing: '0.02em'
-                              }}
-                            >
-                              V1
-                            </span>
-                          </div>
-                        )}
-                        {thought.status === 'wip' && thought.id !== '7' && (
+                        {thought.status === 'wip' && (
                           <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
                             WIP
                           </span>

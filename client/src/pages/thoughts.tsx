@@ -48,13 +48,7 @@ export default function Thoughts() {
     return dateB.getTime() - dateA.getTime();
   });
 
-  // Get paint splatter for pill hover background
-  const getPillHoverStyle = (tag: string) => {
-    const splatter = getPaintSplatter(tag);
-    return {
-      background: splatter.background
-    };
-  };
+  
 
   const getGoogleSlidesUrl = (thoughtId: string) => {
     // Map thought IDs to their respective Google Slides URLs
@@ -85,7 +79,7 @@ export default function Thoughts() {
                     {/* Paint splatter background - appears on hover */}
                     <div
                       className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
-                      style={getPillHoverStyle(thought.tag)}
+                      style={getPaintSplatter(thought.tag)}
                     />
                   </span>
                   {thought.status === 'wip' && (

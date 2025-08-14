@@ -49,7 +49,7 @@ export default function Thoughts() {
   });
 
   // Get paint splatter for pill hover background
-  const getPaintSplatter = (tag: string) => {
+  const getPillHoverStyle = (tag: string) => {
     const splatter = getPaintSplatter(tag);
     return {
       background: splatter.background
@@ -85,7 +85,7 @@ export default function Thoughts() {
                     {/* Paint splatter background - appears on hover */}
                     <div
                       className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
-                      style={getPaintSplatter(thought.tag)}
+                      style={getPillHoverStyle(thought.tag)}
                     />
                   </span>
                   {thought.status === 'wip' && (

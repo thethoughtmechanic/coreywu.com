@@ -85,7 +85,7 @@ export default function Thoughts() {
                     {/* Paint splatter background - appears on hover */}
                     <div
                       className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
-                      style={getPillHoverStyle(thought.tag)}
+                      style={getPaintSplatter(thought.tag)}
                     />
                   </span>
                   {thought.status === 'wip' && (
@@ -271,7 +271,7 @@ export default function Thoughts() {
                           {/* Paint splatter background - appears on hover */}
                           <div
                             className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
-                            style={getPillHoverStyle(thought.tag)}
+                            style={getPaintSplatter(thought.tag)}
                           />
                         </span>
                         {thought.status === 'wip' && (

@@ -49,7 +49,7 @@ export default function Thoughts() {
   });
 
   // Get paint splatter for pill hover background
-  const getPillHoverStyle = (tag: string) => {
+  const getPaintSplatter = (tag: string) => {
     const splatter = getPaintSplatter(tag);
     return {
       background: splatter.background
@@ -153,7 +153,7 @@ export default function Thoughts() {
               ) : (
                 <>
                   <h3 className="text-lg font-medium text-warm-brown mb-4">
-                    {thought.title}
+                    {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                   </h3>
                   <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                     {thought.id === '8' ? (
@@ -343,7 +343,7 @@ export default function Thoughts() {
                     ) : (
                       <>
                         <h3 className="text-lg font-medium text-warm-brown mb-4">
-                          {thought.title}
+                          {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                         </h3>
                         <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                           {thought.id === '8' ? (

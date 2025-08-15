@@ -92,8 +92,8 @@ export const thoughts: Thought[] = [
   {
     id: "9",
     title: "We Need to Defend Flow for Meaning",
-    description: "What if flow is one of the deepest sources of human meaning-that sweet spot where challenges match your skills? Too easy and you're bored, too hard and you're anxious.",
-    fullDescription: "What if flow is one of the deepest sources of human meaning-that sweet spot where challenges match your skills? Too easy and you're bored, too hard and you're anxious.\n\nAI promises to reduce complexity and improve our lives. But it may just as easily generate problems so intricate that we need AI to guide us through them. We risk shifting into intern mode—not leveraging technology, but being leveraged by it.\n\nThe flow window is shrinking. More and more, tasks are either trivial (repetitive work AI completes instantly) or out of reach (complex work where AI is the only true expert in the room).\n\nIn that narrowing gap, human meaning becomes harder to find.",
+    description: "What if flow is one of the deepest sources of human meaning—that sweet spot where challenges match your skills? Too easy and you're bored, too hard and you're anxious.",
+    fullDescription: "What if flow is one of the deepest sources of human meaning—that sweet spot where challenges match your skills? Too easy and you're bored, too hard and you're anxious.\n\nAI promises to reduce complexity and improve our lives. But it may just as easily generate problems so intricate that we need AI to guide us through them. We risk shifting into <u>intern mode</u>—not leveraging technology, but being leveraged by it.\n\nThe flow window is shrinking. More and more, tasks are either trivial (repetitive work AI completes instantly) or out of reach (complex work where AI is the only true expert in the room).\n\nIn that narrowing gap, human meaning becomes harder to find.",
     tag: "Thought Bite",
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",

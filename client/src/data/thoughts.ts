@@ -57,6 +57,19 @@ export const thoughts: Thought[] = [
     date: "Aug 10, 2025"
   },
   {
+    id: "5v2",
+    title: "Regulation Through Code, Not Policy",
+    description: "As AI agents interact within spaces, these locations should have rules as limitations, similar to countries.",
+    fullDescription: "Recently read about 'Constitutional AI' concept from Anthropic, and it really resonates with me",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Aug 10, 2025",
+    version: "2.0",
+    stackedOn: "5"
+  },
+  {
     id: "6",
     title: "Social Web | Digital Gardens | Cozy Webs",
     description: "Social web is an editor's curated menu of trending dishes. Digital gardens are curated dinner parties. Cozy webs are the after-party conversations that last until 4 a.m. One feeds the brain, one feeds the heart, one feeds the soul.",

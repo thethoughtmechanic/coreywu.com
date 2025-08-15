@@ -46,17 +46,6 @@ export const thoughts: Thought[] = [
     date: "Aug 9, 2025"
   },
   {
-    id: "5",
-    title: "Regulation Through Code, Not Policy",
-    description: "As AI agents interact within spaces, these locations should have rules as limitations, similar to countries.",
-    fullDescription: null,
-    tag: "Thought Bite",
-    readTime: "2 min read",
-    imageGradient: "from-teal-600 to-teal-400",
-    status: "published",
-    date: "Aug 10, 2025"
-  },
-  {
     id: "5-v2",
     title: "Regulation Through Code, Not Policy",
     description: "As AI agents interact within spaces, these locations should have rules as limitations, similar to countries.",
@@ -65,7 +54,7 @@ export const thoughts: Thought[] = [
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",
     status: "published",
-    date: "Aug 10, 2025",
+    date: "Aug 15, 2025",
     stackedOn: "5",
     version: "2.0",
     edit: "I recently read about 'Constitutional AI' concept from Anthropic, and it really resonates with me."

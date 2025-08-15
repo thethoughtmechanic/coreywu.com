@@ -58,23 +58,62 @@ export default function Thoughts() {
     return slideUrls[thoughtId] || "";
   };
 
+  // Filter out original cards that have stacked versions
+  const filteredThoughts = sortedThoughts.filter(thought => {
+    // If this is an original card and there's a stacked version, hide it
+    if (sortedThoughts.some(t => t.stackedOn === thought.id)) {
+      return false;
+    }
+    return true;
+  });
+
   const MasonryLayout = () => (
     <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-      {sortedThoughts.map((thought, index) => (
+      {filteredThoughts.map((thought, index) => (
         <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card">
-          <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
-            thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
-            thought.tag === 'Scenario' ? 'min-h-[260px]' :
-            index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
-          }`}>
+          {/* Stacked card effect */}
+          {thought.stackedOn && (
+            <div className="relative">
+              {/* Background card (original) - slightly offset and with reduced opacity */}
+              <div className="absolute top-2 left-2 w-full bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-soft border border-warm-brown/10 z-0 transform rotate-1" style={{ minHeight: '180px' }}>
+                <div className="opacity-50">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-medium px-3 py-1.5 rounded-full border border-warm-brown/30 text-warm-brown">
+                      {thought.tag}
+                    </span>
+                    <span className="text-sm text-warm-brown/60">Aug 10, 2025</span>
+                  </div>
+                  <h3 className="text-lg font-medium text-warm-brown mb-4">{thought.title}</h3>
+                  <div className="text-sm text-soft-black/70">{thought.description}</div>
+                </div>
+              </div>
+              
+              {/* Top card (new version) */}
+              <div className={`relative z-10 w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden ${
+                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
+                thought.tag === 'Scenario' ? 'min-h-[260px]' :
+                index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
+              }`}>
+          ) : (
+            <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
+              thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
+              thought.tag === 'Scenario' ? 'min-h-[260px]' :
+              index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
+            }`}>
+          )}
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   {/* Tag pill with border default and paint splatter hover */}
                   <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
                     {/* Default border state - visible by default */}
-                    <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
+                    <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white flex items-center gap-1">
                       {thought.tag}
+                      {thought.version && (
+                        <span className="text-xs bg-blue-600 text-white px-1.5 py-0.5 rounded-full font-bold">
+                          {thought.version}
+                        </span>
+                      )}
                     </span>
                     {/* Paint splatter background - appears on hover */}
                     <div
@@ -266,6 +305,9 @@ export default function Thoughts() {
                 )
               )}
             </div>
+            {thought.stackedOn && (
+              </div>
+            )}
           </div>
         </div>
       ))}
@@ -292,7 +334,7 @@ export default function Thoughts() {
         {/* Mobile: Instagram-style vertical feed */}
         {isMobile ? (
           <div className="space-y-4">
-            {sortedThoughts.map((thought, index) => (
+            {filteredThoughts.map((thought, index) => (
               <div key={thought.id} className="group/card cursor-pointer">
                 <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative">
 
@@ -302,8 +344,13 @@ export default function Thoughts() {
                         {/* Tag pill with border default and paint splatter hover - matching desktop */}
                         <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
                           {/* Default border state - visible by default */}
-                          <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
+                          <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white flex items-center gap-1">
                             {thought.tag}
+                            {thought.version && (
+                              <span className="text-xs bg-blue-600 text-white px-1.5 py-0.5 rounded-full font-bold">
+                                {thought.version}
+                              </span>
+                            )}
                           </span>
                           {/* Paint splatter background - appears on hover */}
                           <div

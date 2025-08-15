@@ -188,7 +188,9 @@ export default function Thoughts() {
                         {expandedThought === thought.id ? (
                           <>
                             {thought.fullDescription?.split('\n').map((line, index) => (
-                              <p key={index} className="mb-3">{line}</p>
+                              <p key={index} className="mb-3" dangerouslySetInnerHTML={{
+                                __html: line.replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                              }} />
                             ))}
                             <button
                               onClick={() => setExpandedThought(null)}
@@ -412,7 +414,9 @@ export default function Thoughts() {
                               {expandedThought === thought.id ? (
                                 <>
                                   {thought.fullDescription?.split('\n').map((line, index) => (
-                                    <p key={index} className="mb-3">{line}</p>
+                                    <p key={index} className="mb-3" dangerouslySetInnerHTML={{
+                                      __html: line.replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                                    }} />
                                   ))}
                                   <button
                                     onClick={() => setExpandedThought(null)}

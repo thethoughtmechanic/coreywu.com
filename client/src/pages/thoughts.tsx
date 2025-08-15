@@ -71,36 +71,58 @@ export default function Thoughts() {
     <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
       {filteredThoughts.map((thought, index) => (
         <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card">
-          {/* Stacked card effect */}
-          {thought.stackedOn && (
-            <div className="relative">
-              {/* Background card (original) - slightly offset and with reduced opacity */}
-              <div className="absolute top-2 left-2 w-full bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-soft border border-warm-brown/10 z-0 transform rotate-1" style={{ minHeight: '180px' }}>
-                <div className="opacity-50">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-medium px-3 py-1.5 rounded-full border border-warm-brown/30 text-warm-brown">
-                      {thought.tag}
+          <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
+            thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
+            thought.tag === 'Scenario' ? 'min-h-[260px]' :
+            index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
+          }`}>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium px-3 py-1.5 rounded-full border border-warm-brown/30 text-warm-brown">
+                    {thought.tag}
+                    {thought.version && (
+                      <span className="text-xs bg-blue-600 text-white px-1.5 py-0.5 rounded-full font-bold ml-1">
+                        {thought.version}
+                      </span>
+                    )}
+                  </span>
+                  {thought.status === 'wip' && (
+                    <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
+                      WIP
                     </span>
-                    <span className="text-sm text-warm-brown/60">Aug 10, 2025</span>
-                  </div>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4">{thought.title}</h3>
-                  <div className="text-sm text-soft-black/70">{thought.description}</div>
+                  )}
                 </div>
+                <span className="text-sm text-warm-brown/60">
+                  {thought.date || "Aug 11, 2025"}
+                </span>
               </div>
-              
-              {/* Top card (new version) */}
-              <div className={`relative z-10 w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden ${
-                thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
-                thought.tag === 'Scenario' ? 'min-h-[260px]' :
-                index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
-              }`}>
-          ) : (
-            <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
-              thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
-              thought.tag === 'Scenario' ? 'min-h-[260px]' :
-              index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
-            }`}>
-          )}
+              <h3 className="text-lg font-medium text-warm-brown mb-4">
+                {thought.title}
+              </h3>
+              <div className="text-sm text-soft-black/70 mb-4">
+                {thought.description}
+              </div>
+              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
+                thought.status === 'wip' ? (
+                  <div className="flex items-center justify-center gap-2 py-3">
+                    <div className="flex items-center gap-2 text-sm text-warm-brown/60">
+                      <div className="w-2 h-2 bg-warm-brown/40 rounded-full animate-pulse"></div>
+                      <span className="font-medium">Work in Progress</span>
+                    </div>
+                  </div>
+                ) : (
+                  <button className="w-full text-sm py-3 px-4 rounded-xl transition-colors duration-200 font-medium bg-warm-brown text-cream hover:bg-hover-brown">
+                    View slides
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
@@ -305,10 +327,10 @@ export default function Thoughts() {
                 )
               )}
             </div>
-            {thought.stackedOn && (
-              </div>
-            )}
           </div>
+          {thought.stackedOn && (
+            </div>
+          )}
         </div>
       ))}
     </div>

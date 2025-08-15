@@ -1,6 +1,13 @@
 import { Thought } from "@shared/schema";
 
-export const thoughts: Thought[] = [
+// Extended interface for frontend data with additional optional properties
+interface ExtendedThought extends Thought {
+  stackedOn?: string;
+  version?: string;
+  edit?: string;
+}
+
+export const thoughts: ExtendedThought[] = [
   {
     id: "1",
     title: "Addressing The AI x Human Gap",

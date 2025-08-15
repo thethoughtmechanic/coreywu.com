@@ -105,7 +105,17 @@ export default function ThoughtsExperimental() {
                     </h3>
                     <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                       {(thought.id === '8' ? (isExpanded ? fullDescription : shortDescription) : fullDescription).split('\n').map((line, idx) => (
-                        <p key={idx} className="mb-1">{line}</p>
+                        <p key={idx} className="mb-1">
+                          {line.includes('intern mode') ? (
+                            <>
+                              {line.split('intern mode')[0]}
+                              <span className="underline decoration-2 underline-offset-2">intern mode</span>
+                              {line.split('intern mode')[1]}
+                            </>
+                          ) : (
+                            line
+                          )}
+                        </p>
                       ))}
                     </div>
                     {thought.id === '8' && (

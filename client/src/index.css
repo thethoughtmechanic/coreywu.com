@@ -227,3 +227,15 @@
     font-style: italic;
     color: hsl(var(--warm-brown));
   }
+
+.line-clamp-4 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.underline-text {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

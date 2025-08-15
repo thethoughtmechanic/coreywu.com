@@ -218,7 +218,9 @@ export default function Thoughts() {
                     ) : (
                       <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                         {thought.description?.split('\n').map((line, index) => (
-                          <p key={index} className="mb-1">{line}</p>
+                          <p key={index} className="mb-1" dangerouslySetInnerHTML={{
+                            __html: line.replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                          }} />
                         ))}
                       </div>
                     )}
@@ -440,7 +442,9 @@ export default function Thoughts() {
                           ) : (
                             <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                               {thought.description?.split('\n').map((line, index) => (
-                                <p key={index} className="mb-1">{line}</p>
+                                <p key={index} className="mb-1" dangerouslySetInnerHTML={{
+                                  __html: line.replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                                }} />
                               ))}
                             </div>
                           )}

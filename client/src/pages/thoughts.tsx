@@ -224,6 +224,13 @@ export default function Thoughts() {
                             __html: line.replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
                           }} />
                         ))}
+                        {thought.edit && (
+                          <div className="mt-4 pt-3 border-t border-blue-200">
+                            <p className="text-sm text-blue-600 italic">
+                              <span className="font-medium text-blue-700">{thought.version}:</span> {thought.edit}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -450,6 +457,13 @@ export default function Thoughts() {
                                   __html: line.replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
                                 }} />
                               ))}
+                              {thought.edit && (
+                                <div className="mt-4 pt-3 border-t border-blue-200">
+                                  <p className="text-sm text-blue-600 italic">
+                                    <span className="font-medium text-blue-700">{thought.version}:</span> {thought.edit}
+                                  </p>
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>

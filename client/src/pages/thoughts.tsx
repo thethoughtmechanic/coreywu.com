@@ -373,6 +373,38 @@ export default function Thoughts() {
                                 </>
                               )}
                             </>
+                          ) : thought.id === '9' ? (
+                            <>
+                              {expandedThought === thought.id ? (
+                                <>
+                                  {thought.fullDescription?.split('\n').map((line, index) => (
+                                    <p key={index} className="mb-3">{line}</p>
+                                  ))}
+                                  <button
+                                    onClick={() => setExpandedThought(null)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    See less
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="mb-2">{thought.description}</p>
+                                  <button
+                                    onClick={() => setExpandedThought(thought.id)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    See more
+                                  </button>
+                                </>
+                              )}
+                            </>
                           ) : (
                             <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                               {thought.description?.split('\n').map((line, index) => (

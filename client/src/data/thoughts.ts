@@ -1,13 +1,6 @@
 import { Thought } from "@shared/schema";
 
-// Extended interface for frontend data with additional optional properties
-interface ExtendedThought extends Thought {
-  stackedOn?: string;
-  version?: string;
-  edit?: string;
-}
-
-export const thoughts: ExtendedThought[] = [
+export const thoughts: Thought[] = [
   {
     id: "1",
     title: "Addressing The AI x Human Gap",
@@ -53,7 +46,7 @@ export const thoughts: ExtendedThought[] = [
     date: "Aug 9, 2025"
   },
   {
-    id: "5-v2",
+    id: "5",
     title: "Regulation Through Code, Not Policy",
     description: "As AI agents interact within spaces, these locations should have rules as limitations, similar to countries.",
     fullDescription: null,
@@ -61,10 +54,7 @@ export const thoughts: ExtendedThought[] = [
     readTime: "2 min read",
     imageGradient: "from-teal-600 to-teal-400",
     status: "published",
-    date: "Aug 15, 2025",
-    stackedOn: "5",
-    version: "2.0",
-    edit: "I recently read about 'Constitutional AI' concept from Anthropic, and it really resonates with me."
+    date: "Aug 10, 2025"
   },
   {
     id: "6",

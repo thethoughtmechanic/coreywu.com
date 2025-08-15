@@ -69,18 +69,3 @@ export type Thought = typeof thoughts.$inferSelect;
 export type InsertThought = z.infer<typeof insertThoughtSchema>;
 export type Experiment = typeof experiments.$inferSelect;
 export type InsertExperiment = z.infer<typeof insertExperimentSchema>;
-
-export const thoughtSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  description: z.string().nullable(),
-  fullDescription: z.string().nullable(),
-  tag: z.string(),
-  readTime: z.string(),
-  imageGradient: z.string(),
-  status: z.enum(['draft', 'published', 'wip']),
-  date: z.string().optional(),
-  stackedOn: z.string().optional(),
-  version: z.string().optional(),
-  edit: z.string().optional(),
-});

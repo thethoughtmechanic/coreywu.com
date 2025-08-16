@@ -813,7 +813,7 @@ export default function AboutExperimental() {
   return (
     <div className="min-h-screen relative bg-cream">
 
-      <div className="max-w-4xl mx-auto px-6 py-12 pb-12">
+      <div className="max-w-4xl mx-auto px-6 py-12">
       <header className="text-center mb-12 pt-4">
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-about-experimental-title">
           My System Prompts
@@ -1056,7 +1056,7 @@ export default function AboutExperimental() {
       )}
 
       {/* Contact Footer */}
-      <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
+      <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
           <a

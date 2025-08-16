@@ -584,6 +584,19 @@ export default function Thoughts() {
           </div>
         </div>
       )}
+
+      {/* Contact Footer */}
+      <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
+        <p className="text-sm text-muted-grey">
+          Interested in collaborating or just want to chat? Reach out at{' '}
+          <a
+            href="mailto:coreydavidwu@gmail.com"
+            className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
+          >
+            coreydavidwu@gmail.com
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

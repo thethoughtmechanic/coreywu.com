@@ -309,7 +309,7 @@ export default function AboutExperimental() {
         title: "The Mindful Abstainer",
         subtitle: "Between Neo-Tribalism & Sovereign Minimalism",
         description: "You've stepped back from the digital rush not out of fear or ideology, but from a place of conscious choice. You're neither building communes nor living off-grid—just maintaining healthy distance from the acceleration.",
-        worldVision: "Your future involves strategic disengagement. You might work in tech but live analog. You understand both worlds but choose presence over connectivity, depth over speed. You're the calm in the storm.",
+        worldVision: "Your future is one of strategic disengagement. You might work in tech but live analog. You understand both worlds but choose presence over connectivity, depth over speed. You're the calm in the storm.",
         strength: "Clarity unclouded by digital noise",
         challenge: "Staying relevant without losing your grounding",
         role: "Keeper of human-pace wisdom"
@@ -866,15 +866,15 @@ export default function AboutExperimental() {
                   ` : index === 4 ? `
                     radial-gradient(ellipse 240px 180px at 15% 20%, #ef4444 0%, #ef4444 45%, transparent 85%),
                     radial-gradient(ellipse 210px 160px at 85% 30%, #eab308 0%, #eab308 40%, transparent 80%),
-                    radial-gradient(ellipse 190px 220px at 10% 90%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                    radial-gradient(ellipse 190px 220px at 10% 85%, #dc2626 0%, #dc2626 50%, transparent 90%),
                     radial-gradient(ellipse 220px 140px at 90% 70%, #22c55e 0%, #22c55e 35%, transparent 75%),
                     radial-gradient(ellipse 175px 185px at 45% 40%, #f97316 0%, #f97316 40%, transparent 80%)
                   ` : index === 5 ? `
                     radial-gradient(ellipse 230px 170px at 25% 25%, #3b82f6 0%, #3b82f6 45%, transparent 85%),
                     radial-gradient(ellipse 200px 150px at 75% 15%, #6366f1 0%, #6366f1 40%, transparent 80%),
                     radial-gradient(ellipse 185px 215px at 5% 85%, #1d4ed8 0%, #1d4ed8 50%, transparent 90%),
-                    radial-gradient(ellipse 215px 130px at 95% 90%, #8b5cf6 0%, #8b5cf6 35%, transparent 75%),
-                    radial-gradient(ellipse 175px 185px at 45% 35%, #2563eb 0%, #2563eb 40%, transparent 80%)
+                    radial-gradient(ellipse 225px 135px at 95% 90%, #8b5cf6 0%, #8b5cf6 35%, transparent 75%),
+                    radial-gradient(ellipse 180px 190px at 45% 40%, #2563eb 0%, #2563eb 40%, transparent 80%)
                   ` : index === 6 ? `
                     radial-gradient(ellipse 245px 185px at 20% 10%, #f97316 0%, #f97316 45%, transparent 85%),
                     radial-gradient(ellipse 215px 165px at 80% 30%, #ec4899 0%, #ec4899 40%, transparent 80%),
@@ -1056,7 +1056,7 @@ export default function AboutExperimental() {
       )}
 
       {/* Contact Footer */}
-      <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
+      <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
           <a

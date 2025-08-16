@@ -1056,7 +1056,7 @@ export default function AboutExperimental() {
       )}
 
       {/* Contact Footer */}
-      <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">
+      <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
           <a

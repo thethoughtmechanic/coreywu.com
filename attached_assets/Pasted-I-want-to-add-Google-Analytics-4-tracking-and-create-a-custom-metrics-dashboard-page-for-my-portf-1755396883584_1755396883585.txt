@@ -1,0 +1,50 @@
+I want to add Google Analytics 4 tracking and create a custom `/metrics` dashboard page for my portfolio site.  
+
+Requirements:  
+1. **Google Analytics Setup**  
+   - Add GA4 tracking script to all pages of the site.  
+   - Instrument these custom events:  
+     - about_me_viewed  
+     - secret_mode_triggered  
+     - quiz_started, quiz_completed  
+     - game_started, game_completed  
+     - thoughts_item_clicked  
+     - experiment_artifact_opened  
+     - cta_email_clicked (main conversion)  
+
+2. **Metrics Dashboard**  
+   - Create a new route `/metrics`.  
+   - Add **basic password protection** (prompt for a password before showing the dashboard; store the password in an environment variable).  
+   - Use the **Google Analytics Data API** (service account credentials stored in secrets) to pull live data from GA4.  
+   - Display the data in a **funnel-inspired UI** following product analytics best practices.  
+
+3. **Dashboard Content**  
+   - At the top, show a **funnel visualization** (Curiosity → Engagement → Conversion):  
+     - Curiosity = pageviews of About/Thoughts/Experiments  
+     - Engagement = secret_mode_triggered, quiz/game completions, thoughts_item_clicked, artifact_opened  
+     - Conversion = cta_email_clicked  
+
+   - Below the funnel, include key metrics cards:  
+     - Total visitors (last 30 days)  
+     - Average session duration  
+     - Repeat visitors (returning users %)  
+     - Top referrers (where visitors come from)  
+     - Device breakdown (desktop vs mobile)  
+
+   - Add a **table of custom events** showing counts for each event in the last 30 days.  
+
+4. **UI / Design**  
+   - Use TailwindCSS for styling.  
+   - Cards with rounded corners, soft shadows, and clean typography.  
+   - Funnel should be a horizontal flow with clear drop-offs (e.g. number of users progressing at each stage).  
+   - Use a grid layout to avoid clutter, with summary cards at the top, funnel in the middle, tables at the bottom.  
+
+5. **Implementation Details**  
+   - Frontend can be React or simple HTML/JS, but must be visually clean.  
+   - Backend code in Node.js or Python to query the GA4 Data API.  
+   - Keep credentials secure in environment variables (service account JSON).  
+   - Dashboard should auto-refresh data daily or on page load.  
+
+Deliverable:  
+- A password-protected `/metrics` dashboard page that pulls from GA4 and shows my portfolio analytics in a funnel-first, product-analytics-inspired layout.  
+- All custom events wired up and reported in GA4.  

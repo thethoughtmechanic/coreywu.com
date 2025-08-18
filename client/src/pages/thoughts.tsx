@@ -592,6 +592,7 @@ export default function Thoughts() {
           <a
             href="mailto:coreydavidwu@gmail.com"
             className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
+            onClick={() => window.trackEmailClick && window.trackEmailClick('thoughts')}
           >
             coreydavidwu@gmail.com
           </a>

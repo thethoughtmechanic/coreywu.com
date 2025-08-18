@@ -48,6 +48,12 @@ export default function About() {
             <div
               key={index}
               className={getCardClasses(role, index)}
+              onMouseEnter={() => {
+                window.trackSystemPromptHover && window.trackSystemPromptHover(role, 'about');
+                if (isSpecialCard(role)) {
+                  window.trackPaintSplatterTrigger && window.trackPaintSplatterTrigger('system_prompt_special', 'about');
+                }
+              }}
             >
               {/* Paint Splatter Background - Hidden by default, shown on hover */}
               <div
@@ -157,6 +163,7 @@ export default function About() {
           <a
             href="mailto:coreydavidwu@gmail.com"
             className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
+            onClick={() => window.trackEmailClick && window.trackEmailClick('about')}
           >
             coreydavidwu@gmail.com
           </a>

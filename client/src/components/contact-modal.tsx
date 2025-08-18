@@ -107,6 +107,17 @@ export default function ContactModal({
                   const emailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
                   const mailtoLink = `mailto:corey.david.wu@gmail.com?subject=${encodeURIComponent(subject || 'Contact from coreywu.com')}&body=${encodeURIComponent(emailBody)}`;
                   window.open(mailtoLink);
+                  
+                  // Track contact form submission
+                  if (window.gtag) {
+                    window.gtag('event', 'contact_form_submission', {
+                      contact_method: 'form_to_email',
+                      form_name: 'contact_modal',
+                      event_category: 'contact',
+                      event_label: 'Contact form completed'
+                    });
+                  }
+                  
                   onClose();
                 }}
                 className="bg-warm-brown text-cream px-8 py-3 rounded-lg hover:bg-hover-brown transition-all duration-300 font-medium text-lg shadow-md hover:shadow-lg transform hover:scale-105"

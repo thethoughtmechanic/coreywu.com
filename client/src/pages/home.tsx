@@ -22,7 +22,14 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs lg:max-w-none mx-auto">
           {/* About Me Card */}
           <Link href="/about">
-            <div className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden">
+            <div 
+              className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden"
+              onClick={() => {
+                window.trackCardInteraction && window.trackCardInteraction('navigation', 'About Me', 'home');
+                window.trackNavigationClick && window.trackNavigationClick('about', 'home');
+              }}
+              onMouseEnter={() => window.trackPaintSplatterTrigger && window.trackPaintSplatterTrigger('about_card', 'home')}
+            >
               {/* Paint Splatter Background for About Me */}
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
@@ -56,7 +63,14 @@ export default function Home() {
 
           {/* Thoughts Card */}
           <Link href="/thoughts">
-            <div className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden">
+            <div 
+              className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden"
+              onClick={() => {
+                window.trackCardInteraction && window.trackCardInteraction('navigation', 'Thoughts', 'home');
+                window.trackNavigationClick && window.trackNavigationClick('thoughts', 'home');
+              }}
+              onMouseEnter={() => window.trackPaintSplatterTrigger && window.trackPaintSplatterTrigger('thoughts_card', 'home')}
+            >
               {/* Paint Splatter Background for Thoughts */}
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
@@ -90,7 +104,14 @@ export default function Home() {
 
           {/* Experiments Card */}
           <Link href="/experiments">
-            <div className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden">
+            <div 
+              className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden"
+              onClick={() => {
+                window.trackCardInteraction && window.trackCardInteraction('navigation', 'Experiments', 'home');
+                window.trackNavigationClick && window.trackNavigationClick('experiments', 'home');
+              }}
+              onMouseEnter={() => window.trackPaintSplatterTrigger && window.trackPaintSplatterTrigger('experiments_card', 'home')}
+            >
               {/* Paint Splatter Background for Experiments */}
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
@@ -130,6 +151,7 @@ export default function Home() {
             <a 
               href="mailto:coreydavidwu@gmail.com"
               className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
+              onClick={() => window.trackEmailClick && window.trackEmailClick('home')}
             >
               coreydavidwu@gmail.com
             </a>

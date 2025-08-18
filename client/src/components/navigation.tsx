@@ -69,6 +69,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                         )
                   )}
                   data-testid={`link-${item.label.toLowerCase().replace(" ", "-")}`}
+                  onClick={() => window.trackNavigationClick && window.trackNavigationClick(item.path.substring(1), 'navigation')}
                 >
                   {item.label}
                 </Link>

@@ -18,6 +18,8 @@ import NotFound from "@/pages/not-found";
 import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the new component
 import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the new component
 import AboutExpNew from "@/pages/about-expnew"; // Import the new component
+import AboutQuiz from "@/pages/about-quiz"; // Import the new component
+import AboutQuizPersonas from "@/pages/about-quiz-personas"; // Import the new component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 
@@ -64,6 +66,8 @@ function Router() {
           <Route path="/about-classic" component={About} />
           <Route path="/about-expnew" component={AboutExpNew} />
           <Route path="/about-game" component={AboutGame} />
+          <Route path="/about-quiz" component={AboutQuiz} />
+          <Route path="/about-quiz-personas" component={AboutQuizPersonas} />
           <Route path="/thoughts" component={Thoughts} />
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />

@@ -8,9 +8,13 @@ channel = "stable-24_05"
 [deployment]
 deploymentTarget = "static"
 build = ["npm", "run", "build"]
-publicDir = "dist"
+publicDir = "docs"
 
-[[ports]]
+[[deployment.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[ports]
 localPort = 5000
 externalPort = 80
 

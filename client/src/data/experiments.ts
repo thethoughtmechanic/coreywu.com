@@ -1,4 +1,3 @@
-
 import { Experiment } from "@shared/schema";
 
 export const experiments: Experiment[] = [
@@ -38,7 +37,7 @@ export const experiments: Experiment[] = [
     imageGradient: "from-purple-200 to-purple-600",
     timeframe: "2023 - Present",
     collaborators: ["@tonychen", "@michaelmurphy", "@adrianlo"],
-    technologies: ["5W Power-Scaling Amp", "Fender Jazzmaster", "Supro Vibrato", "MAE Part Garden Ge", "EAE Citadel"],
+    technologies: ["Guitar", "Bass", "Drums", "Vocals", "Songwriting", "Live Performance"],
     isActive: true
   },
   {
@@ -65,6 +64,19 @@ export const experiments: Experiment[] = [
     timeframe: "2020",
     collaborators: ["@kylebrown"],
     technologies: ["Game Mechanics", "Thematic Roleplay", "Scenario Building", "Physical Components"],
+    isActive: false
+  },
+  {
+    id: "lew-wu-1",
+    title: "Lew + Wu",
+    description: "Underground Supper Club",
+    status: "sunset",
+    collaborationType: "collaboration",
+    problemType: "vertical",
+    imageGradient: "from-gray-200 to-gray-600",
+    timeframe: "2017 - 2019",
+    collaborators: ["@samlew", "@mfbebbs"],
+    technologies: ["Experience Design", "Artist Menu Collaborations", "Visual Projections", "DIY Dishes", "Adult Loot Bags"],
     isActive: false
   }
 ];

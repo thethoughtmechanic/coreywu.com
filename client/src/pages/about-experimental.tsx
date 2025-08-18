@@ -795,10 +795,7 @@ export default function AboutExperimental() {
                       Take Assessment Again
                     </button>
                     <button
-                      onClick={() => {
-                        exitStrategicFuturistMode();
-                        window.location.href = '/about';
-                      }}
+                      onClick={() => setShowPersonasModal(true)}
                       className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-medium transition-colors duration-300"
                     >
                       View all AI adaptation personas

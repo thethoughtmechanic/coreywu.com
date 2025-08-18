@@ -5,7 +5,7 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
 // Initialize GA4 - Replace GA_MEASUREMENT_ID with your actual measurement ID
-gtag('config', 'GA_MEASUREMENT_ID', {
+gtag('config', 'G-D6J7FXCJBZ', {
   page_title: document.title,
   page_location: window.location.href
 });

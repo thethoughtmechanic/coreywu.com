@@ -942,7 +942,7 @@ export default function AboutExperimental() {
 
     {/* Personas Modal - accessible from both main component and Strategic Futurist mode */}
       {showPersonasModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 backdrop-blur-sm">
           <div className="bg-gray-800 rounded-lg p-8 max-w-6xl max-h-[85vh] w-full mx-4 relative overflow-y-auto">
             {/* Close button */}
             <button

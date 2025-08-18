@@ -23,7 +23,7 @@ export default function Home() {
           {/* About Me Card */}
           <Link href="/about">
             <div 
-              className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-20 lg:h-64 flex flex-col overflow-hidden"
+              className="relative bg-light-brown rounded-xl p-3 md:p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 md:h-40 lg:h-64 flex flex-col overflow-hidden"
               onClick={() => {
                 window.trackCardInteraction && window.trackCardInteraction('navigation', 'About Me', 'home');
                 window.trackNavigationClick && window.trackNavigationClick('about', 'home');
@@ -64,7 +64,7 @@ export default function Home() {
           {/* Thoughts Card */}
           <Link href="/thoughts">
             <div 
-              className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-20 lg:h-64 flex flex-col overflow-hidden"
+              className="relative bg-light-brown rounded-xl p-3 md:p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 md:h-40 lg:h-64 flex flex-col overflow-hidden"
               onClick={() => {
                 window.trackCardInteraction && window.trackCardInteraction('navigation', 'Thoughts', 'home');
                 window.trackNavigationClick && window.trackNavigationClick('thoughts', 'home');
@@ -105,7 +105,7 @@ export default function Home() {
           {/* Experiments Card */}
           <Link href="/experiments">
             <div 
-              className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-20 lg:h-64 flex flex-col overflow-hidden"
+              className="relative bg-light-brown rounded-xl p-3 md:p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 md:h-40 lg:h-64 flex flex-col overflow-hidden"
               onClick={() => {
                 window.trackCardInteraction && window.trackCardInteraction('navigation', 'Experiments', 'home');
                 window.trackNavigationClick && window.trackNavigationClick('experiments', 'home');

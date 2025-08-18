@@ -66,12 +66,12 @@ export default function Experiments() {
     </div>
   );
 
-  // Get team display text - simplified
+  // Get team display text - show all collaborators
   const getTeamDisplay = (experiment: Experiment) => {
     if (!experiment.collaborators || experiment.collaborators.length === 0) {
       return 'Solo';
     }
-    return experiment.collaborators[0]; // Just show the first collaborator
+    return experiment.collaborators.join(', ');
   };
 
   // Get technologies display

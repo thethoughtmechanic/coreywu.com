@@ -66,10 +66,10 @@ export default function AnalyticsDashboard() {
           <h2 className="text-xl font-medium text-warm-brown mb-4">Real-time Visitors</h2>
           <div className="bg-cream/50 rounded-lg p-4 min-h-[200px] flex items-center justify-center">
             <p className="text-muted-grey text-center">
-              Connect your Google Analytics 4 property to see real-time data here.
+              ✅ Google Analytics 4 is configured with measurement ID: G-D6J7FXCJBZ
               <br />
               <span className="text-sm">
-                Replace GA_MEASUREMENT_ID in ga4-config.js with your actual measurement ID
+                View detailed analytics at <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer" className="text-warm-brown hover:underline">analytics.google.com</a>
               </span>
             </p>
           </div>

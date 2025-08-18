@@ -113,14 +113,51 @@ export default function AnalyticsDashboard() {
           </div>
         </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
+            <h3 className="text-lg font-medium text-warm-brown mb-4">Google Analytics 4 Setup</h3>
+            <div className="space-y-3 text-sm text-soft-black/80">
+              <p><strong>Status:</strong> ✅ Configured (G-D6J7FXCJBZ)</p>
+              <p><strong>Dashboard:</strong> <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer" className="text-warm-brown hover:underline">analytics.google.com</a></p>
+              <p><strong>Data Delay:</strong> 24-48 hours</p>
+              <p><strong>Privacy:</strong> Google-hosted</p>
+            </div>
+          </div>
+
+          <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
+            <h3 className="text-lg font-medium text-warm-brown mb-4">Umami Analytics Setup</h3>
+            <div className="space-y-3 text-sm text-soft-black/80">
+              <p><strong>Status:</strong> ⚠️ Needs Website ID</p>
+              <p><strong>Setup:</strong> <a href="https://cloud.umami.is" target="_blank" rel="noopener noreferrer" className="text-warm-brown hover:underline">cloud.umami.is</a></p>
+              <p><strong>Data Delay:</strong> Real-time</p>
+              <p><strong>Privacy:</strong> Privacy-first, minimal tracking</p>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
-          <h3 className="text-lg font-medium text-warm-brown mb-4">Setup Instructions</h3>
-          <div className="space-y-3 text-sm text-soft-black/80">
-            <p><strong>1.</strong> Create a Google Analytics 4 property at analytics.google.com</p>
-            <p><strong>2.</strong> Copy your Measurement ID (starts with G-)</p>
-            <p><strong>3.</strong> Replace "GA_MEASUREMENT_ID" in both index.html and ga4-config.js</p>
-            <p><strong>4.</strong> Deploy your changes to start collecting data</p>
-            <p><strong>5.</strong> Access your GA4 dashboard to see detailed analytics</p>
+          <h3 className="text-lg font-medium text-warm-brown mb-4">Dual Analytics Comparison</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-warm-brown mb-2">Google Analytics 4</h4>
+              <div className="space-y-1 text-sm text-soft-black/80">
+                <p>✅ Advanced user journey tracking</p>
+                <p>✅ Demographic insights</p>
+                <p>✅ Large ecosystem & integrations</p>
+                <p>❌ 24-48 hour data delay</p>
+                <p>❌ Complex privacy compliance</p>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-medium text-warm-brown mb-2">Umami</h4>
+              <div className="space-y-1 text-sm text-soft-black/80">
+                <p>✅ Real-time data</p>
+                <p>✅ Privacy-compliant by default</p>
+                <p>✅ Lightweight & fast</p>
+                <p>❌ Limited demographic data</p>
+                <p>❌ Smaller ecosystem</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

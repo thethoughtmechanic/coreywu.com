@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { X } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function AboutQuiz() {
   const [, setLocation] = useLocation();
-  
+
   // Quiz state
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -225,6 +224,18 @@ export default function AboutQuiz() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white relative">
+      {/* Secret Mode Indicator */}
+      <div className="absolute top-4 left-4 z-40">
+        <div className="bg-orange-900/90 border border-orange-700/50 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+            <span className="text-xs text-orange-100 font-mono tracking-wider font-semibold">
+              SECRET MODE
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Exit button */}
       <button
         onClick={() => setLocation("/about")}

@@ -127,7 +127,7 @@ export default function AnalyticsDashboard() {
           <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
             <h3 className="text-lg font-medium text-warm-brown mb-4">Umami Analytics Setup</h3>
             <div className="space-y-3 text-sm text-soft-black/80">
-              <p><strong>Status:</strong> ⚠️ Needs Website ID</p>
+              <p><strong>Status:</strong> ✅ Active</p>
               <p><strong>Setup:</strong> <a href="https://cloud.umami.is" target="_blank" rel="noopener noreferrer" className="text-warm-brown hover:underline">cloud.umami.is</a></p>
               <p><strong>Data Delay:</strong> Real-time</p>
               <p><strong>Privacy:</strong> Privacy-first, minimal tracking</p>

@@ -5,7 +5,7 @@
   const script = document.createElement('script');
   script.async = true;
   script.src = 'https://cloud.umami.is/script.js';
-  script.setAttribute('data-website-id', 'YOUR_UMAMI_WEBSITE_ID'); // Replace with your actual website ID
+  script.setAttribute('data-website-id', 'd5d838bf-8992-4996-9b41-e83e73687550');
   document.head.appendChild(script);
 
   // Custom event tracking functions for Umami

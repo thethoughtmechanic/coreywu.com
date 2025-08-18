@@ -795,7 +795,10 @@ export default function AboutExperimental() {
                       Take Assessment Again
                     </button>
                     <button
-                      onClick={() => setShowPersonasModal(true)}
+                      onClick={() => {
+                        exitStrategicFuturistMode();
+                        window.location.href = '/about';
+                      }}
                       className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-medium transition-colors duration-300"
                     >
                       View all AI adaptation personas
@@ -913,15 +916,7 @@ export default function AboutExperimental() {
         </h1>
       </div>
 
-      {/* Access to Personas Modal */}
-      <div className="text-center mb-8">
-        <button
-          onClick={() => setShowPersonasModal(true)}
-          className="px-6 py-3 bg-warm-brown text-cream rounded-lg hover:bg-hover-brown transition-colors duration-300 font-medium"
-        >
-          View all AI adaptation personas
-        </button>
-      </div>
+      
 
       <div className="relative max-w-4xl mx-auto">
         <div className="space-y-8 relative">

@@ -6,13 +6,13 @@ export default function Home() {
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] flex items-center justify-center py-6 md:py-8">
       <div className="text-center w-full">
         {/* Welcome Title - Mobile Optimized */}
-        <div className="mb-6 md:mb-16">
+        <div className="mb-4 md:mb-6">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
             Welcome to my digital garden.
           </h1>
         </div>
 
-        <p className="text-sm md:text-base text-soft-black/60 mb-8 md:mb-12 leading-relaxed max-w-2xl mx-auto mt-4 md:mt-6">
+        <p className="text-sm md:text-base text-soft-black/60 mb-8 md:mb-12 leading-relaxed max-w-2xl mx-auto">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more humane and more intentional. Let's tend to these ideas and see what they grow into.
         </p>
 

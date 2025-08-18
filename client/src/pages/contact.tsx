@@ -36,7 +36,7 @@ function Contact() {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // You'll need to replace this with your actual key
+          access_key: '89898e63-5279-4f4f-a15a-da1e2e1b2d63',
           name: formData.name,
           email: formData.email,
           message: formData.message,

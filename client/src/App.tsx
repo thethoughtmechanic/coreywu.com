@@ -20,6 +20,7 @@ import ExperimentsExperimental from "@/pages/experiments-experimental"; // Impor
 import AboutExpNew from "@/pages/about-expnew"; // Import the new component
 import AboutQuiz from "@/pages/about-quiz"; // Import the new component
 import AboutQuizPersonas from "@/pages/about-quiz-personas"; // Import the new component
+import Contact from "@/pages/contact"; // Import the contact component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 
@@ -68,6 +69,7 @@ function Router() {
           <Route path="/about-game" component={AboutGame} />
           <Route path="/about-quiz" component={AboutQuiz} />
           <Route path="/about-quiz-personas" component={AboutQuizPersonas} />
+          <Route path="/contact" component={Contact} />
           <Route path="/thoughts" component={Thoughts} />
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />

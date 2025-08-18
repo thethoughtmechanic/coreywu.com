@@ -29,24 +29,29 @@ function Contact() {
     setSubmitStatus('idle');
 
     try {
+      const formPayload = {
+        access_key: '89898e63-5279-4f4f-a15a-da1e2e1b2d63',
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        subject: `New contact from ${formData.name} via coreywu.com`,
+        from_name: formData.name,
+        replyto: formData.email
+      };
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({
-          access_key: '89898e63-5279-4f4f-a15a-da1e2e1b2d63',
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          subject: `New contact from ${formData.name} via coreywu.com`
-        })
+        body: JSON.stringify(formPayload)
       });
 
       const result = await response.json();
+      console.log('Web3Forms response:', result); // Debug log
       
-      if (result.success) {
+      if (response.ok && result.success) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
         
@@ -60,6 +65,7 @@ function Contact() {
           });
         }
       } else {
+        console.error('Web3Forms error:', result);
         setSubmitStatus('error');
       }
     } catch (error) {

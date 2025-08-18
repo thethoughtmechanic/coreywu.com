@@ -21,6 +21,9 @@ import AboutExpNew from "@/pages/about-expnew"; // Import the new component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 
+// Import the AnalyticsDashboard component
+import AnalyticsDashboard from "@/pages/analytics-dashboard";
+
 function Router() {
   const [location] = useLocation();
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -66,6 +69,7 @@ function Router() {
           <Route path="/thoughts/:id" component={ThoughtDetail} />
           <Route path="/experiments" component={Experiments} />
           <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
+          <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
 
           <Route path="/admin" component={Admin} />
           <Route path="/designsystem" component={DesignSystem} />

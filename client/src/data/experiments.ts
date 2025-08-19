@@ -70,7 +70,7 @@ export const experiments: Experiment[] = [
     id: "lew-wu-1",
     title: "Lew + Wu",
     description: "Underground Supper Club",
-    status: "sunset",
+    status: "shipped",
     collaborationType: "collaboration",
     problemType: "vertical",
     imageGradient: "from-gray-200 to-gray-600",

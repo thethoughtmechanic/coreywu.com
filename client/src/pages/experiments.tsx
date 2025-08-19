@@ -242,10 +242,14 @@ export default function Experiments() {
           Experiments
         </h1>
         {isMobile && (
-          <div className="flex items-center justify-center gap-4 text-sm text-muted-grey mb-4">
+          <div className="grid grid-cols-2 gap-3 text-sm text-muted-grey mb-6 max-w-sm mx-auto">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-yellow-500 flex-shrink-0"></div>
               <span>Work in Progress</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-green-500 flex-shrink-0"></div>
+              <span>Active</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-blue-500 flex-shrink-0"></div>

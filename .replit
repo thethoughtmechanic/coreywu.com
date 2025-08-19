@@ -7,8 +7,13 @@ channel = "stable-24_05"
 
 [deployment]
 deploymentTarget = "static"
-build = ["npm", "run", "build"]
+build = ["sh", "-c", "npm run build:static"]
 publicDir = "dist"
+run = ["sh", "-c", ""]
+
+[[deployment.rewrites]]
+from = "/*"
+to = "/index.html"
 
 [[ports]]
 localPort = 5000
@@ -18,7 +23,7 @@ externalPort = 80
 PORT = "5000"
 
 [workflows]
-runButton = "Project"
+runButton = "Static Dev Server"
 
 [[workflows.workflow]]
 name = "Project"
@@ -37,3 +42,12 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Static Dev Server"
+author = 44016654
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd client && npm run dev"

@@ -39,11 +39,11 @@ function Router() {
 
     window.addEventListener('darkModeChange', handleDarkModeChange as EventListener);
 
-    // Check if we're on about-experimental page to determine initial dark mode state
-    if (location === '/about-experimental') {
+    // Check if we're on pages that should use dark mode
+    if (location === '/about-experimental' || location === '/about-quiz') {
       // Check localStorage or other method to get current dark mode state
       const savedDarkMode = sessionStorage.getItem('isDarkMode');
-      if (savedDarkMode === 'true') {
+      if (savedDarkMode === 'true' || location === '/about-quiz') {
         setIsDarkMode(true);
       }
     } else {

@@ -99,24 +99,17 @@ export default function Experiments() {
         </div>
       </div>
       <div className="divide-y divide-warm-brown/10">
-        {orderedExperiments.map((experiment) => (
-          <div key={experiment.id} className="px-6 py-4">
+        {orderedExperiments.map((experiment) => {
+          const route = getExperimentRoute(experiment.id);
+          const RowContent = () => (
             <div className="grid grid-cols-12 gap-4 items-start">
               <div className="col-span-2">
                 <StatusDot experiment={experiment} />
               </div>
               <div className="col-span-2">
-                {getExperimentRoute(experiment.id) ? (
-                  <button
-                    onClick={() => setLocation(getExperimentRoute(experiment.id)!)}
-                    className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2"
-                    data-testid={`button-${experiment.id}-desktop`}
-                  >
-                    {experiment.title}
-                  </button>
-                ) : (
-                  <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
-                )}
+                <h3 className={`font-medium ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+                  {experiment.title}
+                </h3>
               </div>
               <div className="col-span-3">
                 <p className="text-sm text-soft-black">{experiment.description}</p>
@@ -133,8 +126,23 @@ export default function Experiments() {
                 {getTeamDisplay(experiment)}
               </div>
             </div>
-          </div>
-        ))}
+          );
+
+          return route ? (
+            <button
+              key={experiment.id}
+              onClick={() => setLocation(route)}
+              className="w-full px-6 py-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
+              data-testid={`button-${experiment.id}-desktop`}
+            >
+              <RowContent />
+            </button>
+          ) : (
+            <div key={experiment.id} className="px-6 py-4">
+              <RowContent />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -142,8 +150,9 @@ export default function Experiments() {
   // Mobile Card View
   const MobileView = () => (
     <div className="space-y-4">
-      {orderedExperiments.map((experiment) => (
-        <div key={experiment.id} className="bg-light-brown rounded-lg p-4">
+      {orderedExperiments.map((experiment) => {
+        const route = getExperimentRoute(experiment.id);
+        const CardContent = () => (
           <div className="space-y-3">
             {/* Row 1: Status dot + Project title */}
             <div className="flex items-center gap-3 mb-2">
@@ -156,17 +165,9 @@ export default function Experiments() {
                   'bg-gray-400'
                 }`} 
               />
-              {getExperimentRoute(experiment.id) ? (
-                <button
-                  onClick={() => setLocation(getExperimentRoute(experiment.id)!)}
-                  className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2 text-lg"
-                  data-testid={`button-${experiment.id}-mobile`}
-                >
-                  {experiment.title}
-                </button>
-              ) : (
-                <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
-              )}
+              <h3 className={`font-medium text-lg ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+                {experiment.title}
+              </h3>
             </div>
 
             {/* Row 2: Date and collaborator */}
@@ -194,8 +195,23 @@ export default function Experiments() {
               </div>
             )}
           </div>
-        </div>
-      ))}
+        );
+
+        return route ? (
+          <button
+            key={experiment.id}
+            onClick={() => setLocation(route)}
+            className="w-full bg-light-brown rounded-lg p-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
+            data-testid={`button-${experiment.id}-mobile`}
+          >
+            <CardContent />
+          </button>
+        ) : (
+          <div key={experiment.id} className="bg-light-brown rounded-lg p-4">
+            <CardContent />
+          </div>
+        );
+      })}
     </div>
   );
 

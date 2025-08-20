@@ -7,7 +7,7 @@ import { useLocation } from "wouter";
 import fridayHome1 from "@assets/WCS08751_1755656112838.jpg";
 import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
 import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
-import fridayHomePDF from "@assets/Friday-Home_F_1755656112839.pdf";
+import fridayHomePoster from "/friday-home-poster.jpg";
 import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
 
 export default function FridayHome() {
@@ -24,7 +24,7 @@ export default function FridayHome() {
       description: "Our First Live Show: June 11, 2023",
       content: "We performed a house concert for close friends and family, debuting 3 sets of original music.",
       additionalAssets: [
-        { type: 'pdf', name: 'Event Flyer', url: fridayHomePDF },
+        { type: 'image', name: 'Event Poster', url: fridayHomePoster },
         { type: 'audio', name: 'Moonlight (Audio Track)', url: fridayHomeAudio }
       ]
     },
@@ -95,23 +95,19 @@ export default function FridayHome() {
 
       {/* Main Content */}
       <main>
-        {/* Media Gallery - PDF Flyer and Photos */}
+        {/* Media Gallery - Event Poster and Photos */}
         <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
-          {/* PDF Flyer - First position */}
-          <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden aspect-square">
-            <object
-              data={fridayHomePDF}
-              type="application/pdf"
-              className="w-full h-full"
-              data-testid="pdf-flyer-object"
-            >
-              <embed
-                src={fridayHomePDF}
-                type="application/pdf"
-                className="w-full h-full"
-                data-testid="pdf-flyer-embed"
-              />
-            </object>
+          {/* Event Poster - First position */}
+          <div 
+            className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
+            onClick={() => setExpandedImage(fridayHomePoster)}
+          >
+            <img 
+              src={fridayHomePoster} 
+              alt="Friday Home concert poster"
+              className="max-w-full max-h-full object-contain"
+              data-testid="img-poster"
+            />
           </div>
           
           {/* Performance Photos */}

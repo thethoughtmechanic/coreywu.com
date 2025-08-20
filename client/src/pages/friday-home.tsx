@@ -3,6 +3,13 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useLocation } from "wouter";
 
+// Import Friday Home assets
+import fridayHome1 from "@assets/WCS08751_1755656112838.jpg";
+import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
+import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
+import fridayHomePDF from "@assets/Friday-Home_F_1755656112839.pdf";
+import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
+
 export default function FridayHome() {
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
@@ -12,10 +19,14 @@ export default function FridayHome() {
   // Project event data structure
   const projectEvents = [
     {
-      title: "TITLE",
-      images: [], // Placeholder for assets
-      description: "TITLE",
-      content: "DESCRIPTION"
+      title: "June 11, 2023 Performance",
+      images: [fridayHome1, fridayHome2, fridayHome3], // Performance photos
+      description: "June 11, 2023",
+      content: "A cozy pop/funk/R&B band performance at a secret location. Friday Home brought together guitar, bass, drums, and vocals for an intimate house concert experience, showcasing original songwriting and live performance energy in a beautiful residential setting.",
+      additionalAssets: [
+        { type: 'pdf', name: 'Event Flyer', url: fridayHomePDF },
+        { type: 'audio', name: 'Moonlight (Audio Track)', url: fridayHomeAudio }
+      ]
     },
   ];
 
@@ -94,21 +105,65 @@ export default function FridayHome() {
             >
               <img 
                 src={image} 
-                alt={`Project image ${index + 1}`}
+                alt={`Friday Home performance image ${index + 1}`}
                 className="max-w-full max-h-full object-contain"
                 data-testid={`img-project-${index}`}
               />
             </div>
           ))}
-          {/* Show placeholder for empty assets */}
-          {projectEvents[currentEventIndex].images.length === 0 && (
-            <div className="col-span-full text-center py-12">
-              <div className="bg-gray-100 rounded-lg p-8">
-                <p className="text-gray-500">ASSET placeholders will be added here</p>
-              </div>
-            </div>
-          )}
         </div>
+
+        {/* Additional Assets Section */}
+        {projectEvents[currentEventIndex].additionalAssets && (
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-warm-brown mb-4">Additional Materials</h3>
+            <div className="grid gap-4 md:grid-cols-2">
+              {projectEvents[currentEventIndex].additionalAssets.map((asset, index) => (
+                <div key={index} className="bg-light-brown rounded-lg p-4 border border-warm-brown/20">
+                  <div className="flex items-center gap-3">
+                    {asset.type === 'pdf' && (
+                      <>
+                        <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                          <span className="text-red-600 font-semibold text-xs">PDF</span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium text-warm-brown">{asset.name}</p>
+                          <a 
+                            href={asset.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-sm text-amber-700 hover:text-amber-800 underline"
+                            data-testid={`link-pdf-${index}`}
+                          >
+                            View PDF
+                          </a>
+                        </div>
+                      </>
+                    )}
+                    {asset.type === 'audio' && (
+                      <>
+                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <span className="text-purple-600 font-semibold text-xs">♪</span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium text-warm-brown">{asset.name}</p>
+                          <audio 
+                            controls 
+                            className="w-full mt-2 h-8"
+                            data-testid={`audio-${index}`}
+                          >
+                            <source src={asset.url} type="audio/mpeg" />
+                            Your browser does not support the audio element.
+                          </audio>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Event indicator dots */}
         {projectEvents.length > 1 && (

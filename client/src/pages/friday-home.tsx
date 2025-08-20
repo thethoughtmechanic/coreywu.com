@@ -9,8 +9,8 @@ import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
 import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
 import fridayHomePoster from "@assets/Friday-Home_F_1755656751713.jpg";
 import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
-import girlInGreyAudio from "@assets/girl-in-grey_1755666353648.mp3";
-import butterfliesAudio from "@assets/butterflies_1755666353648.mp3";
+import girlInGreyAudio from "@assets/1 Girl in Grey_1755666353648.mp3";
+import butterfliesAudio from "@assets/4 Butterflies-[AudioTrimmer.com]_1755666353648.mp3";
 
 export default function FridayHome() {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
@@ -25,9 +25,9 @@ export default function FridayHome() {
   
   // Playlist data
   const playlist = [
-    { title: "Girl in Grey", url: girlInGreyAudio },
-    { title: "Butterflies", url: butterfliesAudio },
-    { title: "Moonlight", url: fridayHomeAudio }
+    { title: "Girl in Grey (Live at Mel's)", url: girlInGreyAudio },
+    { title: "Butterflies (Live at Mel's)", url: butterfliesAudio },
+    { title: "Moonlight (Live at Mel's)", url: fridayHomeAudio }
   ];
 
   // Project event data structure - organized by most recent first
@@ -102,7 +102,7 @@ export default function FridayHome() {
 
             {/* Playlist Player Section */}
             <div className="mb-8">
-              <h4 className="text-lg font-medium text-warm-brown mb-4">Live at Mel's [02023] </h4>
+              <h4 className="text-lg font-medium text-warm-brown mb-4">Live at Mel's (June 11th, 2023) </h4>
               <div className="bg-light-brown rounded-lg p-6 border border-warm-brown/20">
                 {/* Current Track Display */}
                 <div className="flex items-center gap-4 mb-4">

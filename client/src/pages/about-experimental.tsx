@@ -5,9 +5,9 @@ import { X } from "lucide-react";
 
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
-  
 
-  
+
+
 
 
   // Game Mode State
@@ -78,7 +78,8 @@ export default function AboutExperimental() {
       allIcons: [
         <svg key="question-mark" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
         <svg key="search" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m21 21-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>,
-        <svg key="lightbulb" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>,
+        <svg key="triangle" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.636 18.364L12 5.636l6.364 12.728H5.636z" /></svg>,
+        <svg key="navigation" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>,
         <svg key="megaphone" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.59-.79-1.59-1.76V9.51c0-.97.71-1.76 1.59-1.76h2.24z" /></svg>,
         <svg key="compass" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m7.171 12.906-2.153 6.411 2.672-.89 1.568 2.34 1.825-5.183M9.564 5.282a6.5 6.5 0 1110.36 0L12 21 9.564 5.282z" /></svg>,
         <svg key="brain" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
@@ -186,9 +187,9 @@ export default function AboutExperimental() {
     setRoundIconOrderIndices([]); // Reset icon order for new game
   };
 
-  
 
-  
+
+
 
   // Sort events by order
   const sortedEvents = [...timelineEvents].sort((a, b) => parseInt(a.order) - parseInt(b.order));
@@ -209,7 +210,7 @@ export default function AboutExperimental() {
     window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { isDarkMode: false } }));
   };
 
-  
+
 
   // Check if all correct icons are selected
   const currentRoundData = gameRounds[currentRound];
@@ -380,7 +381,7 @@ export default function AboutExperimental() {
     );
   }
 
-  
+
 
   return (
     <div className="min-h-screen relative bg-cream">
@@ -433,7 +434,7 @@ export default function AboutExperimental() {
                     radial-gradient(ellipse 235px 175px at 20% 15%, #a855f7 0%, #a855f7 45%, transparent 85%),
                     radial-gradient(ellipse 205px 155px at 80% 25%, #ec4899 0%, #ec4899 40%, transparent 80%),
                     radial-gradient(ellipse 185px 215px at 10% 85%, #9333ea 0%, #9333ea 50%, transparent 90%),
-                    radial-gradient(ellipse 225px 135px at 90% 80%, #d946ef 0%, #d946ef 35%, transparent 75%),
+                    radial-gradient(ellipse 225px 135px at 90% 70%, #d946ef 0%, #d946ef 35%, transparent 75%),
                     radial-gradient(ellipse 180px 190px at 40% 45%, #7c3aed 0%, #7c3aed 40%, transparent 80%)
                   ` : index === 4 ? `
                     radial-gradient(ellipse 240px 180px at 15% 20%, #ef4444 0%, #ef4444 45%, transparent 85%),
@@ -485,7 +486,7 @@ export default function AboutExperimental() {
         </h1>
       </div>
 
-      
+
 
       <div className="relative max-w-4xl mx-auto">
         <div className="space-y-8 relative">
@@ -512,7 +513,7 @@ export default function AboutExperimental() {
       </div>
     </div>
 
-    
+
 
       {/* Contact Footer */}
       <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">

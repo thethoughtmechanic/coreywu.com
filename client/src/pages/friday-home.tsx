@@ -53,13 +53,13 @@ export default function FridayHome() {
       </button>
 
       {/* Header */}
-      <header className="text-center mb-6">
-        <h1 className="text-3xl font-light text-amber-700 mb-4" data-testid="text-project-title">
+      <header className="text-center mb-8">
+        <h1 className="text-4xl font-light text-amber-700 mb-6" data-testid="text-project-title">
           Friday Home
         </h1>
         
         {/* Event Navigation and Title */}
-        <div className="flex items-center justify-center gap-6 mb-3">
+        <div className="flex items-center justify-center gap-6 mb-4">
           {projectEvents.length > 1 && (
             <button
               onClick={() => handleNav('prev')}
@@ -71,7 +71,7 @@ export default function FridayHome() {
             </button>
           )}
           
-          <h2 className="text-xl font-light text-warm-brown" data-testid="text-current-event-title">
+          <h2 className="text-2xl font-light text-warm-brown" data-testid="text-current-event-title">
             {projectEvents[currentEventIndex].description}
           </h2>
           
@@ -88,63 +88,58 @@ export default function FridayHome() {
         </div>
         
         {/* Description */}
-        <p className="text-warm-brown/70 max-w-2xl mx-auto leading-relaxed text-sm" data-testid="text-event-content">
+        <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed" data-testid="text-event-content">
           {projectEvents[currentEventIndex].content}
         </p>
       </header>
 
       {/* Main Content */}
       <main>
-        {/* Combined Media Gallery and Audio Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
-          {/* Media Gallery */}
-          <div className="lg:col-span-4">
-            <div className={`grid gap-3 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'}`}>
-              {/* Event Poster - First position */}
-              <div 
-                className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-                onClick={() => setExpandedImage(fridayHomePoster)}
-              >
-                <img 
-                  src={fridayHomePoster} 
-                  alt="Friday Home concert poster"
-                  className="max-w-full max-h-full object-contain"
-                  data-testid="img-poster"
-                />
-              </div>
-              
-              {/* Performance Photos */}
-              {projectEvents[currentEventIndex].images.map((image, index) => (
-                <div 
-                  key={index} 
-                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-                  onClick={() => setExpandedImage(image)}
-                >
-                  <img 
-                    src={image} 
-                    alt={`Friday Home performance image ${index + 1}`}
-                    className="max-w-full max-h-full object-contain"
-                    data-testid={`img-project-${index}`}
-                  />
-                </div>
-              ))}
-            </div>
+        {/* Media Gallery - Event Poster and Photos */}
+        <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
+          {/* Event Poster - First position */}
+          <div 
+            className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
+            onClick={() => setExpandedImage(fridayHomePoster)}
+          >
+            <img 
+              src={fridayHomePoster} 
+              alt="Friday Home concert poster"
+              className="max-w-full max-h-full object-contain"
+              data-testid="img-poster"
+            />
           </div>
+          
+          {/* Performance Photos */}
+          {projectEvents[currentEventIndex].images.map((image, index) => (
+            <div 
+              key={index} 
+              className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
+              onClick={() => setExpandedImage(image)}
+            >
+              <img 
+                src={image} 
+                alt={`Friday Home performance image ${index + 1}`}
+                className="max-w-full max-h-full object-contain"
+                data-testid={`img-project-${index}`}
+              />
+            </div>
+          ))}
+        </div>
 
-          {/* Audio Track Section */}
-          <div className="lg:col-span-1">
-            <h3 className="text-base font-medium text-warm-brown mb-3">Listen</h3>
-            <div className="bg-light-brown rounded-lg p-3 border border-warm-brown/20 h-fit">
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-purple-600 font-semibold text-xs">♪</span>
-                  </div>
-                  <p className="font-medium text-warm-brown text-sm">Moonlight</p>
-                </div>
+        {/* Audio Track Section */}
+        <div className="mb-8">
+          <h3 className="text-lg font-medium text-warm-brown mb-4">Listen</h3>
+          <div className="bg-light-brown rounded-lg p-4 border border-warm-brown/20">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <span className="text-purple-600 font-semibold text-xs">♪</span>
+              </div>
+              <div className="flex-1">
+                <p className="font-medium text-warm-brown">Moonlight (Audio Track)</p>
                 <audio 
                   controls 
-                  className="w-full h-8"
+                  className="w-full mt-2 h-8"
                   data-testid="audio-moonlight"
                 >
                   <source src={fridayHomeAudio} type="audio/mpeg" />
@@ -197,7 +192,7 @@ export default function FridayHome() {
       )}
 
       {/* Footer */}
-      <footer className="text-center mt-8 pt-6 border-t border-warm-brown/20">
+      <footer className="text-center mt-16 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
           <a 

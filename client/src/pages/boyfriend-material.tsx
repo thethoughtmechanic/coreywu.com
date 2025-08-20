@@ -8,21 +8,61 @@ export default function BoyfriendMaterial() {
   const [, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const [submitted, setSubmitted] = useState(false);
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    
+
     setIsSubmitting(true);
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
+
+    // Store email locally first (always works)
+    try {
+      const submission = {
+        email: email,
+        timestamp: new Date().toISOString(),
+        page: 'Boyfriend Material'
+      };
+
+      const existing = localStorage.getItem('email-submissions');
+      const submissions = existing ? JSON.parse(existing) : [];
+      submissions.push(submission);
+      localStorage.setItem('email-submissions', JSON.stringify(submissions));
+    } catch (error) {
+      console.error('Local storage error:', error);
+    }
+
+    // Also send to Web3Forms for email notifications
+    try {
+      const formPayload = {
+        access_key: '89898e63-5279-4f4f-a15a-da1e2e1b2d63',
+        email: email,
+        subject: 'New Boyfriend Material Email Signup',
+        message: `New email signup for Boyfriend Material: ${email}`,
+        from_name: 'Boyfriend Material Landing',
+        replyto: email
+      };
+
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formPayload)
+      });
+    } catch (error) {
+      console.error('Web3Forms error:', error);
+      // Continue anyway since we have local storage
+    }
+
     setSubmitted(true);
+    setEmail('');
+    setIsSubmitting(false);
   };
 
-  
+
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -126,7 +166,7 @@ export default function BoyfriendMaterial() {
                       <p className="text-slate-600 text-sm mb-4">
                         Vector-powered insights combining your personal memories with expert relationship psychology from Gottman Institute, Mayo Clinic & Psychology Today.
                       </p>
-                      
+
                       {/* Context Sources */}
                       <div className="mb-4 p-3 bg-white rounded-lg border">
                         <div className="text-xs font-medium text-slate-700 mb-2">Today's Context Sources:</div>
@@ -185,7 +225,7 @@ export default function BoyfriendMaterial() {
                             <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded">Source: Psychology Today</span>
                           </div>
                         </div>
-                        
+
                         <div className="bg-coral-600 text-white rounded-lg p-3 text-sm ml-8">
                           She loved that approach! What about this weekend?
                         </div>

@@ -29,6 +29,7 @@ import FoodForThought from "@/pages/food-for-thought"; // Import the Food for Th
 import LewWu from "@/pages/lew-wu"; // Import the Lew + Wu component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
+import EmailSubmissions from '@/pages/email-submissions';
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
@@ -90,6 +91,7 @@ function Router() {
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
 
           <Route path="/admin" component={Admin} />
+          <Route path="/admin/emails" component={EmailSubmissions} />
           <Route path="/designsystem" component={DesignSystem} />
           <Route component={NotFound} />
         </Switch>

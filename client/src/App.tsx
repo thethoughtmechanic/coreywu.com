@@ -31,6 +31,7 @@ import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import EmailSubmissions from '@/pages/email-submissions';
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
+import PatternRecognition from './pages/pattern-recognition'; // Import the PatternRecognition component
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
@@ -38,7 +39,7 @@ import AnalyticsDashboard from "@/pages/analytics-dashboard";
 function Router() {
   const [location] = useLocation();
   const [isDarkMode, setIsDarkMode] = useState(false);
-  
+
   // Automatically scroll to top when navigating between pages
   useScrollToTop();
 
@@ -80,6 +81,7 @@ function Router() {
           <Route path="/about-game" component={AboutGame} />
           <Route path="/about-quiz" component={AboutQuiz} />
           <Route path="/about-quiz-personas" component={AboutQuizPersonas} />
+          <Route path="/pattern-recognition" component={PatternRecognition} />
           <Route path="/contact" component={Contact} />
           <Route path="/thoughts" component={Thoughts} />
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}

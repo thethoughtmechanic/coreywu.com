@@ -466,17 +466,7 @@ export default function ExperimentsExperimental() {
         {activeView === 'wave' && <WaveView />}
       </main>
 
-      {/* Custom styles for advanced effects */}
-      <style jsx>{`
-        @keyframes wave {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(200%); }
-        }
-        
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-      `}</style>
+
     </div>
   );
 }

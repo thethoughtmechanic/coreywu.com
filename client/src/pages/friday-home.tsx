@@ -9,8 +9,8 @@ import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
 import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
 import fridayHomePoster from "@assets/Friday-Home_F_1755656751713.jpg";
 import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
-import girlInGreyAudio from "@assets/1 Girl in Grey_1755666353648.mp3";
-import butterfliesAudio from "@assets/4 Butterflies-[AudioTrimmer.com]_1755666353648.mp3";
+import girlInGreyAudio from "@assets/girl-in-grey_1755666353648.mp3";
+import butterfliesAudio from "@assets/butterflies_1755666353648.mp3";
 
 export default function FridayHome() {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);

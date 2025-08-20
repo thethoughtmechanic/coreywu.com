@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react';
+import logoImage from '@assets/ChatGPT Image Jun 24, 2025, 10_30_14 AM_1755701754640.png';
 
 interface LogoProps {
   size?: number;
@@ -8,13 +8,14 @@ interface LogoProps {
 export const Logo = ({ size = 40, className = "" }: LogoProps) => {
   return (
     <div 
-      className={`flex items-center justify-center bg-coral-600 rounded-full ${className}`}
+      className={`flex items-center justify-center ${className}`}
       style={{ width: size, height: size }}
     >
-      <Heart 
-        className="text-white" 
-        size={size * 0.6} 
-        fill="currentColor"
+      <img 
+        src={logoImage} 
+        alt="Boyfriend Material Logo"
+        className="w-full h-full object-contain"
+        style={{ width: size, height: size }}
       />
     </div>
   );

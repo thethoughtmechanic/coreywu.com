@@ -98,17 +98,17 @@ export default function BoyfriendMaterial() {
                       </p>
                       <div className="space-y-2">
                         <div className="flex items-center text-sm">
-                          <div className="w-2 h-2 bg-coral-500 rounded-full mr-2"></div>
+                          <div className="w-2 h-2 bg-coral-500 rounded-full mr-3 flex-shrink-0"></div>
                           <span className="text-slate-700">She loves spicy food 🌶️</span>
                           <span className="text-slate-400 ml-auto">2 days ago</span>
                         </div>
                         <div className="flex items-center text-sm">
-                          <div className="w-2 h-2 bg-coral-500 rounded-full mr-2"></div>
+                          <div className="w-2 h-2 bg-coral-500 rounded-full mr-3 flex-shrink-0"></div>
                           <span className="text-slate-700">Prefers cozy movie nights</span>
                           <span className="text-slate-400 ml-auto">1 week ago</span>
                         </div>
                         <div className="flex items-center text-sm">
-                          <div className="w-2 h-2 bg-ocean-500 rounded-full mr-2"></div>
+                          <div className="w-2 h-2 bg-ocean-500 rounded-full mr-3 flex-shrink-0"></div>
                           <span className="text-slate-700">Stressed about work project</span>
                           <span className="text-slate-400 ml-auto">Today</span>
                         </div>

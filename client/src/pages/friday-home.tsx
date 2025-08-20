@@ -17,11 +17,7 @@ export default function FridayHome() {
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
   
-  // Playlist state
-  const [currentTrack, setCurrentTrack] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  
   
   // Playlist data
   const playlist = [
@@ -100,82 +96,45 @@ export default function FridayHome() {
               ))}
             </div>
 
-            {/* Playlist Player Section */}
+            {/* Audio Tracks Section */}
             <div className="mb-8">
               <h4 className="text-lg font-medium text-warm-brown mb-4">Live Recordings from June 11th, 2023</h4>
               <div className="bg-light-brown rounded-lg p-6 border border-warm-brown/20">
-                {/* Current Track Display */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <span className="text-purple-600 font-bold text-lg">♪</span>
-                  </div>
-                  <div className="flex-1">
-                    <h5 className="font-semibold text-warm-brown text-lg">
-                      {playlist[currentTrack].title}
-                    </h5>
-                    <p className="text-warm-brown/70 text-sm">Friday Home</p>
-                  </div>
-                </div>
-
-                {/* Audio Element */}
-                <audio 
-                  key={currentTrack}
-                  controls 
-                  className="w-full mb-4 h-10"
-                  data-testid={`playlist-audio-${eventIndex}`}
-                  onLoadedMetadata={(e) => {
-                    const audio = e.target as HTMLAudioElement;
-                    setDuration(audio.duration);
-                  }}
-                  onTimeUpdate={(e) => {
-                    const audio = e.target as HTMLAudioElement;
-                    setCurrentTime(audio.currentTime);
-                  }}
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                  onEnded={() => {
-                    if (currentTrack < playlist.length - 1) {
-                      setCurrentTrack(currentTrack + 1);
-                    }
-                  }}
-                >
-                  <source src={playlist[currentTrack].url} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
-
-                {/* Playlist */}
-                <div className="space-y-2">
-                  <h6 className="text-sm font-medium text-warm-brown/80 mb-3">Playlist</h6>
+                <div className="space-y-4">
                   {playlist.map((track, index) => (
-                    <button
+                    <div 
                       key={index}
-                      onClick={() => setCurrentTrack(index)}
-                      className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 text-left ${
-                        index === currentTrack 
-                          ? 'bg-warm-brown/10 border border-warm-brown/30' 
-                          : 'hover:bg-warm-brown/5'
-                      }`}
-                      data-testid={`playlist-track-${index}`}
+                      className="flex items-center gap-4 p-4 bg-white/50 rounded-lg border border-warm-brown/10 hover:border-warm-brown/20 transition-colors duration-200"
+                      data-testid={`track-${index}`}
                     >
-                      <div className="flex items-center justify-center w-6 h-6">
-                        {index === currentTrack && isPlaying ? (
-                          <div className="flex gap-1">
-                            <div className="w-1 h-4 bg-purple-600 animate-pulse"></div>
-                            <div className="w-1 h-4 bg-purple-600 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                            <div className="w-1 h-4 bg-purple-600 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                          </div>
-                        ) : (
-                          <span className="text-warm-brown/60 text-sm font-medium">
-                            {(index + 1).toString().padStart(2, '0')}
-                          </span>
-                        )}
+                      {/* Track Number */}
+                      <div className="flex items-center justify-center w-8 h-8 bg-purple-100 rounded-lg flex-shrink-0">
+                        <span className="text-purple-600 font-semibold text-sm">
+                          {(index + 1).toString().padStart(2, '0')}
+                        </span>
                       </div>
-                      <span className={`font-medium ${
-                        index === currentTrack ? 'text-warm-brown' : 'text-warm-brown/70'
-                      }`}>
-                        {track.title}
-                      </span>
-                    </button>
+                      
+                      {/* Track Info and Audio Player */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-2">
+                          <h5 className="font-semibold text-warm-brown text-lg truncate">
+                            {track.title}
+                          </h5>
+                          <span className="text-warm-brown/60 text-sm font-medium whitespace-nowrap ml-2">
+                            Friday Home
+                          </span>
+                        </div>
+                        <audio 
+                          controls 
+                          className="w-full h-8"
+                          data-testid={`audio-track-${index}`}
+                          preload="metadata"
+                        >
+                          <source src={track.url} type="audio/mpeg" />
+                          Your browser does not support the audio element.
+                        </audio>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>

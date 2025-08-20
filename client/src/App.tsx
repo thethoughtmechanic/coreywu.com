@@ -30,6 +30,7 @@ import LewWu from "@/pages/lew-wu"; // Import the Lew + Wu component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import EmailSubmissions from '@/pages/email-submissions';
+import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
@@ -37,6 +38,9 @@ import AnalyticsDashboard from "@/pages/analytics-dashboard";
 function Router() {
   const [location] = useLocation();
   const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  // Automatically scroll to top when navigating between pages
+  useScrollToTop();
 
   // Listen for dark mode changes from AboutExperimental page
   useEffect(() => {

@@ -126,6 +126,10 @@ export default function FridayHome() {
                   onLoadedMetadata={(e) => {
                     const audio = e.target as HTMLAudioElement;
                     setDuration(audio.duration);
+                    // Auto-play when new track loads if we were previously playing
+                    if (isPlaying) {
+                      audio.play();
+                    }
                   }}
                   onTimeUpdate={(e) => {
                     const audio = e.target as HTMLAudioElement;

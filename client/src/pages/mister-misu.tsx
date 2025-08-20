@@ -110,13 +110,13 @@ export default function MisterMisu() {
           {misterMisuEvents[currentEventIndex].images.map((image, index) => (
             <div 
               key={index} 
-              className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200"
+              className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
               onClick={() => setExpandedImage(image)}
             >
               <img 
                 src={image} 
                 alt={`Mister Misu event image ${index + 1}`}
-                className="w-full h-32 object-cover"
+                className="max-w-full max-h-full object-contain"
                 data-testid={`img-mister-misu-${index}`}
               />
             </div>

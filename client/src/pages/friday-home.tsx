@@ -21,9 +21,9 @@ export default function FridayHome() {
       title: "Our First Live Show",
       images: [fridayHomePoster, fridayHome1, fridayHome2, fridayHome3],
       date: "June 11, 2023",
-      content: "We performed a house concert for close friends and family, debuting 3 sets of original music.",
+      content: "We performed a house concert for close friends and family, debuting 2 sets of original music.",
       additionalAssets: [
-        { type: 'audio', name: 'Moonlight (Audio Track)', url: fridayHomeAudio }
+        { type: 'audio', name: 'Moonlight (Live June 11, 2023)', url: fridayHomeAudio }
       ]
     }
   ];

@@ -467,7 +467,7 @@ export default function ExperimentsExperimental() {
       </main>
 
       {/* Custom styles for advanced effects */}
-      <style jsx>{`
+      <style>{`
         @keyframes wave {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(200%); }

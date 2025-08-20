@@ -132,8 +132,8 @@ export default function LewWu() {
 
       {/* Full-screen image modal */}
       {expandedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm">
-          <div className="relative max-w-[90vw] max-h-[90vh]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm p-4">
+          <div className="relative w-full h-full flex items-center justify-center">
             <button
               onClick={() => setExpandedImage(null)}
               className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200"
@@ -144,7 +144,7 @@ export default function LewWu() {
             <img 
               src={expandedImage} 
               alt="Expanded view"
-              className="w-full h-full object-contain rounded-lg"
+              className="max-w-full max-h-full object-contain rounded-lg"
               data-testid="img-expanded"
             />
           </div>

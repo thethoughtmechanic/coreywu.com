@@ -83,4 +83,38 @@
       section_name: sectionName
     });
   };
+
+  window.trackAudioPlayDual = function(songTitle, songIndex, page) {
+    // GA4 tracking (existing)
+    window.trackAudioPlay(songTitle, songIndex, page);
+    
+    // Umami tracking
+    window.umamiTrack('audio_play', {
+      song_title: songTitle,
+      song_index: songIndex,
+      source_page: page
+    });
+  };
+
+  window.trackAudioPauseDual = function(songTitle, currentTime, page) {
+    // GA4 tracking (existing)
+    window.trackAudioPause(songTitle, currentTime, page);
+    
+    // Umami tracking
+    window.umamiTrack('audio_pause', {
+      song_title: songTitle,
+      current_time: Math.round(currentTime)
+    });
+  };
+
+  window.trackAudioCompleteDual = function(songTitle, page) {
+    // GA4 tracking (existing)
+    window.trackAudioComplete(songTitle, page);
+    
+    // Umami tracking
+    window.umamiTrack('audio_complete', {
+      song_title: songTitle,
+      source_page: page
+    });
+  };
 })();

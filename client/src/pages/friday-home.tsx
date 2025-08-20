@@ -131,9 +131,26 @@ export default function FridayHome() {
                     const audio = e.target as HTMLAudioElement;
                     setCurrentTime(audio.currentTime);
                   }}
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
+                  onPlay={() => {
+                    setIsPlaying(true);
+                    // Track audio play
+                    if (typeof window !== 'undefined' && window.trackAudioPlayDual) {
+                      window.trackAudioPlayDual(playlist[currentTrack].title, currentTrack, 'friday-home');
+                    }
+                  }}
+                  onPause={() => {
+                    setIsPlaying(false);
+                    // Track audio pause
+                    if (typeof window !== 'undefined' && window.trackAudioPauseDual) {
+                      window.trackAudioPauseDual(playlist[currentTrack].title, currentTime, 'friday-home');
+                    }
+                  }}
                   onEnded={() => {
+                    // Track audio completion
+                    if (typeof window !== 'undefined' && window.trackAudioCompleteDual) {
+                      window.trackAudioCompleteDual(playlist[currentTrack].title, 'friday-home');
+                    }
+                    
                     if (currentTrack < playlist.length - 1) {
                       setCurrentTrack(currentTrack + 1);
                     }
@@ -149,7 +166,13 @@ export default function FridayHome() {
                   {playlist.map((track, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentTrack(index)}
+                      onClick={() => {
+                        setCurrentTrack(index);
+                        // Track track selection
+                        if (typeof window !== 'undefined' && window.trackAudioPlayDual) {
+                          window.trackAudioPlayDual(playlist[index].title, index, 'friday-home');
+                        }
+                      }}
                       className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 text-left ${
                         index === currentTrack 
                           ? 'bg-warm-brown/10 border border-warm-brown/30' 

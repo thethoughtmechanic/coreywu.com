@@ -95,6 +95,16 @@ export default function AnalyticsDashboard() {
           </div>
 
           <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
+            <h3 className="text-lg font-medium text-warm-brown mb-4">Audio Engagement</h3>
+            <div className="space-y-2 text-sm text-soft-black/80">
+              <p>• Song plays and track selections</p>
+              <p>• Play duration and pause points</p>
+              <p>• Completion rates by track</p>
+              <p>• Popular songs from Friday Home</p>
+            </div>
+          </div>
+
+          <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
             <h3 className="text-lg font-medium text-warm-brown mb-4">Page Performance</h3>
             <div className="space-y-2 text-sm text-soft-black/80">
               <p>• Time spent on each section</p>

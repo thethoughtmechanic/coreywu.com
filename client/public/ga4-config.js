@@ -62,3 +62,34 @@ window.trackSectionView = function(sectionName) {
     event_category: 'page_engagement'
   });
 };
+
+window.trackAudioPlay = function(songTitle, songIndex, page) {
+  gtag('event', 'audio_play', {
+    song_title: songTitle,
+    song_index: songIndex,
+    source_page: page,
+    event_category: 'audio_engagement',
+    event_label: `Audio play: ${songTitle}`
+  });
+  
+  console.log(`Audio play tracked: ${songTitle} on ${page}`);
+};
+
+window.trackAudioPause = function(songTitle, currentTime, page) {
+  gtag('event', 'audio_pause', {
+    song_title: songTitle,
+    current_time: Math.round(currentTime),
+    source_page: page,
+    event_category: 'audio_engagement',
+    event_label: `Audio pause: ${songTitle} at ${Math.round(currentTime)}s`
+  });
+};
+
+window.trackAudioComplete = function(songTitle, page) {
+  gtag('event', 'audio_complete', {
+    song_title: songTitle,
+    source_page: page,
+    event_category: 'audio_engagement',
+    event_label: `Audio completed: ${songTitle}`
+  });
+};

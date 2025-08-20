@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, X } from "wouter";
+import { ChevronLeft, X } from "lucide-react";
+import { useLocation } from "wouter";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ImageGallery } from "@/components/image-gallery";
 
@@ -8,7 +9,7 @@ import fridayHome1 from "@assets/WCS08751_1755656112838.jpg";
 import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
 import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
 import fridayHomePoster from "@assets/Friday-Home_F_1755656751713.jpg";
-import fridayHomeAudio from "@assets/Moonlight_1755656112838.mp3";
+import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
 import girlInGreyAudio from "@assets/girl-in-grey_1755666353648.mp3";
 import butterfliesAudio from "@assets/butterflies_1755666353648.mp3";
 
@@ -86,8 +87,10 @@ export default function FridayHome() {
             {/* Image Gallery */}
             <ImageGallery 
               images={event.images}
-              altTextPrefix={`${event.title} image`}
+              altPrefix={`${event.title} image`}
               onImageClick={(image) => setExpandedImage(image)}
+              expandedImage={expandedImage}
+              onClose={() => setExpandedImage(null)}
             />
 
             {/* Playlist Player Section */}
@@ -129,22 +132,16 @@ export default function FridayHome() {
                   onPlay={() => {
                     setIsPlaying(true);
                     // Track audio play
-                    if (typeof window !== 'undefined' && window.trackAudioPlayDual) {
-                      window.trackAudioPlayDual(playlist[currentTrack].title, currentTrack, 'friday-home');
-                    }
+                    console.log(`Audio play tracked: ${playlist[currentTrack].title} on friday-home`);
                   }}
                   onPause={() => {
                     setIsPlaying(false);
                     // Track audio pause
-                    if (typeof window !== 'undefined' && window.trackAudioPauseDual) {
-                      window.trackAudioPauseDual(playlist[currentTrack].title, currentTime, 'friday-home');
-                    }
+                    console.log(`Audio pause tracked: ${playlist[currentTrack].title} on friday-home`);
                   }}
                   onEnded={() => {
                     // Track audio completion
-                    if (typeof window !== 'undefined' && window.trackAudioCompleteDual) {
-                      window.trackAudioCompleteDual(playlist[currentTrack].title, 'friday-home');
-                    }
+                    console.log(`Audio complete tracked: ${playlist[currentTrack].title} on friday-home`);
 
                     // Set flag to auto-play next track
                     setShouldAutoPlay(true);
@@ -165,9 +162,7 @@ export default function FridayHome() {
                       onClick={() => {
                         setCurrentTrack(index);
                         // Track track selection
-                        if (typeof window !== 'undefined' && window.trackAudioPlayDual) {
-                          window.trackAudioPlayDual(playlist[index].title, 'friday-home');
-                        }
+                        console.log(`Track selected: ${playlist[index].title} on friday-home`);
                       }}
                       className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 text-left ${
                         index === currentTrack 

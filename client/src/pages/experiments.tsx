@@ -23,89 +23,44 @@ import fm9 from "@assets/05_1755014357426.png";
 import fm10 from "@assets/06_1755014357426.jpg";
 import fm11 from "@assets/07_1755014357426.png";
 
+
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
-  // Mister Misu Modal State
   const [isMisterMisuModalOpen, setIsMisterMisuModalOpen] = useState(false);
-  const [currentMisterMisuEventIndex, setCurrentMisterMisuEventIndex] = useState(0);
-
-  // Friday Home Modal State
-  const [isFridayHomeModalOpen, setIsFridayHomeModalOpen] = useState(false);
+  const [currentMisterMisuEventIndex, setCurrentMisterMisuEventIndex] = useState(0); // State to track current event in modal
   const isMobile = useIsMobile();
 
   // Mister Misu event data structure
   const misterMisuEvents = [
     {
-      id: 'dec-2024',
-      title: 'December 2024 - Grand Coffee Hall',
-      description: 'Our first pop-up featuring specialty coffee drinks and desserts in an intimate setting.',
-      images: [
-        '/mister-misu-dec-2024-coffee-collage.jpg',
-        '/mister-misu-dec-2024-clean-menu.png',
-        '/mister-misu-dec-2024-fruity-menu.png',
-        '/mister-misu-dec-2024-weird-menu.png',
-        '/mister-misu-dec-2024-strawberry-cards.png',
-        '/mister-misu-dec-2024-frozen-archives.png',
-        '/mister-misu-dec-2024-sold-out.png'
-      ]
-    }
-  ];
-
-  const fridayHomePortfolio = [
-    {
-      id: 'concert-poster',
-      title: 'Concert Poster',
-      type: 'pdf',
-      src: '/friday-home-concert-poster.pdf',
-      description: 'Official concert poster design'
+      title: "Frozen Archives - Dec 2024",
+      images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
+      description: "December 2024",
     },
     {
-      id: 'photo-1',
-      title: 'Performance Photo 1',
-      type: 'image',
-      src: '/friday-home-photo-1.jpg',
-      description: 'Live performance capture'
+      title: "June 2025 Coffee Experience", 
+      images: [fm1, fm2], // 1-2 sequence
+      description: "June 2025",
     },
-    {
-      id: 'photo-2',
-      title: 'Performance Photo 2',
-      type: 'image',
-      src: '/friday-home-photo-2.jpg',
-      description: 'Band in action'
-    },
-    {
-      id: 'photo-3',
-      title: 'Performance Photo 3',
-      type: 'image',
-      src: '/friday-home-photo-3.jpg',
-      description: 'Concert atmosphere'
-    },
-    {
-      id: 'moonlight-audio',
-      title: 'Moonlight',
-      type: 'audio',
-      src: '/friday-home-moonlight.mp3',
-      description: 'Original song recording'
-    }
   ];
 
   // Simple status indicator with correct colors
   const StatusDot = ({ experiment }: { experiment: Experiment }) => (
     <div className="flex items-center gap-2">
-      <div
+      <div 
         className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
-          experiment.status === 'sunset' ? 'bg-gray-500' :
-          experiment.status === 'wip' ? 'bg-yellow-500' :
+          experiment.status === 'sunset' ? 'bg-gray-500' : 
+          experiment.status === 'wip' ? 'bg-yellow-500' : 
           experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
           experiment.status === 'shipped' ? 'bg-blue-500' :
           'bg-gray-400'
-        }`}
+        }`} 
       />
       <span className="text-sm capitalize whitespace-nowrap">
-        {experiment.status === 'sunset' ? 'Sunset' :
-         experiment.status === 'wip' ? 'Wip' :
+        {experiment.status === 'sunset' ? 'Sunset' : 
+         experiment.status === 'wip' ? 'Wip' : 
          experiment.status === 'shipped' && experiment.isActive ? 'Active' :
-         experiment.status === 'shipped' ? 'Shipped' :
+         experiment.status === 'shipped' ? 'Shipped' : 
          experiment.status}
       </span>
     </div>
@@ -183,16 +138,9 @@ export default function Experiments() {
                   >
                     {experiment.title}
                   </button>
-                ) : experiment.id === 'friday-home-1' ? (
-                      <button
-                        onClick={() => setIsFridayHomeModalOpen(true)}
-                        className="font-medium text-purple-700 hover:text-purple-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2"
-                      >
-                        {experiment.title}
-                      </button>
-                    ) : (
-                      <span className="font-medium">{experiment.title}</span>
-                    )}
+                ) : (
+                  <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
+                )}
               </div>
               <div className="col-span-3">
                 <p className="text-sm text-soft-black">{experiment.description}</p>
@@ -223,14 +171,14 @@ export default function Experiments() {
           <div className="space-y-3">
             {/* Row 1: Status dot + Project title */}
             <div className="flex items-center gap-3 mb-2">
-              <div
+              <div 
                 className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
-                  experiment.status === 'sunset' ? 'bg-gray-500' :
-                  experiment.status === 'wip' ? 'bg-yellow-500' :
+                  experiment.status === 'sunset' ? 'bg-gray-500' : 
+                  experiment.status === 'wip' ? 'bg-yellow-500' : 
                   experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
                   experiment.status === 'shipped' ? 'bg-blue-500' :
                   'bg-gray-400'
-                }`}
+                }`} 
               />
               {experiment.id === 'mister-misu-1' ? (
                 <button
@@ -262,7 +210,7 @@ export default function Experiments() {
             {experiment.technologies && experiment.technologies.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {experiment.technologies.map((tech, index) => (
-                  <span
+                  <span 
                     key={index}
                     className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
                   >
@@ -322,7 +270,7 @@ export default function Experiments() {
       <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
-          <a
+          <a 
             href="mailto:coreydavidwu@gmail.com"
             className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
           >
@@ -333,139 +281,58 @@ export default function Experiments() {
 
       {/* Mister Misu Modal */}
       {isMisterMisuModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-warm-brown/20">
-              <div>
-                <h3 className="text-2xl font-medium text-warm-brown mb-2">
-                  Mister Misu
-                </h3>
-                <p className="text-sm text-soft-black/70">
-                  Pop-up coffee and dessert experiences
-                </p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
+          <div className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden mx-4">
+            {/* Close button */}
+            <button
+              onClick={() => setIsMisterMisuModalOpen(false)}
+              className="absolute top-4 right-4 z-50 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-all duration-200"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Modal content */}
+            <div className="p-8">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-light text-amber-700 mb-2">Mister Misu</h2>
+                <p className="text-warm-brown/70">{misterMisuEvents[currentMisterMisuEventIndex].description}</p>
               </div>
-              <button
-                onClick={() => setIsMisterMisuModalOpen(false)}
-                className="text-warm-brown hover:text-hover-brown transition-colors duration-200 p-2"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
 
-            {/* Modal Content */}
-            <div className="overflow-y-auto max-h-[calc(90vh-120px)]">
-              {misterMisuEvents.map((event, index) => (
-                <div key={event.id} className="p-6">
-                  <div className="mb-6">
-                    <h4 className="text-xl font-medium text-warm-brown mb-2">{event.title}</h4>
-                    <p className="text-soft-black/70">{event.description}</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {event.images.map((image, imgIndex) => (
-                      <div key={imgIndex} className="aspect-square overflow-hidden rounded-lg bg-light-brown">
-                        <img
-                          src={image}
-                          alt={`${event.title} - Image ${imgIndex + 1}`}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Friday Home Modal */}
-      {isFridayHomeModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-warm-brown/20">
-              <div>
-                <h3 className="text-2xl font-medium text-warm-brown mb-2">
-                  Friday Home
-                </h3>
-                <p className="text-sm text-soft-black/70">
-                  Band portfolio and media collection
-                </p>
-              </div>
-              <button
-                onClick={() => setIsFridayHomeModalOpen(false)}
-                className="text-warm-brown hover:text-hover-brown transition-colors duration-200 p-2"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            {/* Modal Content */}
-            <div className="overflow-y-auto max-h-[calc(90vh-120px)] p-6">
-              <div className="space-y-8">
-                {fridayHomePortfolio.map((item, index) => (
-                  <div key={item.id} className="border-b border-warm-brown/10 pb-6 last:border-b-0">
-                    <h4 className="text-lg font-medium text-warm-brown mb-2">{item.title}</h4>
-                    <p className="text-sm text-soft-black/70 mb-4">{item.description}</p>
-
-                    {item.type === 'pdf' && (
-                      <div className="bg-light-brown rounded-lg p-6 text-center">
-                        <div className="mb-4">
-                          <svg className="w-16 h-16 mx-auto text-warm-brown" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <a
-                          href={item.src}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block bg-warm-brown text-cream px-6 py-3 rounded-lg hover:bg-hover-brown transition-colors duration-200 font-medium"
-                        >
-                          View Concert Poster (PDF)
-                        </a>
-                      </div>
-                    )}
-
-                    {item.type === 'image' && (
-                      <div className="rounded-lg overflow-hidden bg-light-brown">
-                        <img
-                          src={item.src}
-                          alt={item.title}
-                          className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-
-                    {item.type === 'audio' && (
-                      <div className="bg-light-brown rounded-lg p-6">
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="w-12 h-12 bg-warm-brown rounded-full flex items-center justify-center">
-                            <svg className="w-6 h-6 text-cream" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12a7.971 7.971 0 00-1.343-4.243 1 1 0 010-1.414z" clipRule="evenodd" />
-                              <path fillRule="evenodd" d="M13.828 8.172a1 1 0 011.414 0A5.983 5.983 0 0117 12a5.983 5.983 0 01-1.758 3.828 1 1 0 11-1.414-1.414A3.983 3.983 0 0015 12a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <div>
-                            <h5 className="font-medium text-warm-brown">{item.title}</h5>
-                            <p className="text-sm text-soft-black/70">Original recording</p>
-                          </div>
-                        </div>
-                        <audio controls className="w-full">
-                          <source src={item.src} type="audio/mpeg" />
-                          Your browser does not support the audio element.
-                        </audio>
-                      </div>
-                    )}
+              {/* Image Gallery */}
+              <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} max-h-[60vh] overflow-auto`}>
+                {misterMisuEvents[currentMisterMisuEventIndex].images.map((image, index) => (
+                  <div key={index} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
+                    <img 
+                      src={image} 
+                      alt={`Mister Misu event image ${index + 1}`}
+                      className="w-full h-auto object-contain"
+                    />
                   </div>
                 ))}
               </div>
+
+              {/* Navigation Buttons */}
+              {misterMisuEvents.length > 1 && (
+                <div className="flex justify-center gap-4 mt-6">
+                  <button
+                    onClick={() => handleModalNav('prev')}
+                    className="px-4 py-2 bg-warm-brown/20 text-warm-brown rounded-full hover:bg-warm-brown/30 transition-colors duration-200"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={() => handleModalNav('next')}
+                    className="px-4 py-2 bg-amber-700 text-white rounded-full hover:bg-amber-800 transition-colors duration-200"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
       )}
 
-    </div>
+      </div>
   );
 }

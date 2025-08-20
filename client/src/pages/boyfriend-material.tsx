@@ -8,7 +8,7 @@ export default function BoyfriendMaterial() {
   const [, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSecurityPage, setShowSecurityPage] = useState(false);
+  
   const [submitted, setSubmitted] = useState(false);
 
   const handleEmailSignup = async (e: React.FormEvent) => {
@@ -22,88 +22,7 @@ export default function BoyfriendMaterial() {
     setSubmitted(true);
   };
 
-  if (showSecurityPage) {
-    return (
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Back button */}
-        <button
-          onClick={() => setShowSecurityPage(false)}
-          className="inline-flex items-center gap-2 text-warm-brown hover:text-hover-brown transition-colors duration-200 mb-8"
-          data-testid="button-back-landing"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Back to Landing
-        </button>
-
-        {/* Security Page Content */}
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-light text-amber-700 mb-8 text-center">Privacy & Security</h1>
-          
-          <div className="bg-light-brown rounded-lg p-8 mb-8 border border-warm-brown/20">
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-semibold text-coral-600 mb-4">Zero-Knowledge Architecture</h2>
-                <p className="text-warm-brown/80 leading-relaxed">
-                  We've designed Boyfriend Material with privacy as the foundation. Your personal memories, conversations, 
-                  and relationship data never leave your device in readable form. Even our development team cannot access 
-                  your personal information.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-warm-brown mb-3">How It Works</h3>
-                <ul className="space-y-3 text-warm-brown/80">
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-coral-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>Client-Side Processing:</strong> All your personal data is processed locally on your device using advanced vector embeddings</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-coral-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>Encrypted Storage:</strong> Data is encrypted with keys that only you control before any cloud storage</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-coral-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>Hybrid RAG System:</strong> Personal memories stay local while accessing expert relationship knowledge from trusted sources</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-warm-brown mb-3">Technical Implementation</h3>
-                <div className="bg-white rounded-lg p-6 border border-warm-brown/10">
-                  <ul className="space-y-2 text-sm text-warm-brown/70">
-                    <li>• OpenAI embeddings processed client-side for semantic search</li>
-                    <li>• AES-256 encryption with user-controlled keys</li>
-                    <li>• Local vector database using FAISS or similar</li>
-                    <li>• Expert knowledge accessed via secure, anonymized API calls</li>
-                    <li>• No personal data transmitted to external AI services</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-warm-brown mb-3">Your Data Rights</h3>
-                <p className="text-warm-brown/80 leading-relaxed">
-                  You have complete control over your data. Export it, delete it, or move it anytime. 
-                  We believe your relationship memories belong to you, not to a platform.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <button
-              onClick={() => setShowSecurityPage(false)}
-              className="bg-coral-600 hover:bg-coral-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-              data-testid="button-back-to-app"
-            >
-              Back to App
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -305,13 +224,11 @@ export default function BoyfriendMaterial() {
                           <span className="text-slate-700">OpenAI embeddings + local RAG</span>
                         </div>
                       </div>
-                      <button 
-                        onClick={() => setShowSecurityPage(true)}
-                        className="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors w-full"
-                        data-testid="button-security-details"
-                      >
-                        Learn More About Our Security
-                      </button>
+                      <div className="text-center">
+                        <span className="text-slate-500 text-sm italic">
+                          Full security details available upon launch
+                        </span>
+                      </div>
                     </div>
                   </div>
 

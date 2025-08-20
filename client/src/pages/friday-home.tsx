@@ -98,13 +98,24 @@ export default function FridayHome() {
         {/* Media Gallery - PDF Flyer and Photos */}
         <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
           {/* PDF Flyer - First position */}
-          <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden aspect-square flex items-center justify-center p-2">
-            <iframe 
-              src={fridayHomePDF}
-              className="w-full h-full rounded border-0"
-              title="Friday Home Event Flyer"
-              data-testid="pdf-flyer-embed"
-            />
+          <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden aspect-square flex items-center justify-center p-2 cursor-pointer hover:shadow-lg transition-shadow duration-200">
+            <div className="flex flex-col items-center justify-center text-center p-4">
+              <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-3">
+                <span className="text-red-600 font-bold text-xl">PDF</span>
+              </div>
+              <p className="font-medium text-warm-brown text-sm mb-2">Event Flyer</p>
+              <p className="text-xs text-gray-600 mb-3">June 11, 2023</p>
+              <a 
+                href={fridayHomePDF}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-amber-700 text-white px-3 py-1 rounded text-xs hover:bg-amber-800 transition-colors"
+                data-testid="pdf-flyer-link"
+                onClick={(e) => e.stopPropagation()}
+              >
+                View PDF
+              </a>
+            </div>
           </div>
           
           {/* Performance Photos */}

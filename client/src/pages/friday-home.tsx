@@ -9,11 +9,26 @@ import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
 import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
 import fridayHomePoster from "@assets/Friday-Home_F_1755656751713.jpg";
 import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
+import girlInGreyAudio from "@assets/1 Girl in Grey_1755666353648.mp3";
+import butterfliesAudio from "@assets/4 Butterflies-[AudioTrimmer.com]_1755666353648.mp3";
 
 export default function FridayHome() {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
+  
+  // Playlist state
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  
+  // Playlist data
+  const playlist = [
+    { title: "Girl in Grey", url: girlInGreyAudio },
+    { title: "Butterflies", url: butterfliesAudio },
+    { title: "Moonlight", url: fridayHomeAudio }
+  ];
 
   // Project event data structure - organized by most recent first
   const projectEvents = [
@@ -85,30 +100,86 @@ export default function FridayHome() {
               ))}
             </div>
 
-            {/* Audio Track Section */}
-            {event.additionalAssets && event.additionalAssets.length > 0 && (
-              <div className="mb-8">
-                <h4 className="text-lg font-medium text-warm-brown mb-4">Listen</h4>
-                <div className="bg-light-brown rounded-lg p-4 border border-warm-brown/20">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <span className="text-purple-600 font-semibold text-xs">♪</span>
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-warm-brown">{event.additionalAssets[0].name}</p>
-                      <audio 
-                        controls 
-                        className="w-full mt-2 h-8"
-                        data-testid={`audio-${eventIndex}`}
-                      >
-                        <source src={event.additionalAssets[0].url} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                      </audio>
-                    </div>
+            {/* Playlist Player Section */}
+            <div className="mb-8">
+              <h4 className="text-lg font-medium text-warm-brown mb-4">Listen to Our Songs</h4>
+              <div className="bg-light-brown rounded-lg p-6 border border-warm-brown/20">
+                {/* Current Track Display */}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <span className="text-purple-600 font-bold text-lg">♪</span>
+                  </div>
+                  <div className="flex-1">
+                    <h5 className="font-semibold text-warm-brown text-lg">
+                      {playlist[currentTrack].title}
+                    </h5>
+                    <p className="text-warm-brown/70 text-sm">Friday Home</p>
                   </div>
                 </div>
+
+                {/* Audio Element */}
+                <audio 
+                  key={currentTrack}
+                  controls 
+                  className="w-full mb-4 h-10"
+                  data-testid={`playlist-audio-${eventIndex}`}
+                  onLoadedMetadata={(e) => {
+                    const audio = e.target as HTMLAudioElement;
+                    setDuration(audio.duration);
+                  }}
+                  onTimeUpdate={(e) => {
+                    const audio = e.target as HTMLAudioElement;
+                    setCurrentTime(audio.currentTime);
+                  }}
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  onEnded={() => {
+                    if (currentTrack < playlist.length - 1) {
+                      setCurrentTrack(currentTrack + 1);
+                    }
+                  }}
+                >
+                  <source src={playlist[currentTrack].url} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+
+                {/* Playlist */}
+                <div className="space-y-2">
+                  <h6 className="text-sm font-medium text-warm-brown/80 mb-3">Playlist</h6>
+                  {playlist.map((track, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentTrack(index)}
+                      className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 text-left ${
+                        index === currentTrack 
+                          ? 'bg-warm-brown/10 border border-warm-brown/30' 
+                          : 'hover:bg-warm-brown/5'
+                      }`}
+                      data-testid={`playlist-track-${index}`}
+                    >
+                      <div className="flex items-center justify-center w-6 h-6">
+                        {index === currentTrack && isPlaying ? (
+                          <div className="flex gap-1">
+                            <div className="w-1 h-4 bg-purple-600 animate-pulse"></div>
+                            <div className="w-1 h-4 bg-purple-600 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-1 h-4 bg-purple-600 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                          </div>
+                        ) : (
+                          <span className="text-warm-brown/60 text-sm font-medium">
+                            {(index + 1).toString().padStart(2, '0')}
+                          </span>
+                        )}
+                      </div>
+                      <span className={`font-medium ${
+                        index === currentTrack ? 'text-warm-brown' : 'text-warm-brown/70'
+                      }`}>
+                        {track.title}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
-            )}
+            </div>
           </section>
         ))}
       </main>

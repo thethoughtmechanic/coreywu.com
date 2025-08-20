@@ -122,28 +122,6 @@
     box-shadow: 0 2px 8px rgba(139, 115, 85, 0.08), 0 1px 3px rgba(139, 115, 85, 0.06);
   }
 
-  .text-cream {
-    color: hsl(var(--cream));
-  }
-  .text-warm-brown {
-    color: hsl(var(--warm-brown));
-  }
-  .text-soft-black {
-    color: hsl(var(--soft-black));
-  }
-  .text-active-green {
-    color: hsl(var(--active-green));
-  }
-  .text-muted-grey {
-    color: hsl(var(--muted-grey));
-  }
-  .text-light-brown {
-    color: hsl(var(--light-brown));
-  }
-  .text-hover-brown {
-    color: hsl(var(--hover-brown));
-  }
-
   .border-warm-brown {
     border-color: hsl(var(--warm-brown));
   }

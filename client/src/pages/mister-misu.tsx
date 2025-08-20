@@ -35,7 +35,7 @@ export default function MisterMisu() {
       title: "Frozen Archives",
       images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
       date: "December 2024",
-      content: "Inspired by Hydrangea Coffee (California-based Roaster), we wanted to leverage AI image generation to visualize the flavour notes of each coffee to help guests better imagine what they are tasting. Beyond the 'Base Menu', I have also been freezing my favourite coffees throughout the year and wanted to allow my guests to experience these coffees as well. We ended up brewing ALL of these coffees and everyone loved being able to taste and compare so many different coffees in one sitting. 'First-timers' noted that being able to taste so many coffees side-by-side was a great way to learn about the different flavours and notes."
+      content: "Inspired by Hydrangea Coffee (a California-based roaster), we experimented with AI image generation to visualize the flavor notes of each coffee, helping guests better imagine what they were tasting. Beyond the Base Menu, I had also been freezing my favorite coffees throughout the year and wanted to share those with my guests. We brewed all of them, creating a unique chance to taste and compare a wide range of coffees side by side. Many first-time tasters said that experiencing so many coffees in one sitting was a fun and memorable way to learn about different flavors and notes."
     },
   ];
 

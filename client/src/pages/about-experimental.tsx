@@ -136,7 +136,7 @@ export default function AboutExperimental() {
 
     // If we don't have an order for this round yet, or if we've moved to a new round
     if (roundIconOrderIndices.length === 0 || currentRound !== roundIndex) {
-      const shuffledIndices = [...Array(allIcons.length).keys()].sort(() => Math.random() - 0.5);
+      const shuffledIndices = Array.from({ length: allIcons.length }, (_, i) => i).sort(() => Math.random() - 0.5);
       setRoundIconOrderIndices(shuffledIndices);
       return shuffledIndices;
     }

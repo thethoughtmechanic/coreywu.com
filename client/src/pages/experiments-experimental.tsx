@@ -216,7 +216,7 @@ export default function ExperimentsExperimental() {
           </div>
         );
 
-        const baseClasses = "w-full bg-light-brown rounded-lg p-4 text-left transition-all duration-500 cursor-pointer transform-gpu perspective-1000";
+        const baseClasses = "w-full bg-light-brown rounded-lg p-4 text-left transition-all duration-500 cursor-pointer transform-gpu preserve-3d";
         const hoverClasses = "hover:rotate-x-2 hover:rotate-y-1 hover:shadow-2xl hover:shadow-amber-200/30 hover:-translate-y-1";
 
         return route ? (
@@ -224,7 +224,6 @@ export default function ExperimentsExperimental() {
             <button
               onClick={() => setLocation(route)}
               className={`${baseClasses} ${hoverClasses}`}
-              style={{ transformStyle: 'preserve-3d' }}
             >
               <CardContent />
             </button>

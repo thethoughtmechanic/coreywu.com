@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, X } from "wouter";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ChevronLeft, X } from "lucide-react";
-import { useLocation } from "wouter";
+import { ImageGallery } from "@/components/image-gallery";
 
 // Import Friday Home assets
 import fridayHome1 from "@assets/WCS08751_1755656112838.jpg";
 import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
 import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
 import fridayHomePoster from "@assets/Friday-Home_F_1755656751713.jpg";
-import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
+import fridayHomeAudio from "@assets/Moonlight_1755656112838.mp3";
 import girlInGreyAudio from "@assets/girl-in-grey_1755666353648.mp3";
 import butterfliesAudio from "@assets/butterflies_1755666353648.mp3";
 
@@ -16,14 +16,14 @@ export default function FridayHome() {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
-  
+
   // Playlist state
   const [currentTrack, setCurrentTrack] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
-  
+
   // Playlist data
   const playlist = [
     { title: "Girl in Grey (Live at Mel's)", url: girlInGreyAudio },
@@ -84,22 +84,11 @@ export default function FridayHome() {
             </div>
 
             {/* Image Gallery */}
-            <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
-              {event.images.map((image, imageIndex) => (
-                <div 
-                  key={imageIndex} 
-                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-                  onClick={() => setExpandedImage(image)}
-                >
-                  <img 
-                    src={image} 
-                    alt={`${event.title} image ${imageIndex + 1}`}
-                    className="max-w-full max-h-full object-contain"
-                    data-testid={`img-event-${eventIndex}-${imageIndex}`}
-                  />
-                </div>
-              ))}
-            </div>
+            <ImageGallery 
+              images={event.images}
+              altTextPrefix={`${event.title} image`}
+              onImageClick={(image) => setExpandedImage(image)}
+            />
 
             {/* Playlist Player Section */}
             <div className="mb-8">
@@ -156,7 +145,7 @@ export default function FridayHome() {
                     if (typeof window !== 'undefined' && window.trackAudioCompleteDual) {
                       window.trackAudioCompleteDual(playlist[currentTrack].title, 'friday-home');
                     }
-                    
+
                     // Set flag to auto-play next track
                     setShouldAutoPlay(true);
                     // Auto advance to next track, loop back to start if at end
@@ -177,7 +166,7 @@ export default function FridayHome() {
                         setCurrentTrack(index);
                         // Track track selection
                         if (typeof window !== 'undefined' && window.trackAudioPlayDual) {
-                          window.trackAudioPlayDual(playlist[index].title, index, 'friday-home');
+                          window.trackAudioPlayDual(playlist[index].title, 'friday-home');
                         }
                       }}
                       className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 text-left ${
@@ -214,27 +203,8 @@ export default function FridayHome() {
         ))}
       </main>
 
-      {/* Full-screen image modal */}
-      {expandedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm p-4">
-          <div className="relative w-full h-full flex items-center justify-center">
-            <button
-              onClick={() => setExpandedImage(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200"
-              data-testid="button-close-expanded"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <img 
-              src={expandedImage} 
-              alt="Expanded view"
-              className="max-w-full max-h-full object-contain rounded-lg"
-              data-testid="img-expanded"
-            />
-          </div>
-        </div>
-      )}
-
+      {/* Full-screen image modal - Handled by ImageGallery */}
+      
       {/* Footer */}
       <footer className="text-center mt-16 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">

@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMobile } from "@/hooks/use-mobile";
+import { ImageGallery } from "@/components/image-gallery";
 import { useLocation } from "wouter";
 
 export default function PromptPulse() {
@@ -46,7 +47,7 @@ export default function PromptPulse() {
         <h1 className="text-4xl font-light text-amber-700 mb-6" data-testid="text-project-title">
           Prompt Pulse
         </h1>
-        
+
         {/* Event Navigation and Title */}
         <div className="flex items-center justify-center gap-6 mb-4">
           {projectEvents.length > 1 && (
@@ -59,11 +60,11 @@ export default function PromptPulse() {
               <ChevronLeft className="w-5 h-5" />
             </button>
           )}
-          
+
           <h2 className="text-2xl font-light text-warm-brown" data-testid="text-current-event-title">
             {projectEvents[currentEventIndex].description}
           </h2>
-          
+
           {projectEvents.length > 1 && (
             <button
               onClick={() => handleNav('next')}
@@ -75,7 +76,7 @@ export default function PromptPulse() {
             </button>
           )}
         </div>
-        
+
         {/* Description */}
         <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed" data-testid="text-event-content">
           {projectEvents[currentEventIndex].content}
@@ -85,30 +86,19 @@ export default function PromptPulse() {
       {/* Main Content */}
       <main>
         {/* Image Gallery - Smaller clickable images */}
-        <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
-          {projectEvents[currentEventIndex].images.map((image, index) => (
-            <div 
-              key={index} 
-              className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-              onClick={() => setExpandedImage(image)}
-            >
-              <img 
-                src={image} 
-                alt={`Project image ${index + 1}`}
-                className="max-w-full max-h-full object-contain"
-                data-testid={`img-project-${index}`}
-              />
+        <ImageGallery 
+          images={projectEvents[currentEventIndex].images}
+          onImageClick={setExpandedImage}
+        />
+        
+        {/* Show placeholder for empty assets */}
+        {projectEvents[currentEventIndex].images.length === 0 && (
+          <div className="col-span-full text-center py-12">
+            <div className="bg-gray-100 rounded-lg p-8">
+              <p className="text-gray-500">ASSET placeholders will be added here</p>
             </div>
-          ))}
-          {/* Show placeholder for empty assets */}
-          {projectEvents[currentEventIndex].images.length === 0 && (
-            <div className="col-span-full text-center py-12">
-              <div className="bg-gray-100 rounded-lg p-8">
-                <p className="text-gray-500">ASSET placeholders will be added here</p>
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Event indicator dots */}
         {projectEvents.length > 1 && (
@@ -129,27 +119,6 @@ export default function PromptPulse() {
           </div>
         )}
       </main>
-
-      {/* Full-screen image modal */}
-      {expandedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm p-4">
-          <div className="relative w-full h-full flex items-center justify-center">
-            <button
-              onClick={() => setExpandedImage(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200"
-              data-testid="button-close-expanded"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <img 
-              src={expandedImage} 
-              alt="Expanded view"
-              className="max-w-full max-h-full object-contain rounded-lg"
-              data-testid="img-expanded"
-            />
-          </div>
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="text-center mt-16 pt-8 border-t border-warm-brown/20">

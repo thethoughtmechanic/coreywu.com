@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { ChevronLeft, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMobile } from "@/hooks/use-mobile";
 import { useLocation } from "wouter";
+import { ImageGallery } from "@/components/image-gallery";
 
 // Import Mister Misu images using available assets
 import fm1 from "@assets/1_1755009695189.png";
@@ -79,46 +80,10 @@ export default function MisterMisu() {
             </div>
 
             {/* Image Gallery */}
-            <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'}`}>
-              {event.images.map((image, imageIndex) => (
-                <div 
-                  key={imageIndex} 
-                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-                  onClick={() => setExpandedImage(image)}
-                >
-                  <img 
-                    src={image} 
-                    alt={`${event.title} image ${imageIndex + 1}`}
-                    className="max-w-full max-h-full object-contain"
-                    data-testid={`img-event-${eventIndex}-${imageIndex}`}
-                  />
-                </div>
-              ))}
-            </div>
+            <ImageGallery images={event.images} />
           </section>
         ))}
       </main>
-
-      {/* Full-screen image modal */}
-      {expandedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm p-4">
-          <div className="relative w-full h-full flex items-center justify-center">
-            <button
-              onClick={() => setExpandedImage(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200"
-              data-testid="button-close-expanded"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <img 
-              src={expandedImage} 
-              alt="Expanded view"
-              className="max-w-full max-h-full object-contain rounded-lg"
-              data-testid="img-expanded"
-            />
-          </div>
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="text-center mt-16 pt-8 border-t border-warm-brown/20">

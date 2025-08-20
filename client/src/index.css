@@ -39,6 +39,16 @@
   --muted-grey: hsl(220, 13%, 64%);
   --light-brown: hsl(35, 20%, 94%);
   --hover-brown: hsl(28, 28%, 43%);
+  
+  /* Boyfriend Material colors */
+  --coral-50: hsl(14, 100%, 97%);
+  --coral-100: hsl(14, 91%, 91%);
+  --coral-600: hsl(14, 83%, 53%);
+  --coral-700: hsl(14, 83%, 48%);
+  --ocean-50: hsl(200, 100%, 97%);
+  --ocean-100: hsl(200, 91%, 91%);
+  --ocean-500: hsl(200, 83%, 53%);
+  --ocean-600: hsl(200, 83%, 48%);
 }
 
 .dark {
@@ -100,6 +110,15 @@
 
 .hover\:shadow-spotlight:hover {
   box-shadow: inset 0 0 50px rgba(255,255,255,0.1), 0 0 30px rgba(168,85,247,0.3);
+}
+
+/* Boyfriend Material specific animations */
+.floating-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.logo-glow {
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
 }
 
 @layer utilities {

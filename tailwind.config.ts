@@ -61,6 +61,27 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        // Boyfriend Material colors
+        coral: {
+          50: "var(--coral-50)",
+          100: "var(--coral-100)",
+          600: "var(--coral-600)",
+          700: "var(--coral-700)",
+        },
+        ocean: {
+          50: "var(--ocean-50)",
+          100: "var(--ocean-100)",
+          500: "var(--ocean-500)",
+          600: "var(--ocean-600)",
+        },
+        // Personal website colors
+        cream: "var(--cream)",
+        "warm-brown": "var(--warm-brown)",
+        "soft-black": "var(--soft-black)",
+        "active-green": "var(--active-green)",
+        "muted-grey": "var(--muted-grey)",
+        "light-brown": "var(--light-brown)",
+        "hover-brown": "var(--hover-brown)",
       },
       keyframes: {
         "accordion-down": {

@@ -155,9 +155,8 @@ export default function FridayHome() {
                       window.trackAudioCompleteDual(playlist[currentTrack].title, 'friday-home');
                     }
                     
-                    if (currentTrack < playlist.length - 1) {
-                      setCurrentTrack(currentTrack + 1);
-                    }
+                    // Auto advance to next track, loop back to start if at end
+                    setCurrentTrack((prevTrack) => (prevTrack + 1) % playlist.length);
                   }}
                 >
                   <source src={playlist[currentTrack].url} type="audio/mpeg" />

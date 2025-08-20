@@ -360,11 +360,6 @@ export default function BoyfriendMaterial() {
 
       {/* Personal website footer */}
       <footer className="text-center mt-16 pt-8 border-t border-warm-brown/20">
-        <div className="text-center mb-4">
-          <p className="text-sm text-muted-grey mb-2">
-            This is a preview of the Boyfriend Material landing page experience embedded within my digital garden.
-          </p>
-        </div>
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
           <a 

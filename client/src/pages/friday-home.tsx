@@ -102,7 +102,7 @@ export default function FridayHome() {
 
             {/* Playlist Player Section */}
             <div className="mb-8">
-              <h4 className="text-lg font-medium text-warm-brown mb-4">Listen to Our Songs</h4>
+              <h4 className="text-lg font-medium text-warm-brown mb-4">Live Recordings from June 11th, 2023</h4>
               <div className="bg-light-brown rounded-lg p-6 border border-warm-brown/20">
                 {/* Current Track Display */}
                 <div className="flex items-center gap-4 mb-4">

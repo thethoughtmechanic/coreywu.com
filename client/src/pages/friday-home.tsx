@@ -7,7 +7,7 @@ import { useLocation } from "wouter";
 import fridayHome1 from "@assets/WCS08751_1755656112838.jpg";
 import fridayHome2 from "@assets/WCS08762_1755656112839.jpg";
 import fridayHome3 from "@assets/WCS08732_1755656112839.jpg";
-import fridayHomePoster from "/friday-home-poster.jpg";
+import fridayHomePoster from "@assets/Friday-Home_F_1755656751713.jpg";
 import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
 
 export default function FridayHome() {

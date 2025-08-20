@@ -2,47 +2,12 @@ import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { X } from "lucide-react";
-
-// Import Mister Misu images - using public folder paths
-const grandCoffeeHallImage = "/mister-misu-grand-coffee-hall.png";
-const guestListImage = "/mister-misu-guest-list.png";
-
-// Import Mister Misu images using available assets
-import fm1 from "@assets/1_1755009695189.png";
-import fm2 from "@assets/2_1755009695190.png";
-import fm3 from "@assets/1_1755012742431.png";
-import fm4 from "@assets/2_1755012742432.png";
-import fm5 from "@assets/01_1755014357426.png";
-import fm6 from "@assets/02_1755014357425.png";
-import fm7 from "@assets/03_1755014357425.png";
-
-// Import remaining December images
-import fm8 from "@assets/04_1755014357427.png";
-import fm9 from "@assets/05_1755014357426.png";
-import fm10 from "@assets/06_1755014357426.jpg";
-import fm11 from "@assets/07_1755014357426.png";
-
+import { useLocation } from "wouter";
 
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
-  const [isMisterMisuModalOpen, setIsMisterMisuModalOpen] = useState(false);
-  const [currentMisterMisuEventIndex, setCurrentMisterMisuEventIndex] = useState(0); // State to track current event in modal
+  const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
-
-  // Mister Misu event data structure
-  const misterMisuEvents = [
-    {
-      title: "Frozen Archives - Dec 2024",
-      images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
-      description: "December 2024",
-    },
-    {
-      title: "June 2025 Coffee Experience", 
-      images: [fm1, fm2], // 1-2 sequence
-      description: "June 2025",
-    },
-  ];
 
   // Simple status indicator with correct colors
   const StatusDot = ({ experiment }: { experiment: Experiment }) => (
@@ -130,11 +95,9 @@ export default function Experiments() {
               <div className="col-span-2">
                 {experiment.id === 'mister-misu-1' ? (
                   <button
-                    onClick={() => {
-                      setIsMisterMisuModalOpen(true);
-                      setCurrentMisterMisuEventIndex(0); // Set to the first event (Dec 2024)
-                    }}
+                    onClick={() => setLocation('/experiments/mistermisu')}
                     className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2"
+                    data-testid="button-mister-misu-desktop"
                   >
                     {experiment.title}
                   </button>
@@ -182,11 +145,9 @@ export default function Experiments() {
               />
               {experiment.id === 'mister-misu-1' ? (
                 <button
-                  onClick={() => {
-                    setIsMisterMisuModalOpen(true);
-                    setCurrentMisterMisuEventIndex(0); // Set to the first event (Dec 2024)
-                  }}
+                  onClick={() => setLocation('/experiments/mistermisu')}
                   className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2 text-lg"
+                  data-testid="button-mister-misu-mobile"
                 >
                   {experiment.title}
                 </button>
@@ -224,16 +185,6 @@ export default function Experiments() {
       ))}
     </div>
   );
-
-  // Function to handle navigation within the modal
-  const handleModalNav = (direction: 'prev' | 'next') => {
-    const eventCount = misterMisuEvents.length;
-    if (direction === 'prev') {
-      setCurrentMisterMisuEventIndex((prevIndex) => (prevIndex - 1 + eventCount) % eventCount);
-    } else {
-      setCurrentMisterMisuEventIndex((prevIndex) => (prevIndex + 1) % eventCount);
-    }
-  };
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -279,60 +230,6 @@ export default function Experiments() {
         </p>
       </footer>
 
-      {/* Mister Misu Modal */}
-      {isMisterMisuModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
-          <div className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden mx-4">
-            {/* Close button */}
-            <button
-              onClick={() => setIsMisterMisuModalOpen(false)}
-              className="absolute top-4 right-4 z-50 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-all duration-200"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            {/* Modal content */}
-            <div className="p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-light text-amber-700 mb-2">Mister Misu</h2>
-                <p className="text-warm-brown/70">{misterMisuEvents[currentMisterMisuEventIndex].description}</p>
-              </div>
-
-              {/* Image Gallery */}
-              <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} max-h-[60vh] overflow-auto`}>
-                {misterMisuEvents[currentMisterMisuEventIndex].images.map((image, index) => (
-                  <div key={index} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-                    <img 
-                      src={image} 
-                      alt={`Mister Misu event image ${index + 1}`}
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* Navigation Buttons */}
-              {misterMisuEvents.length > 1 && (
-                <div className="flex justify-center gap-4 mt-6">
-                  <button
-                    onClick={() => handleModalNav('prev')}
-                    className="px-4 py-2 bg-warm-brown/20 text-warm-brown rounded-full hover:bg-warm-brown/30 transition-colors duration-200"
-                  >
-                    Previous
-                  </button>
-                  <button
-                    onClick={() => handleModalNav('next')}
-                    className="px-4 py-2 bg-amber-700 text-white rounded-full hover:bg-amber-800 transition-colors duration-200"
-                  >
-                    Next
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      </div>
+    </div>
   );
 }

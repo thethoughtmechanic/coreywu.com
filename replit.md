@@ -10,6 +10,7 @@ This is a personal portfolio website designed as a "digital garden" - a space fo
 - **Card Layout Optimization**: Redesigned 3-card landing page layout for better mobile viewing
 - **Typography Scaling**: Implemented responsive text sizes that scale appropriately across devices
 - **Touch-Friendly Interface**: Enhanced touch targets and mobile interaction patterns
+- **Mister Misu Page Conversion**: Converted modal experience to dedicated page at `/experiments/mistermisu` for cleaner routing and better user experience
 
 ## User Preferences
 
@@ -25,11 +26,12 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: TanStack Query (React Query) for server state management
 
 ### Component Structure
-- **Page Components**: Home, About, Thoughts, Experiments, and NotFound pages
+- **Page Components**: Home, About, Thoughts, Experiments, Mister Misu, and NotFound pages
 - **UI Components**: Reusable cards for timeline events, thoughts, and experiments
 - **Navigation**: Responsive navigation with desktop header and mobile hamburger menu with slide-out drawer
 - **Layout**: Mobile-first responsive design with optimized card layouts and typography scaling
 - **Mobile Features**: Touch-friendly interfaces, proper spacing, and viewport-aware layouts
+- **Dedicated Pages**: Individual project pages with clean routing structure (e.g., /experiments/mistermisu)
 
 ### Backend Architecture
 - **Server**: Express.js with TypeScript

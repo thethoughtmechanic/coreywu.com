@@ -21,6 +21,7 @@ import AboutExpNew from "@/pages/about-expnew"; // Import the new component
 import AboutQuiz from "@/pages/about-quiz"; // Import the new component
 import AboutQuizPersonas from "@/pages/about-quiz-personas"; // Import the new component
 import Contact from "@/pages/contact"; // Import the contact component
+import MisterMisu from "@/pages/mister-misu"; // Import the Mister Misu component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 
@@ -74,6 +75,7 @@ function Router() {
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />
           <Route path="/experiments" component={Experiments} />
+          <Route path="/experiments/mistermisu" component={MisterMisu} />
           <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
 

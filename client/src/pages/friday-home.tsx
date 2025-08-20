@@ -21,8 +21,8 @@ export default function FridayHome() {
     {
       title: "June 11, 2023 Performance",
       images: [fridayHome1, fridayHome2, fridayHome3], // Performance photos
-      description: "June 11, 2023",
-      content: "A cozy pop/funk/R&B band performance at a secret location. Friday Home brought together guitar, bass, drums, and vocals for an intimate house concert experience, showcasing original songwriting and live performance energy in a beautiful residential setting.",
+      description: "Our First Live Show: June 11, 2023",
+      content: "We performed a house concert for close friends and family, debuting 3 sets of original music.",
       additionalAssets: [
         { type: 'pdf', name: 'Event Flyer', url: fridayHomePDF },
         { type: 'audio', name: 'Moonlight (Audio Track)', url: fridayHomeAudio }
@@ -95,8 +95,19 @@ export default function FridayHome() {
 
       {/* Main Content */}
       <main>
-        {/* Image Gallery - Smaller clickable images */}
+        {/* Media Gallery - PDF Flyer and Photos */}
         <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
+          {/* PDF Flyer - First position */}
+          <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden aspect-square flex items-center justify-center p-2">
+            <iframe 
+              src={fridayHomePDF}
+              className="w-full h-full rounded border-0"
+              title="Friday Home Event Flyer"
+              data-testid="pdf-flyer-embed"
+            />
+          </div>
+          
+          {/* Performance Photos */}
           {projectEvents[currentEventIndex].images.map((image, index) => (
             <div 
               key={index} 
@@ -113,57 +124,28 @@ export default function FridayHome() {
           ))}
         </div>
 
-        {/* Additional Assets Section */}
-        {projectEvents[currentEventIndex].additionalAssets && (
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-warm-brown mb-4">Additional Materials</h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              {projectEvents[currentEventIndex].additionalAssets.map((asset, index) => (
-                <div key={index} className="bg-light-brown rounded-lg p-4 border border-warm-brown/20">
-                  <div className="flex items-center gap-3">
-                    {asset.type === 'pdf' && (
-                      <>
-                        <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                          <span className="text-red-600 font-semibold text-xs">PDF</span>
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-warm-brown">{asset.name}</p>
-                          <a 
-                            href={asset.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-sm text-amber-700 hover:text-amber-800 underline"
-                            data-testid={`link-pdf-${index}`}
-                          >
-                            View PDF
-                          </a>
-                        </div>
-                      </>
-                    )}
-                    {asset.type === 'audio' && (
-                      <>
-                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                          <span className="text-purple-600 font-semibold text-xs">♪</span>
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-warm-brown">{asset.name}</p>
-                          <audio 
-                            controls 
-                            className="w-full mt-2 h-8"
-                            data-testid={`audio-${index}`}
-                          >
-                            <source src={asset.url} type="audio/mpeg" />
-                            Your browser does not support the audio element.
-                          </audio>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              ))}
+        {/* Audio Track Section */}
+        <div className="mb-8">
+          <h3 className="text-lg font-medium text-warm-brown mb-4">Listen</h3>
+          <div className="bg-light-brown rounded-lg p-4 border border-warm-brown/20">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <span className="text-purple-600 font-semibold text-xs">♪</span>
+              </div>
+              <div className="flex-1">
+                <p className="font-medium text-warm-brown">Moonlight (Audio Track)</p>
+                <audio 
+                  controls 
+                  className="w-full mt-2 h-8"
+                  data-testid="audio-moonlight"
+                >
+                  <source src={fridayHomeAudio} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Event indicator dots */}
         {projectEvents.length > 1 && (

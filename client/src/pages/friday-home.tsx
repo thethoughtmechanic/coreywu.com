@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 import { useLocation } from "wouter";
 
 // Import Friday Home assets
@@ -11,34 +11,22 @@ import fridayHomePoster from "@assets/Friday-Home_F_1755656751713.jpg";
 import fridayHomeAudio from "@assets/Moonlight_1755656112839.mp3";
 
 export default function FridayHome() {
-  const [currentEventIndex, setCurrentEventIndex] = useState(0);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
 
-  // Project event data structure
+  // Project event data structure - organized by most recent first
   const projectEvents = [
     {
-      title: "June 11, 2023 Performance",
-      images: [fridayHome1, fridayHome2, fridayHome3], // Performance photos
-      description: "Our First Live Show: June 11, 2023",
+      title: "Our First Live Show",
+      images: [fridayHomePoster, fridayHome1, fridayHome2, fridayHome3], // Poster first, then performance photos
+      date: "June 11, 2023",
       content: "We performed a house concert for close friends and family, debuting 3 sets of original music.",
       additionalAssets: [
-        { type: 'image', name: 'Event Poster', url: fridayHomePoster },
         { type: 'audio', name: 'Moonlight (Audio Track)', url: fridayHomeAudio }
       ]
     },
   ];
-
-  // Function to handle navigation between events
-  const handleNav = (direction: 'prev' | 'next') => {
-    const eventCount = projectEvents.length;
-    if (direction === 'prev') {
-      setCurrentEventIndex((prevIndex) => (prevIndex - 1 + eventCount) % eventCount);
-    } else {
-      setCurrentEventIndex((prevIndex) => (prevIndex + 1) % eventCount);
-    }
-  };
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -53,121 +41,76 @@ export default function FridayHome() {
       </button>
 
       {/* Header */}
-      <header className="text-center mb-8">
+      <header className="text-center mb-12">
         <h1 className="text-4xl font-light text-amber-700 mb-6" data-testid="text-project-title">
           Friday Home
         </h1>
-        
-        {/* Event Navigation and Title */}
-        <div className="flex items-center justify-center gap-6 mb-4">
-          {projectEvents.length > 1 && (
-            <button
-              onClick={() => handleNav('prev')}
-              className="w-8 h-8 flex items-center justify-center text-warm-brown hover:text-amber-700 transition-colors duration-200"
-              data-testid="button-prev-event-top"
-              aria-label="Previous event"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          )}
-          
-          <h2 className="text-2xl font-light text-warm-brown" data-testid="text-current-event-title">
-            {projectEvents[currentEventIndex].description}
-          </h2>
-          
-          {projectEvents.length > 1 && (
-            <button
-              onClick={() => handleNav('next')}
-              className="w-8 h-8 flex items-center justify-center text-warm-brown hover:text-amber-700 transition-colors duration-200"
-              data-testid="button-next-event-top"
-              aria-label="Next event"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          )}
-        </div>
-        
-        {/* Description */}
-        <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed" data-testid="text-event-content">
-          {projectEvents[currentEventIndex].content}
+        <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed">
+          A musical journey showcasing live performances and original compositions.
         </p>
       </header>
 
-      {/* Main Content */}
-      <main>
-        {/* Media Gallery - Event Poster and Photos */}
-        <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
-          {/* Event Poster - First position */}
-          <div 
-            className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-            onClick={() => setExpandedImage(fridayHomePoster)}
-          >
-            <img 
-              src={fridayHomePoster} 
-              alt="Friday Home concert poster"
-              className="max-w-full max-h-full object-contain"
-              data-testid="img-poster"
-            />
-          </div>
-          
-          {/* Performance Photos */}
-          {projectEvents[currentEventIndex].images.map((image, index) => (
-            <div 
-              key={index} 
-              className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-              onClick={() => setExpandedImage(image)}
-            >
-              <img 
-                src={image} 
-                alt={`Friday Home performance image ${index + 1}`}
-                className="max-w-full max-h-full object-contain"
-                data-testid={`img-project-${index}`}
-              />
+      {/* Main Content - Scrollable Timeline */}
+      <main className="space-y-16">
+        {projectEvents.map((event, eventIndex) => (
+          <section key={eventIndex} className="border-b border-warm-brown/20 pb-12 last:border-b-0">
+            {/* Event Header */}
+            <div className="mb-8">
+              <h2 className="text-3xl font-light text-amber-700 mb-2" data-testid={`text-event-title-${eventIndex}`}>
+                {event.date}
+              </h2>
+              <h3 className="text-xl text-warm-brown mb-4" data-testid={`text-event-subtitle-${eventIndex}`}>
+                {event.title}
+              </h3>
+              <p className="text-warm-brown/70 max-w-3xl leading-relaxed" data-testid={`text-event-content-${eventIndex}`}>
+                {event.content}
+              </p>
             </div>
-          ))}
-        </div>
 
-        {/* Audio Track Section */}
-        <div className="mb-8">
-          <h3 className="text-lg font-medium text-warm-brown mb-4">Listen</h3>
-          <div className="bg-light-brown rounded-lg p-4 border border-warm-brown/20">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                <span className="text-purple-600 font-semibold text-xs">♪</span>
-              </div>
-              <div className="flex-1">
-                <p className="font-medium text-warm-brown">Moonlight (Audio Track)</p>
-                <audio 
-                  controls 
-                  className="w-full mt-2 h-8"
-                  data-testid="audio-moonlight"
+            {/* Image Gallery */}
+            <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
+              {event.images.map((image, imageIndex) => (
+                <div 
+                  key={imageIndex} 
+                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
+                  onClick={() => setExpandedImage(image)}
                 >
-                  <source src={fridayHomeAudio} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
-              </div>
+                  <img 
+                    src={image} 
+                    alt={`${event.title} image ${imageIndex + 1}`}
+                    className="max-w-full max-h-full object-contain"
+                    data-testid={`img-event-${eventIndex}-${imageIndex}`}
+                  />
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
 
-        {/* Event indicator dots */}
-        {projectEvents.length > 1 && (
-          <div className="flex justify-center gap-2 mt-6">
-            {projectEvents.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentEventIndex(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentEventIndex 
-                    ? 'bg-amber-700' 
-                    : 'bg-warm-brown/30 hover:bg-warm-brown/50'
-                }`}
-                data-testid={`button-event-${index}`}
-                aria-label={`Go to event ${index + 1}`}
-              />
-            ))}
-          </div>
-        )}
+            {/* Audio Track Section */}
+            {event.additionalAssets && event.additionalAssets.length > 0 && (
+              <div className="mb-8">
+                <h4 className="text-lg font-medium text-warm-brown mb-4">Listen</h4>
+                <div className="bg-light-brown rounded-lg p-4 border border-warm-brown/20">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <span className="text-purple-600 font-semibold text-xs">♪</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-warm-brown">{event.additionalAssets[0].name}</p>
+                      <audio 
+                        controls 
+                        className="w-full mt-2 h-8"
+                        data-testid={`audio-${eventIndex}`}
+                      >
+                        <source src={event.additionalAssets[0].url} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        ))}
       </main>
 
       {/* Full-screen image modal */}

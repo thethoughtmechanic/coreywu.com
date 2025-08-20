@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 import { useLocation } from "wouter";
 
 // Import Mister Misu images using available assets
@@ -19,36 +19,25 @@ import fm10 from "@assets/06_1755014357426.jpg";
 import fm11 from "@assets/07_1755014357426.png";
 
 export default function MisterMisu() {
-  const [currentEventIndex, setCurrentEventIndex] = useState(0);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
 
-  // Mister Misu event data structure
+  // Mister Misu event data structure - organized by most recent first
   const misterMisuEvents = [
-    {
-      title: "Frozen Archives - Dec 2024",
-      images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
-      description: "December 2024",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-    },
     {
       title: "June 2025 Coffee Experience", 
       images: [fm1, fm2], // 1-2 sequence
-      description: "June 2025",
+      date: "June 2025",
       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper."
     },
+    {
+      title: "Frozen Archives",
+      images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
+      date: "December 2024",
+      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+    },
   ];
-
-  // Function to handle navigation between events
-  const handleNav = (direction: 'prev' | 'next') => {
-    const eventCount = misterMisuEvents.length;
-    if (direction === 'prev') {
-      setCurrentEventIndex((prevIndex) => (prevIndex - 1 + eventCount) % eventCount);
-    } else {
-      setCurrentEventIndex((prevIndex) => (prevIndex + 1) % eventCount);
-    }
-  };
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -63,84 +52,51 @@ export default function MisterMisu() {
       </button>
 
       {/* Header */}
-      <header className="text-center mb-8">
+      <header className="text-center mb-12">
         <h1 className="text-4xl font-light text-amber-700 mb-6" data-testid="text-mister-misu-title">
           Mister Misu
         </h1>
-        
-        {/* Event Navigation and Title */}
-        <div className="flex items-center justify-center gap-6 mb-4">
-          {misterMisuEvents.length > 1 && (
-            <button
-              onClick={() => handleNav('prev')}
-              className="w-8 h-8 flex items-center justify-center text-warm-brown hover:text-amber-700 transition-colors duration-200"
-              data-testid="button-prev-event-top"
-              aria-label="Previous event"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          )}
-          
-          <h2 className="text-2xl font-light text-warm-brown" data-testid="text-current-event-title">
-            {misterMisuEvents[currentEventIndex].description}
-          </h2>
-          
-          {misterMisuEvents.length > 1 && (
-            <button
-              onClick={() => handleNav('next')}
-              className="w-8 h-8 flex items-center justify-center text-warm-brown hover:text-amber-700 transition-colors duration-200"
-              data-testid="button-next-event-top"
-              aria-label="Next event"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          )}
-        </div>
-        
-        {/* Description */}
-        <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed" data-testid="text-event-content">
-          {misterMisuEvents[currentEventIndex].content}
+        <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed">
+          A journey through coffee experiences and creative exploration.
         </p>
       </header>
 
-      {/* Main Content */}
-      <main>
-        {/* Image Gallery - Smaller clickable images */}
-        <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} mb-8`}>
-          {misterMisuEvents[currentEventIndex].images.map((image, index) => (
-            <div 
-              key={index} 
-              className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-              onClick={() => setExpandedImage(image)}
-            >
-              <img 
-                src={image} 
-                alt={`Mister Misu event image ${index + 1}`}
-                className="max-w-full max-h-full object-contain"
-                data-testid={`img-mister-misu-${index}`}
-              />
+      {/* Main Content - Scrollable Timeline */}
+      <main className="space-y-16">
+        {misterMisuEvents.map((event, eventIndex) => (
+          <section key={eventIndex} className="border-b border-warm-brown/20 pb-12 last:border-b-0">
+            {/* Event Header */}
+            <div className="mb-8">
+              <h2 className="text-3xl font-light text-amber-700 mb-2" data-testid={`text-event-title-${eventIndex}`}>
+                {event.date}
+              </h2>
+              <h3 className="text-xl text-warm-brown mb-4" data-testid={`text-event-subtitle-${eventIndex}`}>
+                {event.title}
+              </h3>
+              <p className="text-warm-brown/70 max-w-3xl leading-relaxed" data-testid={`text-event-content-${eventIndex}`}>
+                {event.content}
+              </p>
             </div>
-          ))}
-        </div>
 
-        {/* Event indicator dots */}
-        {misterMisuEvents.length > 1 && (
-          <div className="flex justify-center gap-2 mt-6">
-            {misterMisuEvents.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentEventIndex(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentEventIndex 
-                    ? 'bg-amber-700' 
-                    : 'bg-warm-brown/30 hover:bg-warm-brown/50'
-                }`}
-                data-testid={`button-event-${index}`}
-                aria-label={`Go to event ${index + 1}`}
-              />
-            ))}
-          </div>
-        )}
+            {/* Image Gallery */}
+            <div className={`grid gap-4 ${isMobile ? 'grid-cols-2' : 'grid-cols-4'}`}>
+              {event.images.map((image, imageIndex) => (
+                <div 
+                  key={imageIndex} 
+                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
+                  onClick={() => setExpandedImage(image)}
+                >
+                  <img 
+                    src={image} 
+                    alt={`${event.title} image ${imageIndex + 1}`}
+                    className="max-w-full max-h-full object-contain"
+                    data-testid={`img-event-${eventIndex}-${imageIndex}`}
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
       </main>
 
       {/* Full-screen image modal */}

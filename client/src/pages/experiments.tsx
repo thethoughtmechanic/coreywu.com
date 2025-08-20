@@ -48,13 +48,13 @@ export default function Experiments() {
   };
 
   // Helper function to get the route for each experiment
-  // Only Mister Misu and Friday Home are currently linked for viewers
+  // Only Mister Misu, Friday Home, and Boyfriend Material are currently linked for viewers
   const getExperimentRoute = (experimentId: string) => {
     const routeMap: { [key: string]: string } = {
       'mister-misu-1': '/experiments/mistermisu',
-      'friday-home-1': '/experiments/fridayhome'
+      'friday-home-1': '/experiments/fridayhome',
+      'boyfriend-material-1': '/experiments/boyfriendmaterial'
       // Other routes disabled for viewers but still accessible via direct URL:
-      // 'boyfriend-material-1': '/experiments/boyfriendmaterial',
       // 'prompt-pulse-1': '/experiments/promptpulse',
       // 'food-for-thought-1': '/experiments/foodforthought',
       // 'lew-wu-1': '/experiments/lewwu'

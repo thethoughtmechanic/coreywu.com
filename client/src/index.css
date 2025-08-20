@@ -27,6 +27,10 @@
   --ring: hsl(25, 25%, 22%);
   --radius: 0.5rem;
 
+  /* Spacing variables */
+  --section-spacing: 3rem;
+  --content-spacing: 1.5rem;
+
   /* Custom colors from design */
   --cream: hsl(35, 80%, 99%);
   --warm-brown: hsl(28, 30%, 55%);
@@ -127,6 +131,14 @@
   }
   .border-hover-brown {
     border-color: hsl(var(--hover-brown));
+  }
+
+  .space-y-section > * + * {
+    margin-top: var(--section-spacing);
+  }
+
+  .space-y-content > * + * {
+    margin-top: var(--content-spacing);
   }
 }
 

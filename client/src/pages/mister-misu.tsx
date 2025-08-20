@@ -52,21 +52,21 @@ export default function MisterMisu() {
       </button>
 
       {/* Header */}
-      <header className="text-center mb-12">
-        <h1 className="text-4xl font-light text-amber-700 mb-6" data-testid="text-mister-misu-title">
+      <header className="text-center mb-8">
+        <h1 className="text-4xl font-light text-amber-700 mb-3" data-testid="text-mister-misu-title">
           Mister Misu
         </h1>
-        <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed mb-8">
           A collection of coffee pop-ups that aim to make specialty coffee more accessible to the masses, exploring how we might talk about tasting and how we might communicate flavours through alternative visuals and storytelling.
         </p>
       </header>
 
       {/* Main Content - Scrollable Timeline */}
-      <main className="space-y-16">
+      <main className="space-y-section">
         {misterMisuEvents.map((event, eventIndex) => (
-          <section key={eventIndex} className="border-b border-warm-brown/20 pb-12 last:border-b-0">
+          <section key={eventIndex} className="border-b border-warm-brown/20 pb-12 last:border-b-0 last:pb-0">
             {/* Event Header */}
-            <div className="mb-8">
+            <div className="mb-6">
               <h2 className="text-3xl font-light text-amber-700 mb-2" data-testid={`text-event-title-${eventIndex}`}>
                 {event.date}
               </h2>

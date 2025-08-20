@@ -85,7 +85,7 @@ export default function Experiments() {
     return yearB - yearA; // Descending order
   });
 
-  // Desktop Table View - Scale Effect
+  // Desktop Table View
   const DesktopView = () => (
     <div className="bg-light-brown rounded-lg overflow-hidden">
       <div className="px-6 py-3 border-b border-warm-brown/20 bg-warm-brown/5">
@@ -107,7 +107,7 @@ export default function Experiments() {
                 <StatusDot experiment={experiment} />
               </div>
               <div className="col-span-2">
-                <h3 className={`font-medium transition-colors duration-300 ${route ? 'text-amber-700 group-hover:text-amber-800' : 'text-warm-brown'}`}>
+                <h3 className={`font-medium ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
                   {experiment.title}
                 </h3>
               </div>
@@ -132,7 +132,7 @@ export default function Experiments() {
             <button
               key={experiment.id}
               onClick={() => setLocation(route)}
-              className="w-full px-6 py-4 text-left transition-all duration-300 cursor-pointer group transform origin-center hover:scale-105 hover:shadow-xl hover:bg-amber-50"
+              className="w-full px-6 py-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
               data-testid={`button-${experiment.id}-desktop`}
             >
               <RowContent />
@@ -147,12 +147,11 @@ export default function Experiments() {
     </div>
   );
 
-  // Mobile Card View - Slide Effect
+  // Mobile Card View
   const MobileView = () => (
     <div className="space-y-4">
       {orderedExperiments.map((experiment) => {
         const route = getExperimentRoute(experiment.id);
-        
         const CardContent = () => (
           <div className="space-y-3">
             {/* Row 1: Status dot + Project title */}
@@ -202,14 +201,10 @@ export default function Experiments() {
           <button
             key={experiment.id}
             onClick={() => setLocation(route)}
-            className="w-full bg-light-brown rounded-lg overflow-hidden cursor-pointer group relative"
+            className="w-full bg-light-brown rounded-lg p-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
             data-testid={`button-${experiment.id}-mobile`}
           >
-            <div className="p-4 transform transition-transform duration-300 group-hover:translate-x-2 group-active:translate-x-2">
-              <CardContent />
-            </div>
-            {/* Accent line that appears on hover/touch */}
-            <div className="absolute left-0 top-0 h-full w-1 bg-amber-500 transform -translate-x-full transition-transform duration-300 group-hover:translate-x-0 group-active:translate-x-0"></div>
+            <CardContent />
           </button>
         ) : (
           <div key={experiment.id} className="bg-light-brown rounded-lg p-4">

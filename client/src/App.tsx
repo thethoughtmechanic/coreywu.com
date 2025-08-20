@@ -15,11 +15,7 @@ import Experiments from "@/pages/experiments";
 import Admin from "@/pages/admin";
 import DesignSystem from "@/pages/designsystem";
 import NotFound from "@/pages/not-found";
-import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the new component
-import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the new component
-import AboutExpNew from "@/pages/about-expnew"; // Import the new component
 import AboutQuiz from "@/pages/about-quiz"; // Import the new component
-import AboutQuizPersonas from "@/pages/about-quiz-personas"; // Import the new component
 import Contact from "@/pages/contact"; // Import the contact component
 import MisterMisu from "@/pages/mister-misu"; // Import the Mister Misu component
 import BoyfriendMaterial from "@/pages/boyfriend-material"; // Import the Boyfriend Material component

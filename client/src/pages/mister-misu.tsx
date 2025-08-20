@@ -86,6 +86,7 @@ export default function MisterMisu() {
               onImageClick={(image) => setExpandedImage(image)}
               expandedImage={expandedImage}
               onClose={() => setExpandedImage(null)}
+              galleryId={`mister-misu-${eventIndex}`}
             />
           </section>
         ))}

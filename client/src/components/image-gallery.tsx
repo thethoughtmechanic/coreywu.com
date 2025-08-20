@@ -9,6 +9,7 @@ interface ImageGalleryProps {
   onClose: () => void;
   gridClassName?: string;
   altPrefix?: string;
+  galleryId?: string;
 }
 
 export function ImageGallery({
@@ -17,7 +18,8 @@ export function ImageGallery({
   onImageClick,
   onClose,
   gridClassName = "grid-cols-2 md:grid-cols-4",
-  altPrefix = "Image"
+  altPrefix = "Image",
+  galleryId = "default"
 }: ImageGalleryProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -46,10 +48,14 @@ export function ImageGallery({
     onImageClick(images[newIndex]);
   }, [currentImageIndex, images, onImageClick]);
 
-  // Keyboard navigation
+  // Keyboard navigation - only active when this gallery's image is expanded
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!expandedImage) return;
+      
+      // Check if the expanded image belongs to this gallery
+      const isThisGalleryActive = images.includes(expandedImage);
+      if (!isThisGalleryActive) return;
       
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -65,7 +71,7 @@ export function ImageGallery({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [expandedImage, goToPrevious, goToNext, onClose]);
+  }, [expandedImage, images, goToPrevious, goToNext, onClose]);
 
   // Touch/swipe handling
   const minSwipeDistance = 50;

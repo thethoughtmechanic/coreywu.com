@@ -91,6 +91,7 @@ export default function FridayHome() {
               onImageClick={(image) => setExpandedImage(image)}
               expandedImage={expandedImage}
               onClose={() => setExpandedImage(null)}
+              galleryId={`friday-home-${eventIndex}`}
             />
 
             {/* Playlist Player Section */}

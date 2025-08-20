@@ -47,6 +47,19 @@ export default function Experiments() {
     return experiment.technologies.join(', ');
   };
 
+  // Helper function to get the route for each experiment
+  const getExperimentRoute = (experimentId: string) => {
+    const routeMap: { [key: string]: string } = {
+      'mister-misu-1': '/experiments/mistermisu',
+      'boyfriend-material-1': '/experiments/boyfriendmaterial',
+      'friday-home-1': '/experiments/fridayhome',
+      'prompt-pulse-1': '/experiments/promptpulse',
+      'food-for-thought-1': '/experiments/foodforthought',
+      'lew-wu-1': '/experiments/lewwu'
+    };
+    return routeMap[experimentId] || null;
+  };
+
   // Toggle card expansion
   const toggleCardExpansion = (experimentId: string) => {
     const newExpanded = new Set(expandedCards);
@@ -93,11 +106,11 @@ export default function Experiments() {
                 <StatusDot experiment={experiment} />
               </div>
               <div className="col-span-2">
-                {experiment.id === 'mister-misu-1' ? (
+                {getExperimentRoute(experiment.id) ? (
                   <button
-                    onClick={() => setLocation('/experiments/mistermisu')}
+                    onClick={() => setLocation(getExperimentRoute(experiment.id)!)}
                     className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2"
-                    data-testid="button-mister-misu-desktop"
+                    data-testid={`button-${experiment.id}-desktop`}
                   >
                     {experiment.title}
                   </button>
@@ -143,11 +156,11 @@ export default function Experiments() {
                   'bg-gray-400'
                 }`} 
               />
-              {experiment.id === 'mister-misu-1' ? (
+              {getExperimentRoute(experiment.id) ? (
                 <button
-                  onClick={() => setLocation('/experiments/mistermisu')}
+                  onClick={() => setLocation(getExperimentRoute(experiment.id)!)}
                   className="font-medium text-amber-700 hover:text-amber-800 transition-colors duration-200 cursor-pointer underline decoration-2 underline-offset-2 text-lg"
-                  data-testid="button-mister-misu-mobile"
+                  data-testid={`button-${experiment.id}-mobile`}
                 >
                   {experiment.title}
                 </button>

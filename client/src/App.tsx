@@ -22,6 +22,11 @@ import AboutQuiz from "@/pages/about-quiz"; // Import the new component
 import AboutQuizPersonas from "@/pages/about-quiz-personas"; // Import the new component
 import Contact from "@/pages/contact"; // Import the contact component
 import MisterMisu from "@/pages/mister-misu"; // Import the Mister Misu component
+import BoyfriendMaterial from "@/pages/boyfriend-material"; // Import the Boyfriend Material component
+import FridayHome from "@/pages/friday-home"; // Import the Friday Home component
+import PromptPulse from "@/pages/prompt-pulse"; // Import the Prompt Pulse component
+import FoodForThought from "@/pages/food-for-thought"; // Import the Food for Thought component
+import LewWu from "@/pages/lew-wu"; // Import the Lew + Wu component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 
@@ -76,6 +81,11 @@ function Router() {
           <Route path="/thoughts/:id" component={ThoughtDetail} />
           <Route path="/experiments" component={Experiments} />
           <Route path="/experiments/mistermisu" component={MisterMisu} />
+          <Route path="/experiments/boyfriendmaterial" component={BoyfriendMaterial} />
+          <Route path="/experiments/fridayhome" component={FridayHome} />
+          <Route path="/experiments/promptpulse" component={PromptPulse} />
+          <Route path="/experiments/foodforthought" component={FoodForThought} />
+          <Route path="/experiments/lewwu" component={LewWu} />
           <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
 

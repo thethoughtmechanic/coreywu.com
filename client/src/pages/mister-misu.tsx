@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useLocation } from "wouter";
 import { ImageGallery } from "@/components/image-gallery";
 
@@ -80,7 +80,13 @@ export default function MisterMisu() {
             </div>
 
             {/* Image Gallery */}
-            <ImageGallery images={event.images} />
+            <ImageGallery 
+              images={event.images}
+              altPrefix={`${event.title} image`}
+              onImageClick={(image) => setExpandedImage(image)}
+              expandedImage={expandedImage}
+              onClose={() => setExpandedImage(null)}
+            />
           </section>
         ))}
       </main>

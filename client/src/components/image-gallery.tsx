@@ -25,9 +25,9 @@ export function ImageGallery({
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Update current index when expanded image changes
+  // Update current index when expanded image changes - only for this gallery
   useEffect(() => {
-    if (expandedImage) {
+    if (expandedImage && images.includes(expandedImage)) {
       const index = images.findIndex(img => img === expandedImage);
       if (index !== -1) {
         setCurrentImageIndex(index);
@@ -118,8 +118,8 @@ export function ImageGallery({
         ))}
       </div>
 
-      {/* Expanded Image Modal */}
-      {expandedImage && (
+      {/* Expanded Image Modal - only show if expanded image belongs to this gallery */}
+      {expandedImage && images.includes(expandedImage) && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 overflow-hidden"
           onClick={onClose}

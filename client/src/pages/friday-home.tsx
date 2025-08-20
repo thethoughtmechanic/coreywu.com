@@ -19,13 +19,13 @@ export default function FridayHome() {
   const projectEvents = [
     {
       title: "Our First Live Show",
-      images: [fridayHomePoster, fridayHome1, fridayHome2, fridayHome3], // Poster first, then performance photos
+      images: [fridayHomePoster, fridayHome1, fridayHome2, fridayHome3],
       date: "June 11, 2023",
       content: "We performed a house concert for close friends and family, debuting 3 sets of original music.",
       additionalAssets: [
         { type: 'audio', name: 'Moonlight (Audio Track)', url: fridayHomeAudio }
       ]
-    },
+    }
   ];
 
   return (

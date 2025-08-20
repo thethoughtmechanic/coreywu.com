@@ -26,13 +26,13 @@ export default function MisterMisu() {
   // Mister Misu event data structure - organized by most recent first
   const misterMisuEvents = [
     {
-      title: "June 2025 Coffee Experience", 
+      title: "Personifying Coffees", 
       images: [fm1, fm2],
       date: "June 2025",
       content: "We leveraged ChatGPT to define personas/personality traits + shape AI prompts to generate images for each coffee we served."
     },
     {
-      title: "Frozen Archives",
+      title: "Flavour Notes Illustrations + Frozen Archives",
       images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11],
       date: "December 2024",
       content: "Inspired by Hydrangea Coffee (a California-based roaster), we experimented with AI image generation to visualize the flavor notes of each coffee, helping guests better imagine what they were tasting. Beyond the Base Menu, I had also been freezing my favorite coffees throughout the year and wanted to share those with my guests. We brewed all of them, creating a unique chance to taste and compare a wide range of coffees side by side. Many first-time tasters said that experiencing so many coffees in one sitting was a fun and memorable way to learn about different flavors and notes."

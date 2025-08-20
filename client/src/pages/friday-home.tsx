@@ -22,6 +22,7 @@ export default function FridayHome() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
   
   // Playlist data
   const playlist = [
@@ -126,9 +127,10 @@ export default function FridayHome() {
                   onLoadedMetadata={(e) => {
                     const audio = e.target as HTMLAudioElement;
                     setDuration(audio.duration);
-                    // Auto-play when new track loads if we were previously playing
-                    if (isPlaying) {
+                    // Auto-play when new track loads if we should auto-play
+                    if (shouldAutoPlay) {
                       audio.play();
+                      setShouldAutoPlay(false);
                     }
                   }}
                   onTimeUpdate={(e) => {
@@ -155,6 +157,8 @@ export default function FridayHome() {
                       window.trackAudioCompleteDual(playlist[currentTrack].title, 'friday-home');
                     }
                     
+                    // Set flag to auto-play next track
+                    setShouldAutoPlay(true);
                     // Auto advance to next track, loop back to start if at end
                     setCurrentTrack((prevTrack) => (prevTrack + 1) % playlist.length);
                   }}

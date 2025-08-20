@@ -3,7 +3,6 @@ import { Experiment } from "@shared/schema";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { X } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"; // Assuming Dialog components are available
 
 // Import Mister Misu images - using public folder paths
 const grandCoffeeHallImage = "/mister-misu-grand-coffee-hall.png";
@@ -28,7 +27,6 @@ import fm11 from "@assets/07_1755014357426.png";
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
   const [isMisterMisuModalOpen, setIsMisterMisuModalOpen] = useState(false);
-  const [isFridayHomeModalOpen, setIsFridayHomeModalOpen] = useState(false); // State for Friday Home modal
   const [currentMisterMisuEventIndex, setCurrentMisterMisuEventIndex] = useState(0); // State to track current event in modal
   const isMobile = useIsMobile();
 
@@ -40,7 +38,7 @@ export default function Experiments() {
       description: "December 2024",
     },
     {
-      title: "June 2025 Coffee Experience",
+      title: "June 2025 Coffee Experience", 
       images: [fm1, fm2], // 1-2 sequence
       description: "June 2025",
     },
@@ -49,20 +47,20 @@ export default function Experiments() {
   // Simple status indicator with correct colors
   const StatusDot = ({ experiment }: { experiment: Experiment }) => (
     <div className="flex items-center gap-2">
-      <div
+      <div 
         className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
-          experiment.status === 'sunset' ? 'bg-gray-500' :
-          experiment.status === 'wip' ? 'bg-yellow-500' :
+          experiment.status === 'sunset' ? 'bg-gray-500' : 
+          experiment.status === 'wip' ? 'bg-yellow-500' : 
           experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
           experiment.status === 'shipped' ? 'bg-blue-500' :
           'bg-gray-400'
-        }`}
+        }`} 
       />
       <span className="text-sm capitalize whitespace-nowrap">
-        {experiment.status === 'sunset' ? 'Sunset' :
-         experiment.status === 'wip' ? 'Wip' :
+        {experiment.status === 'sunset' ? 'Sunset' : 
+         experiment.status === 'wip' ? 'Wip' : 
          experiment.status === 'shipped' && experiment.isActive ? 'Active' :
-         experiment.status === 'shipped' ? 'Shipped' :
+         experiment.status === 'shipped' ? 'Shipped' : 
          experiment.status}
       </span>
     </div>
@@ -130,7 +128,7 @@ export default function Experiments() {
                 <StatusDot experiment={experiment} />
               </div>
               <div className="col-span-2">
-                {experiment.id === 'mister-misu' ? (
+                {experiment.id === 'mister-misu-1' ? (
                   <button
                     onClick={() => {
                       setIsMisterMisuModalOpen(true);
@@ -140,13 +138,6 @@ export default function Experiments() {
                   >
                     {experiment.title}
                   </button>
-                ) : experiment.id === 'friday-home' ? (
-                  <div
-                    className="cursor-pointer text-warm-brown hover:text-hover-brown transition-colors duration-200"
-                    onClick={() => setIsFridayHomeModalOpen(true)}
-                  >
-                    View Portfolio →
-                  </div>
                 ) : (
                   <h3 className="font-medium text-warm-brown">{experiment.title}</h3>
                 )}
@@ -180,16 +171,16 @@ export default function Experiments() {
           <div className="space-y-3">
             {/* Row 1: Status dot + Project title */}
             <div className="flex items-center gap-3 mb-2">
-              <div
+              <div 
                 className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
-                  experiment.status === 'sunset' ? 'bg-gray-500' :
-                  experiment.status === 'wip' ? 'bg-yellow-500' :
+                  experiment.status === 'sunset' ? 'bg-gray-500' : 
+                  experiment.status === 'wip' ? 'bg-yellow-500' : 
                   experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
                   experiment.status === 'shipped' ? 'bg-blue-500' :
                   'bg-gray-400'
-                }`}
+                }`} 
               />
-              {experiment.id === 'mister-misu' ? (
+              {experiment.id === 'mister-misu-1' ? (
                 <button
                   onClick={() => {
                     setIsMisterMisuModalOpen(true);
@@ -199,13 +190,6 @@ export default function Experiments() {
                 >
                   {experiment.title}
                 </button>
-              ) : experiment.id === 'friday-home' ? (
-                <div
-                  className="cursor-pointer text-warm-brown hover:text-hover-brown transition-colors duration-200 text-lg"
-                  onClick={() => setIsFridayHomeModalOpen(true)}
-                >
-                  View Portfolio →
-                </div>
               ) : (
                 <h3 className="font-medium text-warm-brown text-lg">{experiment.title}</h3>
               )}
@@ -226,7 +210,7 @@ export default function Experiments() {
             {experiment.technologies && experiment.technologies.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {experiment.technologies.map((tech, index) => (
-                  <span
+                  <span 
                     key={index}
                     className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
                   >
@@ -241,8 +225,8 @@ export default function Experiments() {
     </div>
   );
 
-  // Function to handle navigation within the Mister Misu modal
-  const handleMisterMisuModalNav = (direction: 'prev' | 'next') => {
+  // Function to handle navigation within the modal
+  const handleModalNav = (direction: 'prev' | 'next') => {
     const eventCount = misterMisuEvents.length;
     if (direction === 'prev') {
       setCurrentMisterMisuEventIndex((prevIndex) => (prevIndex - 1 + eventCount) % eventCount);
@@ -286,7 +270,7 @@ export default function Experiments() {
       <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
-          <a
+          <a 
             href="mailto:coreydavidwu@gmail.com"
             className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
           >
@@ -318,8 +302,8 @@ export default function Experiments() {
               <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} max-h-[60vh] overflow-auto`}>
                 {misterMisuEvents[currentMisterMisuEventIndex].images.map((image, index) => (
                   <div key={index} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-                    <img
-                      src={image}
+                    <img 
+                      src={image} 
                       alt={`Mister Misu event image ${index + 1}`}
                       className="w-full h-auto object-contain"
                     />
@@ -331,13 +315,13 @@ export default function Experiments() {
               {misterMisuEvents.length > 1 && (
                 <div className="flex justify-center gap-4 mt-6">
                   <button
-                    onClick={() => handleMisterMisuModalNav('prev')}
+                    onClick={() => handleModalNav('prev')}
                     className="px-4 py-2 bg-warm-brown/20 text-warm-brown rounded-full hover:bg-warm-brown/30 transition-colors duration-200"
                   >
                     Previous
                   </button>
                   <button
-                    onClick={() => handleMisterMisuModalNav('next')}
+                    onClick={() => handleModalNav('next')}
                     className="px-4 py-2 bg-amber-700 text-white rounded-full hover:bg-amber-800 transition-colors duration-200"
                   >
                     Next
@@ -349,75 +333,6 @@ export default function Experiments() {
         </div>
       )}
 
-      {/* Friday Home Modal */}
-      {isFridayHomeModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
-          <div className="relative w-full max-w-4xl max-h-[80vh] bg-white rounded-xl shadow-xl overflow-hidden mx-4">
-            <button
-              onClick={() => setIsFridayHomeModalOpen(false)}
-              className="absolute top-4 right-4 z-50 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-all duration-200"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <div className="p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-light text-warm-brown mb-2">Friday Home Portfolio</h2>
-                <p className="text-soft-black/70">A collection of creative works</p>
-              </div>
-
-              <div className="space-y-6 overflow-y-auto max-h-[60vh]">
-                {/* PDF Concert Poster */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Concert Poster</h3>
-                  <iframe
-                    src="/friday-home-concert-poster.pdf"
-                    width="100%"
-                    height="400px"
-                    className="rounded border"
-                  />
-                </div>
-
-                {/* Photos */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="font-medium mb-2">Photo 1</h3>
-                    <img
-                      src="/friday-home-photo-1.jpg"
-                      alt="Friday Home Photo 1"
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="font-medium mb-2">Photo 2</h3>
-                    <img
-                      src="/friday-home-photo-2.jpg"
-                      alt="Friday Home Photo 2"
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="font-medium mb-2">Photo 3</h3>
-                    <img
-                      src="/friday-home-photo-3.jpg"
-                      alt="Friday Home Photo 3"
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                </div>
-
-                {/* Audio */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Moonlight</h3>
-                  <audio controls className="w-full">
-                    <source src="/friday-home-moonlight.mp3" type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+      </div>
   );
 }

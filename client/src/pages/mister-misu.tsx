@@ -29,13 +29,13 @@ export default function MisterMisu() {
       title: "June 2025 Coffee Experience", 
       images: [fm1, fm2], // 1-2 sequence
       date: "June 2025",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper."
+      content: "We leveraged ChatGPT to define personas/personality traits + shape AI prompts to generate images for each coffee we served."
     },
     {
       title: "Frozen Archives",
       images: [fm5, fm6, fm7, fm8, fm9, fm10, fm11], // 01-07 sequence
       date: "December 2024",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      content: "Inspired by Hydrangea Coffee (California-based Roaster), we wanted to leverage AI image generation to visualize the flavour notes of each coffee to help guests better imagine what they are tasting."
     },
   ];
 
@@ -57,7 +57,7 @@ export default function MisterMisu() {
           Mister Misu
         </h1>
         <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed">
-          A journey through coffee experiences and creative exploration.
+          A collection of coffee pop-ups that aim to make specialty coffee more accessible to the masses, exploring how we might talk about tasting and how we might communicate flavours through alternative visuals and storytelling.
         </p>
       </header>
 

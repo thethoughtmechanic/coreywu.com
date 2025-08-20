@@ -61,7 +61,7 @@ export default function FridayHome() {
           Friday Home
         </h1>
         <p className="text-warm-brown/70 max-w-3xl mx-auto leading-relaxed">
-          Tony and I dreamed up a band that was more than just music. Sure, we drew from our favourites—Daniel Caesar, Theo Katzman, Lizzy McAlpine, John Mayer, Anderson .Paak, and many more. But what we really wanted was to capture a feeling: the kind of night where you stay in with friends, share a cozy dinner, sink into the couch for long conversations, sing a few songs, play games, and suddenly realize it's 4 a.m. This is Friday Home.
+          Tony and I had an idea for a band that was about more than just the music. Sure, we drew from our favourites—Daniel Caesar, Theo Katzman, Lizzy McAlpine, John Mayer, Anderson .Paak, and many more. But what we really wanted was to capture a feeling: the kind of night where you stay in with friends, share a cozy dinner, sink into the couch for long conversations, sing a few songs, play games, and suddenly realize it's 4 a.m. This is Friday Home.
         </p>
       </header>
 

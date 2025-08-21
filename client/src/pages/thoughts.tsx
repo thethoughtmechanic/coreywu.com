@@ -251,14 +251,13 @@ export default function Thoughts() {
                           </>
                         )}
                       </>
-                    ) : thought.id === '11' ? (
+                    ) : thought.tag === 'Future Seed' ? (
                       <>
                         {expandedThought === thought.id ? (
                           <>
-                            <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                            <p className="mb-3">And honestly—it stung.</p>
-                            <p className="mb-3">Yes, I led the vision. I shaped the direction, coordinated the process, executed the details. But in the end, it still felt like commodity work—like something anyone (or anything) could do. The ego hit is real: I'm not the creator in the spotlight anymore, just the caretaker behind the curtain.</p>
-                            <p className="mb-3">And maybe that's the deeper shift AI brings. It isn't just about productivity or skill—it's about the death of the hero's journey. Are we no longer the heroes of our own stories, but a supporting role in someone else's function?</p>
+                            {thought.description?.split('\n').map((line, index) => (
+                              line.trim() ? <p key={index} className="mb-3">{line}</p> : <div key={index} className="mb-3"></div>
+                            ))}
                             <button
                               onClick={() => setExpandedThought(null)}
                               className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
@@ -271,8 +270,7 @@ export default function Thoughts() {
                           </>
                         ) : (
                           <>
-                            <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                            <p className="mb-4">And honestly—it stung.</p>
+                            <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
                               className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
@@ -296,7 +294,7 @@ export default function Thoughts() {
                 </>
               )}
 
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
+              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
                 <div className="flex items-center gap-2 mb-6">
                   <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
@@ -307,7 +305,7 @@ export default function Thoughts() {
                 </div>
               )}
 
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
+              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
                 thought.status === 'wip' ? (
                   <div className="flex items-center justify-center gap-2 py-3">
                     <div className="flex items-center gap-2 text-sm text-warm-brown/60">

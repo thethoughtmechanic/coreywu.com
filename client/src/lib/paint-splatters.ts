@@ -1,6 +1,6 @@
 
 // Simple paint splatter system that matches the design system
-export type SplatterType = 'product-manager' | 'guitarist' | 'developer' | 'designer' | 'entrepreneur' | 'strategist' | 'creative' | 'analyst';
+export type SplatterType = 'product-manager' | 'guitarist' | 'developer' | 'designer' | 'entrepreneur' | 'strategist' | 'creative' | 'analyst' | 'future-seed';
 
 export interface PaintSplatter {
   name: string;
@@ -97,6 +97,17 @@ export const paintSplatters: Record<SplatterType, PaintSplatter> = {
       radial-gradient(ellipse 220px 135px at 95% 75%, #6366f1 0%, #6366f1 35%, transparent 75%),
       radial-gradient(ellipse 180px 190px at 45% 40%, #1e40af 0%, #1e40af 40%, transparent 80%)
     `
+  },
+  'future-seed': {
+    name: 'Future Seed',
+    className: 'bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500',
+    background: `
+      radial-gradient(ellipse 240px 180px at 30% 20%, #7c3aed 0%, #7c3aed 45%, transparent 85%),
+      radial-gradient(ellipse 210px 160px at 70% 30%, #a855f7 0%, #a855f7 40%, transparent 80%),
+      radial-gradient(ellipse 190px 220px at 20% 80%, #8b5cf6 0%, #8b5cf6 50%, transparent 90%),
+      radial-gradient(ellipse 220px 140px at 80% 85%, #c084fc 0%, #c084fc 35%, transparent 75%),
+      radial-gradient(ellipse 175px 185px at 50% 55%, #9333ea 0%, #9333ea 40%, transparent 80%)
+    `
   }
 };
 
@@ -113,6 +124,8 @@ export function getSplatterForTag(tag: string): SplatterType {
       return 'product-manager';
     case 'Scenario':
       return 'entrepreneur';
+    case 'Future Seed':
+      return 'future-seed';
     default:
       return 'analyst';
   }

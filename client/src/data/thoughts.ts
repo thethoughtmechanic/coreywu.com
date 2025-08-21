@@ -110,5 +110,16 @@ export const thoughts: Thought[] = [
     imageGradient: "from-teal-600 to-teal-400",
     status: "published",
     date: "Aug 21, 2025"
+  },
+  {
+    id: "11",
+    title: "Real Estate as a Community Platform",
+    description: "What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?\n\nImagine if your rent or condo fees came with community credits to spend at local studios, restaurants, shops, and experiences. Real estate as a community platform, weaving residents into the city rather than isolating them inside four walls.\n\nWhen a building joins a neighborhood, it should connect, not isolate. It should bring people together, strengthen local businesses, and make community the true amenity.",
+    fullDescription: null,
+    tag: "Future Seed",
+    readTime: "3 min read",
+    imageGradient: "from-purple-600 to-purple-400",
+    status: "published",
+    date: "Aug 21, 2025"
   }
 ];

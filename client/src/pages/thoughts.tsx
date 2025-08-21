@@ -363,7 +363,7 @@ export default function Thoughts() {
               className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden group ${
                 selectedFilter === tag
                   ? 'text-white'
-                  : 'text-warm-brown border border-warm-brown/30 group-hover:text-white'
+                  : 'text-warm-brown border border-warm-brown/30 hover:text-white'
               }`}
               data-testid={`filter-${tag.toLowerCase().replace(/\s+/g, '-')}`}
             >

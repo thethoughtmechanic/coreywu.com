@@ -219,7 +219,7 @@ export default function ThoughtsExperimental() {
       </header>
 
       {/* Filter Pills */}
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="flex flex-wrap justify-center gap-2">
           {uniqueTags.map((tag) => (
             <button

@@ -66,7 +66,7 @@ export default function ThoughtsExperimental() {
                       </span>
                     )}
                   </div>
-                  <span className="text-sm text-warm-brown/40">
+                  <span className="text-sm text-warm-brown/30">
                     {thought.date || "Aug 11, 2025"}
                   </span>
                 </div>

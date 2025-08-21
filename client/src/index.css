@@ -5,6 +5,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Garden vine growing effect */
+.garden-text {
+  position: relative;
+  transition: color 0.5s ease;
+}
+
+.garden-text:hover {
+  color: #22c55e; /* Green color for the text */
+}
+
+.garden-text::before,
+.garden-text::after {
+  content: '';
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+/* Left vine */
+.garden-text::before {
+  top: -10px;
+  left: -20px;
+  width: 15px;
+  height: 60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 80'%3E%3Cpath d='M2 2 Q8 10 5 20 Q12 25 8 35 Q15 40 10 50 Q18 55 12 65 Q20 70 15 78' stroke='%23166534' stroke-width='2' fill='none'/%3E%3Ccircle cx='3' cy='8' r='2' fill='%2322c55e'/%3E%3Ccircle cx='6' cy='18' r='1.5' fill='%2322c55e'/%3E%3Ccircle cx='9' cy='28' r='2' fill='%2322c55e'/%3E%3Ccircle cx='11' cy='38' r='1.5' fill='%2322c55e'/%3E%3Ccircle cx='13' cy='48' r='2' fill='%2322c55e'/%3E%3Ccircle cx='16' cy='58' r='1.5' fill='%2322c55e'/%3E%3C/svg%3E") no-repeat;
+  background-size: contain;
+  transform: translateY(20px) scale(0.8);
+}
+
+/* Right vine */
+.garden-text::after {
+  top: -15px;
+  right: -25px;
+  width: 18px;
+  height: 70px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 25 90'%3E%3Cpath d='M22 5 Q15 12 18 25 Q10 30 15 42 Q7 48 12 58 Q4 64 10 75 Q2 80 8 88' stroke='%23166534' stroke-width='2.5' fill='none'/%3E%3Ccircle cx='20' cy='10' r='2.5' fill='%2322c55e'/%3E%3Ccircle cx='16' cy='22' r='2' fill='%2322c55e'/%3E%3Ccircle cx='13' cy='35' r='2.5' fill='%2322c55e'/%3E%3Ccircle cx='10' cy='45' r='2' fill='%2322c55e'/%3E%3Ccircle cx='8' cy='58' r='2.5' fill='%2322c55e'/%3E%3Ccircle cx='11' cy='70' r='2' fill='%2322c55e'/%3E%3C/svg%3E") no-repeat;
+  background-size: contain;
+  transform: translateY(25px) scale(0.7);
+}
+
+.garden-text:hover::before,
+.garden-text:hover::after {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Additional vine tendrils for more organic look */
+.garden-text:hover::before {
+  animation: vineGrow 1.2s ease-out;
+}
+
+.garden-text:hover::after {
+  animation: vineGrow 1.4s ease-out;
+}
+
+@keyframes vineGrow {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.5) rotate(-10deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(10px) scale(0.8) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
 :root {
   --background: hsl(35, 80%, 99%);
   --foreground: hsl(25, 25%, 22%);

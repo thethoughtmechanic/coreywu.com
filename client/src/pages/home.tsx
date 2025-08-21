@@ -8,7 +8,7 @@ export default function Home() {
         {/* Welcome Title - Mobile Optimized */}
         <div className="mb-4 md:mb-6">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
-            Welcome to my digital <span className="garden-text relative inline-block cursor-pointer">garden</span>.
+            Welcome to my digital <span className="garden-text-current relative inline-block cursor-pointer">garden</span>.
           </h1>
         </div>
 

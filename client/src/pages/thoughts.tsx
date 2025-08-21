@@ -270,7 +270,7 @@ export default function Thoughts() {
                         ) : (
                           <>
                             <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                            <p className="mb-2">And honestly—it stung.</p>
+                            <p className="mb-4">And honestly—it stung.</p>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
                               className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
@@ -560,7 +560,7 @@ export default function Thoughts() {
                               ) : (
                                 <>
                                   <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                                  <p className="mb-2">And honestly—it stung.</p>
+                                  <p className="mb-4">And honestly—it stung.</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
                                     className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"

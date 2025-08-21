@@ -225,10 +225,10 @@ export default function ThoughtsExperimental() {
             <button
               key={tag}
               onClick={() => setSelectedFilter(tag)}
-              className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden ${
+              className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden group ${
                 selectedFilter === tag
                   ? 'text-white'
-                  : 'text-warm-brown border border-warm-brown/30 hover:text-white'
+                  : 'text-warm-brown border border-warm-brown/30 group-hover:text-white'
               }`}
               data-testid={`filter-${tag.toLowerCase().replace(/\s+/g, '-')}`}
             >
@@ -243,7 +243,7 @@ export default function ThoughtsExperimental() {
               {/* Hover background for unselected pills */}
               {selectedFilter !== tag && (
                 <div
-                  className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"
                   style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : getPaintSplatter(tag)}
                 />
               )}

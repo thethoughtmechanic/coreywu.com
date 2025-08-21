@@ -222,7 +222,7 @@ export default function Thoughts() {
                         {expandedThought === thought.id ? (
                           <>
                             {thought.fullDescription?.split('\n').map((line, index) => (
-                              <p key={index} className="mb-3">{line}</p>
+                              line.trim() ? <p key={index} className="mb-3">{line}</p> : <div key={index} className="mb-3"></div>
                             ))}
                             <button
                               onClick={() => setExpandedThought(null)}
@@ -236,7 +236,9 @@ export default function Thoughts() {
                           </>
                         ) : (
                           <>
-                            <p className="mb-2">{thought.description}</p>
+                            {thought.description?.split('\n').map((line, index) => (
+                              line.trim() ? <p key={index} className="mb-3">{line}</p> : <div key={index} className="mb-3"></div>
+                            ))}
                             <button
                               onClick={() => setExpandedThought(thought.id)}
                               className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"

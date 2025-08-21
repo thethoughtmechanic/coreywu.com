@@ -103,7 +103,7 @@ export const thoughts: Thought[] = [
   {
     id: "10",
     title: "\"Did AI make that?\"",
-    description: "The other day a colleague asked me, \"Did AI make that?\" And honestly—it stung. Yes, I led the vision. I shaped the direction, coordinated the process, executed the details. But in the end, it still felt like commodity work—like something anyone (or anything) could do.",
+    description: "The other day a colleague asked me, \"Did AI make that?\"\n\nAnd honestly—it stung.",
     fullDescription: "The other day a colleague asked me, \"Did AI make that?\"\nAnd honestly—it stung.\n\nYes, I led the vision. I shaped the direction, coordinated the process, executed the details. But in the end, it still felt like commodity work—like something anyone (or anything) could do. The ego hit is real: I'm not the creator in the spotlight anymore, just the caretaker behind the curtain.\n\nAnd maybe that's the deeper shift AI brings. It isn't just about productivity or skill—it's about the death of the hero's journey. Are we no longer the heroes of our own stories, but a supporting role in someone else's function?",
     tag: "Thought Bite",
     readTime: "2 min read",

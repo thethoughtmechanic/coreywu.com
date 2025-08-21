@@ -1,4 +1,3 @@
-
 // Simple paint splatter system that matches the design system
 export type SplatterType = 'product-manager' | 'guitarist' | 'developer' | 'designer' | 'entrepreneur' | 'strategist' | 'creative' | 'analyst' | 'future-seed';
 

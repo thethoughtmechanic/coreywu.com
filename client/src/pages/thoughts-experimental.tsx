@@ -27,8 +27,8 @@ export default function ThoughtsExperimental() {
   });
 
   // Filter thoughts based on selected filter
-  const sortedThoughts = selectedFilter === "All" 
-    ? allSortedThoughts 
+  const sortedThoughts = selectedFilter === "All"
+    ? allSortedThoughts
     : allSortedThoughts.filter(thought => thought.tag === selectedFilter);
 
   // Get paint splatter for pill hover background
@@ -40,7 +40,7 @@ export default function ThoughtsExperimental() {
   };
 
   const MasonryLayout = () => (
-    <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+    <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
       {sortedThoughts.map((thought, index) => {
         const isExpanded = expandedThought === thought.id;
         const descriptionLines = (thought.description || '').split('\n');
@@ -48,7 +48,7 @@ export default function ThoughtsExperimental() {
         const fullDescription = descriptionLines.join('\n');
 
         return (
-          <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card" onClick={() => thought.id === '8' && setExpandedThought(isExpanded ? null : thought.id)}>
+          <div key={thought.id} className="break-inside-avoid mb-4 cursor-pointer group/card" onClick={() => thought.id === '8' && setExpandedThought(isExpanded ? null : thought.id)}>
             <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
               thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
               thought.tag === 'Scenario' ? 'min-h-[260px]' :
@@ -64,7 +64,7 @@ export default function ThoughtsExperimental() {
                         {thought.tag}
                       </span>
                       {/* Paint splatter background - appears on hover */}
-                      <div 
+                      <div
                         className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
                         style={getPillHoverStyle(thought.tag)}
                       />
@@ -132,7 +132,7 @@ export default function ThoughtsExperimental() {
                 {/* Written Notes - appears like pencil handwriting */}
                 {writtenNotes[thought.id] && (
                   <div className="mt-4 mb-4">
-                    <div 
+                    <div
                       className="relative inline-block transform -rotate-1 px-3 py-2 rounded-lg border-2 border-dashed opacity-80"
                       style={{
                         borderColor: getPaintSplatter(thought.tag).className.includes('green') ? '#22c55e' :
@@ -146,7 +146,7 @@ export default function ThoughtsExperimental() {
                                    '#22c55e'
                       }}
                     >
-                      <p 
+                      <p
                         className="text-sm font-mono tracking-wide transform rotate-1"
                         style={{
                           fontFamily: "'Kalam', 'Comic Sans MS', cursive",
@@ -235,14 +235,14 @@ export default function ThoughtsExperimental() {
               <span className="relative z-10">{tag}</span>
               {/* Background for selected state */}
               {selectedFilter === tag && (
-                <div 
+                <div
                   className="absolute inset-0 rounded-full"
                   style={getPaintSplatter(tag === "All" ? "POV" : tag)}
                 />
               )}
               {/* Hover background for unselected pills */}
               {selectedFilter !== tag && (
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
                   style={getPaintSplatter(tag === "All" ? "POV" : tag)}
                 />

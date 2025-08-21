@@ -49,7 +49,7 @@ export default function Thoughts() {
   const allSortedThoughts = [...thoughts].sort((a, b) => {
     const dateA = new Date(a.date || "Aug 11, 2025");
     const dateB = new Date(b.date || "Aug 11, 2025");
-    return dateB.getTime() - dateB.getTime();
+    return dateB.getTime() - dateA.getTime();
   });
 
   // Filter thoughts based on selected filter

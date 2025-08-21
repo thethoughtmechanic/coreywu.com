@@ -99,13 +99,13 @@ export const paintSplatters: Record<SplatterType, PaintSplatter> = {
   },
   'future-seed': {
     name: 'Future Seed',
-    className: 'bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500',
+    className: 'bg-gradient-to-br from-slate-600 via-slate-500 to-slate-400',
     background: `
-      radial-gradient(ellipse 240px 180px at 30% 20%, #7c3aed 0%, #7c3aed 45%, transparent 85%),
-      radial-gradient(ellipse 210px 160px at 70% 30%, #a855f7 0%, #a855f7 40%, transparent 80%),
-      radial-gradient(ellipse 190px 220px at 20% 80%, #8b5cf6 0%, #8b5cf6 50%, transparent 90%),
-      radial-gradient(ellipse 220px 140px at 80% 85%, #c084fc 0%, #c084fc 35%, transparent 75%),
-      radial-gradient(ellipse 175px 185px at 50% 55%, #9333ea 0%, #9333ea 40%, transparent 80%)
+      radial-gradient(ellipse 220px 160px at 35% 25%, #64748b 0%, #64748b 45%, transparent 85%),
+      radial-gradient(ellipse 190px 140px at 75% 35%, #475569 0%, #475569 40%, transparent 80%),
+      radial-gradient(ellipse 175px 200px at 25% 75%, #334155 0%, #334155 50%, transparent 90%),
+      radial-gradient(ellipse 205px 120px at 80% 85%, #94a3b8 0%, #94a3b8 35%, transparent 75%),
+      radial-gradient(ellipse 165px 175px at 50% 50%, #1e293b 0%, #1e293b 40%, transparent 80%)
     `
   }
 };

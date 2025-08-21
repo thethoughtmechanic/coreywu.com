@@ -354,8 +354,8 @@ export default function Thoughts() {
       </header>
 
       {/* Filter Pills */}
-      <div className="mb-8">
-        <div className="flex flex-wrap justify-center gap-3">
+      <div className="mb-6">
+        <div className="flex flex-wrap justify-center gap-2">
           {uniqueTags.map((tag) => (
             <button
               key={tag}
@@ -369,15 +369,19 @@ export default function Thoughts() {
             >
               <span className="relative z-10">{tag}</span>
               {/* Background for selected state */}
-              <div 
-                className="absolute inset-0 rounded-full"
-                style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : getPaintSplatter(tag)}
-              />
+              {selectedFilter === tag && (
+                <div 
+                  className="absolute inset-0 rounded-full"
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : getPaintSplatter(tag)}
+                />
+              )}
               {/* Hover background for unselected pills */}
-              <div 
-                className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
-                style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : getPaintSplatter(tag)}
-              />
+              {selectedFilter !== tag && (
+                <div 
+                  className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : getPaintSplatter(tag)}
+                />
+              )}
             </button>
           ))}
         </div>

@@ -294,10 +294,11 @@ export default function Thoughts() {
                 </>
               )}
 
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
+              {/* Read time indicator - Skip for Thought Bite, Philosophizing, and Scenario, Future Seed */}
+              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                 <div className="flex items-center gap-2 mb-6">
                   <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>
                   <span className="text-sm text-warm-brown/60">
                     {thought.readTime || "5 min read"}
@@ -305,7 +306,8 @@ export default function Thoughts() {
                 </div>
               )}
 
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
+              {/* CTA Button - Only show if not Thought Bite, Philosophizing, Scenario, or Future Seed */}
+              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                 thought.status === 'wip' ? (
                   <div className="flex items-center justify-center gap-2 py-3">
                     <div className="flex items-center gap-2 text-sm text-warm-brown/60">
@@ -584,11 +586,11 @@ export default function Thoughts() {
                       </>
                     )}
 
-                    {/* Read time indicator - Skip for Thought Bite, Philosophizing, and Scenario */}
+                    {/* Read time indicator - Skip for Thought Bite, Philosophizing, Scenario, Future Seed */}
                     {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                       <div className="flex items-center gap-2 mb-4">
                         <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                         </svg>
                         <span className="text-sm text-warm-brown/60">
                           {thought.readTime || "5 min read"}
@@ -596,7 +598,7 @@ export default function Thoughts() {
                       </div>
                     )}
 
-                    {/* CTA Button - Only show if not Thought Bite, Philosophizing, or Scenario */}
+                    {/* CTA Button - Only show if not Thought Bite, Philosophizing, Scenario, or Future Seed */}
                     {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && (
                       <>
                         {thought.status === 'wip' ? (
@@ -650,7 +652,7 @@ export default function Thoughts() {
                             className="text-warm-brown hover:text-hover-brown text-xs font-medium flex items-center gap-2"
                           >
                             <span>Open in Google Slides</span>
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                           </a>

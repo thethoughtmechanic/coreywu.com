@@ -62,10 +62,10 @@ export default function Thoughts() {
     <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
       {sortedThoughts.map((thought, index) => (
         <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card">
-          <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-500 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
-            thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[220px]' :
-            thought.tag === 'Scenario' ? 'min-h-[320px]' :
-            index % 3 === 0 ? 'min-h-[360px]' : 'min-h-[280px]'
+          <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
+            thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
+            thought.tag === 'Scenario' ? 'min-h-[260px]' :
+            index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
           }`}>
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">

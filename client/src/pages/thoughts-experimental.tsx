@@ -14,13 +14,22 @@ export default function ThoughtsExperimental() {
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
   const [expandedThought, setExpandedThought] = useState<string | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<string>("All");
+
+  // Get unique tags for filter options
+  const uniqueTags = ["All", ...Array.from(new Set(thoughts.map(thought => thought.tag)))];
 
   // Sort thoughts by date (most recent first)
-  const sortedThoughts = [...thoughts].sort((a, b) => {
+  const allSortedThoughts = [...thoughts].sort((a, b) => {
     const dateA = new Date(a.date || "Aug 11, 2025");
     const dateB = new Date(b.date || "Aug 11, 2025");
     return dateB.getTime() - dateA.getTime();
   });
+
+  // Filter thoughts based on selected filter
+  const sortedThoughts = selectedFilter === "All" 
+    ? allSortedThoughts 
+    : allSortedThoughts.filter(thought => thought.tag === selectedFilter);
 
   // Get paint splatter for pill hover background
   const getPillHoverStyle = (tag: string) => {
@@ -66,7 +75,7 @@ export default function ThoughtsExperimental() {
                       </span>
                     )}
                   </div>
-                  <span className="text-sm text-warm-brown/30">
+                  <span className="text-sm text-gray-400">
                     {thought.date || "Aug 11, 2025"}
                   </span>
                 </div>
@@ -208,6 +217,45 @@ export default function ThoughtsExperimental() {
           A Pinterest-style flowing grid layout organized chronologically with thematic color coding
         </p>
       </header>
+
+      {/* Filter Pills */}
+      <div className="mb-8">
+        <div className="flex flex-wrap justify-center gap-3">
+          {uniqueTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setSelectedFilter(tag)}
+              className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden ${
+                selectedFilter === tag
+                  ? 'text-white'
+                  : 'text-warm-brown border border-warm-brown/30 hover:text-white'
+              }`}
+              data-testid={`filter-${tag.toLowerCase().replace(/\s+/g, '-')}`}
+            >
+              <span className="relative z-10">{tag}</span>
+              {/* Background for selected state */}
+              {selectedFilter === tag && (
+                <div 
+                  className="absolute inset-0 rounded-full"
+                  style={getPaintSplatter(tag === "All" ? "POV" : tag)}
+                />
+              )}
+              {/* Hover background for unselected pills */}
+              {selectedFilter !== tag && (
+                <div 
+                  className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+                  style={getPaintSplatter(tag === "All" ? "POV" : tag)}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+        {selectedFilter !== "All" && (
+          <p className="text-center text-warm-brown/60 text-sm mt-4">
+            Showing {sortedThoughts.length} {selectedFilter} {sortedThoughts.length === 1 ? 'thought' : 'thoughts'}
+          </p>
+        )}
+      </div>
 
       {/* Layout Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-6 md:p-8">

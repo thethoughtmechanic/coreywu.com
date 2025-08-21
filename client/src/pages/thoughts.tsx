@@ -88,7 +88,7 @@ export default function Thoughts() {
                     </span>
                   )}
                 </div>
-                <span className="text-sm text-warm-brown/30">
+                <span className="text-sm text-gray-400">
                   {thought.date || "Aug 11, 2025"}
                 </span>
               </div>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
@@ -6,7 +5,7 @@ import { X } from "lucide-react";
 
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
-  
+
 
   // Game Mode State
   const [currentRound, setCurrentRound] = useState(0);
@@ -59,7 +58,7 @@ export default function AboutExperimental() {
         <svg key="users" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>,
         <svg key="amplify" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.59-.79-1.59-1.76V9.51c0-.97.71-1.76 1.59-1.76h2.24z" /></svg>,
         <svg key="robot" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>,
-        <svg key="coffee" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17.25a3.75 3.75 0 003.75-3.75M9 17.25v1a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-1.5m6 .75h3.75m-3.75 0V15a2.25 2.25 0 012.25-2.25h3.75A2.25 2.25 0 0118 15v2.25a2.25 2.25 0 01-2.25 2.25H10.5m-3.75 0h3.75" /></svg>,
+        <svg key="coffee" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17.25a3.75 3.75 0 003.75-3.75M9 17.25v1.007a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-1.5m6 .75h3.75m-3.75 0V15a2.25 2.25 0 012.25-2.25h3.75A2.25 2.25 0 0118 15v2.25a2.25 2.25 0 01-2.25 2.25H10.5m-3.75 0h3.75" /></svg>,
         <svg key="lightning" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
         <svg key="paint-tray" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" /><circle cx="7" cy="12" r="1" fill="currentColor" /><circle cx="12" cy="12" r="1" fill="currentColor" /><circle cx="17" cy="12" r="1" fill="currentColor" /></svg>,
         <svg key="cube" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>
@@ -212,10 +211,10 @@ export default function AboutExperimental() {
   // Company logo mapping
   const companyLogos = {
     "Thoughtworks": "https://cdn.worldvectorlogo.com/logos/thoughtworks-1.svg",
-    "Counterintuitive Group": "CG", // Typography treatment
+    "Counterintuitive Group": "CI", // Typography treatment
     "KPMG Canada": "https://cdn.worldvectorlogo.com/logos/kpmg-1.svg",
-    "Idea Couture": "💡", // Placeholder icon
-    "Smith School of Business at Queen's University": "🎓" // Placeholder icon
+    "Idea Couture": "https://cdn.worldvectorlogo.com/logos/idea-couture.avif", // Updated Idea Couture logo
+    "Smith School of Business at Queen's University": "https://cdn.worldvectorlogo.com/logos/queens-university.svg" // Updated Queen's logo
   };
 
   // Timeline with company logos
@@ -485,7 +484,7 @@ export default function AboutExperimental() {
                       radial-gradient(ellipse 245px 185px at 20% 10%, #f97316 0%, #f97316 45%, transparent 85%),
                       radial-gradient(ellipse 215px 165px at 80% 30%, #ec4899 0%, #ec4899 40%, transparent 80%),
                       radial-gradient(ellipse 195px 225px at 10% 85%, #ea580c 0%, #ea580c 50%, transparent 90%),
-                      radial-gradient(ellipse 225px 135px at 90% 80%, #a855f7 0%, #a855f7 35%, transparent 75%),
+                      radial-gradient(ellipse 225px 135px at 90% 70%, #a855f7 0%, #a855f7 35%, transparent 75%),
                       radial-gradient(ellipse 180px 190px at 40% 45%, #d946ef 0%, #d946ef 40%, transparent 80%)
                     ` : `
                       radial-gradient(ellipse 235px 175px at 25% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),

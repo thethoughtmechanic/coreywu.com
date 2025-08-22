@@ -137,7 +137,7 @@ export default function About() {
             {/* Timeline line - positioned to run through the center dots */}
             {sortedEvents.length > 1 && (
               <div
-                className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-warm-brown"
+                className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-warm-brown/30"
                 style={{
                   top: '40px',
                   bottom: '40px',

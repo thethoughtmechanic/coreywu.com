@@ -80,16 +80,15 @@ export default function Thoughts() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   {/* Tag pill with border default and paint splatter hover */}
-                  <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
-                    {/* Default border state - visible by default */}
-                    <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
-                      {thought.tag}
-                    </span>
-                    {/* Paint splatter background - appears on hover */}
+                  <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 text-white overflow-hidden">
+                    {/* Always visible paint splatter background */}
                     <div
-                      className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
+                      className="absolute inset-0 rounded-full"
                       style={getPaintSplatter(thought.tag)}
                     />
+                    <span className="relative z-10">
+                      {thought.tag}
+                    </span>
                   </span>
                   {thought.status === 'wip' && (
                     <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
@@ -400,16 +399,15 @@ export default function Thoughts() {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
                         {/* Tag pill with border default and paint splatter hover - matching desktop */}
-                        <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
-                          {/* Default border state - visible by default */}
-                          <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
-                            {thought.tag}
-                          </span>
-                          {/* Paint splatter background - appears on hover */}
+                        <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 text-white overflow-hidden">
+                          {/* Always visible paint splatter background */}
                           <div
-                            className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
+                            className="absolute inset-0 rounded-full"
                             style={getPaintSplatter(thought.tag)}
                           />
+                          <span className="relative z-10">
+                            {thought.tag}
+                          </span>
                         </span>
                         {thought.status === 'wip' && (
                           <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">

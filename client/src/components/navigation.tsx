@@ -2,6 +2,8 @@ import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Logo from "./Logo";
+import { ThemeSwitcher } from "./theme-switcher";
 
 interface NavigationProps {
   isDarkMode?: boolean;
@@ -51,29 +53,32 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             </Link>
 
             {/* Desktop navigation */}
-            <div className="hidden md:flex space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={cn(
-                    "transition-colors duration-200 pb-1",
-                    isDarkMode 
-                      ? cn(
-                          "text-gray-300 hover:text-white",
-                          location === item.path && "border-b-2 border-white text-white"
-                        )
-                      : cn(
-                          "text-soft-black hover:text-warm-brown",
-                          location === item.path && "border-b-2 border-warm-brown text-warm-brown"
-                        )
-                  )}
-                  data-testid={`link-${item.label.toLowerCase().replace(" ", "-")}`}
-                  onClick={() => window.trackNavigationClick && window.trackNavigationClick(item.path.substring(1), 'navigation')}
-                >
-                  {item.label}
-                </Link>
-              ))}
+            <div className="hidden md:flex items-center space-x-3">
+              <div className="flex items-center space-x-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    className={cn(
+                      "transition-colors duration-200 pb-1",
+                      isDarkMode 
+                        ? cn(
+                            "text-gray-300 hover:text-white",
+                            location === item.path && "border-b-2 border-white text-white"
+                          )
+                        : cn(
+                            "text-soft-black hover:text-warm-brown",
+                            location === item.path && "border-b-2 border-warm-brown text-warm-brown"
+                          )
+                    )}
+                    data-testid={`link-${item.label.toLowerCase().replace(" ", "-")}`}
+                    onClick={() => window.trackNavigationClick && window.trackNavigationClick(item.path.substring(1), 'navigation')}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+              <ThemeSwitcher variant="compact" />
             </div>
 
             {/* Mobile hamburger menu button */}
@@ -147,6 +152,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               {item.label}
             </Link>
           ))}
+          <ThemeSwitcher />
         </div>
       </div>
     </>

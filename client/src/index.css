@@ -236,14 +236,15 @@
 }
 
 :root {
+  /* Dynamic theme properties - these will be overridden by ThemeProvider */
   --background: hsl(35, 80%, 99%);
   --foreground: hsl(25, 25%, 22%);
   --muted: hsl(35, 20%, 96%);
   --muted-foreground: hsl(25, 5%, 45%);
-  --popover: hsl(35, 80%, 99%);
-  --popover-foreground: hsl(25, 25%, 22%);
-  --card: hsl(35, 80%, 99%);
-  --card-foreground: hsl(25, 25%, 22%);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --card: var(--background);
+  --card-foreground: var(--foreground);
   --border: hsl(30, 10%, 85%);
   --input: hsl(30, 10%, 85%);
   --primary: hsl(28, 30%, 55%);
@@ -257,17 +258,32 @@
   --ring: hsl(25, 25%, 22%);
   --radius: 0.5rem;
 
+  /* Typography variables */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --heading-weight: 300;
+  --body-weight: 400;
+
   /* Spacing variables */
+  --spacing-unit: 4px;
   --section-spacing: 3rem;
   --content-spacing: 1.5rem;
 
-  /* Custom colors from design */
-  --cream: hsl(35, 80%, 99%);
-  --warm-brown: hsl(28, 30%, 55%);
-  --soft-black: hsl(25, 25%, 22%);
+  /* Border radius variables */
+  --radius-small: 0.375rem;
+  --radius-medium: 0.5rem;
+  --radius-large: 0.75rem;
+
+  /* Animation variables */
+  --animation-duration: 200ms;
+  --animation-easing: ease-out;
+
+  /* Legacy custom colors - keeping for backwards compatibility */
+  --cream: var(--background);
+  --warm-brown: var(--primary);
+  --soft-black: var(--foreground);
   --active-green: hsl(142, 71%, 45%);
-  --muted-grey: hsl(220, 13%, 64%);
-  --light-brown: hsl(35, 20%, 94%);
+  --muted-grey: var(--muted-foreground);
+  --light-brown: var(--secondary);
   --hover-brown: hsl(28, 28%, 43%);
   
   /* Boyfriend Material colors */
@@ -279,6 +295,27 @@
   --ocean-100: hsl(200, 91%, 91%);
   --ocean-500: hsl(200, 83%, 53%);
   --ocean-600: hsl(200, 83%, 48%);
+}
+
+/* Theme transition styles */
+.theme-transitioning * {
+  transition: color var(--animation-duration) var(--animation-easing),
+              background-color var(--animation-duration) var(--animation-easing),
+              border-color var(--animation-duration) var(--animation-easing),
+              box-shadow var(--animation-duration) var(--animation-easing) !important;
+}
+
+/* Theme-specific overrides */
+.theme-cyberpunk-neon {
+  --shadow-glow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.theme-cyberpunk-neon .hover\:shadow-neon:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.theme-soft-pastel {
+  --shadow-soft: 0 8px 32px rgba(340, 50%, 80%, 0.15);
 }
 
 .dark {

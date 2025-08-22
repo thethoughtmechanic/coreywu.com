@@ -21,7 +21,7 @@ export default function About() {
   };
 
   const getCardClasses = (role: string, index: number) => {
-    const baseClasses = "relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden";
+    const baseClasses = "relative group bg-light-brown rounded-lg p-4 text-center text-base font-medium text-soft-black/90 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden";
 
     if (isSpecialCard(role)) {
       return `${baseClasses} hover:scale-110 hover:rotate-2 cursor-pointer`;

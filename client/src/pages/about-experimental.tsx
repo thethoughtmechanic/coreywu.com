@@ -402,7 +402,7 @@ export default function AboutExperimental() {
             <div
               key={index}
               onClick={() => handleRoleClick(role)}
-              className={`relative group bg-light-brown rounded-lg p-4 text-center text-sm text-soft-black/80 leading-relaxed hover:shadow-xl border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
+              className={`relative group bg-light-brown rounded-lg p-4 text-center text-base font-medium text-soft-black/90 leading-relaxed hover:shadow-xl border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
                 role === "Game Designer" || role === "Strategic Futurist" ? "hover:rotate-2 hover:scale-105" : ""
               }`}
               data-testid={`card-role-${index}`}

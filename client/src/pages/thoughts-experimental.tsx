@@ -267,7 +267,7 @@ export default function ThoughtsExperimental() {
               {selectedFilter === tag && (
                 <div
                   className="absolute inset-0 rounded-full"
-                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                  style={tag === "All" ? { background: "#8B6F47" } : 
                          tag === "Thought Bite" ? { background: "#3b82f6" } :
                          tag === "Scenario" ? { background: "#ef4444" } :
                          tag === "POV" ? { background: "#22c55e" } :
@@ -279,7 +279,7 @@ export default function ThoughtsExperimental() {
               {selectedFilter !== tag && (
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"
-                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                  style={tag === "All" ? { background: "#8B6F47" } : 
                          tag === "Thought Bite" ? { background: "#3b82f6" } :
                          tag === "Scenario" ? { background: "#ef4444" } :
                          tag === "POV" ? { background: "#22c55e" } :

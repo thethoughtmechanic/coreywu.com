@@ -3,6 +3,7 @@ import { useState } from "react";
 import thoughtworksLogo from "@assets/thoughtworks logo_1755889458333.png";
 import ideaCoutureLogo from "@assets/idea couture logo_1755889458333.avif";
 import queensLogo from "@assets/queens logo_1755889458333.png";
+import kpmgLogo from "@assets/kpmg-logo_1755889943439.png";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
 import { X } from "lucide-react";
@@ -217,7 +218,8 @@ export default function AboutExperimental() {
     const logoMap: { [key: string]: string } = {
       "Thoughtworks": thoughtworksLogo,
       "Idea Couture": ideaCoutureLogo,
-      "Smith School of Business at Queen's University": queensLogo
+      "Smith School of Business at Queen's University": queensLogo,
+      "KPMG Canada": kpmgLogo
     };
     return logoMap[companyName] || null;
   };
@@ -247,7 +249,11 @@ export default function AboutExperimental() {
                   className="w-8 h-8 object-contain"
                 />
               ) : (
-                <span className="text-xs font-medium text-warm-brown">
+                <span className={`text-warm-brown font-medium ${
+                  getCompanyAbbreviation(event.date) === 'CI' 
+                    ? 'text-sm font-bold tracking-tight' 
+                    : 'text-xs'
+                }`}>
                   {getCompanyAbbreviation(event.date)}
                 </span>
               )}

@@ -33,9 +33,9 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
       {/* Content positioned left or right */}
       <div className={`w-1/2 ${isLeft ? 'pr-6 text-right' : 'pl-6 ml-auto'}`}>
         <div className="relative bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300" style={{ zIndex: 20 }}>
-          <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'justify-end' : 'justify-start'}`}>
+          <div className={`flex items-start gap-3 mb-3 ${isLeft ? 'justify-end' : 'justify-start'}`}>
             {event.logo && (
-              <div className="w-10 h-10 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center overflow-hidden">
+              <div className="w-10 h-10 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center overflow-hidden flex-shrink-0">
                 {getCompanyLogo(event.date) ? (
                   <img
                     src={getCompanyLogo(event.date)!}
@@ -49,12 +49,15 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
                 )}
               </div>
             )}
-            <div className={isLeft ? 'text-right' : 'text-left'}>
-              <h3 className="text-lg font-medium text-warm-brown">
+            <div className={`${isLeft ? 'text-right' : 'text-left'} space-y-1`}>
+              <h3 className="text-lg font-medium text-warm-brown leading-tight">
                 {event.title}
               </h3>
-              <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block">
+              <p className="text-sm text-warm-brown font-medium">
                 {event.date}
+              </p>
+              <div className="text-xs text-muted-grey">
+                {event.description.split('\n')[1] || 'Present'}
               </div>
             </div>
           </div>

@@ -489,14 +489,14 @@ export default function AboutExperimental() {
 
       <div className="relative max-w-4xl mx-auto">
           <div className="space-y-8 relative">
-            {/* Timeline line - dynamically positioned between first and last dots */}
+            {/* Timeline line - anchored to first and last dots */}
             {sortedEvents.length > 1 && (
               <div
                 className="absolute left-1/2 transform -translate-x-1/2 w-px bg-warm-brown/70"
                 style={{
                   top: '50px',
-                  bottom: '50px',
-                  zIndex: 1
+                  height: `calc(100% - 100px)`,
+                  zIndex: 10
                 }}
               />
             )}

@@ -11,6 +11,7 @@ This is a personal portfolio website designed as a "digital garden" - a space fo
 - **Typography Scaling**: Implemented responsive text sizes that scale appropriately across devices
 - **Touch-Friendly Interface**: Enhanced touch targets and mobile interaction patterns
 - **Mister Misu Page Conversion**: Converted modal experience to dedicated page at `/experiments/mistermisu` for cleaner routing and better user experience
+- **Server Stability Improvements**: Added graceful shutdown handling, error recovery, and automatic fallback port selection to prevent recurring workflow crashes
 
 ## User Preferences
 
@@ -49,6 +50,7 @@ Preferred communication style: Simple, everyday language.
 - **Build System**: Vite for frontend, esbuild for backend compilation
 - **Environment**: Separate development and production configurations
 - **Type Safety**: Strict TypeScript configuration across client, server, and shared modules
+- **Process Management**: Robust server startup with automatic port conflict resolution, graceful shutdown handling, and error recovery to prevent workflow interruptions
 
 ## External Dependencies
 

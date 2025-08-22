@@ -42,8 +42,8 @@ export default function Thoughts() {
     setExpandedSlide(expandedSlide === thoughtId ? null : thoughtId);
   };
 
-  // Get unique tags for filter options
-  const uniqueTags = ["All", ...Array.from(new Set(thoughts.map(thought => thought.tag)))];
+  // Get unique tags for filter options in specified order
+  const uniqueTags = ["All", "Thought Bite", "Scenario", "POV", "Future Seed"];
 
   // Sort thoughts by date (most recent first)
   const allSortedThoughts = [...thoughts].sort((a, b) => {

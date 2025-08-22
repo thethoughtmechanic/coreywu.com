@@ -79,17 +79,27 @@ export default function Thoughts() {
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  {/* Tag pill with border default and paint splatter hover */}
-                  <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 text-white overflow-hidden">
-                    {/* Always visible paint splatter background */}
-                    <div
-                      className="absolute inset-0 rounded-full"
-                      style={getPaintSplatter(thought.tag)}
-                    />
-                    <span className="relative z-10">
-                      {thought.tag}
+                  {/* Tag pill with conditional styling */}
+                  {thought.tag === 'Future Seed' || thought.tag === 'Scenario' ? (
+                    <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border-2 border-purple-500 text-purple-500 overflow-hidden group-hover/card:text-white group-hover/card:border-purple-500">
+                      {/* Purple fill background - appears on hover */}
+                      <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
+                      <span className="relative z-10">
+                        {thought.tag}
+                      </span>
                     </span>
-                  </span>
+                  ) : (
+                    <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 text-white overflow-hidden">
+                      {/* Always visible paint splatter background */}
+                      <div
+                        className="absolute inset-0 rounded-full"
+                        style={getPaintSplatter(thought.tag)}
+                      />
+                      <span className="relative z-10">
+                        {thought.tag}
+                      </span>
+                    </span>
+                  )}
                   {thought.status === 'wip' && (
                     <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
                       WIP
@@ -398,17 +408,27 @@ export default function Thoughts() {
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
-                        {/* Tag pill with border default and paint splatter hover - matching desktop */}
-                        <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 text-white overflow-hidden">
-                          {/* Always visible paint splatter background */}
-                          <div
-                            className="absolute inset-0 rounded-full"
-                            style={getPaintSplatter(thought.tag)}
-                          />
-                          <span className="relative z-10">
-                            {thought.tag}
+                        {/* Tag pill with conditional styling - matching desktop */}
+                        {thought.tag === 'Future Seed' || thought.tag === 'Scenario' ? (
+                          <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border-2 border-purple-500 text-purple-500 overflow-hidden group-hover/card:text-white group-hover/card:border-purple-500">
+                            {/* Purple fill background - appears on hover */}
+                            <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
+                            <span className="relative z-10">
+                              {thought.tag}
+                            </span>
                           </span>
-                        </span>
+                        ) : (
+                          <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 text-white overflow-hidden">
+                            {/* Always visible paint splatter background */}
+                            <div
+                              className="absolute inset-0 rounded-full"
+                              style={getPaintSplatter(thought.tag)}
+                            />
+                            <span className="relative z-10">
+                              {thought.tag}
+                            </span>
+                          </span>
+                        )}
                         {thought.status === 'wip' && (
                           <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
                             WIP

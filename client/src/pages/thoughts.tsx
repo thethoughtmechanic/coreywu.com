@@ -197,7 +197,13 @@ export default function Thoughts() {
                       </>
                     ) : (
                       <>
-                        <p className="mb-3">The traditional left-right spectrum feels inadequate for navigating questions about technological pace, human agency, and our relationship with artificial intelligence. As AI continues increasing its grasps on society, I believe political polarization will shift towards tensions such as speed versus deliberation, and optimism versus caution about AI's trajectory.</p>
+                        <div className="flex items-center justify-center mb-4">
+                          <img
+                            src={fourTribesImage}
+                            alt="Four Tribes of Tomorrow Matrix"
+                            className="max-w-full max-h-48 object-contain rounded-lg"
+                          />
+                        </div>
                         <button
                           onClick={() => setExpandedThought(thought.id)}
                           className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"

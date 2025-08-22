@@ -133,28 +133,28 @@ export default function About() {
       </div>
 
       <div className="relative max-w-4xl mx-auto">
-        <div className="space-y-8 relative">
-          {/* Timeline line - positioned behind the items with explicit height */}
-          {sortedEvents.length > 1 && (
-            <div
-              className="absolute left-1/2 transform -translate-x-1/2 w-px border-l-2 border-warm-brown/70"
-              style={{
-                top: '60px',
-                height: `${(sortedEvents.length - 1) * 140 + 60}px`,
-                zIndex: 1
-              }}
-            />
-          )}
+          <div className="space-y-8 relative">
+            {/* Timeline line - dynamically positioned between first and last dots */}
+            {sortedEvents.length > 1 && (
+              <div
+                className="absolute left-1/2 transform -translate-x-1/2 w-px bg-warm-brown/70"
+                style={{
+                  top: '50px',
+                  bottom: '50px',
+                  zIndex: 1
+                }}
+              />
+            )}
 
-          {sortedEvents.map((event, index) => (
-            <TimelineItem
-              key={event.id}
-              event={event}
-              isLeft={index % 2 === 0}
-            />
-          ))}
+            {sortedEvents.map((event, index) => (
+              <TimelineItem
+                key={event.id}
+                event={event}
+                isLeft={index % 2 === 0}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
       {/* Contact Footer */}
       <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">

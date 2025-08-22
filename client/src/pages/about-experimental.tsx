@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
@@ -5,7 +6,7 @@ import { X } from "lucide-react";
 
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
-
+  const [timelineLayout, setTimelineLayout] = useState<'original' | 'cards-grid' | 'single-column' | 'minimal-cards' | 'horizontal-flow' | 'stacked-text' | 'curved-path' | 'timeline-dots'>('original');
 
   // Game Mode State
   const [currentRound, setCurrentRound] = useState(0);
@@ -58,7 +59,7 @@ export default function AboutExperimental() {
         <svg key="users" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>,
         <svg key="amplify" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.59-.79-1.59-1.76V9.51c0-.97.71-1.76 1.59-1.76h2.24z" /></svg>,
         <svg key="robot" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>,
-        <svg key="coffee" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17.25a3.75 3.75 0 003.75-3.75M9 17.25v1.007a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-1.5m6 .75h3.75m-3.75 0V15a2.25 2.25 0 012.25-2.25h3.75A2.25 2.25 0 0118 15v2.25a2.25 2.25 0 01-2.25 2.25H10.5m-3.75 0h3.75" /></svg>,
+        <svg key="coffee" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17.25a3.75 3.75 0 003.75-3.75M9 17.25v1a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-1.5m6 .75h3.75m-3.75 0V15a2.25 2.25 0 012.25-2.25h3.75A2.25 2.25 0 0118 15v2.25a2.25 2.25 0 01-2.25 2.25H10.5m-3.75 0h3.75" /></svg>,
         <svg key="lightning" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
         <svg key="paint-tray" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" /><circle cx="7" cy="12" r="1" fill="currentColor" /><circle cx="12" cy="12" r="1" fill="currentColor" /><circle cx="17" cy="12" r="1" fill="currentColor" /></svg>,
         <svg key="cube" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>
@@ -208,65 +209,233 @@ export default function AboutExperimental() {
     correctIconIndices.every(index => selectedIcons.includes(index)) &&
     selectedIcons.every(index => correctIconIndices.includes(index));
 
-  // Company logo mapping
-  const companyLogos = {
-    "Thoughtworks": "https://cdn.worldvectorlogo.com/logos/thoughtworks-1.svg",
-    "Counterintuitive Group": "🔮", // Placeholder icon
-    "KPMG Canada": "https://cdn.worldvectorlogo.com/logos/kpmg-1.svg",
-    "Idea Couture": "💡", // Placeholder icon
-    "Smith School of Business at Queen's University": "🎓" // Placeholder icon
-  };
+  // Alternative Timeline Layouts
+  const renderCardsGrid = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+      {sortedEvents.map((event) => (
+        <div key={event.id} className="bg-light-brown rounded-lg p-5 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300">
+          <div className="flex items-center gap-3 mb-3">
+            <div
+              className={`rounded-full ${
+                event.isActive
+                  ? 'w-3 h-3 bg-green-500 border-2 border-white shadow-lg'
+                  : 'w-2.5 h-2.5 bg-gray-400 border-2 border-white shadow-sm'
+              }`}
+            />
+            <h3 className="text-lg font-medium text-warm-brown">
+              {event.title}
+            </h3>
+          </div>
+          <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-3">
+            {event.date}
+          </div>
+          <p className="text-sm text-soft-black/80 leading-relaxed">
+            {event.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
 
-  // Timeline with company logos - center aligned alternating layout
-  const renderTimelineWithLogos = () => (
-    <div className="max-w-4xl mx-auto">
-      <div className="relative">
-        {/* Center timeline line */}
+  const renderSingleColumn = () => (
+    <div className="max-w-2xl mx-auto space-y-3">
+      {sortedEvents.map((event, index) => (
+        <div key={event.id} className="bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300">
+          <div className="flex items-center gap-3 mb-2">
+            <div
+              className={`rounded-full ${
+                event.isActive
+                  ? 'w-3 h-3 bg-green-500 border-2 border-white shadow-lg'
+                  : 'w-2.5 h-2.5 bg-gray-400 border-2 border-white shadow-sm'
+              }`}
+            />
+            <h3 className="text-lg font-medium text-warm-brown">
+              {event.title}
+            </h3>
+          </div>
+          <div className="ml-6">
+            <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-2">
+              {event.date}
+            </div>
+            <p className="text-sm text-soft-black/80 leading-relaxed">
+              {event.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderMinimalCards = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-w-5xl mx-auto">
+      {sortedEvents.map((event) => (
+        <div key={event.id} className="bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-md transition-all duration-300 hover:scale-105">
+          <div className="flex items-start gap-2 mb-2">
+            <div
+              className={`rounded-full mt-1 ${
+                event.isActive
+                  ? 'w-2.5 h-2.5 bg-green-500 shadow-sm'
+                  : 'w-2 h-2 bg-gray-400 shadow-sm'
+              }`}
+            />
+            <div className="flex-1">
+              <h3 className="text-base font-medium text-warm-brown leading-tight mb-1">
+                {event.title}
+              </h3>
+              <div className="text-xs px-2 py-1 bg-warm-brown/15 text-warm-brown/80 rounded font-medium inline-block mb-2">
+                {event.date}
+              </div>
+              <p className="text-xs text-soft-black/80 leading-relaxed">
+                {event.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  // Horizontal flowing timeline
+  const renderHorizontalFlow = () => (
+    <div className="overflow-x-auto pb-4">
+      <div className="flex gap-8 min-w-max px-4">
+        {sortedEvents.map((event, index) => (
+          <div key={event.id} className="flex-shrink-0 w-64 relative">
+            <div className="text-center mb-4">
+              <div
+                className={`mx-auto rounded-full ${
+                  event.isActive
+                    ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
+                    : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
+                }`}
+              />
+              {index < sortedEvents.length - 1 && (
+                <div className="absolute top-2 left-1/2 w-8 h-0.5 bg-warm-brown transform translate-x-full" />
+              )}
+            </div>
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-medium text-warm-brown">{event.title}</h3>
+              <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block">
+                {event.date}
+              </div>
+              <p className="text-sm text-soft-black/80 leading-relaxed">{event.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Simple stacked text with emphasis
+  const renderStackedText = () => (
+    <div className="max-w-3xl mx-auto space-y-8">
+      {sortedEvents.map((event, index) => (
+        <div key={event.id} className="border-l-4 border-warm-brown/30 pl-6 relative">
+          <div
+            className={`absolute -left-2 top-2 rounded-full ${
+              event.isActive
+                ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
+                : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
+            }`}
+          />
+          <div className="space-y-1">
+            <h3 className="text-2xl font-light text-warm-brown">{event.title}</h3>
+            <p className="text-warm-brown/70 font-medium">{event.date}</p>
+            <p className="text-soft-black/80 leading-relaxed">{event.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  // Curved path visualization
+  const renderCurvedPath = () => (
+    <div className="max-w-4xl mx-auto relative">
+      <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
+        <path
+          d={`M 50 50 Q 200 100 350 150 T 650 250 T 950 350`}
+          stroke="rgb(139, 110, 88)"
+          strokeWidth="2"
+          fill="none"
+          opacity="0.3"
+        />
+      </svg>
+      <div className="relative space-y-12" style={{ zIndex: 10 }}>
+        {sortedEvents.map((event, index) => (
+          <div 
+            key={event.id} 
+            className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
+          >
+            <div className="max-w-md p-4 relative">
+              <div
+                className={`absolute ${index % 2 === 0 ? '-right-6' : '-left-6'} top-4 rounded-full ${
+                  event.isActive
+                    ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
+                    : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
+                }`}
+                style={{ zIndex: 20 }}
+              />
+              <h3 className="text-lg font-medium text-warm-brown mb-1">{event.title}</h3>
+              <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-2">
+                {event.date}
+              </div>
+              <p className="text-sm text-soft-black/80 leading-relaxed">{event.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Timeline with just dots and text
+  const renderTimelineDots = () => (
+    <div className="max-w-2xl mx-auto">
+      {sortedEvents.map((event, index) => (
+        <div key={event.id} className="flex items-start gap-4 mb-8 last:mb-0">
+          <div className="flex flex-col items-center">
+            <div
+              className={`rounded-full ${
+                event.isActive
+                  ? 'w-6 h-6 bg-green-500 border-4 border-white shadow-lg'
+                  : 'w-5 h-5 bg-gray-400 border-4 border-white shadow-sm'
+              }`}
+            />
+            {index < sortedEvents.length - 1 && (
+              <div className="w-0.5 h-12 bg-warm-brown/30 mt-2" />
+            )}
+          </div>
+          <div className="flex-1 pt-1">
+            <h3 className="text-xl font-light text-warm-brown mb-1">{event.title}</h3>
+            <div className="text-sm text-warm-brown/70 font-medium mb-2">{event.date}</div>
+            <p className="text-sm text-soft-black/80 leading-relaxed">{event.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderOriginalTimeline = () => (
+    <div className="relative max-w-4xl mx-auto">
+      <div className="space-y-4 relative">
+        {/* Timeline line - positioned to run through the center dots */}
         {sortedEvents.length > 1 && (
           <div
-            className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-warm-brown/30"
+            className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-warm-brown"
             style={{
-              top: '20px',
-              bottom: '20px',
+              top: '40px',
+              bottom: '40px',
               zIndex: 1
             }}
           />
         )}
 
-        {sortedEvents.map((event, index) => {
-          const isLeft = index % 2 === 0;
-
-          return (
-            <div key={event.id} className="relative flex items-center min-h-[100px] mb-8 last:mb-0">
-              {/* Center logo circle */}
-              <div
-                className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white rounded-full border-2 border-warm-brown/20 shadow-sm flex items-center justify-center"
-                style={{ zIndex: 10 }}
-              >
-                {companyLogos[event.date as keyof typeof companyLogos]?.startsWith('http') ? (
-                  <img 
-                    src={companyLogos[event.date as keyof typeof companyLogos]} 
-                    alt={`${event.date} logo`}
-                    className="w-8 h-8 object-contain"
-                  />
-                ) : (
-                  <span className="text-lg">
-                    {companyLogos[event.date as keyof typeof companyLogos] || "🏢"}
-                  </span>
-                )}
-              </div>
-
-              {/* Content positioned left or right */}
-              <div className={`w-1/2 ${isLeft ? 'pr-8 text-right' : 'pl-8 ml-auto'}`}>
-                <div className="bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300">
-                  <h3 className="text-lg font-medium text-warm-brown mb-1">{event.title}</h3>
-                  <div className="text-sm text-warm-brown/70 font-medium mb-2">{event.date}</div>
-                  <p className="text-sm text-soft-black/80 leading-relaxed">{event.description}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {sortedEvents.map((event, index) => (
+          <TimelineItem
+            key={event.id}
+            event={event}
+            isLeft={index % 2 === 0}
+          />
+        ))}
       </div>
     </div>
   );
@@ -501,7 +670,7 @@ export default function AboutExperimental() {
                       radial-gradient(ellipse 245px 185px at 20% 10%, #f97316 0%, #f97316 45%, transparent 85%),
                       radial-gradient(ellipse 215px 165px at 80% 30%, #ec4899 0%, #ec4899 40%, transparent 80%),
                       radial-gradient(ellipse 195px 225px at 10% 85%, #ea580c 0%, #ea580c 50%, transparent 90%),
-                      radial-gradient(ellipse 225px 135px at 90% 70%, #a855f7 0%, #a855f7 35%, transparent 75%),
+                      radial-gradient(ellipse 225px 135px at 90% 80%, #a855f7 0%, #a855f7 35%, transparent 75%),
                       radial-gradient(ellipse 180px 190px at 40% 45%, #d946ef 0%, #d946ef 40%, transparent 80%)
                     ` : `
                       radial-gradient(ellipse 235px 175px at 25% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
@@ -535,8 +704,42 @@ export default function AboutExperimental() {
           </h1>
         </div>
 
-        {/* Timeline with Company Logos */}
-        {renderTimelineWithLogos()}
+        {/* Layout Toggle */}
+        <div className="flex justify-center flex-wrap gap-2 mb-8">
+          {[
+            { key: 'horizontal-flow', label: 'Horizontal Flow', mobile: 'Flow' },
+            { key: 'stacked-text', label: 'Stacked Text', mobile: 'Stack' },
+            { key: 'curved-path', label: 'Curved Path', mobile: 'Curved' },
+            { key: 'timeline-dots', label: 'Timeline Dots', mobile: 'Dots' },
+            { key: 'original', label: 'Original Timeline', mobile: 'Timeline' },
+            { key: 'cards-grid', label: 'Cards Grid', mobile: 'Grid' },
+            { key: 'single-column', label: 'Single Column', mobile: 'Column' },
+            { key: 'minimal-cards', label: 'Minimal Cards', mobile: 'Minimal' }
+          ].map(({ key, label, mobile }) => (
+            <button
+              key={key}
+              onClick={() => setTimelineLayout(key as any)}
+              className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
+                timelineLayout === key 
+                  ? 'bg-warm-brown text-cream' 
+                  : 'bg-light-brown text-warm-brown hover:bg-warm-brown/10'
+              }`}
+            >
+              <span className="hidden sm:inline">{label}</span>
+              <span className="sm:hidden">{mobile}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Timeline Layouts */}
+        {timelineLayout === 'horizontal-flow' && renderHorizontalFlow()}
+        {timelineLayout === 'stacked-text' && renderStackedText()}
+        {timelineLayout === 'curved-path' && renderCurvedPath()}
+        {timelineLayout === 'timeline-dots' && renderTimelineDots()}
+        {timelineLayout === 'original' && renderOriginalTimeline()}
+        {timelineLayout === 'cards-grid' && renderCardsGrid()}
+        {timelineLayout === 'single-column' && renderSingleColumn()}
+        {timelineLayout === 'minimal-cards' && renderMinimalCards()}
 
         {/* Contact Footer */}
         <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">

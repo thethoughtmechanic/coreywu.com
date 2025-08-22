@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "12",
+    title: "Four Tribes of Tomorrow",
+    description: "How we navigate technological change depends on two key factors: our optimism about the future and our preferred pace of adaptation.\n\nThe 2x2 Matrix:\n\n**Cautious Cyborgs** (Pessimist + Fast): Embrace tech quickly but expect things to go wrong\n**Augmented Dreamers** (Optimist + Fast): Rush toward a tech-enabled utopia\n**Nostalgic Purists** (Pessimist + Slow): Resist change, yearn for simpler times\n**Analog Champions** (Optimist + Slow): Believe in human potential without digital dependency\n\nWhich tribe are you?",
+    fullDescription: null,
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Aug 22, 2025"
+  },
+  {
     id: "11",
     title: "Real Estate as a Community Platform",
     description: "What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?\n\nImagine if your rent or condo fees came with community credits to spend at local studios, restaurants, shops, and experiences. Real estate as a community platform, weaving residents into the city rather than isolating them inside four walls.\n\nWhen a building joins a neighborhood, it should connect, not isolate. It should bring people together, strengthen local businesses, and make community the true amenity.",

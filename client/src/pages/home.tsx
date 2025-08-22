@@ -16,7 +16,7 @@ export default function Home() {
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more humane and more intentional. Let's tend to these ideas and see what they grow into.
         </p>
 
-        
+
 
         {/* Three Card Navigation - Mobile Optimized */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 max-w-xs lg:max-w-none mx-auto">
@@ -137,7 +137,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-lg lg:text-xl font-medium text-warm-brown group-hover:text-white group-hover:font-semibold transition-all duration-500">Experiments</h2>
                 <p className="hidden lg:block text-soft-black/70 text-sm leading-relaxed group-hover:text-white/90 transition-all duration-500">
-                  Projects and prototypes exploring the future of user experience
+                  Projects and prototypes exploring how to make things better
                 </p>
               </div>
             </div>

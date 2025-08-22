@@ -81,7 +81,12 @@ export default function Thoughts() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   {/* Tag pill with specific colors */}
-                  {thought.tag === 'Thought Bite' ? (
+                  {thought.status === 'wip' ? (
+                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-amber-500/60 text-amber-600/80 overflow-hidden group-hover/card:text-white group-hover/card:border-amber-500">
+                      <div className="absolute inset-0 bg-gradient-to-r from-amber-500/80 to-orange-500/80 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
+                      <span className="relative z-10">Coming Soon</span>
+                    </span>
+                  ) : thought.tag === 'Thought Bite' ? (
                     <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-blue-500 text-blue-500 overflow-hidden group-hover/card:text-white group-hover/card:border-blue-500">
                       <div className="absolute inset-0 bg-blue-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
                       <span className="relative z-10">{thought.tag}</span>
@@ -108,11 +113,6 @@ export default function Thoughts() {
                         style={getPaintSplatter(thought.tag)}
                       />
                       <span className="relative z-10">{thought.tag}</span>
-                    </span>
-                  )}
-                  {thought.status === 'wip' && (
-                    <span className="text-xs text-warm-brown/50 font-medium">
-                      WIP
                     </span>
                   )}
                 </div>
@@ -566,7 +566,12 @@ export default function Thoughts() {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
                         {/* Tag pill with specific colors - matching desktop */}
-                        {thought.tag === 'Thought Bite' ? (
+                        {thought.status === 'wip' ? (
+                          <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-amber-500/60 text-amber-600/80 overflow-hidden group-hover/card:text-white group-hover/card:border-amber-500">
+                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/80 to-orange-500/80 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
+                            <span className="relative z-10">Coming Soon</span>
+                          </span>
+                        ) : thought.tag === 'Thought Bite' ? (
                           <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-blue-500 text-blue-500 overflow-hidden group-hover/card:text-white group-hover/card:border-blue-500">
                             <div className="absolute inset-0 bg-blue-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
                             <span className="relative z-10">{thought.tag}</span>
@@ -593,11 +598,6 @@ export default function Thoughts() {
                               style={getPaintSplatter(thought.tag)}
                             />
                             <span className="relative z-10">{thought.tag}</span>
-                          </span>
-                        )}
-                        {thought.status === 'wip' && (
-                          <span className="text-xs text-warm-brown/50 font-medium">
-                            WIP
                           </span>
                         )}
                       </div>

@@ -208,13 +208,13 @@ export default function AboutExperimental() {
     correctIconIndices.every(index => selectedIcons.includes(index)) &&
     selectedIcons.every(index => correctIconIndices.includes(index));
 
-  // Company logo mapping
+  // Company logo mapping - using text abbreviations instead of external images
   const companyLogos = {
-    "Thoughtworks": "https://cdn.worldvectorlogo.com/logos/thoughtworks-1.svg",
-    "Counterintuitive Group": "CI", // Typography treatment
-    "KPMG Canada": "https://cdn.worldvectorlogo.com/logos/kpmg-1.svg",
-    "Idea Couture": "https://cdn.worldvectorlogo.com/logos/idea-couture.avif", // Updated Idea Couture logo
-    "Smith School of Business at Queen's University": "https://cdn.worldvectorlogo.com/logos/queens-university.svg" // Updated Queen's logo
+    "Thoughtworks": "TW",
+    "Counterintuitive Group": "CI",
+    "KPMG Canada": "KPMG",
+    "Idea Couture": "IC",
+    "Smith School of Business at Queen's University": "QU"
   };
 
   // Timeline with company logos
@@ -224,21 +224,9 @@ export default function AboutExperimental() {
         <div key={event.id} className="flex items-start gap-4 mb-8 last:mb-0">
           <div className="flex flex-col items-center">
             <div className="w-12 h-12 bg-white rounded-full border-2 border-warm-brown/20 shadow-sm flex items-center justify-center">
-              {companyLogos[event.date as keyof typeof companyLogos]?.startsWith('http') ? (
-                <img 
-                  src={companyLogos[event.date as keyof typeof companyLogos]} 
-                  alt={`${event.date} logo`}
-                  className="w-8 h-8 object-contain"
-                />
-              ) : (
-                <span className={`${
-                  companyLogos[event.date as keyof typeof companyLogos] === 'CI' 
-                    ? 'text-sm font-bold text-warm-brown tracking-tight' 
-                    : 'text-lg'
-                }`}>
-                  {companyLogos[event.date as keyof typeof companyLogos] || "🏢"}
-                </span>
-              )}
+              <span className="text-xs font-medium text-warm-brown">
+                {companyLogos[event.date as keyof typeof companyLogos] || "🏢"}
+              </span>
             </div>
             {index < sortedEvents.length - 1 && (
               <div className="w-0.5 h-12 bg-warm-brown/30 mt-2" />

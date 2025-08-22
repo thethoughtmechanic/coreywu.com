@@ -127,7 +127,7 @@ export default function About() {
       </div>
 
       <div className="mb-6">
-        <h1 className="text-3xl font-light text-warm-brown mb-4 text-center">
+        <h1 className="text-4xl font-light text-warm-brown mb-4 text-center">
           Change Log
         </h1>
       </div>

@@ -212,7 +212,7 @@ export default function AboutExperimental() {
   // Company logo mapping
   const companyLogos = {
     "Thoughtworks": "https://cdn.worldvectorlogo.com/logos/thoughtworks-1.svg",
-    "Counterintuitive Group": "🔮", // Placeholder icon
+    "Counterintuitive Group": "CG", // Typography treatment
     "KPMG Canada": "https://cdn.worldvectorlogo.com/logos/kpmg-1.svg",
     "Idea Couture": "💡", // Placeholder icon
     "Smith School of Business at Queen's University": "🎓" // Placeholder icon
@@ -232,7 +232,11 @@ export default function AboutExperimental() {
                   className="w-8 h-8 object-contain"
                 />
               ) : (
-                <span className="text-lg">
+                <span className={`${
+                  companyLogos[event.date as keyof typeof companyLogos] === 'CG' 
+                    ? 'text-sm font-bold text-warm-brown tracking-tight' 
+                    : 'text-lg'
+                }`}>
                   {companyLogos[event.date as keyof typeof companyLogos] || "🏢"}
                 </span>
               )}

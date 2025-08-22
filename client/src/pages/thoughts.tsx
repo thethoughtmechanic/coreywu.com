@@ -79,36 +79,14 @@ export default function Thoughts() {
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  {/* Tag pill with specific colors */}
-                  {thought.tag === 'Thought Bite' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-blue-500 text-blue-500 overflow-hidden group-hover/card:text-white group-hover/card:border-blue-500">
-                      <div className="absolute inset-0 bg-blue-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                      <span className="relative z-10">{thought.tag}</span>
-                    </span>
-                  ) : thought.tag === 'Scenario' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-red-500 text-red-500 overflow-hidden group-hover/card:text-white group-hover/card:border-red-500">
-                      <div className="absolute inset-0 bg-red-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                      <span className="relative z-10">{thought.tag}</span>
-                    </span>
-                  ) : thought.tag === 'POV' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-green-500 text-green-500 overflow-hidden group-hover/card:text-white group-hover/card:border-green-500">
-                      <div className="absolute inset-0 bg-green-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                      <span className="relative z-10">{thought.tag}</span>
-                    </span>
-                  ) : thought.tag === 'Future Seed' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-purple-500 text-purple-500 overflow-hidden group-hover/card:text-white group-hover/card:border-purple-500">
-                      <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                      <span className="relative z-10">{thought.tag}</span>
-                    </span>
-                  ) : (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 text-white overflow-hidden">
-                      <div
-                        className="absolute inset-0 rounded-full"
-                        style={getPaintSplatter(thought.tag)}
-                      />
-                      <span className="relative z-10">{thought.tag}</span>
-                    </span>
-                  )}
+                  {/* Tag pill with unified style */}
+                  <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 overflow-hidden border border-warm-brown/30 text-warm-brown group-hover/card:text-white group-hover/card:border-transparent">
+                    <div
+                      className="absolute inset-0 rounded-full opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
+                      style={getPaintSplatter(thought.tag)}
+                    />
+                    <span className="relative z-10">{thought.tag}</span>
+                  </span>
                   {thought.status === 'wip' && (
                     <span className="text-xs text-warm-brown/50 font-medium">
                       WIP
@@ -176,7 +154,7 @@ export default function Thoughts() {
                   <h3 className="text-xl font-semibold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                   </h3>
-                  <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
+                  <div className="text-sm text-soft-black/80 mb-6 leading-relaxed">
                     {thought.id === '8' ? (
                       <>
                         {expandedThought === thought.id ? (
@@ -414,18 +392,8 @@ export default function Thoughts() {
               onClick={() => setSelectedFilter(tag)}
               className={`relative px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-500 overflow-hidden group ${
                 selectedFilter === tag
-                  ? 'text-white'
-                  : tag === 'All'
-                  ? 'text-gray-600 border border-gray-600/40 hover:text-white'
-                  : tag === 'Thought Bite'
-                  ? 'text-blue-500 border border-blue-500 hover:text-white'
-                  : tag === 'Scenario'
-                  ? 'text-red-500 border border-red-500 hover:text-white'
-                  : tag === 'POV'
-                  ? 'text-green-500 border border-green-500 hover:text-white'
-                  : tag === 'Future Seed'
-                  ? 'text-purple-500 border border-purple-500 hover:text-white'
-                  : 'text-warm-brown border border-warm-brown/30 hover:text-white'
+                  ? 'text-white border border-transparent'
+                  : 'text-warm-brown/70 border border-warm-brown/30 hover:text-white'
               }`}
               data-testid={`filter-${tag.toLowerCase().replace(/\s+/g, '-')}`}
             >
@@ -434,24 +402,14 @@ export default function Thoughts() {
               {selectedFilter === tag && (
                 <div 
                   className="absolute inset-0 rounded-full"
-                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
-                         tag === "Thought Bite" ? { background: "#3b82f6" } :
-                         tag === "Scenario" ? { background: "#ef4444" } :
-                         tag === "POV" ? { background: "#22c55e" } :
-                         tag === "Future Seed" ? { background: "#a855f7" } :
-                         getPaintSplatter(tag)}
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #8B5A3C 0%, #A0602D 100%)" } : getPaintSplatter(tag)}
                 />
               )}
               {/* Hover background for unselected pills */}
               {selectedFilter !== tag && (
                 <div 
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"
-                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
-                         tag === "Thought Bite" ? { background: "#3b82f6" } :
-                         tag === "Scenario" ? { background: "#ef4444" } :
-                         tag === "POV" ? { background: "#22c55e" } :
-                         tag === "Future Seed" ? { background: "#a855f7" } :
-                         getPaintSplatter(tag)}
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #8B5A3C 0%, #A0602D 100%)" } : getPaintSplatter(tag)}
                 />
               )}
             </button>
@@ -471,36 +429,14 @@ export default function Thoughts() {
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
-                        {/* Tag pill with specific colors - matching desktop */}
-                        {thought.tag === 'Thought Bite' ? (
-                          <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-blue-500 text-blue-500 overflow-hidden group-hover/card:text-white group-hover/card:border-blue-500">
-                            <div className="absolute inset-0 bg-blue-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                            <span className="relative z-10">{thought.tag}</span>
-                          </span>
-                        ) : thought.tag === 'Scenario' ? (
-                          <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-red-500 text-red-500 overflow-hidden group-hover/card:text-white group-hover/card:border-red-500">
-                            <div className="absolute inset-0 bg-red-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                            <span className="relative z-10">{thought.tag}</span>
-                          </span>
-                        ) : thought.tag === 'POV' ? (
-                          <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-green-500 text-green-500 overflow-hidden group-hover/card:text-white group-hover/card:border-green-500">
-                            <div className="absolute inset-0 bg-green-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                            <span className="relative z-10">{thought.tag}</span>
-                          </span>
-                        ) : thought.tag === 'Future Seed' ? (
-                          <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-purple-500 text-purple-500 overflow-hidden group-hover/card:text-white group-hover/card:border-purple-500">
-                            <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                            <span className="relative z-10">{thought.tag}</span>
-                          </span>
-                        ) : (
-                          <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 text-white overflow-hidden">
-                            <div
-                              className="absolute inset-0 rounded-full"
-                              style={getPaintSplatter(thought.tag)}
-                            />
-                            <span className="relative z-10">{thought.tag}</span>
-                          </span>
-                        )}
+                        {/* Tag pill with unified style */}
+                        <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 overflow-hidden border border-warm-brown/30 text-warm-brown group-hover/card:text-white group-hover/card:border-transparent">
+                          <div
+                            className="absolute inset-0 rounded-full opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
+                            style={getPaintSplatter(thought.tag)}
+                          />
+                          <span className="relative z-10">{thought.tag}</span>
+                        </span>
                         {thought.status === 'wip' && (
                           <span className="text-xs text-warm-brown/50 font-medium">
                             WIP
@@ -572,7 +508,7 @@ export default function Thoughts() {
                         <h3 className="text-xl font-semibold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                           {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                         </h3>
-                        <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
+                        <div className="text-sm text-soft-black/80 mb-6 leading-relaxed">
                           {thought.id === '8' ? (
                             <>
                               {expandedThought === thought.id ? (

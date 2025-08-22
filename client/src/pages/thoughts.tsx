@@ -359,12 +359,12 @@ export default function Thoughts() {
                               );
                             }
                           }
-                          
+
                           // Handle bold and italic formatting
                           let formattedLine = line
                             .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
                             .replace(/\*([^*]+)\*/g, '<em>$1</em>');
-                          
+
                           return (
                             <p 
                               key={index} 
@@ -779,12 +779,12 @@ export default function Thoughts() {
                                     );
                                   }
                                 }
-                                
+
                                 // Handle bold and italic formatting
                                 let formattedLine = line
                                   .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
                                   .replace(/\*([^*]+)\*/g, '<em>$1</em>');
-                                
+
                                 return (
                                   <p 
                                     key={index} 

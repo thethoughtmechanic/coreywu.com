@@ -416,7 +416,7 @@ export default function Thoughts() {
                 selectedFilter === tag
                   ? 'text-white'
                   : tag === 'All'
-                  ? 'text-warm-brown border border-warm-brown/40 hover:text-white'
+                  ? 'text-gray-600 border border-gray-600/40 hover:text-white'
                   : tag === 'Thought Bite'
                   ? 'text-blue-500 border border-blue-500 hover:text-white'
                   : tag === 'Scenario'
@@ -434,7 +434,7 @@ export default function Thoughts() {
               {selectedFilter === tag && (
                 <div 
                   className="absolute inset-0 rounded-full"
-                  style={tag === "All" ? { background: "#8B6F47" } : 
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
                          tag === "Thought Bite" ? { background: "#3b82f6" } :
                          tag === "Scenario" ? { background: "#ef4444" } :
                          tag === "POV" ? { background: "#22c55e" } :
@@ -446,7 +446,7 @@ export default function Thoughts() {
               {selectedFilter !== tag && (
                 <div 
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"
-                  style={tag === "All" ? { background: "#8B6F47" } : 
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
                          tag === "Thought Bite" ? { background: "#3b82f6" } :
                          tag === "Scenario" ? { background: "#ef4444" } :
                          tag === "POV" ? { background: "#22c55e" } :

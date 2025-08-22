@@ -32,17 +32,17 @@ export default function About() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-8">
-      <header className="text-center mb-12 pt-4">
+      <header className="text-center mb-8 pt-4">
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-about-title">
           My System Prompts
         </h1>
-        <p className="text-muted-grey max-w-2xl mx-auto leading-relaxed">
-          Corey, you are a...
-        </p>
       </header>
 
       {/* System Prompt Role Cards with Paint Splash Effect */}
       <div className="mb-16">
+        <p className="text-muted-grey max-w-2xl mx-auto leading-relaxed text-center mb-6">
+          Corey, you are a...
+        </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {systemPromptRoles.map((role, index) => (
             <div

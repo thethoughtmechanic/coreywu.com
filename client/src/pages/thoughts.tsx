@@ -282,10 +282,9 @@ export default function Thoughts() {
                       <>
                         {expandedThought === thought.id ? (
                           <>
-                            <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                            <p className="mb-3">And honestly—it stung.</p>
-                            <p className="mb-3">Yes, I led the vision. I shaped the direction, coordinated the process, executed the details. But in the end, it still felt like commodity work—like something anyone (or anything) could do. The ego hit is real: I'm not the creator in the spotlight anymore, just the caretaker behind the curtain.</p>
-                            <p className="mb-3">And maybe that's the deeper shift AI brings. It isn't just about productivity or skill—it's about the death of the hero's journey. Are we no longer the heroes of our own stories, but a supporting role in someone else's function?</p>
+                            <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
+                            <p className="mb-3">Imagine if your rent or condo fees came with community credits to spend at local studios, restaurants, shops, and experiences. Real estate as a community platform, weaving residents into the city rather than isolating them inside four walls.</p>
+                            <p className="mb-3">When a building joins a neighborhood, it should connect, not isolate. It should bring people together, strengthen local businesses, and make community the true amenity.</p>
                             <button
                               onClick={() => setExpandedThought(null)}
                               className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
@@ -298,8 +297,7 @@ export default function Thoughts() {
                           </>
                         ) : (
                           <>
-                            <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                            <p className="mb-4">And honestly—it stung.</p>
+                            <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
                               className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
@@ -678,10 +676,9 @@ export default function Thoughts() {
                             <>
                               {expandedThought === thought.id ? (
                                 <>
-                                  <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                                  <p className="mb-3">And honestly—it stung.</p>
-                                  <p className="mb-3">Yes, I led the vision. I shaped the direction, coordinated the process, executed the details. But in the end, it still felt like commodity work—like something anyone (or anything) could do. The ego hit is real: I'm not the creator in the spotlight anymore, just the caretaker behind the curtain.</p>
-                                  <p className="mb-3">And maybe that's the deeper shift AI brings. It isn't just about productivity or skill—it's about the death of the hero's journey. Are we no longer the heroes of our own stories, but a supporting role in someone else's function?</p>
+                                  <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
+                                  <p className="mb-3">Imagine if your rent or condo fees came with community credits to spend at local studios, restaurants, shops, and experiences. Real estate as a community platform, weaving residents into the city rather than isolating them inside four walls.</p>
+                                  <p className="mb-3">When a building joins a neighborhood, it should connect, not isolate. It should bring people together, strengthen local businesses, and make community the true amenity.</p>
                                   <button
                                     onClick={() => setExpandedThought(null)}
                                     className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
@@ -694,8 +691,7 @@ export default function Thoughts() {
                                 </>
                               ) : (
                                 <>
-                                  <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
-                                  <p className="mb-4">And honestly—it stung.</p>
+                                  <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
                                     className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"

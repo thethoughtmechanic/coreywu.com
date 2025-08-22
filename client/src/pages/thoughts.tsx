@@ -4,6 +4,7 @@ import { ThoughtCard } from "@/components/thought-card";
 import { thoughts } from "@/data/thoughts";
 import { useIsMobile } from "@/hooks/use-mobile";
 import democracyImage from "@assets/image_1754686959251.png";
+import fourTribesImage from "@assets/image_1755886711758.png";
 import { getPaintSplatter } from "@/lib/paint-splatters";
 
 export default function Thoughts() {
@@ -145,6 +146,32 @@ export default function Thoughts() {
                       <span className="text-warm-brown font-medium">3.</span>
                       <p>Will AI discover our beliefs or shape them?</p>
                     </div>
+                  </div>
+                </>
+              ) : thought.id === '12' ? (
+                <>
+                  <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
+                    {thought.title}
+                  </h3>
+                  <div className="flex items-center justify-center mb-4">
+                    <img
+                      src={fourTribesImage}
+                      alt="Four Tribes of Tomorrow Matrix"
+                      className="max-w-full max-h-48 object-contain rounded-lg"
+                    />
+                  </div>
+                  <div className="text-sm text-soft-black/80 leading-relaxed mb-4">
+                    <p className="mb-3"><strong>Cautious Cyborgs</strong>: Safety-first, Risk-mitigation, Guardrails, Defense-oriented</p>
+                    <p className="mb-4 text-xs text-orange-600">⚠️ Blind Spot: Over-engineer safety into paralysis</p>
+                    
+                    <p className="mb-3"><strong>Augmented Dreamers</strong>: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented</p>
+                    <p className="mb-4 text-xs text-orange-600">⚠️ Blind Spot: Rush past critical safety considerations</p>
+                    
+                    <p className="mb-3"><strong>Nostalgic Doomers</strong>: Agency, Protection, Community, Preservation</p>
+                    <p className="mb-4 text-xs text-orange-600">⚠️ Blind Spot: Resist beneficial changes from loss aversion</p>
+                    
+                    <p className="mb-3"><strong>Analog Champions</strong>: Craft, Authenticity, Sustainability, Locality</p>
+                    <p className="text-xs text-orange-600">⚠️ Blind Spot: Miss scale problems requiring technological solutions</p>
                   </div>
                 </>
               ) : thought.id === '7' ? (

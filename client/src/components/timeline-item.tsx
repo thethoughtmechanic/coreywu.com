@@ -53,10 +53,10 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
               <h3 className="text-lg font-medium text-warm-brown leading-tight">
                 {event.title}
               </h3>
-              <p className="text-sm text-warm-brown font-medium">
+              <p className="text-sm text-muted-grey font-medium">
                 {event.date}
               </p>
-              <div className="text-xs text-muted-grey">
+              <div className="text-xs text-muted-grey/70">
                 {event.description.split('\n')[1] || 'Present'}
               </div>
             </div>

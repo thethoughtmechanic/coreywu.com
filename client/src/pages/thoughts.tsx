@@ -153,25 +153,62 @@ export default function Thoughts() {
                   <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.title}
                   </h3>
-                  <div className="flex items-center justify-center mb-4">
-                    <img
-                      src={fourTribesImage}
-                      alt="Four Tribes of Tomorrow Matrix"
-                      className="max-w-full max-h-48 object-contain rounded-lg"
-                    />
-                  </div>
-                  <div className="text-sm text-soft-black/80 leading-relaxed mb-4">
-                    <p className="mb-2"><strong>Cautious Cyborgs</strong>: Safety-first, Risk-mitigation, Guardrails, Defense-oriented</p>
-                    <p className="mb-4 text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Over-engineer safety into paralysis</p>
-                    
-                    <p className="mb-2"><strong>Augmented Dreamers</strong>: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented</p>
-                    <p className="mb-4 text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Rush past critical safety considerations</p>
-                    
-                    <p className="mb-2"><strong>Nostalgic Doomers</strong>: Agency, Protection, Community, Preservation</p>
-                    <p className="mb-4 text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Resist beneficial changes from loss aversion</p>
-                    
-                    <p className="mb-2"><strong>Analog Champions</strong>: Craft, Authenticity, Sustainability, Locality</p>
-                    <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Miss scale problems requiring technological solutions</p>
+                  <div className="text-sm text-soft-black/80 leading-relaxed">
+                    {expandedThought === thought.id ? (
+                      <>
+                        <p className="mb-4">{thought.fullDescription?.split('\n\n')[0]}</p>
+                        <div className="flex items-center justify-center mb-4">
+                          <img
+                            src={fourTribesImage}
+                            alt="Four Tribes of Tomorrow Matrix"
+                            className="max-w-full max-h-64 object-contain rounded-lg"
+                          />
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <p className="mb-2"><strong>Cautious Cyborgs</strong>: Safety-first, Risk-mitigation, Guardrails, Defense-oriented</p>
+                            <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Over-engineer safety into paralysis</p>
+                          </div>
+
+                          <div>
+                            <p className="mb-2"><strong>Augmented Dreamers</strong>: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented</p>
+                            <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Rush past critical safety considerations</p>
+                          </div>
+
+                          <div>
+                            <p className="mb-2"><strong>Nostalgic Doomers</strong>: Agency, Protection, Community, Preservation</p>
+                            <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Resist beneficial changes from loss aversion</p>
+                          </div>
+
+                          <div>
+                            <p className="mb-2"><strong>Analog Champions</strong>: Craft, Authenticity, Sustainability, Locality</p>
+                            <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Miss scale problems requiring technological solutions</p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setExpandedThought(null)}
+                          className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-4 flex items-center gap-1"
+                        >
+                          <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                          See less
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <p className="mb-3">The traditional left-right spectrum feels inadequate for navigating questions about technological pace, human agency, and our relationship with artificial intelligence. As AI continues increasing its grasps on society, I believe political polarization will shift towards tensions such as speed versus deliberation, and optimism versus caution about AI's trajectory.</p>
+                        <button
+                          onClick={() => setExpandedThought(thought.id)}
+                          className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                          See more
+                        </button>
+                      </>
+                    )}
                   </div>
                 </>
               ) : thought.id === '7' ? (
@@ -406,7 +443,7 @@ export default function Thoughts() {
                 </>
               )}
 
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
+              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && thought.id !== '12' && (
                 <div className="flex items-center gap-2 mb-6">
                   <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
@@ -417,7 +454,7 @@ export default function Thoughts() {
                 </div>
               )}
 
-              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
+              {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && thought.id !== '12' && (
                 thought.status === 'wip' ? (
                   <div className="flex items-center justify-center gap-2 py-3">
                     <div className="flex items-center gap-2 text-sm text-warm-brown/60">
@@ -621,7 +658,7 @@ export default function Thoughts() {
                     ) : (
                       <>
                         <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
-                          {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
+                          {thought.title}
                         </h3>
                         <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
                           {thought.id === '8' ? (
@@ -827,7 +864,7 @@ export default function Thoughts() {
                     )}
 
                     {/* Read time indicator - Skip for Thought Bite, Philosophizing, and Scenario */}
-                    {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
+                    {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && thought.id !== '12' && (
                       <div className="flex items-center gap-2 mb-4">
                         <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
@@ -839,7 +876,7 @@ export default function Thoughts() {
                     )}
 
                     {/* CTA Button - Only show if not Thought Bite, Philosophizing, or Scenario */}
-                    {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && (
+                    {thought.tag !== 'Thought Bite' && thought.tag !== 'Philosophizing' && thought.tag !== 'Scenario' && thought.tag !== 'Future Seed' && thought.id !== '12' && (
                       <>
                         {thought.status === 'wip' ? (
                           <div className="flex items-center justify-center gap-2 py-3">

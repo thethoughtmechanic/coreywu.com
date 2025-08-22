@@ -4,11 +4,11 @@ export const thoughts: Thought[] = [
   {
     id: "12",
     title: "Four Tribes of Tomorrow",
-    description: "**Cautious Cyborgs**: Safety-first, Risk-mitigation, Guardrails, Defense-oriented\n\n*Blind spot: Over-engineer safety into paralysis*\n\n\n**Augmented Dreamers**: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented\n\n*Blind spot: Rush past critical safety considerations*\n\n\n**Nostalgic Doomers**: Agency, Protection, Community, Preservation\n\n*Blind spot: Resist beneficial changes from loss aversion*\n\n\n**Analog Champions**: Craft, Authenticity, Sustainability, Locality\n\n*Blind spot: Miss scale problems requiring technological solutions*",
-    fullDescription: null,
-    tag: "Thought Bite",
-    readTime: "2 min read",
-    imageGradient: "from-teal-600 to-teal-400",
+    description: "The traditional left-right spectrum feels inadequate for navigating questions about technological pace, human agency, and our relationship with artificial intelligence.",
+    fullDescription: "The traditional left-right spectrum feels inadequate for navigating questions about technological pace, human agency, and our relationship with artificial intelligence. As AI continues increasing its grasps on society, I believe political polarization will shift towards tensions such as speed versus deliberation, and optimism versus caution about AI's trajectory.\n\n**Cautious Cyborgs**: Safety-first, Risk-mitigation, Guardrails, Defense-oriented\n\n*Blind spot: Over-engineer safety into paralysis*\n\n\n**Augmented Dreamers**: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented\n\n*Blind spot: Rush past critical safety considerations*\n\n\n**Nostalgic Doomers**: Agency, Protection, Community, Preservation\n\n*Blind spot: Resist beneficial changes from loss aversion*\n\n\n**Analog Champions**: Craft, Authenticity, Sustainability, Locality\n\n*Blind spot: Miss scale problems requiring technological solutions*",
+    tag: "POV",
+    readTime: "4 min read",
+    imageGradient: "from-green-600 to-green-400",
     status: "published",
     date: "Aug 22, 2025"
   },

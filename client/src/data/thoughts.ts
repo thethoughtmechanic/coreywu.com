@@ -4,7 +4,7 @@ export const thoughts: Thought[] = [
   {
     id: "12",
     title: "Four Tribes of Tomorrow",
-    description: "```\n                    fast 'clock speeds'\n                           ↑\n                           │\n        Cautious    │    Augmented\n        Cyborgs     │     Dreamers\n                           │\n    ←──────────────────────────────────→\npessimist                            optimist\n                           │\n       Nostalgic    │     Analog\n        Purists     │   Champions\n                           │\n                           ↓\n                   slow 'clock speeds'\n```",
+    description: "![Four Tribes of Tomorrow Matrix](/four-tribes-matrix.png)",
     fullDescription: null,
     tag: "Thought Bite",
     readTime: "2 min read",

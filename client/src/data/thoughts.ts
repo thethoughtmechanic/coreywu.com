@@ -4,7 +4,7 @@ export const thoughts: Thought[] = [
   {
     id: "12",
     title: "Four Tribes of Tomorrow",
-    description: "![Four Tribes of Tomorrow Matrix](/four-tribes-matrix.png)",
+    description: "![Four Tribes of Tomorrow Matrix](/four-tribes-matrix.png)\n\n**Cautious Cyborgs**: Safety-first, Risk-mitigation, Guardrails, Defense-oriented\n*Blind spot: Over-engineer safety into paralysis*\n\n**Augmented Dreamers**: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented\n*Blind spot: Rush past critical safety considerations*\n\n**Nostalgic Doomers**: Agency, Protection, Community, Preservation\n*Blind spot: Resist beneficial changes from loss aversion*\n\n**Analog Champions**: Craft, Authenticity, Sustainability, Locality\n*Blind spot: Miss scale problems requiring technological solutions*",
     fullDescription: null,
     tag: "Thought Bite",
     readTime: "2 min read",

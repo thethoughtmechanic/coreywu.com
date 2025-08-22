@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
@@ -5,10 +6,7 @@ import { X } from "lucide-react";
 
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
-
-
-
-
+  const [timelineLayout, setTimelineLayout] = useState<'original' | 'cards-grid' | 'single-column' | 'minimal-cards'>('original');
 
   // Game Mode State
   const [currentRound, setCurrentRound] = useState(0);
@@ -144,7 +142,6 @@ export default function AboutExperimental() {
     return roundIconOrderIndices;
   };
 
-
   const handleIconSelect = (iconIndex: number) => {
     if (selectedIcons.includes(iconIndex)) {
       setSelectedIcons(selectedIcons.filter(i => i !== iconIndex));
@@ -186,10 +183,6 @@ export default function AboutExperimental() {
     setRoundIconOrderIndices([]); // Reset icon order for new game
   };
 
-
-
-
-
   // Sort events by order
   const sortedEvents = [...timelineEvents].sort((a, b) => parseInt(a.order) - parseInt(b.order));
 
@@ -209,14 +202,124 @@ export default function AboutExperimental() {
     window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { isDarkMode: false } }));
   };
 
-
-
   // Check if all correct icons are selected
   const currentRoundData = gameRounds[currentRound];
   const correctIconIndices = currentRoundData.correctIcons.map((_, index) => index);
   const allCorrectSelected = selectedIcons.length === 3 &&
     correctIconIndices.every(index => selectedIcons.includes(index)) &&
     selectedIcons.every(index => correctIconIndices.includes(index));
+
+  // Alternative Timeline Layouts
+  const renderCardsGrid = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+      {sortedEvents.map((event) => (
+        <div key={event.id} className="bg-light-brown rounded-lg p-5 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300">
+          <div className="flex items-center gap-3 mb-3">
+            <div
+              className={`rounded-full ${
+                event.isActive
+                  ? 'w-3 h-3 bg-green-500 border-2 border-white shadow-lg'
+                  : 'w-2.5 h-2.5 bg-gray-400 border-2 border-white shadow-sm'
+              }`}
+            />
+            <h3 className="text-lg font-medium text-warm-brown">
+              {event.title}
+            </h3>
+          </div>
+          <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-3">
+            {event.date}
+          </div>
+          <p className="text-sm text-soft-black/80 leading-relaxed">
+            {event.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderSingleColumn = () => (
+    <div className="max-w-2xl mx-auto space-y-3">
+      {sortedEvents.map((event, index) => (
+        <div key={event.id} className="bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300">
+          <div className="flex items-center gap-3 mb-2">
+            <div
+              className={`rounded-full ${
+                event.isActive
+                  ? 'w-3 h-3 bg-green-500 border-2 border-white shadow-lg'
+                  : 'w-2.5 h-2.5 bg-gray-400 border-2 border-white shadow-sm'
+              }`}
+            />
+            <h3 className="text-lg font-medium text-warm-brown">
+              {event.title}
+            </h3>
+          </div>
+          <div className="ml-6">
+            <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-2">
+              {event.date}
+            </div>
+            <p className="text-sm text-soft-black/80 leading-relaxed">
+              {event.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderMinimalCards = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-w-5xl mx-auto">
+      {sortedEvents.map((event) => (
+        <div key={event.id} className="bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-md transition-all duration-300 hover:scale-105">
+          <div className="flex items-start gap-2 mb-2">
+            <div
+              className={`rounded-full mt-1 ${
+                event.isActive
+                  ? 'w-2.5 h-2.5 bg-green-500 shadow-sm'
+                  : 'w-2 h-2 bg-gray-400 shadow-sm'
+              }`}
+            />
+            <div className="flex-1">
+              <h3 className="text-base font-medium text-warm-brown leading-tight mb-1">
+                {event.title}
+              </h3>
+              <div className="text-xs px-2 py-1 bg-warm-brown/15 text-warm-brown/80 rounded font-medium inline-block mb-2">
+                {event.date}
+              </div>
+              <p className="text-xs text-soft-black/80 leading-relaxed">
+                {event.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderOriginalTimeline = () => (
+    <div className="relative max-w-4xl mx-auto">
+      <div className="space-y-4 relative">
+        {/* Timeline line - positioned to run through the center dots */}
+        {sortedEvents.length > 1 && (
+          <div
+            className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-warm-brown"
+            style={{
+              top: '40px',
+              bottom: '40px',
+              zIndex: 1
+            }}
+          />
+        )}
+
+        {sortedEvents.map((event, index) => (
+          <TimelineItem
+            key={event.id}
+            event={event}
+            isLeft={index % 2 === 0}
+          />
+        ))}
+      </div>
+    </div>
+  );
 
   if (isGameMode) {
     return (
@@ -380,152 +483,150 @@ export default function AboutExperimental() {
     );
   }
 
-
-
   return (
     <div className="min-h-screen relative bg-cream">
-
       <div className="max-w-4xl mx-auto px-6 py-12">
-      <header className="text-center mb-8 pt-4">
-        <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-about-experimental-title">
-          My System Prompts
-        </h1>
-      </header>
+        <header className="text-center mb-8 pt-4">
+          <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-about-experimental-title">
+            My System Prompts
+          </h1>
+        </header>
 
-      {/* System Prompt Role Cards with Paint Splash Effect */}
-      <div className="mb-16">
-        <p className="text-muted-grey max-w-2xl mx-auto leading-relaxed text-center mb-6">
-          Corey, you are a...
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          {systemPromptRoles.map((role, index) => (
-            <div
-              key={index}
-              onClick={() => handleRoleClick(role)}
-              className={`relative group bg-light-brown rounded-lg p-4 text-center text-base font-medium text-soft-black/90 leading-relaxed hover:shadow-xl border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
-                role === "Game Designer" || role === "Strategic Futurist" ? "hover:rotate-2 hover:scale-105" : ""
-              }`}
-              data-testid={`card-role-${index}`}
-            >
-              {/* Paint Splatter Background - Hidden by default, shown on hover */}
+        {/* System Prompt Role Cards with Paint Splash Effect */}
+        <div className="mb-16">
+          <p className="text-muted-grey max-w-2xl mx-auto leading-relaxed text-center mb-6">
+            Corey, you are a...
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {systemPromptRoles.map((role, index) => (
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg"
-                style={{
-                  background: index === 0 ? `
-                    radial-gradient(ellipse 240px 180px at 25% 15%, #22c55e 0%, #22c55e 45%, transparent 85%),
-                    radial-gradient(ellipse 210px 160px at 75% 25%, #16a34a 0%, #16a34a 40%, transparent 80%),
-                    radial-gradient(ellipse 190px 220px at 15% 85%, #15803d 0%, #15803d 50%, transparent 90%),
-                    radial-gradient(ellipse 220px 140px at 85% 80%, #84cc16 0%, #84cc16 35%, transparent 75%),
-                    radial-gradient(ellipse 175px 185px at 45% 55%, #65a30d 0%, #65a30d 40%, transparent 80%)
-                  ` : index === 1 ? `
-                    radial-gradient(ellipse 230px 170px at 30% 20%, #f59e0b 0%, #f59e0b 45%, transparent 85%),
-                    radial-gradient(ellipse 200px 150px at 70% 30%, #dc2626 0%, #dc2626 40%, transparent 80%),
-                    radial-gradient(ellipse 185px 210px at 20% 75%, #ea580c 0%, #ea580c 50%, transparent 90%),
-                    radial-gradient(ellipse 215px 130px at 80% 85%, #facc15 0%, #facc15 35%, transparent 75%),
-                    radial-gradient(ellipse 175px 185px at 45% 55%, #ef4444 0%, #ef4444 40%, transparent 80%)
-                  ` : index === 2 ? `
-                    radial-gradient(ellipse 225px 165px at 35% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
-                    radial-gradient(ellipse 195px 145px at 65% 35%, #0891b2 0%, #0891b2 40%, transparent 80%),
-                    radial-gradient(ellipse 180px 205px at 25% 80%, #0e7490 0%, #0e7490 50%, transparent 90%),
-                    radial-gradient(ellipse 210px 125px at 75% 90%, #22d3ee 0%, #22d3ee 35%, transparent 75%),
-                    radial-gradient(ellipse 170px 180px at 50% 60%, #0284c7 0%, #0284c7 40%, transparent 80%)
-                  ` : index === 3 ? `
-                    radial-gradient(ellipse 235px 175px at 20% 15%, #a855f7 0%, #a855f7 45%, transparent 85%),
-                    radial-gradient(ellipse 205px 155px at 80% 25%, #ec4899 0%, #ec4899 40%, transparent 80%),
-                    radial-gradient(ellipse 185px 215px at 10% 85%, #9333ea 0%, #9333ea 50%, transparent 90%),
-                    radial-gradient(ellipse 225px 135px at 90% 70%, #d946ef 0%, #d946ef 35%, transparent 75%),
-                    radial-gradient(ellipse 180px 190px at 40% 45%, #7c3aed 0%, #7c3aed 40%, transparent 80%)
-                  ` : index === 4 ? `
-                    radial-gradient(ellipse 240px 180px at 15% 20%, #ef4444 0%, #ef4444 45%, transparent 85%),
-                    radial-gradient(ellipse 210px 160px at 85% 30%, #eab308 0%, #eab308 40%, transparent 80%),
-                    radial-gradient(ellipse 190px 220px at 10% 85%, #dc2626 0%, #dc2626 50%, transparent 90%),
-                    radial-gradient(ellipse 220px 140px at 90% 70%, #22c55e 0%, #22c55e 35%, transparent 75%),
-                    radial-gradient(ellipse 175px 185px at 45% 40%, #f97316 0%, #f97316 40%, transparent 80%)
-                  ` : index === 5 ? `
-                    radial-gradient(ellipse 230px 170px at 25% 25%, #3b82f6 0%, #3b82f6 45%, transparent 85%),
-                    radial-gradient(ellipse 200px 150px at 75% 15%, #6366f1 0%, #6366f1 40%, transparent 80%),
-                    radial-gradient(ellipse 185px 215px at 5% 85%, #1d4ed8 0%, #1d4ed8 50%, transparent 90%),
-                    radial-gradient(ellipse 225px 135px at 95% 90%, #8b5cf6 0%, #8b5cf6 35%, transparent 75%),
-                    radial-gradient(ellipse 180px 190px at 45% 40%, #2563eb 0%, #2563eb 40%, transparent 80%)
-                  ` : index === 6 ? `
-                    radial-gradient(ellipse 245px 185px at 20% 10%, #f97316 0%, #f97316 45%, transparent 85%),
-                    radial-gradient(ellipse 215px 165px at 80% 30%, #ec4899 0%, #ec4899 40%, transparent 80%),
-                    radial-gradient(ellipse 195px 225px at 10% 85%, #ea580c 0%, #ea580c 50%, transparent 90%),
-                    radial-gradient(ellipse 225px 135px at 90% 80%, #a855f7 0%, #a855f7 35%, transparent 75%),
-                    radial-gradient(ellipse 180px 190px at 40% 45%, #d946ef 0%, #d946ef 40%, transparent 80%)
-                  ` : `
-                    radial-gradient(ellipse 235px 175px at 25% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
-                    radial-gradient(ellipse 205px 155px at 75% 20%, #3b82f6 0%, #3b82f6 40%, transparent 80%),
-                    radial-gradient(ellipse 185px 215px at 5% 85%, #0891b2 0%, #0891b2 50%, transparent 90%),
-                    radial-gradient(ellipse 220px 135px at 95% 75%, #6366f1 0%, #6366f1 35%, transparent 75%),
-                    radial-gradient(ellipse 180px 190px at 45% 40%, #1e40af 0%, #1e40af 40%, transparent 80%)
-                  `
-                }}
-              />
+                key={index}
+                onClick={() => handleRoleClick(role)}
+                className={`relative group bg-light-brown rounded-lg p-4 text-center text-base font-medium text-soft-black/90 leading-relaxed hover:shadow-xl border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden cursor-pointer ${
+                  role === "Game Designer" || role === "Strategic Futurist" ? "hover:rotate-2 hover:scale-105" : ""
+                }`}
+                data-testid={`card-role-${index}`}
+              >
+                {/* Paint Splatter Background - Hidden by default, shown on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg"
+                  style={{
+                    background: index === 0 ? `
+                      radial-gradient(ellipse 240px 180px at 25% 15%, #22c55e 0%, #22c55e 45%, transparent 85%),
+                      radial-gradient(ellipse 210px 160px at 75% 25%, #16a34a 0%, #16a34a 40%, transparent 80%),
+                      radial-gradient(ellipse 190px 220px at 15% 85%, #15803d 0%, #15803d 50%, transparent 90%),
+                      radial-gradient(ellipse 220px 140px at 85% 80%, #84cc16 0%, #84cc16 35%, transparent 75%),
+                      radial-gradient(ellipse 175px 185px at 45% 55%, #65a30d 0%, #65a30d 40%, transparent 80%)
+                    ` : index === 1 ? `
+                      radial-gradient(ellipse 230px 170px at 30% 20%, #f59e0b 0%, #f59e0b 45%, transparent 85%),
+                      radial-gradient(ellipse 200px 150px at 70% 30%, #dc2626 0%, #dc2626 40%, transparent 80%),
+                      radial-gradient(ellipse 185px 210px at 20% 75%, #ea580c 0%, #ea580c 50%, transparent 90%),
+                      radial-gradient(ellipse 215px 130px at 80% 85%, #facc15 0%, #facc15 35%, transparent 75%),
+                      radial-gradient(ellipse 175px 185px at 45% 55%, #ef4444 0%, #ef4444 40%, transparent 80%)
+                    ` : index === 2 ? `
+                      radial-gradient(ellipse 225px 165px at 35% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+                      radial-gradient(ellipse 195px 145px at 65% 35%, #0891b2 0%, #0891b2 40%, transparent 80%),
+                      radial-gradient(ellipse 180px 205px at 25% 80%, #0e7490 0%, #0e7490 50%, transparent 90%),
+                      radial-gradient(ellipse 210px 125px at 75% 90%, #22d3ee 0%, #22d3ee 35%, transparent 75%),
+                      radial-gradient(ellipse 170px 180px at 50% 60%, #0284c7 0%, #0284c7 40%, transparent 80%)
+                    ` : index === 3 ? `
+                      radial-gradient(ellipse 235px 175px at 20% 15%, #a855f7 0%, #a855f7 45%, transparent 85%),
+                      radial-gradient(ellipse 205px 155px at 80% 25%, #ec4899 0%, #ec4899 40%, transparent 80%),
+                      radial-gradient(ellipse 185px 215px at 10% 85%, #9333ea 0%, #9333ea 50%, transparent 90%),
+                      radial-gradient(ellipse 225px 135px at 90% 70%, #d946ef 0%, #d946ef 35%, transparent 75%),
+                      radial-gradient(ellipse 180px 190px at 40% 45%, #7c3aed 0%, #7c3aed 40%, transparent 80%)
+                    ` : index === 4 ? `
+                      radial-gradient(ellipse 240px 180px at 15% 20%, #ef4444 0%, #ef4444 45%, transparent 85%),
+                      radial-gradient(ellipse 210px 160px at 85% 30%, #eab308 0%, #eab308 40%, transparent 80%),
+                      radial-gradient(ellipse 190px 220px at 10% 85%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                      radial-gradient(ellipse 220px 140px at 90% 70%, #22c55e 0%, #22c55e 35%, transparent 75%),
+                      radial-gradient(ellipse 175px 185px at 45% 40%, #f97316 0%, #f97316 40%, transparent 80%)
+                    ` : index === 5 ? `
+                      radial-gradient(ellipse 230px 170px at 25% 25%, #3b82f6 0%, #3b82f6 45%, transparent 85%),
+                      radial-gradient(ellipse 200px 150px at 75% 15%, #6366f1 0%, #6366f1 40%, transparent 80%),
+                      radial-gradient(ellipse 185px 215px at 5% 85%, #1d4ed8 0%, #1d4ed8 50%, transparent 90%),
+                      radial-gradient(ellipse 225px 135px at 95% 90%, #8b5cf6 0%, #8b5cf6 35%, transparent 75%),
+                      radial-gradient(ellipse 180px 190px at 45% 40%, #2563eb 0%, #2563eb 40%, transparent 80%)
+                    ` : index === 6 ? `
+                      radial-gradient(ellipse 245px 185px at 20% 10%, #f97316 0%, #f97316 45%, transparent 85%),
+                      radial-gradient(ellipse 215px 165px at 80% 30%, #ec4899 0%, #ec4899 40%, transparent 80%),
+                      radial-gradient(ellipse 195px 225px at 10% 85%, #ea580c 0%, #ea580c 50%, transparent 90%),
+                      radial-gradient(ellipse 225px 135px at 90% 80%, #a855f7 0%, #a855f7 35%, transparent 75%),
+                      radial-gradient(ellipse 180px 190px at 40% 45%, #d946ef 0%, #d946ef 40%, transparent 80%)
+                    ` : `
+                      radial-gradient(ellipse 235px 175px at 25% 25%, #06b6d4 0%, #06b6d4 45%, transparent 85%),
+                      radial-gradient(ellipse 205px 155px at 75% 20%, #3b82f6 0%, #3b82f6 40%, transparent 80%),
+                      radial-gradient(ellipse 185px 215px at 5% 85%, #0891b2 0%, #0891b2 50%, transparent 90%),
+                      radial-gradient(ellipse 220px 135px at 95% 75%, #6366f1 0%, #6366f1 35%, transparent 75%),
+                      radial-gradient(ellipse 180px 190px at 45% 40%, #1e40af 0%, #1e40af 40%, transparent 80%)
+                    `
+                  }}
+                />
 
-              {/* Text Background for better readability */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
+                {/* Text Background for better readability */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
 
-              {/* Content with special hover effects for Game Designer and Strategic Futurist */}
-              <span className={`relative z-10 ${
-                role === "Game Designer" ? "group-hover:text-white group-hover:font-bold" :
-                role === "Strategic Futurist" ? "group-hover:text-white group-hover:font-bold" :
-                "group-hover:text-white group-hover:font-semibold"
-              }`}>
-                {role}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-6">
-        <h1 className="text-4xl font-light text-warm-brown mb-4 text-center">
-          Change Log
-        </h1>
-      </div>
-
-
-
-      <div className="relative max-w-4xl mx-auto">
-          <div className="space-y-4 relative">
-            {/* Timeline line - positioned to run through the center dots */}
-            {sortedEvents.length > 1 && (
-              <div
-                className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-warm-brown"
-                style={{
-                  top: '40px',
-                  bottom: '40px',
-                  zIndex: 1
-                }}
-              />
-            )}
-
-            {sortedEvents.map((event, index) => (
-              <TimelineItem
-                key={event.id}
-                event={event}
-                isLeft={index % 2 === 0}
-              />
+                {/* Content with special hover effects for Game Designer and Strategic Futurist */}
+                <span className={`relative z-10 ${
+                  role === "Game Designer" ? "group-hover:text-white group-hover:font-bold" :
+                  role === "Strategic Futurist" ? "group-hover:text-white group-hover:font-bold" :
+                  "group-hover:text-white group-hover:font-semibold"
+                }`}>
+                  {role}
+                </span>
+              </div>
             ))}
           </div>
         </div>
+
+        <div className="mb-6">
+          <h1 className="text-4xl font-light text-warm-brown mb-4 text-center">
+            Change Log
+          </h1>
+        </div>
+
+        {/* Layout Toggle */}
+        <div className="flex justify-center flex-wrap gap-2 mb-8">
+          {[
+            { key: 'original', label: 'Original Timeline', mobile: 'Timeline' },
+            { key: 'cards-grid', label: 'Cards Grid', mobile: 'Grid' },
+            { key: 'single-column', label: 'Single Column', mobile: 'Column' },
+            { key: 'minimal-cards', label: 'Minimal Cards', mobile: 'Minimal' }
+          ].map(({ key, label, mobile }) => (
+            <button
+              key={key}
+              onClick={() => setTimelineLayout(key as any)}
+              className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
+                timelineLayout === key 
+                  ? 'bg-warm-brown text-cream' 
+                  : 'bg-light-brown text-warm-brown hover:bg-warm-brown/10'
+              }`}
+            >
+              <span className="hidden sm:inline">{label}</span>
+              <span className="sm:hidden">{mobile}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Timeline Layouts */}
+        {timelineLayout === 'original' && renderOriginalTimeline()}
+        {timelineLayout === 'cards-grid' && renderCardsGrid()}
+        {timelineLayout === 'single-column' && renderSingleColumn()}
+        {timelineLayout === 'minimal-cards' && renderMinimalCards()}
+
+        {/* Contact Footer */}
+        <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">
+          <p className="text-sm text-muted-grey">
+            Interested in collaborating or just want to chat? Reach out at{' '}
+            <a
+              href="mailto:coreydavidwu@gmail.com"
+              className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
+            >
+              coreydavidwu@gmail.com
+            </a>
+          </p>
+        </footer>
+      </div>
     </div>
-
-
-
-      {/* Contact Footer */}
-      <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">
-        <p className="text-sm text-muted-grey">
-          Interested in collaborating or just want to chat? Reach out at{' '}
-          <a
-            href="mailto:coreydavidwu@gmail.com"
-            className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
-          >
-            coreydavidwu@gmail.com
-          </a>
-        </p>
-      </footer>
-  </div>
   );
 }

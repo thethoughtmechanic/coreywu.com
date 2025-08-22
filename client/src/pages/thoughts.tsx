@@ -122,7 +122,7 @@ export default function Thoughts() {
 
               {thought.tag === 'Scenario' && thought.id === '4' ? (
                 <>
-                  <h3 className="text-2xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.title}
                   </h3>
                   <div className="flex items-center justify-center mb-4">
@@ -149,7 +149,7 @@ export default function Thoughts() {
                 </>
               ) : thought.id === '7' ? (
                 <>
-                  <h3 className="text-2xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.title}
                   </h3>
                   <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed mb-4">
@@ -173,7 +173,7 @@ export default function Thoughts() {
                 </>
               ) : (
                 <>
-                  <h3 className="text-2xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                   </h3>
                   <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
@@ -187,7 +187,7 @@ export default function Thoughts() {
                             <p className="mb-3">The question isn't which error type to avoid, but developing better mechanisms to adjust our tolerance based on context, stakes, and reversibility.</p>
                             <button
                               onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -200,7 +200,7 @@ export default function Thoughts() {
                             <p className="mb-2">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -221,7 +221,7 @@ export default function Thoughts() {
                             ))}
                             <button
                               onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -234,7 +234,7 @@ export default function Thoughts() {
                             <p className="mb-2">{thought.description}</p>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -253,7 +253,7 @@ export default function Thoughts() {
                             ))}
                             <button
                               onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -268,7 +268,7 @@ export default function Thoughts() {
                             ))}</div>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -288,7 +288,7 @@ export default function Thoughts() {
                             <p className="mb-3">And maybe that's the deeper shift AI brings. It isn't just about productivity or skill—it's about the death of the hero's journey. Are we no longer the heroes of our own stories, but a supporting role in someone else's function?</p>
                             <button
                               onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -302,7 +302,7 @@ export default function Thoughts() {
                             <p className="mb-4">And honestly—it stung.</p>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -321,7 +321,7 @@ export default function Thoughts() {
                             ))}
                             <button
                               onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -334,7 +334,7 @@ export default function Thoughts() {
                             <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
                             <button
                               onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                             >
                               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -513,7 +513,7 @@ export default function Thoughts() {
                     {/* Special treatment for Scenario - just title and image */}
                     {thought.tag === 'Scenario' ? (
                       <>
-                        <h3 className="text-2xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
+                        <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                           {thought.title}
                         </h3>
                         {thought.id === '4' ? (
@@ -569,7 +569,7 @@ export default function Thoughts() {
                       </>
                     ) : (
                       <>
-                        <h3 className="text-2xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
+                        <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                           {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                         </h3>
                         <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
@@ -583,7 +583,7 @@ export default function Thoughts() {
                                   <p className="mb-3">The question isn't which error type to avoid, but developing better mechanisms to adjust our tolerance based on context, stakes, and reversibility.</p>
                                   <button
                                     onClick={() => setExpandedThought(null)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -596,7 +596,7 @@ export default function Thoughts() {
                                   <p className="mb-2">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -617,7 +617,7 @@ export default function Thoughts() {
                                   ))}
                                   <button
                                     onClick={() => setExpandedThought(null)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -630,7 +630,7 @@ export default function Thoughts() {
                                   <p className="mb-2">{thought.description}</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -649,7 +649,7 @@ export default function Thoughts() {
                                   ))}
                                   <button
                                     onClick={() => setExpandedThought(null)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -664,7 +664,7 @@ export default function Thoughts() {
                                   ))}</div>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -684,7 +684,7 @@ export default function Thoughts() {
                                   <p className="mb-3">And maybe that's the deeper shift AI brings. It isn't just about productivity or skill—it's about the death of the hero's journey. Are we no longer the heroes of our own stories, but a supporting role in someone else's function?</p>
                                   <button
                                     onClick={() => setExpandedThought(null)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -698,7 +698,7 @@ export default function Thoughts() {
                                   <p className="mb-4">And honestly—it stung.</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -717,7 +717,7 @@ export default function Thoughts() {
                                   ))}
                                   <button
                                     onClick={() => setExpandedThought(null)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -730,7 +730,7 @@ export default function Thoughts() {
                                   <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

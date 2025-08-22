@@ -102,7 +102,7 @@ export default function ThoughtsExperimental() {
 
                 {thought.tag === 'Scenario' && thought.id === '4' ? (
                   <>
-                    <h3 className="text-2xl font-bold text-warm-brown mb-4">
+                    <h3 className="text-xl font-bold text-warm-brown mb-4">
                       {thought.title}
                     </h3>
                     <div className="flex items-center justify-center mb-4">
@@ -129,7 +129,7 @@ export default function ThoughtsExperimental() {
                   </>
                 ) : (
                   <>
-                    <h3 className="text-2xl font-bold text-warm-brown mb-4">
+                    <h3 className="text-xl font-bold text-warm-brown mb-4">
                       {thought.title}
                     </h3>
                     <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">

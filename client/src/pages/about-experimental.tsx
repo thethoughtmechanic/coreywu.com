@@ -1,5 +1,8 @@
 
 import { useState } from "react";
+import thoughtworksLogo from "@assets/thoughtworks logo_1755889458333.png";
+import ideaCoutureLogo from "@assets/idea couture logo_1755889458333.avif";
+import queensLogo from "@assets/queens logo_1755889458333.png";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
 import { X } from "lucide-react";
@@ -209,13 +212,25 @@ export default function AboutExperimental() {
     correctIconIndices.every(index => selectedIcons.includes(index)) &&
     selectedIcons.every(index => correctIconIndices.includes(index));
 
-  // Company logo mapping
-  const companyLogos = {
-    "Thoughtworks": "https://cdn.worldvectorlogo.com/logos/thoughtworks-1.svg",
-    "Counterintuitive Group": "CG", // Typography treatment
-    "KPMG Canada": "https://cdn.worldvectorlogo.com/logos/kpmg-1.svg",
-    "Idea Couture": "💡", // Placeholder icon
-    "Smith School of Business at Queen's University": "🎓" // Placeholder icon
+  // Company logo mapping - using actual logo images
+  const getCompanyLogo = (companyName: string) => {
+    const logoMap: { [key: string]: string } = {
+      "Thoughtworks": thoughtworksLogo,
+      "Idea Couture": ideaCoutureLogo,
+      "Smith School of Business at Queen's University": queensLogo
+    };
+    return logoMap[companyName] || null;
+  };
+
+  const getCompanyAbbreviation = (companyName: string) => {
+    const abbreviationMap: { [key: string]: string } = {
+      "Thoughtworks": "TW",
+      "Counterintuitive Group": "CI",
+      "KPMG Canada": "KPMG",
+      "Idea Couture": "IC",
+      "Smith School of Business at Queen's University": "QU"
+    };
+    return abbreviationMap[companyName] || "🏢";
   };
 
   // Timeline with company logos
@@ -224,20 +239,16 @@ export default function AboutExperimental() {
       {sortedEvents.map((event, index) => (
         <div key={event.id} className="flex items-start gap-4 mb-8 last:mb-0">
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 bg-white rounded-full border-2 border-warm-brown/20 shadow-sm flex items-center justify-center">
-              {companyLogos[event.date as keyof typeof companyLogos]?.startsWith('http') ? (
-                <img 
-                  src={companyLogos[event.date as keyof typeof companyLogos]} 
+            <div className="w-12 h-12 bg-white rounded-full border-2 border-warm-brown/20 shadow-sm flex items-center justify-center overflow-hidden">
+              {getCompanyLogo(event.date) ? (
+                <img
+                  src={getCompanyLogo(event.date)!}
                   alt={`${event.date} logo`}
                   className="w-8 h-8 object-contain"
                 />
               ) : (
-                <span className={`${
-                  companyLogos[event.date as keyof typeof companyLogos] === 'CI' 
-                    ? 'text-sm font-bold text-warm-brown tracking-tight' 
-                    : 'text-lg'
-                }`}>
-                  {companyLogos[event.date as keyof typeof companyLogos] || "🏢"}
+                <span className="text-xs font-medium text-warm-brown">
+                  {getCompanyAbbreviation(event.date)}
                 </span>
               )}
             </div>

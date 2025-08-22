@@ -57,22 +57,32 @@ export default function ThoughtsExperimental() {
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    {/* Tag pill with conditional styling */}
-                    {thought.tag === 'Future Seed' || thought.tag === 'Scenario' ? (
-                      <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border-2 border-purple-500 text-purple-500 overflow-hidden group-hover/card:text-white group-hover/card:border-purple-500">
-                        {/* Purple fill background - appears on hover */}
+                    {/* Tag pill with specific colors */}
+                    {thought.tag === 'Thought Bite' ? (
+                      <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border-2 border-blue-500 text-blue-500 overflow-hidden group-hover/card:text-white group-hover/card:border-blue-500">
+                        <div className="absolute inset-0 bg-blue-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
+                        <span className="relative z-10">{thought.tag}</span>
+                      </span>
+                    ) : thought.tag === 'Scenario' ? (
+                      <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border-2 border-red-500 text-red-500 overflow-hidden group-hover/card:text-white group-hover/card:border-red-500">
+                        <div className="absolute inset-0 bg-red-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
+                        <span className="relative z-10">{thought.tag}</span>
+                      </span>
+                    ) : thought.tag === 'POV' ? (
+                      <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border-2 border-green-500 text-green-500 overflow-hidden group-hover/card:text-white group-hover/card:border-green-500">
+                        <div className="absolute inset-0 bg-green-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
+                        <span className="relative z-10">{thought.tag}</span>
+                      </span>
+                    ) : thought.tag === 'Future Seed' ? (
+                      <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border-2 border-purple-500 text-purple-500 overflow-hidden group-hover/card:text-white group-hover/card:border-purple-500">
                         <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full" />
-                        <span className="relative z-10">
-                          {thought.tag}
-                        </span>
+                        <span className="relative z-10">{thought.tag}</span>
                       </span>
                     ) : (
-                      <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
-                        {/* Default border state - visible by default */}
+                      <span className="relative text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
                         <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
                           {thought.tag}
                         </span>
-                        {/* Paint splatter background - appears on hover */}
                         <div
                           className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
                           style={getPillHoverStyle(thought.tag)}

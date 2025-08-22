@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
-  const [timelineLayout, setTimelineLayout] = useState<'original' | 'cards-grid' | 'single-column' | 'minimal-cards'>('original');
+  const [timelineLayout, setTimelineLayout] = useState<'original' | 'cards-grid' | 'single-column' | 'minimal-cards' | 'horizontal-flow' | 'stacked-text' | 'curved-path' | 'timeline-dots'>('original');
 
   // Game Mode State
   const [currentRound, setCurrentRound] = useState(0);
@@ -289,6 +289,125 @@ export default function AboutExperimental() {
                 {event.description}
               </p>
             </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  // Horizontal flowing timeline
+  const renderHorizontalFlow = () => (
+    <div className="overflow-x-auto pb-4">
+      <div className="flex gap-8 min-w-max px-4">
+        {sortedEvents.map((event, index) => (
+          <div key={event.id} className="flex-shrink-0 w-64 relative">
+            <div className="text-center mb-4">
+              <div
+                className={`mx-auto rounded-full ${
+                  event.isActive
+                    ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
+                    : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
+                }`}
+              />
+              {index < sortedEvents.length - 1 && (
+                <div className="absolute top-2 left-1/2 w-8 h-0.5 bg-warm-brown transform translate-x-full" />
+              )}
+            </div>
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-medium text-warm-brown">{event.title}</h3>
+              <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block">
+                {event.date}
+              </div>
+              <p className="text-sm text-soft-black/80 leading-relaxed">{event.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Simple stacked text with emphasis
+  const renderStackedText = () => (
+    <div className="max-w-3xl mx-auto space-y-8">
+      {sortedEvents.map((event, index) => (
+        <div key={event.id} className="border-l-4 border-warm-brown/30 pl-6 relative">
+          <div
+            className={`absolute -left-2 top-2 rounded-full ${
+              event.isActive
+                ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
+                : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
+            }`}
+          />
+          <div className="space-y-1">
+            <h3 className="text-2xl font-light text-warm-brown">{event.title}</h3>
+            <p className="text-warm-brown/70 font-medium">{event.date}</p>
+            <p className="text-soft-black/80 leading-relaxed">{event.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  // Curved path visualization
+  const renderCurvedPath = () => (
+    <div className="max-w-4xl mx-auto relative">
+      <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
+        <path
+          d={`M 50 50 Q 200 100 350 150 T 650 250 T 950 350`}
+          stroke="rgb(139, 110, 88)"
+          strokeWidth="2"
+          fill="none"
+          opacity="0.3"
+        />
+      </svg>
+      <div className="relative space-y-12" style={{ zIndex: 10 }}>
+        {sortedEvents.map((event, index) => (
+          <div 
+            key={event.id} 
+            className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
+          >
+            <div className="max-w-md p-4 relative">
+              <div
+                className={`absolute ${index % 2 === 0 ? '-right-6' : '-left-6'} top-4 rounded-full ${
+                  event.isActive
+                    ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
+                    : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
+                }`}
+                style={{ zIndex: 20 }}
+              />
+              <h3 className="text-lg font-medium text-warm-brown mb-1">{event.title}</h3>
+              <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-2">
+                {event.date}
+              </div>
+              <p className="text-sm text-soft-black/80 leading-relaxed">{event.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Timeline with just dots and text
+  const renderTimelineDots = () => (
+    <div className="max-w-2xl mx-auto">
+      {sortedEvents.map((event, index) => (
+        <div key={event.id} className="flex items-start gap-4 mb-8 last:mb-0">
+          <div className="flex flex-col items-center">
+            <div
+              className={`rounded-full ${
+                event.isActive
+                  ? 'w-6 h-6 bg-green-500 border-4 border-white shadow-lg'
+                  : 'w-5 h-5 bg-gray-400 border-4 border-white shadow-sm'
+              }`}
+            />
+            {index < sortedEvents.length - 1 && (
+              <div className="w-0.5 h-12 bg-warm-brown/30 mt-2" />
+            )}
+          </div>
+          <div className="flex-1 pt-1">
+            <h3 className="text-xl font-light text-warm-brown mb-1">{event.title}</h3>
+            <div className="text-sm text-warm-brown/70 font-medium mb-2">{event.date}</div>
+            <p className="text-sm text-soft-black/80 leading-relaxed">{event.description}</p>
           </div>
         </div>
       ))}
@@ -588,6 +707,10 @@ export default function AboutExperimental() {
         {/* Layout Toggle */}
         <div className="flex justify-center flex-wrap gap-2 mb-8">
           {[
+            { key: 'horizontal-flow', label: 'Horizontal Flow', mobile: 'Flow' },
+            { key: 'stacked-text', label: 'Stacked Text', mobile: 'Stack' },
+            { key: 'curved-path', label: 'Curved Path', mobile: 'Curved' },
+            { key: 'timeline-dots', label: 'Timeline Dots', mobile: 'Dots' },
             { key: 'original', label: 'Original Timeline', mobile: 'Timeline' },
             { key: 'cards-grid', label: 'Cards Grid', mobile: 'Grid' },
             { key: 'single-column', label: 'Single Column', mobile: 'Column' },
@@ -609,6 +732,10 @@ export default function AboutExperimental() {
         </div>
 
         {/* Timeline Layouts */}
+        {timelineLayout === 'horizontal-flow' && renderHorizontalFlow()}
+        {timelineLayout === 'stacked-text' && renderStackedText()}
+        {timelineLayout === 'curved-path' && renderCurvedPath()}
+        {timelineLayout === 'timeline-dots' && renderTimelineDots()}
         {timelineLayout === 'original' && renderOriginalTimeline()}
         {timelineLayout === 'cards-grid' && renderCardsGrid()}
         {timelineLayout === 'single-column' && renderSingleColumn()}

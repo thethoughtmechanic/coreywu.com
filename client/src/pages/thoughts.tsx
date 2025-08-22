@@ -161,17 +161,17 @@ export default function Thoughts() {
                     />
                   </div>
                   <div className="text-sm text-soft-black/80 leading-relaxed mb-4">
-                    <p className="mb-3"><strong>Cautious Cyborgs</strong>: Safety-first, Risk-mitigation, Guardrails, Defense-oriented</p>
-                    <p className="mb-4 text-xs text-orange-600">⚠️ Blind Spot: Over-engineer safety into paralysis</p>
+                    <p className="mb-2"><strong>Cautious Cyborgs</strong>: Safety-first, Risk-mitigation, Guardrails, Defense-oriented</p>
+                    <p className="mb-4 text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Over-engineer safety into paralysis</p>
                     
-                    <p className="mb-3"><strong>Augmented Dreamers</strong>: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented</p>
-                    <p className="mb-4 text-xs text-orange-600">⚠️ Blind Spot: Rush past critical safety considerations</p>
+                    <p className="mb-2"><strong>Augmented Dreamers</strong>: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented</p>
+                    <p className="mb-4 text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Rush past critical safety considerations</p>
                     
-                    <p className="mb-3"><strong>Nostalgic Doomers</strong>: Agency, Protection, Community, Preservation</p>
-                    <p className="mb-4 text-xs text-orange-600">⚠️ Blind Spot: Resist beneficial changes from loss aversion</p>
+                    <p className="mb-2"><strong>Nostalgic Doomers</strong>: Agency, Protection, Community, Preservation</p>
+                    <p className="mb-4 text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Resist beneficial changes from loss aversion</p>
                     
-                    <p className="mb-3"><strong>Analog Champions</strong>: Craft, Authenticity, Sustainability, Locality</p>
-                    <p className="text-xs text-orange-600">⚠️ Blind Spot: Miss scale problems requiring technological solutions</p>
+                    <p className="mb-2"><strong>Analog Champions</strong>: Craft, Authenticity, Sustainability, Locality</p>
+                    <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Miss scale problems requiring technological solutions</p>
                   </div>
                 </>
               ) : thought.id === '7' ? (

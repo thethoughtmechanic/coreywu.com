@@ -104,7 +104,7 @@ export default function Thoughts() {
 
               {thought.tag === 'Scenario' && thought.id === '4' ? (
                 <>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4">
+                  <h3 className="text-xl font-semibold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.title}
                   </h3>
                   <div className="flex items-center justify-center mb-4">
@@ -131,7 +131,7 @@ export default function Thoughts() {
                 </>
               ) : thought.id === '7' ? (
                 <>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4">
+                  <h3 className="text-xl font-semibold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.title}
                   </h3>
                   <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed mb-4">
@@ -155,7 +155,7 @@ export default function Thoughts() {
                 </>
               ) : (
                 <>
-                  <h3 className="text-lg font-medium text-warm-brown mb-4">
+                  <h3 className="text-xl font-semibold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                   </h3>
                   <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
@@ -423,7 +423,7 @@ export default function Thoughts() {
                     {/* Special treatment for Scenario - just title and image */}
                     {thought.tag === 'Scenario' ? (
                       <>
-                        <h3 className="text-lg font-medium text-warm-brown mb-4 text-left">
+                        <h3 className="text-xl font-semibold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                           {thought.title}
                         </h3>
                         {thought.id === '4' ? (
@@ -479,7 +479,7 @@ export default function Thoughts() {
                       </>
                     ) : (
                       <>
-                        <h3 className="text-lg font-medium text-warm-brown mb-4">
+                        <h3 className="text-xl font-semibold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                           {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                         </h3>
                         <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">

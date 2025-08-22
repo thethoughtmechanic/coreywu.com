@@ -4,7 +4,7 @@ export const thoughts: Thought[] = [
   {
     id: "12",
     title: "Four Tribes of Tomorrow",
-    description: "How we navigate technological change depends on two key factors: our optimism about the future and our preferred pace of adaptation.\n\nThe 2x2 Matrix:\n\n**Cautious Cyborgs** (Pessimist + Fast): Embrace tech quickly but expect things to go wrong\n**Augmented Dreamers** (Optimist + Fast): Rush toward a tech-enabled utopia\n**Nostalgic Purists** (Pessimist + Slow): Resist change, yearn for simpler times\n**Analog Champions** (Optimist + Slow): Believe in human potential without digital dependency\n\nWhich tribe are you?",
+    description: "```\n                    fast 'clock speeds'\n                           ↑\n                           │\n        Cautious    │    Augmented\n        Cyborgs     │     Dreamers\n                           │\n    ←──────────────────────────────────→\npessimist                            optimist\n                           │\n       Nostalgic    │     Analog\n        Purists     │   Champions\n                           │\n                           ↓\n                   slow 'clock speeds'\n```",
     fullDescription: null,
     tag: "Thought Bite",
     readTime: "2 min read",

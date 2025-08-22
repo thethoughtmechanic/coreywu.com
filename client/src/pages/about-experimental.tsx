@@ -233,7 +233,7 @@ export default function AboutExperimental() {
                 />
               ) : (
                 <span className={`${
-                  companyLogos[event.date as keyof typeof companyLogos] === 'CG' 
+                  companyLogos[event.date as keyof typeof companyLogos] === 'CI' 
                     ? 'text-sm font-bold text-warm-brown tracking-tight' 
                     : 'text-lg'
                 }`}>

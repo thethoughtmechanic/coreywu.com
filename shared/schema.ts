@@ -16,6 +16,7 @@ export const timelineEvents = pgTable("timeline_events", {
   description: text("description").notNull(),
   order: varchar("order").notNull(),
   isActive: boolean("is_active").notNull().default(false),
+  logo: text("logo"),
 });
 
 export const thoughts = pgTable("thoughts", {

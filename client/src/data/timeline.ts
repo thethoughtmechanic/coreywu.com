@@ -8,7 +8,8 @@ export const timelineEvents: TimelineEvent[] = [
     date: "Thoughtworks",
     description: "Nov 2021-present",
     order: "1",
-    isActive: true
+    isActive: true,
+    logo: "TW"
   },
   {
     id: "2",
@@ -16,7 +17,8 @@ export const timelineEvents: TimelineEvent[] = [
     date: "Counterintuitive Group",
     description: "Jul 2019-present",
     order: "2",
-    isActive: true
+    isActive: true,
+    logo: "CI"
   },
   {
     id: "3",
@@ -24,7 +26,8 @@ export const timelineEvents: TimelineEvent[] = [
     date: "KPMG Canada",
     description: "Mar-Oct 2021",
     order: "3",
-    isActive: false
+    isActive: false,
+    logo: "KPMG"
   },
   {
     id: "4",
@@ -32,7 +35,8 @@ export const timelineEvents: TimelineEvent[] = [
     date: "Idea Couture",
     description: "Jul 2017 - Feb 2019",
     order: "4",
-    isActive: false
+    isActive: false,
+    logo: "IC"
   },
   {
     id: "5",
@@ -40,6 +44,7 @@ export const timelineEvents: TimelineEvent[] = [
     date: "Smith School of Business at Queen's University",
     description: "Sep 2013 - Apr 2017",
     order: "5",
-    isActive: false
+    isActive: false,
+    logo: "QU"
   }
 ];

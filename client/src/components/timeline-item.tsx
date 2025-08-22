@@ -21,11 +21,20 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
       {/* Content positioned left or right */}
       <div className={`w-1/2 ${isLeft ? 'pr-6 text-right' : 'pl-6 ml-auto'}`}>
         <div className="relative bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300" style={{ zIndex: 20 }}>
-          <h3 className="text-lg font-medium text-warm-brown mb-1">
-            {event.title}
-          </h3>
-          <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block mb-2">
-            {event.date}
+          <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'justify-end' : 'justify-start'}`}>
+            {event.logo && (
+              <div className="w-10 h-10 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center text-xs font-medium text-warm-brown">
+                {event.logo}
+              </div>
+            )}
+            <div className={isLeft ? 'text-right' : 'text-left'}>
+              <h3 className="text-lg font-medium text-warm-brown">
+                {event.title}
+              </h3>
+              <div className="text-sm px-3 py-1 bg-warm-brown/15 text-warm-brown/80 rounded-full font-medium inline-block">
+                {event.date}
+              </div>
+            </div>
           </div>
           <p className="text-sm text-soft-black/80 leading-relaxed">
             {event.description}

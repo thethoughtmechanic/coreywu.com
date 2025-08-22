@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useMobile } from "@/hooks/use-mobile";
 import { ImageGallery } from "@/components/image-gallery";
 import { useLocation } from "wouter";
 
@@ -88,9 +88,7 @@ export default function PromptPulse() {
         {/* Image Gallery - Smaller clickable images */}
         <ImageGallery 
           images={projectEvents[currentEventIndex].images}
-          expandedImage={expandedImage}
           onImageClick={setExpandedImage}
-          onClose={() => setExpandedImage(null)}
         />
         
         {/* Show placeholder for empty assets */}

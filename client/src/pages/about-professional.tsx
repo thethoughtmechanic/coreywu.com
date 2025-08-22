@@ -174,15 +174,15 @@ export default function AboutProfessional() {
         </h2>
         
         <div className="relative max-w-4xl mx-auto">
-          <div className="space-y-8 relative">
-            {/* Timeline line - positioned at the very top with highest z-index */}
+          <div className="space-y-4 relative">
+            {/* Timeline line - positioned to run through the center dots */}
             {sortedEvents.length > 1 && (
               <div
-                className="absolute left-1/2 transform -translate-x-1/2 w-px bg-warm-brown"
+                className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-warm-brown"
                 style={{
-                  top: '24px',
-                  height: `calc(100% - 48px)`,
-                  zIndex: 999
+                  top: '40px',
+                  bottom: '40px',
+                  zIndex: 1
                 }}
               />
             )}

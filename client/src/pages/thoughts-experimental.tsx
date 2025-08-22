@@ -268,10 +268,10 @@ export default function ThoughtsExperimental() {
                 <div
                   className="absolute inset-0 rounded-full"
                   style={tag === "All" ? { background: "#8B6F47" } : 
-                         tag === "Thought Bite" ? { background: "#60a5fa" } :
-                         tag === "Scenario" ? { background: "#f87171" } :
-                         tag === "POV" ? { background: "#4ade80" } :
-                         tag === "Future Seed" ? { background: "#c084fc" } :
+                         tag === "Thought Bite" ? { background: "#3b82f6" } :
+                         tag === "Scenario" ? { background: "#ef4444" } :
+                         tag === "POV" ? { background: "#22c55e" } :
+                         tag === "Future Seed" ? { background: "#a855f7" } :
                          getPaintSplatter(tag)}
                 />
               )}
@@ -280,10 +280,10 @@ export default function ThoughtsExperimental() {
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"
                   style={tag === "All" ? { background: "#8B6F47" } : 
-                         tag === "Thought Bite" ? { background: "#60a5fa" } :
-                         tag === "Scenario" ? { background: "#f87171" } :
-                         tag === "POV" ? { background: "#4ade80" } :
-                         tag === "Future Seed" ? { background: "#c084fc" } :
+                         tag === "Thought Bite" ? { background: "#3b82f6" } :
+                         tag === "Scenario" ? { background: "#ef4444" } :
+                         tag === "POV" ? { background: "#22c55e" } :
+                         tag === "Future Seed" ? { background: "#a855f7" } :
                          getPaintSplatter(tag)}
                 />
               )}

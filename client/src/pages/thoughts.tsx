@@ -278,6 +278,40 @@ export default function Thoughts() {
                           </>
                         )}
                       </>
+                    ) : thought.id === '11' ? (
+                      <>
+                        {expandedThought === thought.id ? (
+                          <>
+                            <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
+                            <p className="mb-3">And honestly—it stung.</p>
+                            <p className="mb-3">Yes, I led the vision. I shaped the direction, coordinated the process, executed the details. But in the end, it still felt like commodity work—like something anyone (or anything) could do. The ego hit is real: I'm not the creator in the spotlight anymore, just the caretaker behind the curtain.</p>
+                            <p className="mb-3">And maybe that's the deeper shift AI brings. It isn't just about productivity or skill—it's about the death of the hero's journey. Are we no longer the heroes of our own stories, but a supporting role in someone else's function?</p>
+                            <button
+                              onClick={() => setExpandedThought(null)}
+                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                            >
+                              <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                              See less
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
+                            <p className="mb-4">And honestly—it stung.</p>
+                            <button
+                              onClick={() => setExpandedThought(thought.id)}
+                              className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                            >
+                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                              See more
+                            </button>
+                          </>
+                        )}
+                      </>
                     ) : thought.tag === 'Future Seed' ? (
                       <>
                         {expandedThought === thought.id ? (
@@ -662,6 +696,38 @@ export default function Thoughts() {
                                 <>
                                   <p className="mb-3">The other day a colleague asked me, "Did AI make that?"</p>
                                   <p className="mb-4">And honestly—it stung.</p>
+                                  <button
+                                    onClick={() => setExpandedThought(thought.id)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    See more
+                                  </button>
+                                </>
+                              )}
+                            </>
+                          ) : thought.tag === 'Future Seed' ? (
+                            <>
+                              {expandedThought === thought.id ? (
+                                <>
+                                  {thought.description?.split('\n').map((line, index) => (
+                                    line.trim() ? <p key={index} className="mb-3">{line}</p> : <div key={index} className="mb-3"></div>
+                                  ))}
+                                  <button
+                                    onClick={() => setExpandedThought(null)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    See less
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
                                     className="text-warm-brown/80 hover:text-warm-brown text-xs font-medium mt-2 flex items-center gap-1"

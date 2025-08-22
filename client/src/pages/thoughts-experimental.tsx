@@ -90,7 +90,7 @@ export default function ThoughtsExperimental() {
                       </span>
                     )}
                     {thought.status === 'wip' && (
-                      <span className="text-xs px-2 py-0.5 border border-warm-brown/30 text-warm-brown rounded-full font-medium">
+                      <span className="text-xs text-warm-brown/50 font-medium">
                         WIP
                       </span>
                     )}

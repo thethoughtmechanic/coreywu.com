@@ -71,42 +71,23 @@ export default function Thoughts() {
     <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
       {sortedThoughts.map((thought, index) => (
         <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card">
-          <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-warm-brown/20 group-hover/card:scale-105 group-hover/card:border-warm-brown/40 overflow-hidden relative ${
+          <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
             thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
             thought.tag === 'Scenario' ? 'min-h-[260px]' :
             index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
           }`}>
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  {/* Content type icon */}
-                  <div className="w-6 h-6 flex items-center justify-center">
-                    {thought.tag === 'Article' || thought.tag === 'Slides' ? (
-                      <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd"/>
-                      </svg>
-                    ) : thought.tag === 'Thought Bite' || thought.tag === 'Quick Thought' ? (
-                      <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd"/>
-                      </svg>
-                    ) : thought.tag === 'Scenario' ? (
-                      <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/>
-                      </svg>
-                    )}
-                  </div>
-                  {/* Tag pill with always-on paint splatter */}
-                  <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-300 text-white overflow-hidden shadow-md">
-                    <span className="relative z-10 font-semibold">
+                <div className="flex items-center gap-2">
+                  {/* Tag pill with border default and paint splatter hover */}
+                  <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
+                    {/* Default border state - visible by default */}
+                    <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
                       {thought.tag}
                     </span>
-                    {/* Always-on paint splatter background */}
+                    {/* Paint splatter background - appears on hover */}
                     <div
-                      className="absolute inset-0 rounded-full"
+                      className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
                       style={getPaintSplatter(thought.tag)}
                     />
                   </span>
@@ -362,19 +343,12 @@ export default function Thoughts() {
       {/* Header */}
       <header className="text-center mb-12 pt-4">
         {/* Title */}
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-warm-brown via-hover-brown to-warm-brown bg-clip-text text-transparent mb-4 text-center" data-testid="text-thoughts-title">
+        <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-thoughts-title">
           Idea Garden
         </h1>
-        
-        {/* Stats */}
-        <div className="flex justify-center gap-6 mb-6 text-sm text-warm-brown/70">
-          <span>{sortedThoughts.length} thoughts</span>
-          <span>•</span>
-          <span>{uniqueTags.length - 1} categories</span>
-        </div>
 
         {/* Description */}
-        <p className="text-muted-grey max-w-2xl mx-auto text-lg leading-relaxed">
+        <p className="text-muted-grey max-w-xl mx-auto">
           Reflections on design, strategy, and the intersection of technology and humanity
         </p>
       </header>
@@ -420,39 +394,20 @@ export default function Thoughts() {
           <div className="space-y-4">
             {sortedThoughts.map((thought, index) => (
               <div key={thought.id} className="group/card cursor-pointer">
-                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-warm-brown/20 group-hover/card:border-warm-brown/40 overflow-hidden relative">
+                <div className="w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 overflow-hidden relative">
 
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        {/* Content type icon */}
-                        <div className="w-6 h-6 flex items-center justify-center">
-                          {thought.tag === 'Article' || thought.tag === 'Slides' ? (
-                            <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd"/>
-                            </svg>
-                          ) : thought.tag === 'Thought Bite' || thought.tag === 'Quick Thought' ? (
-                            <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd"/>
-                            </svg>
-                          ) : thought.tag === 'Scenario' ? (
-                            <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                          ) : (
-                            <svg className="w-4 h-4 text-warm-brown/60" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/>
-                            </svg>
-                          )}
-                        </div>
-                        {/* Tag pill with always-on paint splatter - matching desktop */}
-                        <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-300 text-white overflow-hidden shadow-md">
-                          <span className="relative z-10 font-semibold">
+                      <div className="flex items-center gap-2">
+                        {/* Tag pill with border default and paint splatter hover - matching desktop */}
+                        <span className="relative text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-500 border border-warm-brown/30 text-warm-brown overflow-hidden">
+                          {/* Default border state - visible by default */}
+                          <span className="relative z-10 transition-colors duration-500 group-hover/card:text-white">
                             {thought.tag}
                           </span>
-                          {/* Always-on paint splatter background */}
+                          {/* Paint splatter background - appears on hover */}
                           <div
-                            className="absolute inset-0 rounded-full"
+                            className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-full"
                             style={getPaintSplatter(thought.tag)}
                           />
                         </span>

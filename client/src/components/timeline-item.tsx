@@ -19,22 +19,28 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
     return logoMap[companyName] || null;
   };
   return (
-    <div className="relative flex items-start min-h-[80px]">
+    <div className="relative flex items-start min-h-[120px]">
       {/* Content positioned left or right */}
       <div className={`w-1/2 ${isLeft ? 'pr-6 text-right' : 'pl-6 ml-auto'} relative`}>
-        <div className="relative bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300" style={{ zIndex: 20 }}>
-          {/* Center dot - positioned at middle of this content card */}
+        <div className="relative bg-light-brown rounded-lg p-6 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300" style={{ zIndex: 20 }}>
+          {/* Center dot - positioned to align with the center of the 3-line text content */}
           <div
-            className={`absolute ${isLeft ? 'right-[-12px]' : 'left-[-12px]'} top-1/2 transform -translate-y-1/2 rounded-full ${
+            className={`absolute ${isLeft ? 'right-[-12px]' : 'left-[-12px]'} rounded-full ${
               event.isActive
                 ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
                 : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
             }`}
-            style={{ zIndex: 1000 }}
+            style={{ 
+              zIndex: 1000,
+              top: '32px' // Positioned to align with center of the 3-line content area
+            }}
           ></div>
-          <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'justify-end' : 'justify-start'}`}>
+          
+          {/* Main content area with consistent structure */}
+          <div className={`flex items-start gap-4 ${isLeft ? 'justify-end flex-row-reverse' : 'justify-start'}`}>
+            {/* Company logo */}
             {event.logo && (
-              <div className="w-10 h-10 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-12 h-12 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center overflow-hidden flex-shrink-0 mt-1">
                 {getCompanyLogo(event.date) ? (
                   <img
                     src={getCompanyLogo(event.date)!}
@@ -48,21 +54,20 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
                 )}
               </div>
             )}
-            <div className={`${isLeft ? 'text-right' : 'text-left'} space-y-1`}>
-              <h3 className="text-lg font-medium text-warm-brown leading-tight">
+            
+            {/* Text content - exactly 3 lines */}
+            <div className={`flex-1 ${isLeft ? 'text-right' : 'text-left'}`}>
+              <h3 className="text-lg font-medium text-warm-brown leading-tight mb-1">
                 {event.title}
               </h3>
-              <p className="text-sm text-muted-grey font-medium">
+              <p className="text-sm text-muted-grey font-medium mb-1">
                 {event.date}
               </p>
-              <div className="text-xs text-muted-grey/70">
-                {event.description.split('\n')[1] || 'Present'}
+              <div className="text-sm text-soft-black/80">
+                {event.description}
               </div>
             </div>
           </div>
-          <p className="text-sm text-soft-black/80 leading-relaxed">
-            {event.description}
-          </p>
         </div>
       </div>
     </div>

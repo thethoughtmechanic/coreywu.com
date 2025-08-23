@@ -117,8 +117,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       <div className={cn(
         "fixed top-0 left-0 h-full w-[280px] z-[60] md:hidden transform transition-transform duration-300 ease-out shadow-xl",
         isDarkMode 
-          ? "bg-gray-900 border-r border-gray-700/30" 
-          : "bg-cream border-r border-warm-brown/20",
+          ? "bg-gray-900/98 backdrop-blur-md border-r border-gray-700/30" 
+          : "bg-cream/98 backdrop-blur-md border-r border-warm-brown/20",
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* Header */}

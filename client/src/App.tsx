@@ -3,7 +3,6 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ThemeProvider } from "./contexts/theme-context"; // Import ThemeProvider
 
 import { Navigation } from "@/components/navigation";
 import Home from "@/pages/home";
@@ -34,7 +33,6 @@ import { useState, useEffect } from "react";
 import EmailSubmissions from '@/pages/email-submissions';
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import GardenText from './pages/gardentext';
-import ThemePlayground from "./pages/theme-playground"; // Import ThemePlayground
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
@@ -98,7 +96,6 @@ function Router() {
           <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
           <Route path="/gardentext" component={GardenText} />
-          <Route path="/theme-playground" component={ThemePlayground} /> {/* Add theme playground route */}
 
           <Route path="/admin" component={Admin} />
           <Route path="/admin/emails" component={EmailSubmissions} />
@@ -114,12 +111,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <ThemeProvider> {/* Wrap with ThemeProvider */}
-          <div className="bg-cream min-h-screen">
-            <Toaster />
-            <Router />
-          </div>
-        </ThemeProvider> {/* Close ThemeProvider */}
+        <div className="bg-cream min-h-screen">
+          <Toaster />
+          <Router />
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );

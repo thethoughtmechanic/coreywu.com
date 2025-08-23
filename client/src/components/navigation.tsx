@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
-import { ThemeSwitcher } from "./theme-switcher";
 
 interface NavigationProps {
   isDarkMode?: boolean;
@@ -78,7 +77,6 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   </Link>
                 ))}
               </div>
-              <ThemeSwitcher variant="compact" />
             </div>
 
             {/* Mobile hamburger menu button */}
@@ -152,7 +150,6 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               {item.label}
             </Link>
           ))}
-          <ThemeSwitcher />
         </div>
       </div>
     </>

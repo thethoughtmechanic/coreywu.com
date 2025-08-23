@@ -53,7 +53,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
 
             {/* Desktop navigation */}
             <div className="hidden md:flex items-center space-x-3">
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-8">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}

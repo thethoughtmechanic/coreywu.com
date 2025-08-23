@@ -37,10 +37,10 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
           ></div>
           
           {/* Main content area with consistent structure */}
-          <div className={`flex items-start gap-4 ${isLeft ? 'justify-end flex-row-reverse' : 'justify-start'}`}>
+          <div className={`flex items-center gap-4 ${isLeft ? 'justify-end flex-row-reverse' : 'justify-start'}`}>
             {/* Company logo */}
             {event.logo && (
-              <div className="w-12 h-12 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center overflow-hidden flex-shrink-0 mt-1">
+              <div className="w-12 h-12 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center overflow-hidden flex-shrink-0">
                 {getCompanyLogo(event.date) ? (
                   <img
                     src={getCompanyLogo(event.date)!}

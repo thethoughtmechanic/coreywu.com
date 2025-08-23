@@ -19,20 +19,19 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
     return logoMap[companyName] || null;
   };
   return (
-    <div className="relative flex items-center min-h-[80px]">
-      {/* Center dot - positioned at middle of container with highest z-index */}
-      <div
-        className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full ${
-          event.isActive
-            ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
-            : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
-        }`}
-        style={{ zIndex: 1000 }}
-      ></div>
-
+    <div className="relative flex items-start min-h-[80px]">
       {/* Content positioned left or right */}
-      <div className={`w-1/2 ${isLeft ? 'pr-6 text-right' : 'pl-6 ml-auto'}`}>
+      <div className={`w-1/2 ${isLeft ? 'pr-6 text-right' : 'pl-6 ml-auto'} relative`}>
         <div className="relative bg-light-brown rounded-lg p-4 border border-warm-brown/20 hover:shadow-lg transition-shadow duration-300" style={{ zIndex: 20 }}>
+          {/* Center dot - positioned at middle of this content card */}
+          <div
+            className={`absolute ${isLeft ? 'right-[-12px]' : 'left-[-12px]'} top-1/2 transform -translate-y-1/2 rounded-full ${
+              event.isActive
+                ? 'w-4 h-4 bg-green-500 border-2 border-white shadow-lg'
+                : 'w-3 h-3 bg-gray-400 border-2 border-white shadow-sm'
+            }`}
+            style={{ zIndex: 1000 }}
+          ></div>
           <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'justify-end' : 'justify-start'}`}>
             {event.logo && (
               <div className="w-10 h-10 bg-white rounded-full border border-warm-brown/20 flex items-center justify-center overflow-hidden flex-shrink-0">

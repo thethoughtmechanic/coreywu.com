@@ -77,19 +77,11 @@ app.use((req, res, next) => {
     });
   });
 
-  // Handle server errors gracefully
+  // Simple server startup with error handling
   server.on('error', (err: any) => {
     if (err.code === 'EADDRINUSE') {
-      log(`Port ${port} is already in use. Attempting to start on next available port...`);
-      // Try to start on a different port
-      const fallbackPort = port + 1;
-      server.listen({
-        port: fallbackPort,
-        host: "0.0.0.0",
-        reusePort: true,
-      }, () => {
-        log(`serving on fallback port ${fallbackPort}`);
-      });
+      log(`Port ${port} is already in use. Please check for existing processes.`);
+      process.exit(1);
     } else {
       log(`Server error: ${err.message}`);
       throw err;
@@ -99,7 +91,7 @@ app.use((req, res, next) => {
   server.listen({
     port,
     host: "0.0.0.0",
-    reusePort: true,
+    reusePort: false,
   }, () => {
     log(`serving on port ${port}`);
   });

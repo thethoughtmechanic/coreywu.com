@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import Logo from "./Logo";
+import { Logo } from "./Logo";
 
 interface NavigationProps {
   isDarkMode?: boolean;
@@ -71,7 +71,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                           )
                     )}
                     data-testid={`link-${item.label.toLowerCase().replace(" ", "-")}`}
-                    onClick={() => window.trackNavigationClick && window.trackNavigationClick(item.path.substring(1), 'navigation')}
+                    onClick={() => (window as any).trackNavigationClick && (window as any).trackNavigationClick(item.path.substring(1), 'navigation')}
                   >
                     {item.label}
                   </Link>

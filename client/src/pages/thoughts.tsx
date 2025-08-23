@@ -667,26 +667,37 @@ export default function Thoughts() {
                           {thought.title}
                         </h3>
                         <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
-                          {thought.id === '8' ? (
+                          {thought.id === '12' ? (
                             <>
                               {expandedThought === thought.id ? (
                                 <>
-                                  <div className="space-y-4 mb-4">
-                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
-                                      <p className="mb-2"><strong>Techno-Optimists</strong>: Innovation, Efficiency, Growth, Progress</p>
-                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: Externalities, unintended consequences</p>
+                                  <p className="mb-4">{thought.fullDescription?.split('\n\n')[0]}</p>
+                                  <div className="flex items-center justify-center mb-4">
+                                    <img
+                                      src={fourTribesImage}
+                                      alt="Four Tribes of Tomorrow Matrix"
+                                      className="max-w-full max-h-64 object-contain rounded-lg"
+                                    />
+                                  </div>
+                                  <div className="space-y-4">
+                                    <div>
+                                      <p className="mb-2"><strong>Cautious Cyborgs</strong>: Safety-first, Risk-mitigation, Guardrails, Defense-oriented</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Over-engineer safety into paralysis</p>
                                     </div>
-                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
-                                      <p className="mb-2"><strong>Planetary Realists</strong>: Sustainability, Responsibility, Systems thinking, Precaution</p>
-                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: May stifle beneficial innovation</p>
+
+                                    <div>
+                                      <p className="mb-2"><strong>Augmented Dreamers</strong>: Move-fast, Push-boundaries, Scale-aggressively, Offense-oriented</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Rush past critical safety considerations</p>
                                     </div>
-                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
-                                      <p className="mb-2"><strong>AI Accelerationists</strong>: Speed, Intelligence augmentation, Capability advancement, Competition</p>
-                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: Safety concerns, alignment problems</p>
+
+                                    <div>
+                                      <p className="mb-2"><strong>Nostalgic Doomers</strong>: Agency, Protection, Community, Preservation</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Resist beneficial changes from loss aversion</p>
                                     </div>
-                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
+
+                                    <div>
                                       <p className="mb-2"><strong>Analog Champions</strong>: Craft, Authenticity, Sustainability, Locality</p>
-                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: Miss scale problems requiring technological solutions</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-4 border-l-2 border-warm-brown/20">Blind spot: Miss scale problems requiring technological solutions</p>
                                     </div>
                                   </div>
                                   <button
@@ -703,12 +714,11 @@ export default function Thoughts() {
                                 <>
                                   <div className="flex items-center justify-center mb-4">
                                     <img
-                                      src="/four-tribes-matrix.png"
+                                      src={fourTribesImage}
                                       alt="Four Tribes of Tomorrow Matrix"
-                                      className="max-w-full h-auto object-contain rounded-lg"
+                                      className="max-w-full max-h-48 object-contain rounded-lg"
                                     />
                                   </div>
-                                  <p className="mb-3">The traditional left-right spectrum feels inadequate for navigating questions about technological pace, human agency, and our relationship with artificial intelligence.</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
                                     className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"

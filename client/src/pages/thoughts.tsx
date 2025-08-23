@@ -671,13 +671,27 @@ export default function Thoughts() {
                             <>
                               {expandedThought === thought.id ? (
                                 <>
-                                  <p className="mb-3">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
-                                  <p className="mb-3">Optimists see missed breakthroughs as moral failures—every delayed cure costs lives. Pessimists see rushed deployments as existential risks—one bad AI launch undermines decades of progress.</p>
-                                  <p className="mb-3">Short-term, reversible decisions favour Type 1 tolerance (try fast, fail fast). Long-term, irreversible ones favour Type 2 tolerance (genetic modifications, climate interventions can't be easily undone).</p>
-                                  <p className="mb-3">The question isn't which error type to avoid, but developing better mechanisms to adjust our tolerance based on context, stakes, and reversibility.</p>
+                                  <div className="space-y-4 mb-4">
+                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
+                                      <p className="mb-2"><strong>Techno-Optimists</strong>: Innovation, Efficiency, Growth, Progress</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: Externalities, unintended consequences</p>
+                                    </div>
+                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
+                                      <p className="mb-2"><strong>Planetary Realists</strong>: Sustainability, Responsibility, Systems thinking, Precaution</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: May stifle beneficial innovation</p>
+                                    </div>
+                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
+                                      <p className="mb-2"><strong>AI Accelerationists</strong>: Speed, Intelligence augmentation, Capability advancement, Competition</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: Safety concerns, alignment problems</p>
+                                    </div>
+                                    <div className="bg-warm-brown/5 p-3 rounded-lg">
+                                      <p className="mb-2"><strong>Analog Champions</strong>: Craft, Authenticity, Sustainability, Locality</p>
+                                      <p className="text-xs text-warm-brown/70 italic pl-3 border-l-2 border-warm-brown/20">Blind spot: Miss scale problems requiring technological solutions</p>
+                                    </div>
+                                  </div>
                                   <button
                                     onClick={() => setExpandedThought(null)}
-                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-4 flex items-center gap-1"
                                   >
                                     <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -687,7 +701,14 @@ export default function Thoughts() {
                                 </>
                               ) : (
                                 <>
-                                  <p className="mb-2">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
+                                  <div className="flex items-center justify-center mb-4">
+                                    <img
+                                      src="/four-tribes-matrix.png"
+                                      alt="Four Tribes of Tomorrow Matrix"
+                                      className="max-w-full h-auto object-contain rounded-lg"
+                                    />
+                                  </div>
+                                  <p className="mb-3">The traditional left-right spectrum feels inadequate for navigating questions about technological pace, human agency, and our relationship with artificial intelligence.</p>
                                   <button
                                     onClick={() => setExpandedThought(thought.id)}
                                     className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"

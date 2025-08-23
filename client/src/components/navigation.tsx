@@ -102,54 +102,93 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       </nav>
 
       {/* Mobile navigation overlay */}
-      {isMenuOpen && (
-        <div
-          className={cn(
-            "fixed inset-0 backdrop-blur-sm z-[60] md:hidden",
-            isDarkMode ? "bg-black/40" : "bg-warm-brown/20"
-          )}
-          onClick={closeMenu}
-          data-testid="overlay-mobile-menu"
-        />
+      <div className={cn(
+        "fixed inset-0 z-[50] md:hidden transition-all duration-300 ease-out",
+        isMenuOpen 
+          ? "opacity-100 backdrop-blur-sm pointer-events-auto" 
+          : "opacity-0 pointer-events-none",
+        isDarkMode ? "bg-black/50" : "bg-warm-brown/30"
       )}
+        onClick={closeMenu}
+        data-testid="overlay-mobile-menu"
+      />
 
       {/* Mobile navigation menu */}
       <div className={cn(
-        "fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 backdrop-blur-md border-l transform transition-transform duration-300 ease-in-out z-[60] md:hidden shadow-2xl",
+        "fixed top-0 left-0 h-full w-[280px] z-[60] md:hidden transform transition-transform duration-300 ease-out shadow-xl",
         isDarkMode 
-          ? "bg-gray-900/98 border-gray-700/30" 
-          : "bg-cream/98 border-warm-brown/30",
-        isMenuOpen ? "translate-x-0" : "translate-x-full"
+          ? "bg-gray-900 border-r border-gray-700/30" 
+          : "bg-cream border-r border-warm-brown/20",
+        isMenuOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="flex flex-col p-6 space-y-6">
-          <div className={cn(
-            "text-lg font-medium mb-4",
+        {/* Header */}
+        <div className={cn(
+          "flex items-center justify-between p-6 border-b",
+          isDarkMode ? "border-gray-700/30" : "border-warm-brown/20"
+        )}>
+          <span className={cn(
+            "text-lg font-semibold",
             isDarkMode ? "text-white" : "text-warm-brown"
           )}>
-            Navigation
-          </div>
-          {navItems.map((item) => (
+            Menu
+          </span>
+          <button
+            onClick={closeMenu}
+            className={cn(
+              "p-2 rounded-lg transition-colors",
+              isDarkMode 
+                ? "text-gray-300 hover:text-white hover:bg-gray-800" 
+                : "text-warm-brown hover:text-hover-brown hover:bg-light-brown"
+            )}
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Navigation Items */}
+        <div className="flex flex-col py-4">
+          {navItems.map((item, index) => (
             <Link
               key={item.path}
               href={item.path}
               onClick={closeMenu}
               className={cn(
-                "text-lg transition-colors duration-200 py-3 px-4 rounded-lg border-l-4 border-transparent",
+                "flex items-center px-6 py-4 text-base font-medium transition-all duration-200 border-l-4 border-transparent relative",
                 isDarkMode 
                   ? cn(
-                      "text-gray-300 hover:text-white hover:bg-gray-800",
-                      location === item.path && "border-l-white text-white bg-gray-800 font-medium"
+                      "text-gray-300 hover:text-white hover:bg-gray-800/50",
+                      location === item.path && "border-l-white text-white bg-gray-800/30"
                     )
                   : cn(
-                      "text-soft-black hover:text-warm-brown hover:bg-light-brown",
-                      location === item.path && "border-l-warm-brown text-warm-brown bg-light-brown font-medium"
+                      "text-soft-black hover:text-warm-brown hover:bg-light-brown/50",
+                      location === item.path && "border-l-warm-brown text-warm-brown bg-light-brown/30"
                     )
               )}
               data-testid={`link-mobile-${item.label.toLowerCase().replace(" ", "-")}`}
+              style={{
+                animationDelay: isMenuOpen ? `${index * 50}ms` : '0ms'
+              }}
             >
-              {item.label}
+              <span className="relative">
+                {item.label}
+                {location === item.path && (
+                  <div className={cn(
+                    "absolute -bottom-1 left-0 w-full h-0.5 rounded-full",
+                    isDarkMode ? "bg-white" : "bg-warm-brown"
+                  )} />
+                )}
+              </span>
             </Link>
           ))}
+        </div>
+
+        {/* Footer */}
+        <div className={cn(
+          "absolute bottom-6 left-6 right-6 text-xs opacity-60",
+          isDarkMode ? "text-gray-400" : "text-soft-black"
+        )}>
+          Corey Wu © 2024
         </div>
       </div>
     </>

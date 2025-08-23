@@ -14,7 +14,8 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
     const logoMap: { [key: string]: string } = {
       "Thoughtworks": thoughtworksLogo,
       "Idea Couture": ideaCoutureLogo,
-      "Smith School of Business at Queen's University": queensLogo
+      "Smith School of Business at Queen's University": queensLogo,
+      "KPMG Canada": "https://via.placeholder.com/32x32?text=KPMG"
     };
     return logoMap[companyName] || null;
   };
@@ -46,6 +47,7 @@ export function TimelineItem({ event, isLeft }: TimelineItemProps) {
                     src={getCompanyLogo(event.date)!}
                     alt={`${event.date} logo`}
                     className="w-8 h-8 object-contain"
+                    style={{ objectPosition: 'center' }}
                   />
                 ) : (
                   <span className="text-xs font-medium text-warm-brown">

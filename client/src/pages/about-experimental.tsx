@@ -241,7 +241,7 @@ export default function AboutExperimental() {
       {sortedEvents.map((event, index) => (
         <div key={event.id} className="flex items-start gap-4 mb-8 last:mb-0">
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 bg-white rounded-full border-2 border-warm-brown/20 shadow-sm flex items-center justify-center overflow-hidden">
+            <div className="w-12 h-12 bg-white rounded-full border-2 border-warm-brown/20 shadow-sm flex items-center justify-center overflow-hidden" style={{ marginTop: '16px' }}>
               {getCompanyLogo(event.date) ? (
                 <img
                   src={getCompanyLogo(event.date)!}

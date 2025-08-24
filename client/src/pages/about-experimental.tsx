@@ -518,7 +518,7 @@ export default function AboutExperimental() {
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
 
                 {/* Content with special hover effects for Game Designer and Strategic Futurist */}
-                <span className={`relative z-10 ${
+                <span className={`relative z-10 whitespace-nowrap ${
                   role === "Game Designer" ? "group-hover:text-white group-hover:font-bold" :
                   role === "Strategic Futurist" ? "group-hover:text-white group-hover:font-bold" :
                   "group-hover:text-white group-hover:font-semibold"

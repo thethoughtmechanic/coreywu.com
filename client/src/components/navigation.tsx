@@ -154,7 +154,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               href={item.path}
               onClick={closeMenu}
               className={cn(
-                "flex items-center px-8 py-5 text-lg font-semibold transition-all duration-200 border-l-4 border-transparent relative",
+                "group flex items-center px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative",
                 isDarkMode 
                   ? cn(
                       "text-gray-300 hover:text-white hover:bg-gray-800/50",

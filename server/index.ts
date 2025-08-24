@@ -43,8 +43,9 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
+    log(`Error: ${message}`);
     res.status(status).json({ message });
-    throw err;
+    // Don't throw the error - this crashes the server!
   });
 
   // importantly only setup vite in development and after
@@ -77,14 +78,36 @@ app.use((req, res, next) => {
     });
   });
 
-  // Simple server startup with error handling
+  // Handle unhandled promise rejections and exceptions to prevent crashes
+  process.on('unhandledRejection', (reason, promise) => {
+    log(`Unhandled Rejection at: ${promise}, reason: ${reason}`);
+    // Don't exit - just log the error
+  });
+
+  process.on('uncaughtException', (error) => {
+    log(`Uncaught Exception: ${error.message}`);
+    // Don't exit immediately - allow graceful handling
+  });
+
+  // Enhanced server startup with better error handling
   server.on('error', (err: any) => {
     if (err.code === 'EADDRINUSE') {
-      log(`Port ${port} is already in use. Please check for existing processes.`);
-      process.exit(1);
+      log(`Port ${port} is already in use. Attempting to find alternative port...`);
+      // Try alternative ports instead of immediately exiting
+      const altPort = port + 1;
+      log(`Trying port ${altPort}...`);
+      server.listen({ port: altPort, host: "0.0.0.0" }, () => {
+        log(`serving on port ${altPort}`);
+      });
     } else {
       log(`Server error: ${err.message}`);
-      throw err;
+      // Don't throw - log and attempt recovery
+      setTimeout(() => {
+        log('Attempting server restart...');
+        server.listen({ port, host: "0.0.0.0" }, () => {
+          log(`serving on port ${port}`);
+        });
+      }, 2000);
     }
   });
 

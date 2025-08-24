@@ -863,6 +863,39 @@ export default function Thoughts() {
                                 </>
                               )}
                             </>
+                          ) : thought.id === '8' ? (
+                            <>
+                              {expandedThought === thought.id ? (
+                                <>
+                                  <p className="mb-3">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
+                                  <p className="mb-3">Optimists see missed breakthroughs as moral failures—every delayed cure costs lives. Pessimists see rushed deployments as existential risks—one bad AI launch undermines decades of progress.</p>
+                                  <p className="mb-3">Short-term, reversible decisions favour Type 1 tolerance (try fast, fail fast). Long-term, irreversible ones favour Type 2 tolerance (genetic modifications, climate interventions can't be easily undone).</p>
+                                  <p className="mb-3">The question isn't which error type to avoid, but developing better mechanisms to adjust our tolerance based on context, stakes, and reversibility.</p>
+                                  <button
+                                    onClick={() => setExpandedThought(null)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    See less
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="mb-2">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
+                                  <button
+                                    onClick={() => setExpandedThought(thought.id)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
+                                  >
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    See more
+                                  </button>
+                                </>
+                              )}
+                            </>
                           ) : (
                             <div className="text-sm text-soft-black/70 mb-4 leading-relaxed">
                               {(thought.description || '').split('\n').map((line, index) => {

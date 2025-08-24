@@ -6,6 +6,7 @@ import { useLocation } from "wouter";
 
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
+  const [expandedTech, setExpandedTech] = useState<Set<string>>(new Set());
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
 
@@ -203,10 +204,13 @@ export default function Experiments() {
               {experiment.description}
             </p>
 
-            {/* Technologies - max 2 lines with +x more */}
+            {/* Technologies - expandable */}
             {experiment.technologies && experiment.technologies.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
-                {experiment.technologies.slice(0, 3).map((tech, index) => (
+                {(expandedTech.has(experiment.id) 
+                  ? experiment.technologies 
+                  : experiment.technologies.slice(0, 3)
+                ).map((tech, index) => (
                   <span 
                     key={index}
                     className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
@@ -214,10 +218,31 @@ export default function Experiments() {
                     {tech}
                   </span>
                 ))}
-                {experiment.technologies.length > 3 && (
-                  <span className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium">
+                {experiment.technologies.length > 3 && !expandedTech.has(experiment.id) && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newExpanded = new Set(expandedTech);
+                      newExpanded.add(experiment.id);
+                      setExpandedTech(newExpanded);
+                    }}
+                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors"
+                  >
                     +{experiment.technologies.length - 3} More
-                  </span>
+                  </button>
+                )}
+                {expandedTech.has(experiment.id) && experiment.technologies.length > 3 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newExpanded = new Set(expandedTech);
+                      newExpanded.delete(experiment.id);
+                      setExpandedTech(newExpanded);
+                    }}
+                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors"
+                  >
+                    Show Less
+                  </button>
                 )}
               </div>
             )}
@@ -244,30 +269,10 @@ export default function Experiments() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
-      <header className="text-center mb-8">
+      <header className="text-center mb-12">
         <h1 className="text-4xl font-light text-warm-brown mb-4" data-testid="text-experiments-title">
           Experiments
         </h1>
-        {isMobile && (
-          <div className="grid grid-cols-2 gap-3 text-sm text-muted-grey mb-6 max-w-sm mx-auto">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-yellow-500 flex-shrink-0"></div>
-              <span>Work in Progress</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-green-500 flex-shrink-0"></div>
-              <span>Active</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-blue-500 flex-shrink-0"></div>
-              <span>Shipped</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 min-w-[12px] min-h-[12px] rounded-full bg-gray-500 flex-shrink-0"></div>
-              <span>Sunset</span>
-            </div>
-          </div>
-        )}
       </header>
 
       <main>

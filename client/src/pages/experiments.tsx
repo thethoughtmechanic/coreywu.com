@@ -149,44 +149,64 @@ export default function Experiments() {
     </div>
   );
 
+  // Status pill component
+  const StatusPill = ({ status, isActive }: { status: string, isActive?: boolean }) => {
+    const getStatusText = () => {
+      if (status === 'sunset') return 'Sunset';
+      if (status === 'wip') return 'WIP';
+      if (status === 'shipped' && isActive) return 'Active';
+      if (status === 'shipped') return 'Shipped';
+      return status;
+    };
+
+    const getStatusColor = () => {
+      if (status === 'sunset') return 'bg-gray-100 text-gray-600 border-gray-200';
+      if (status === 'wip') return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+      if (status === 'shipped' && isActive) return 'bg-green-100 text-green-700 border-green-200';
+      if (status === 'shipped') return 'bg-blue-100 text-blue-700 border-blue-200';
+      return 'bg-gray-100 text-gray-600 border-gray-200';
+    };
+
+    return (
+      <span className={`text-xs px-2.5 py-1 rounded-full font-medium border ${getStatusColor()}`}>
+        {getStatusText()}
+      </span>
+    );
+  };
+
   // Mobile Card View
   const MobileView = () => (
     <div className="space-y-4">
       {orderedExperiments.map((experiment) => {
         const route = getExperimentRoute(experiment.id);
+        
         const CardContent = () => (
           <div className="space-y-3">
-            {/* Row 1: Status dot + Project title */}
-            <div className="flex items-center gap-3 mb-2">
-              <div 
-                className={`w-3 h-3 min-w-[12px] min-h-[12px] rounded-full flex-shrink-0 ${
-                  experiment.status === 'sunset' ? 'bg-gray-500' : 
-                  experiment.status === 'wip' ? 'bg-yellow-500' : 
-                  experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
-                  experiment.status === 'shipped' ? 'bg-blue-500' :
-                  'bg-gray-400'
-                }`} 
-              />
+            {/* Title and Status Pill Row */}
+            <div className="flex items-center gap-3">
               <h3 className={`font-medium text-lg ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
                 {experiment.title}
               </h3>
+              <StatusPill status={experiment.status} isActive={experiment.isActive} />
             </div>
 
-            {/* Row 2: Date and collaborator */}
-            <div className="flex items-center justify-between text-sm mb-1">
-              <span className="text-gray-400">{experiment.timeframe}</span>
-              <span className="text-gray-400">{getTeamDisplay(experiment)}</span>
+            {/* Timeframe and Team on one line */}
+            <div className="text-sm text-gray-400">
+              {experiment.timeframe} | {experiment.collaborators && experiment.collaborators.length > 0
+                ? experiment.collaborators.join(', ')
+                : 'Solo'
+              }
             </div>
 
             {/* Description */}
-            <div>
-              <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>
-            </div>
+            <p className="text-sm text-soft-black leading-relaxed">
+              {experiment.description}
+            </p>
 
-            {/* Technologies as pills with improved styling */}
+            {/* Technologies - max 2 lines with +x more */}
             {experiment.technologies && experiment.technologies.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
-                {experiment.technologies.map((tech, index) => (
+                {experiment.technologies.slice(0, 3).map((tech, index) => (
                   <span 
                     key={index}
                     className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
@@ -194,6 +214,11 @@ export default function Experiments() {
                     {tech}
                   </span>
                 ))}
+                {experiment.technologies.length > 3 && (
+                  <span className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium">
+                    +{experiment.technologies.length - 3} More
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -203,13 +228,13 @@ export default function Experiments() {
           <button
             key={experiment.id}
             onClick={() => setLocation(route)}
-            className="w-full bg-light-brown rounded-lg p-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
+            className="w-full bg-light-brown rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20"
             data-testid={`button-${experiment.id}-mobile`}
           >
             <CardContent />
           </button>
         ) : (
-          <div key={experiment.id} className="bg-light-brown rounded-lg p-4">
+          <div key={experiment.id} className="bg-light-brown rounded-lg p-6 shadow-sm border border-warm-brown/10">
             <CardContent />
           </div>
         );

@@ -175,9 +175,53 @@ export default function Experiments() {
     );
   };
 
+  // Mobile Overview Section
+  const MobileOverview = () => (
+    <div className="mb-8 pb-6 border-b border-warm-brown/20">
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-light text-warm-brown mb-3">
+          Building Better Things
+        </h2>
+        <p className="text-soft-black/80 leading-relaxed text-sm max-w-md mx-auto">
+          Each project is an experiment in making the world a little more intentional, 
+          meaningful, and human. From AI tools to coffee experiences to music.
+        </p>
+      </div>
+      
+      <div className="flex justify-center items-center gap-4 mb-4">
+        <div className="flex items-center gap-2 text-xs">
+          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          <span className="text-muted-grey">Active</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs">
+          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+          <span className="text-muted-grey">Shipped</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs">
+          <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+          <span className="text-muted-grey">WIP</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs">
+          <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+          <span className="text-muted-grey">Sunset</span>
+        </div>
+      </div>
+      
+      <div className="text-center">
+        <div className="inline-flex items-center gap-1 text-xs text-muted-grey animate-bounce">
+          <span>Scroll to explore</span>
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+
   // Mobile Card View
   const MobileView = () => (
     <div className="space-y-4">
+      <MobileOverview />
       {orderedExperiments.map((experiment) => {
         const route = getExperimentRoute(experiment.id);
         

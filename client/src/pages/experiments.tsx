@@ -302,30 +302,30 @@ export default function Experiments() {
                   </span>
                 ))}
                 {experiment.technologies.length > 3 && !expandedTech.has(experiment.id) && (
-                  <button
+                  <span
                     onClick={(e) => {
                       e.stopPropagation();
                       const newExpanded = new Set(expandedTech);
                       newExpanded.add(experiment.id);
                       setExpandedTech(newExpanded);
                     }}
-                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors"
+                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
                   >
                     +{experiment.technologies.length - 3} More
-                  </button>
+                  </span>
                 )}
                 {expandedTech.has(experiment.id) && experiment.technologies.length > 3 && (
-                  <button
+                  <span
                     onClick={(e) => {
                       e.stopPropagation();
                       const newExpanded = new Set(expandedTech);
                       newExpanded.delete(experiment.id);
                       setExpandedTech(newExpanded);
                     }}
-                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors"
+                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
                   >
                     Show Less
-                  </button>
+                  </span>
                 )}
               </div>
             )}

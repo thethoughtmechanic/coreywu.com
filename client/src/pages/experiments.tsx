@@ -152,7 +152,7 @@ export default function Experiments() {
     };
 
     const yearA = getYear(a.timeframe || '');
-    const yearB = get year(b.timeframe || '');
+    const yearB = getYear(b.timeframe || '');
 
     return yearB - yearA; // Descending order
   });

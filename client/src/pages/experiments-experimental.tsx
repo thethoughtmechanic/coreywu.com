@@ -47,50 +47,71 @@ export default function ExperimentsExperimental() {
     });
   });
 
-  const ExperimentItem = ({ experiment }: { experiment: Experiment }) => {
+  // Folder icon component
+  const FolderIcon = ({ experiment, isExpanded }: { experiment: Experiment; isExpanded: boolean }) => {
+    const getStatusColor = () => {
+      if (experiment.status === 'sunset') return 'text-gray-500';
+      if (experiment.status === 'wip') return 'text-yellow-600';
+      if (experiment.status === 'shipped' && experiment.isActive) return 'text-green-600';
+      if (experiment.status === 'shipped') return 'text-blue-600';
+      return 'text-gray-400';
+    };
+
+    return (
+      <div className={`w-16 h-16 ${getStatusColor()} transition-transform duration-200 ${isExpanded ? 'scale-110' : 'hover:scale-105'}`}>
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+          <path d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z"/>
+          {/* Folder tab */}
+          <path d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z" 
+                opacity="0.7"/>
+          {/* Status indicator dot */}
+          <circle cx="18" cy="8" r="2" fill="currentColor" opacity="0.9"/>
+        </svg>
+      </div>
+    );
+  };
+
+  const ExperimentFolder = ({ experiment }: { experiment: Experiment }) => {
     const route = getExperimentRoute(experiment.id);
     const isExpanded = expandedExperiment === experiment.id;
 
+    const handleFolderClick = () => {
+      if (route) {
+        setLocation(route);
+      } else {
+        setExpandedExperiment(isExpanded ? null : experiment.id);
+      }
+    };
+
     return (
-      <div className="bg-white rounded-lg border border-warm-brown/20 hover:border-warm-brown/40 transition-all duration-200">
-        {/* Compact Header - Always Visible */}
-        <div className="p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <div
-              className={`w-2 h-2 rounded-full flex-shrink-0 ${
-                experiment.status === 'sunset' ? 'bg-gray-500' :
-                experiment.status === 'wip' ? 'bg-yellow-500' :
-                experiment.status === 'shipped' && experiment.isActive ? 'bg-green-500' :
-                experiment.status === 'shipped' ? 'bg-blue-500' :
-                'bg-gray-400'
-              }`}
-            />
-            <h3 className={`font-medium text-sm ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
-              {experiment.title}
-            </h3>
-          </div>
+      <div className="flex flex-col items-center space-y-2 group">
+        {/* Folder Icon */}
+        <button
+          onClick={handleFolderClick}
+          className="flex flex-col items-center space-y-2 p-2 rounded-lg hover:bg-warm-brown/10 transition-all duration-200 cursor-pointer"
+        >
+          <FolderIcon experiment={experiment} isExpanded={isExpanded} />
           
-          <div className="text-xs text-muted-grey mb-2">
-            {experiment.timeframe}
+          {/* Folder Label */}
+          <div className="text-center max-w-[100px]">
+            <div className={`text-xs font-medium leading-tight ${route ? 'text-amber-700' : 'text-warm-brown'} group-hover:text-amber-800`}>
+              {experiment.title}
+            </div>
+            <div className="text-[10px] text-muted-grey mt-0.5">
+              {experiment.timeframe}
+            </div>
           </div>
+        </button>
 
-          <button
-            onClick={() => setExpandedExperiment(isExpanded ? null : experiment.id)}
-            className="text-xs text-warm-brown hover:text-amber-700 font-medium"
-          >
-            {isExpanded ? 'Show Less ↑' : 'See More ↓'}
-          </button>
-        </div>
-
-        {/* Expanded Content */}
-        {isExpanded && (
-          <div className="px-4 pb-4 border-t border-warm-brown/10">
-            <p className="text-sm text-soft-black leading-relaxed mb-3 mt-3">
+        {/* Expanded Details - appears below folder when expanded */}
+        {isExpanded && !route && (
+          <div className="w-64 bg-white border border-warm-brown/20 rounded-lg p-3 shadow-lg z-10 mt-2">
+            <p className="text-xs text-soft-black leading-relaxed mb-2">
               {experiment.description}
             </p>
 
-            <div className="space-y-2">
-              <div className="text-xs text-warm-brown font-medium">
+            <div className="space-y-1">
+              <div className="text-[10px] text-warm-brown font-medium">
                 {experiment.collaborators && experiment.collaborators.length > 0
                   ? `Team: ${experiment.collaborators.join(', ')}`
                   : 'Solo'
@@ -99,30 +120,28 @@ export default function ExperimentsExperimental() {
 
               {experiment.technologies && experiment.technologies.length > 0 && (
                 <div className="flex flex-wrap gap-1">
-                  {experiment.technologies.slice(0, 3).map((tech, index) => (
+                  {experiment.technologies.slice(0, 2).map((tech, index) => (
                     <span
                       key={index}
-                      className="text-xs px-2 py-0.5 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full"
+                      className="text-[9px] px-1.5 py-0.5 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full"
                     >
                       {tech}
                     </span>
                   ))}
-                  {experiment.technologies.length > 3 && (
-                    <span className="text-xs px-2 py-0.5 text-muted-grey">
-                      +{experiment.technologies.length - 3}
+                  {experiment.technologies.length > 2 && (
+                    <span className="text-[9px] px-1.5 py-0.5 text-muted-grey">
+                      +{experiment.technologies.length - 2}
                     </span>
                   )}
                 </div>
               )}
 
-              {route && (
-                <button
-                  onClick={() => setLocation(route)}
-                  className="text-xs text-amber-700 hover:text-amber-800 font-medium mt-2"
-                >
-                  View Details →
-                </button>
-              )}
+              <button
+                onClick={() => setExpandedExperiment(null)}
+                className="text-[10px] text-muted-grey hover:text-warm-brown font-medium mt-1"
+              >
+                Close ×
+              </button>
             </div>
           </div>
         )}
@@ -130,7 +149,7 @@ export default function ExperimentsExperimental() {
     );
   };
 
-  const CategorySection = ({
+  const CategoryDesktop = ({
     title,
     description,
     icon,
@@ -141,7 +160,7 @@ export default function ExperimentsExperimental() {
     icon: string;
     experiments: Experiment[];
   }) => (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Category Header */}
       <div className="text-center">
         <div className="text-2xl mb-2">{icon}</div>
@@ -149,10 +168,10 @@ export default function ExperimentsExperimental() {
         <p className="text-sm text-muted-grey leading-relaxed">{description}</p>
       </div>
 
-      {/* Experiments List */}
-      <div className="space-y-3">
+      {/* Desktop-style folder grid */}
+      <div className="grid grid-cols-2 gap-6 justify-items-center">
         {experiments.map((experiment) => (
-          <ExperimentItem key={experiment.id} experiment={experiment} />
+          <ExperimentFolder key={experiment.id} experiment={experiment} />
         ))}
       </div>
     </div>
@@ -171,21 +190,21 @@ export default function ExperimentsExperimental() {
       </header>
 
       <main className={`${isMobile ? 'space-y-8' : 'grid grid-cols-3 gap-8'}`}>
-        <CategorySection
+        <CategoryDesktop
           title="The Individual"
           description="Projects empowering individuals to make authentic choices and act with purpose."
           icon="🧠"
           experiments={categorizedExperiments.individual}
         />
 
-        <CategorySection
+        <CategoryDesktop
           title="The Team"
           description="Projects helping groups become more effective and wise together."
           icon="🤝"
           experiments={categorizedExperiments.team}
         />
 
-        <CategorySection
+        <CategoryDesktop
           title="The Community"
           description="Projects fostering a shared sense of time, emotion, and belonging."
           icon="🎵"

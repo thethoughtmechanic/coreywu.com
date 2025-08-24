@@ -149,6 +149,96 @@ export default function ExperimentsExperimental() {
     );
   };
 
+  // Status pill component
+  const StatusPill = ({ status, isActive }: { status: string; isActive?: boolean }) => {
+    const getStatusColor = () => {
+      if (status === 'sunset') return 'bg-gray-100 text-gray-600 border-gray-200';
+      if (status === 'wip') return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+      if (status === 'shipped' && isActive) return 'bg-green-100 text-green-700 border-green-200';
+      if (status === 'shipped') return 'bg-blue-100 text-blue-700 border-blue-200';
+      return 'bg-gray-100 text-gray-600 border-gray-200';
+    };
+
+    const getStatusText = () => {
+      if (status === 'sunset') return 'Sunset';
+      if (status === 'wip') return 'WIP';
+      if (status === 'shipped' && isActive) return 'Active';
+      if (status === 'shipped') return 'Shipped';
+      return status;
+    };
+
+    return (
+      <span className={`inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full border transition-colors duration-200 hover:scale-105 ${getStatusColor()}`}>
+        {getStatusText()}
+      </span>
+    );
+  };
+
+  // Mobile card view component
+  const MobileCardView = () => (
+    <div className="space-y-4">
+      {experiments.map((experiment) => {
+        const route = getExperimentRoute(experiment.id);
+        
+        const CardContent = () => (
+          <div className="space-y-3">
+            {/* Title and Status Pill Row */}
+            <div className="flex items-center justify-between gap-3">
+              <h3 className={`font-medium text-lg flex-1 ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+                {experiment.title}
+              </h3>
+              <StatusPill status={experiment.status} isActive={experiment.isActive} />
+            </div>
+
+            {/* Date and Team */}
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-400">{experiment.timeframe}</span>
+              <span className="text-gray-400">
+                {experiment.collaborators && experiment.collaborators.length > 0
+                  ? `Team: ${experiment.collaborators.join(', ')}`
+                  : 'Solo'
+                }
+              </span>
+            </div>
+
+            {/* Description */}
+            <p className="text-sm text-soft-black leading-relaxed">
+              {experiment.description}
+            </p>
+
+            {/* Technologies */}
+            {experiment.technologies && experiment.technologies.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {experiment.technologies.map((tech, index) => (
+                  <span 
+                    key={index}
+                    className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+
+        return route ? (
+          <button
+            key={experiment.id}
+            onClick={() => setLocation(route)}
+            className="w-full bg-light-brown rounded-lg p-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
+          >
+            <CardContent />
+          </button>
+        ) : (
+          <div key={experiment.id} className="bg-light-brown rounded-lg p-4">
+            <CardContent />
+          </div>
+        );
+      })}
+    </div>
+  );
+
   const CategoryDesktop = ({
     title,
     description,
@@ -189,27 +279,33 @@ export default function ExperimentsExperimental() {
         </p>
       </header>
 
-      <main className={`${isMobile ? 'space-y-8' : 'grid grid-cols-3 gap-8'}`}>
-        <CategoryDesktop
-          title="The Individual"
-          description="Projects empowering individuals to make authentic choices and act with purpose."
-          icon="🧠"
-          experiments={categorizedExperiments.individual}
-        />
+      <main>
+        {isMobile ? (
+          <MobileCardView />
+        ) : (
+          <div className="grid grid-cols-3 gap-8">
+            <CategoryDesktop
+              title="The Individual"
+              description="Projects empowering individuals to make authentic choices and act with purpose."
+              icon="🧠"
+              experiments={categorizedExperiments.individual}
+            />
 
-        <CategoryDesktop
-          title="The Team"
-          description="Projects helping groups become more effective and wise together."
-          icon="🤝"
-          experiments={categorizedExperiments.team}
-        />
+            <CategoryDesktop
+              title="The Team"
+              description="Projects helping groups become more effective and wise together."
+              icon="🤝"
+              experiments={categorizedExperiments.team}
+            />
 
-        <CategoryDesktop
-          title="The Community"
-          description="Projects fostering a shared sense of time, emotion, and belonging."
-          icon="🎵"
-          experiments={categorizedExperiments.relationships}
-        />
+            <CategoryDesktop
+              title="The Community"
+              description="Projects fostering a shared sense of time, emotion, and belonging."
+              icon="🎵"
+              experiments={categorizedExperiments.relationships}
+            />
+          </div>
+        )}
       </main>
     </div>
   );

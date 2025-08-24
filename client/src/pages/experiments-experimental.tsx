@@ -183,22 +183,19 @@ export default function ExperimentsExperimental() {
         const CardContent = () => (
           <div className="space-y-3">
             {/* Title and Status Pill Row */}
-            <div className="flex items-center justify-between gap-3">
-              <h3 className={`font-medium text-lg flex-1 ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+            <div className="flex items-center gap-3">
+              <h3 className={`font-medium text-lg ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
                 {experiment.title}
               </h3>
               <StatusPill status={experiment.status} isActive={experiment.isActive} />
             </div>
 
-            {/* Date and Team */}
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-400">{experiment.timeframe}</span>
-              <span className="text-gray-400">
-                {experiment.collaborators && experiment.collaborators.length > 0
-                  ? `Team: ${experiment.collaborators.join(', ')}`
-                  : 'Solo'
-                }
-              </span>
+            {/* Timeframe and Team on one line */}
+            <div className="text-sm text-gray-400">
+              {experiment.timeframe} | {experiment.collaborators && experiment.collaborators.length > 0
+                ? `Team: ${experiment.collaborators.join(', ')}`
+                : 'Solo'
+              }
             </div>
 
             {/* Description */}
@@ -206,10 +203,10 @@ export default function ExperimentsExperimental() {
               {experiment.description}
             </p>
 
-            {/* Technologies */}
+            {/* Technologies - max 2 lines with +x more */}
             {experiment.technologies && experiment.technologies.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
-                {experiment.technologies.map((tech, index) => (
+                {experiment.technologies.slice(0, 3).map((tech, index) => (
                   <span 
                     key={index}
                     className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
@@ -217,6 +214,11 @@ export default function ExperimentsExperimental() {
                     {tech}
                   </span>
                 ))}
+                {experiment.technologies.length > 3 && (
+                  <span className="text-xs px-2.5 py-1 bg-blue-100 text-blue-600 border border-blue-200 rounded-full font-medium">
+                    +{experiment.technologies.length - 3} More
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -226,12 +228,12 @@ export default function ExperimentsExperimental() {
           <button
             key={experiment.id}
             onClick={() => setLocation(route)}
-            className="w-full bg-light-brown rounded-lg p-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
+            className="w-full bg-light-brown rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20"
           >
             <CardContent />
           </button>
         ) : (
-          <div key={experiment.id} className="bg-light-brown rounded-lg p-4">
+          <div key={experiment.id} className="bg-light-brown rounded-lg p-6 shadow-sm border border-warm-brown/10">
             <CardContent />
           </div>
         );

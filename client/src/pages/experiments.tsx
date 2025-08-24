@@ -109,7 +109,7 @@ export default function Experiments() {
                 <StatusDot experiment={experiment} />
               </div>
               <div className="col-span-2">
-                <h3 className={`font-medium ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+                <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
                   {experiment.title}
                 </h3>
               </div>
@@ -184,7 +184,7 @@ export default function Experiments() {
           <div className="space-y-3">
             {/* Title and Status Pill Row */}
             <div className="flex items-center gap-3">
-              <h3 className={`font-medium text-lg ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+              <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
                 {experiment.title}
               </h3>
               <StatusPill status={experiment.status} isActive={experiment.isActive} />

@@ -232,7 +232,7 @@ export default function Experiments() {
               <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
                 {experiment.title}
               </h3>
-              <StatusPill status={experiment.status} isActive={experiment.isActive} />
+              <StatusPill status={experiment.status || 'unknown'} isActive={experiment.isActive} />
             </div>
 
             {/* Timeframe and Team on one line */}

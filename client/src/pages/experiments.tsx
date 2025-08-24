@@ -90,14 +90,14 @@ export default function Experiments() {
 
   // Desktop Table View
   const DesktopView = () => (
-    <div className="bg-light-brown rounded-lg overflow-hidden">
-      <div className="px-6 py-3 border-b border-warm-brown/20 bg-warm-brown/5">
-        <div className="grid grid-cols-12 gap-4 text-sm font-medium text-warm-brown">
+    <div className="bg-light-brown rounded-lg overflow-hidden border border-warm-brown/20">
+      <div className="px-6 py-4 border-b border-warm-brown/20 bg-warm-brown/5">
+        <div className="grid grid-cols-12 gap-4 text-sm font-semibold text-warm-brown uppercase tracking-wide">
           <div className="col-span-2">Status</div>
-          <div className="col-span-2">Project</div>
-          <div className="col-span-3">Description</div>
-          <div className="col-span-2">Technologies</div>
-          <div className="col-span-2">Timeline</div>
+          <div className="col-span-3">Project</div>
+          <div className="col-span-3">Overview</div>
+          <div className="col-span-2">Tech Stack</div>
+          <div className="col-span-1">Timeline</div>
           <div className="col-span-1">Team</div>
         </div>
       </div>
@@ -105,28 +105,56 @@ export default function Experiments() {
         {orderedExperiments.map((experiment) => {
           const route = getExperimentRoute(experiment.id);
           const RowContent = () => (
-            <div className="grid grid-cols-12 gap-4 items-start">
+            <div className="grid grid-cols-12 gap-4 items-start py-1">
               <div className="col-span-2">
                 <StatusDot experiment={experiment} />
               </div>
-              <div className="col-span-2">
-                <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+              <div className="col-span-3">
+                <h3 className={`text-lg font-bold ${route ? 'text-amber-700' : 'text-warm-brown'} mb-1`}>
                   {experiment.title}
                 </h3>
-              </div>
-              <div className="col-span-3">
-                <p className="text-sm text-soft-black">{experiment.description}</p>
-              </div>
-              <div className="col-span-2">
-                <div className="text-sm text-muted-grey">
-                  {getTechnologiesDisplay(experiment)}
+                <div className="text-xs text-muted-grey">
+                  {experiment.collaborators && experiment.collaborators.length > 0
+                    ? `Collaboration with ${experiment.collaborators.join(', ')}`
+                    : 'Solo project'
+                  }
                 </div>
               </div>
-              <div className="col-span-2 text-sm text-muted-grey">
-                {experiment.timeframe}
+              <div className="col-span-3">
+                <div className="bg-warm-brown/5 rounded-md p-3 border border-warm-brown/10">
+                  <p className="text-sm text-soft-black leading-relaxed">{experiment.description}</p>
+                </div>
               </div>
-              <div className="col-span-1 text-sm text-muted-grey">
-                {getTeamDisplay(experiment)}
+              <div className="col-span-2">
+                <div className="flex flex-wrap gap-1">
+                  {experiment.technologies && experiment.technologies.slice(0, 3).map((tech, index) => (
+                    <span 
+                      key={index}
+                      className="text-xs px-2 py-1 bg-white border border-warm-brown/20 text-warm-brown rounded font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {experiment.technologies && experiment.technologies.length > 3 && (
+                    <span className="text-xs text-muted-grey self-center">
+                      +{experiment.technologies.length - 3}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="col-span-1">
+                <div className="text-xs text-muted-grey font-medium bg-warm-brown/5 px-2 py-1 rounded border border-warm-brown/10 text-center">
+                  {experiment.timeframe}
+                </div>
+              </div>
+              <div className="col-span-1">
+                <div className="text-xs text-center">
+                  <div className="w-8 h-8 mx-auto bg-warm-brown/10 rounded-full flex items-center justify-center border border-warm-brown/20">
+                    <span className="font-bold text-warm-brown">
+                      {experiment.collaborators ? experiment.collaborators.length + 1 : 1}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           );
@@ -135,13 +163,13 @@ export default function Experiments() {
             <button
               key={experiment.id}
               onClick={() => setLocation(route)}
-              className="w-full px-6 py-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
+              className="w-full px-6 py-5 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
               data-testid={`button-${experiment.id}-desktop`}
             >
               <RowContent />
             </button>
           ) : (
-            <div key={experiment.id} className="px-6 py-4">
+            <div key={experiment.id} className="px-6 py-5">
               <RowContent />
             </div>
           );
@@ -182,68 +210,92 @@ export default function Experiments() {
         const route = getExperimentRoute(experiment.id);
         
         const CardContent = () => (
-          <div className="space-y-3">
-            {/* Title and Status Pill Row */}
-            <div className="flex items-center gap-3">
-              <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+          <div className="space-y-4">
+            {/* Project Header - Status and Timeline */}
+            <div className="flex items-center justify-between">
+              <StatusPill status={experiment.status} isActive={experiment.isActive} />
+              <div className="text-xs text-muted-grey font-medium bg-warm-brown/5 px-3 py-1.5 rounded-full border border-warm-brown/10">
+                {experiment.timeframe}
+              </div>
+            </div>
+
+            {/* Project Title */}
+            <div>
+              <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'} mb-1`}>
                 {experiment.title}
               </h3>
-              <StatusPill status={experiment.status} isActive={experiment.isActive} />
-            </div>
-
-            {/* Timeframe and Team on one line */}
-            <div className="text-sm text-gray-400">
-              {experiment.timeframe} | {experiment.collaborators && experiment.collaborators.length > 0
-                ? experiment.collaborators.join(', ')
-                : 'Solo'
-              }
-            </div>
-
-            {/* Description */}
-            <p className="text-sm text-soft-black leading-relaxed">
-              {experiment.description}
-            </p>
-
-            {/* Technologies - expandable */}
-            {experiment.technologies && experiment.technologies.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
-                {(expandedTech.has(experiment.id) 
-                  ? experiment.technologies 
-                  : experiment.technologies.slice(0, 3)
-                ).map((tech, index) => (
-                  <span 
-                    key={index}
-                    className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
-                  >
-                    {tech}
+              {/* Team/Collaboration Type */}
+              <div className="flex items-center gap-2 text-xs text-muted-grey">
+                <div className="w-1.5 h-1.5 bg-muted-grey rounded-full"></div>
+                <span className="font-medium">
+                  {experiment.collaborators && experiment.collaborators.length > 0
+                    ? `${experiment.collaborators.length + 1} person team` 
+                    : 'Solo project'
+                  }
+                </span>
+                {experiment.collaborators && experiment.collaborators.length > 0 && (
+                  <span className="text-warm-brown/60">
+                    ({experiment.collaborators.join(', ')})
                   </span>
-                ))}
-                {experiment.technologies.length > 3 && !expandedTech.has(experiment.id) && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const newExpanded = new Set(expandedTech);
-                      newExpanded.add(experiment.id);
-                      setExpandedTech(newExpanded);
-                    }}
-                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors"
-                  >
-                    +{experiment.technologies.length - 3} More
-                  </button>
                 )}
-                {expandedTech.has(experiment.id) && experiment.technologies.length > 3 && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const newExpanded = new Set(expandedTech);
-                      newExpanded.delete(experiment.id);
-                      setExpandedTech(newExpanded);
-                    }}
-                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors"
-                  >
-                    Show Less
-                  </button>
-                )}
+              </div>
+            </div>
+
+            {/* Project Overview */}
+            <div className="bg-warm-brown/5 rounded-lg p-3 border border-warm-brown/10">
+              <p className="text-sm text-soft-black leading-relaxed">
+                {experiment.description}
+              </p>
+            </div>
+
+            {/* Technology Stack */}
+            {experiment.technologies && experiment.technologies.length > 0 && (
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <h4 className="text-xs font-semibold text-warm-brown uppercase tracking-wide">
+                    Tech Stack
+                  </h4>
+                  <div className="flex-1 h-px bg-warm-brown/20"></div>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {(expandedTech.has(experiment.id) 
+                    ? experiment.technologies 
+                    : experiment.technologies.slice(0, 4)
+                  ).map((tech, index) => (
+                    <span 
+                      key={index}
+                      className="text-xs px-2.5 py-1.5 bg-white border border-warm-brown/20 text-warm-brown rounded-md font-medium shadow-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {experiment.technologies.length > 4 && !expandedTech.has(experiment.id) && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const newExpanded = new Set(expandedTech);
+                        newExpanded.add(experiment.id);
+                        setExpandedTech(newExpanded);
+                      }}
+                      className="text-xs px-2.5 py-1.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-md font-medium hover:bg-gray-200 transition-colors"
+                    >
+                      +{experiment.technologies.length - 4} more
+                    </button>
+                  )}
+                  {expandedTech.has(experiment.id) && experiment.technologies.length > 4 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const newExpanded = new Set(expandedTech);
+                        newExpanded.delete(experiment.id);
+                        setExpandedTech(newExpanded);
+                      }}
+                      className="text-xs px-2.5 py-1.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-md font-medium hover:bg-gray-200 transition-colors"
+                    >
+                      Show less
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -253,13 +305,13 @@ export default function Experiments() {
           <button
             key={experiment.id}
             onClick={() => setLocation(route)}
-            className="w-full bg-light-brown rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20"
+            className="w-full bg-white rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg border border-warm-brown/20 hover:border-warm-brown/30"
             data-testid={`button-${experiment.id}-mobile`}
           >
             <CardContent />
           </button>
         ) : (
-          <div key={experiment.id} className="bg-light-brown rounded-lg p-6 shadow-sm border border-warm-brown/10">
+          <div key={experiment.id} className="bg-white rounded-lg p-6 shadow-md border border-warm-brown/20">
             <CardContent />
           </div>
         );

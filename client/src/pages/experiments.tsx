@@ -359,21 +359,21 @@ export default function Experiments() {
               {experiment.description}
             </p>
 
-            {/* Technologies - expandable */}
+            {/* Technologies - max 2 lines, smaller pills */}
             {experiment.technologies && experiment.technologies.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1">
                 {(expandedTech.has(experiment.id) 
                   ? experiment.technologies 
-                  : experiment.technologies.slice(0, 3)
+                  : experiment.technologies.slice(0, 6)
                 ).map((tech, index) => (
                   <span 
                     key={index}
-                    className="text-xs px-2.5 py-1 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
+                    className="text-[10px] px-1.5 py-0.5 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
                   >
                     {tech}
                   </span>
                 ))}
-                {experiment.technologies.length > 3 && !expandedTech.has(experiment.id) && (
+                {experiment.technologies.length > 6 && !expandedTech.has(experiment.id) && (
                   <span
                     onClick={(e) => {
                       e.stopPropagation();
@@ -381,12 +381,12 @@ export default function Experiments() {
                       newExpanded.add(experiment.id);
                       setExpandedTech(newExpanded);
                     }}
-                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
+                    className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
                   >
-                    +{experiment.technologies.length - 3} More
+                    +{experiment.technologies.length - 6} More
                   </span>
                 )}
-                {expandedTech.has(experiment.id) && experiment.technologies.length > 3 && (
+                {expandedTech.has(experiment.id) && experiment.technologies.length > 6 && (
                   <span
                     onClick={(e) => {
                       e.stopPropagation();
@@ -394,7 +394,7 @@ export default function Experiments() {
                       newExpanded.delete(experiment.id);
                       setExpandedTech(newExpanded);
                     }}
-                    className="text-xs px-2.5 py-1 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
+                    className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
                   >
                     Show Less
                   </span>

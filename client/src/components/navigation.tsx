@@ -154,19 +154,15 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               href={item.path}
               onClick={closeMenu}
               className={cn(
-                "group flex items-center px-8 py-5 text-lg font-semibold transition-all duration-300 ease-out border-l-4 border-transparent relative overflow-hidden",
+                "flex items-center px-8 py-5 text-lg font-semibold transition-all duration-200 border-l-4 border-transparent relative",
                 isDarkMode 
                   ? cn(
-                      "text-gray-300 hover:text-white",
-                      location === item.path 
-                        ? "border-l-white text-white bg-gradient-to-r from-gray-800/50 to-gray-800/20" 
-                        : "hover:bg-gray-800/30"
+                      "text-gray-300 hover:text-white hover:bg-gray-800/50",
+                      location === item.path && "border-l-white text-white bg-gray-800/30"
                     )
                   : cn(
-                      "text-soft-black hover:text-warm-brown",
-                      location === item.path 
-                        ? "border-l-warm-brown text-warm-brown bg-gradient-to-r from-light-brown/40 to-light-brown/10" 
-                        : "hover:bg-light-brown/30"
+                      "text-soft-black hover:text-warm-brown hover:bg-light-brown/50",
+                      location === item.path && "border-l-warm-brown text-warm-brown bg-light-brown/30"
                     )
               )}
               data-testid={`link-mobile-${item.label.toLowerCase().replace(" ", "-")}`}
@@ -174,53 +170,15 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 animationDelay: isMenuOpen ? `${index * 50}ms` : '0ms'
               }}
             >
-              {/* Active background highlight */}
-              {location === item.path && (
-                <div className={cn(
-                  "absolute inset-0 opacity-100 transition-all duration-300",
-                  isDarkMode 
-                    ? "bg-gradient-to-r from-white/5 via-white/3 to-transparent" 
-                    : "bg-gradient-to-r from-warm-brown/8 via-warm-brown/4 to-transparent"
-                )} />
-              )}
-              
-              {/* Hover background */}
-              <div className={cn(
-                "absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300",
-                isDarkMode 
-                  ? "bg-gradient-to-r from-gray-700/20 to-transparent" 
-                  : "bg-gradient-to-r from-warm-brown/10 to-transparent"
-              )} />
-              
-              <div className="relative flex items-center justify-between w-full">
-                <span className="relative flex items-center">
-                  {item.label}
-                  
-                  {/* Active dot indicator */}
-                  {location === item.path && (
-                    <div className={cn(
-                      "ml-3 w-2 h-2 rounded-full animate-pulse",
-                      isDarkMode ? "bg-white" : "bg-warm-brown"
-                    )} />
-                  )}
-                </span>
-                
-                {/* Active arrow indicator */}
+              <span className="relative">
+                {item.label}
                 {location === item.path && (
                   <div className={cn(
-                    "w-1 h-4 rounded-full transition-all duration-300",
+                    "absolute -bottom-1 left-0 w-full h-0.5 rounded-full",
                     isDarkMode ? "bg-white" : "bg-warm-brown"
                   )} />
                 )}
-              </div>
-              
-              {/* Bottom highlight line for active state */}
-              {location === item.path && (
-                <div className={cn(
-                  "absolute bottom-0 left-8 right-8 h-0.5 rounded-full transition-all duration-300",
-                  isDarkMode ? "bg-gradient-to-r from-white to-transparent" : "bg-gradient-to-r from-warm-brown to-transparent"
-                )} />
-              )}
+              </span>
             </Link>
           ))}
         </div>

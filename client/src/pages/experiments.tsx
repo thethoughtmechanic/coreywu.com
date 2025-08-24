@@ -175,7 +175,7 @@ export default function Experiments() {
             {/* Row 2: Date and collaborator */}
             <div className="flex items-center justify-between text-sm mb-1">
               <span className="text-muted-grey">{experiment.timeframe}</span>
-              <span className="text-warm-brown font-medium">{getTeamDisplay(experiment)}</span>
+              <span className="text-muted-grey">{getTeamDisplay(experiment)}</span>
             </div>
 
             {/* Description */}

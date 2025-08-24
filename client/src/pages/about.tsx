@@ -21,7 +21,7 @@ export default function About() {
   };
 
   const getCardClasses = (role: string, index: number) => {
-    const baseClasses = "relative group bg-light-brown rounded-lg p-4 text-center text-base font-medium text-soft-black/90 leading-relaxed hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden";
+    const baseClasses = "relative group bg-light-brown rounded-lg p-3 sm:p-4 text-center text-sm sm:text-base font-medium text-soft-black/90 leading-tight hover:shadow-xl transition-all duration-500 border border-warm-brown/20 hover:border-warm-brown/30 overflow-hidden";
 
     if (isSpecialCard(role)) {
       return `${baseClasses} hover:scale-110 hover:rotate-2 cursor-pointer`;
@@ -43,11 +43,11 @@ export default function About() {
         <p className="text-muted-grey max-w-2xl mx-auto leading-relaxed text-center mb-6">
           Corey, you are a...
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {systemPromptRoles.map((role, index) => (
             <div
               key={index}
-              className={getCardClasses(role, index)}
+              className={`${getCardClasses(role, index)} min-h-[60px] flex items-center justify-center`}
               onMouseEnter={() => {
                 window.trackSystemPromptHover && window.trackSystemPromptHover(role, 'about');
                 if (isSpecialCard(role)) {
@@ -115,7 +115,7 @@ export default function About() {
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
 
               {/* Content */}
-              <span className={`relative z-10 transition-all duration-500 ${
+              <span className={`relative z-10 transition-all duration-500 text-center leading-tight ${
                 isSpecialCard(role) ? "group-hover:text-white group-hover:font-bold group-hover:scale-110" :
                 "group-hover:text-white group-hover:font-semibold"
               }`}>

@@ -69,7 +69,7 @@ export default function Experiments() {
         </svg>
       );
     }
-    
+
     // Gear: prompt pulse
     if (experimentId === 'prompt-pulse-1') {
       return (
@@ -91,7 +91,7 @@ export default function Experiments() {
         </svg>
       );
     }
-    
+
     // Handshake: food for thought
     if (experimentId === 'food-for-thought-1') {
       return (
@@ -113,7 +113,7 @@ export default function Experiments() {
         </svg>
       );
     }
-    
+
     return null;
   };
 
@@ -152,7 +152,7 @@ export default function Experiments() {
     };
 
     const yearA = getYear(a.timeframe || '');
-    const yearB = getYear(b.timeframe || '');
+    const yearB = get year(b.timeframe || '');
 
     return yearB - yearA; // Descending order
   });
@@ -220,26 +220,57 @@ export default function Experiments() {
   );
 
   // Status pill component
-  const StatusPill = ({ status, isActive }: { status: string, isActive?: boolean }) => {
-    const getStatusText = () => {
-      if (status === 'sunset') return 'Sunset';
-      if (status === 'wip') return 'WIP';
-      if (status === 'shipped' && isActive) return 'Active';
-      if (status === 'shipped') return 'Shipped';
-      return status;
+  const StatusPill = ({ status, isActive }: { status: string; isActive?: boolean }) => {
+    const getStatusConfig = () => {
+      switch (status) {
+        case 'sunset':
+          return { bg: 'bg-gray-100', text: 'text-gray-600', label: 'Sunset' };
+        case 'wip':
+          return { bg: 'bg-yellow-100', text: 'text-yellow-700', label: 'WIP' };
+        case 'shipped':
+          return isActive 
+            ? { bg: 'bg-green-100', text: 'text-green-700', label: 'Active' }
+            : { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Shipped' };
+        default:
+          return { bg: 'bg-gray-100', text: 'text-gray-600', label: status };
+      }
     };
 
-    const getStatusColor = () => {
-      if (status === 'sunset') return 'border-gray-400 text-gray-600 hover:bg-gray-100';
-      if (status === 'wip') return 'border-yellow-500 text-yellow-700 hover:bg-yellow-100';
-      if (status === 'shipped' && isActive) return 'border-green-500 text-green-700 hover:bg-green-100';
-      if (status === 'shipped') return 'border-blue-500 text-blue-700 hover:bg-blue-100';
-      return 'border-gray-400 text-gray-600 hover:bg-gray-100';
-    };
+    const config = getStatusConfig();
 
     return (
-      <span className={`text-xs px-2.5 py-1 rounded-full font-medium border-2 transition-colors duration-200 ${getStatusColor()}`}>
-        {getStatusText()}
+      <span className={`px-2 py-1 rounded-full text-xs font-medium ${config.bg} ${config.text} relative overflow-hidden group transition-all duration-300`}>
+        {/* Paint Splatter Background - appears on hover */}
+        <div
+          className="absolute inset-0 transition-opacity duration-700 ease-out rounded-full opacity-0 group-hover:opacity-100"
+          style={{
+            background: status === 'sunset' ? `
+              linear-gradient(135deg, #06b6d4 0%, #3b82f6 25%, #0891b2 50%, #6366f1 75%, #1e40af 100%),
+              radial-gradient(ellipse 80% 60% at 25% 25%, #06b6d4 0%, #3b82f6 40%, rgba(59, 130, 246, 0.8) 80%),
+              radial-gradient(ellipse 70% 50% at 75% 20%, #0891b2 0%, #6366f1 50%, rgba(99, 102, 241, 0.7) 90%),
+              radial-gradient(ellipse 60% 80% at 5% 90%, #3b82f6 0%, #1e40af 60%, rgba(30, 64, 175, 0.6) 100%),
+              radial-gradient(ellipse 85% 40% at 95% 75%, #6366f1 0%, #06b6d4 70%, rgba(6, 182, 212, 0.5) 100%)
+            ` : status === 'wip' ? `
+              linear-gradient(135deg, #f59e0b 0%, #dc2626 25%, #ea580c 50%, #facc15 75%, #ef4444 100%),
+              radial-gradient(ellipse 80% 60% at 30% 20%, #f59e0b 0%, #dc2626 40%, rgba(220, 38, 38, 0.8) 80%),
+              radial-gradient(ellipse 70% 50% at 70% 30%, #ea580c 0%, #facc15 50%, rgba(250, 204, 21, 0.7) 90%),
+              radial-gradient(ellipse 60% 80% at 20% 75%, #dc2626 0%, #ef4444 60%, rgba(239, 68, 68, 0.6) 100%),
+              radial-gradient(ellipse 85% 40% at 80% 85%, #facc15 0%, #f59e0b 70%, rgba(245, 158, 11, 0.5) 100%)
+            ` : `
+              linear-gradient(135deg, #06b6d4 0%, #0891b2 25%, #0e7490 50%, #22d3ee 75%, #0284c7 100%),
+              radial-gradient(ellipse 80% 60% at 35% 25%, #06b6d4 0%, #0891b2 40%, rgba(8, 145, 178, 0.8) 80%),
+              radial-gradient(ellipse 70% 50% at 65% 35%, #0e7490 0%, #22d3ee 50%, rgba(34, 211, 238, 0.7) 90%),
+              radial-gradient(ellipse 60% 80% at 25% 80%, #0891b2 0%, #0284c7 60%, rgba(2, 132, 199, 0.6) 100%),
+              radial-gradient(ellipse 85% 40% at 75% 90%, #22d3ee 0%, #06b6d4 70%, rgba(6, 182, 212, 0.5) 100%)
+            `,
+            transform: 'scale(2.0) rotate(15deg)'
+          }}
+        />
+
+        {/* Text with relative positioning for hover effect */}
+        <span className="relative z-10 group-hover:text-white group-hover:font-semibold transition-all duration-500">
+          {config.label}
+        </span>
       </span>
     );
   };
@@ -256,7 +287,7 @@ export default function Experiments() {
           meaningful, and human. From AI tools to coffee experiences to music.
         </p>
       </div>
-      
+
       <div className="flex justify-center items-center gap-6 mb-4">
         <div className="flex flex-col items-center gap-1 text-xs">
           <svg className="w-8 h-8" viewBox="0 0 24 24">
@@ -314,7 +345,7 @@ export default function Experiments() {
           <span className="text-muted-grey">Coordinate</span>
         </div>
       </div>
-      
+
       <div className="text-center">
         <div className="inline-flex items-center gap-1 text-xs text-muted-grey animate-bounce">
           <span>Scroll to explore</span>
@@ -332,7 +363,7 @@ export default function Experiments() {
       <MobileOverview />
       {orderedExperiments.map((experiment) => {
         const route = getExperimentRoute(experiment.id);
-        
+
         const CardContent = () => (
           <div className="space-y-3">
             {/* Title and Status Pill Row */}

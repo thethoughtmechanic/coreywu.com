@@ -115,7 +115,7 @@ export default function About() {
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-lg" />
 
               {/* Content */}
-              <span className={`relative z-10 transition-all duration-500 text-center leading-tight ${
+              <span className={`relative z-10 transition-all duration-500 text-center leading-tight whitespace-nowrap ${
                 isSpecialCard(role) ? "group-hover:text-white group-hover:font-bold group-hover:scale-110" :
                 "group-hover:text-white group-hover:font-semibold"
               }`}>

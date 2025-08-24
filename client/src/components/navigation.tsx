@@ -127,10 +127,10 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
           isDarkMode ? "border-gray-700/30" : "border-warm-brown/20"
         )}>
           <span className={cn(
-            "text-lg font-semibold",
+            "text-xl font-bold",
             isDarkMode ? "text-white" : "text-warm-brown"
           )}>
-            Menu
+            Corey Wu
           </span>
           <button
             onClick={closeMenu}
@@ -147,14 +147,14 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
         </div>
 
         {/* Navigation Items */}
-        <div className="flex flex-col py-4">
+        <div className="flex flex-col py-6">
           {navItems.map((item, index) => (
             <Link
               key={item.path}
               href={item.path}
               onClick={closeMenu}
               className={cn(
-                "flex items-center px-6 py-4 text-base font-medium transition-all duration-200 border-l-4 border-transparent relative",
+                "flex items-center px-8 py-5 text-lg font-semibold transition-all duration-200 border-l-4 border-transparent relative",
                 isDarkMode 
                   ? cn(
                       "text-gray-300 hover:text-white hover:bg-gray-800/50",
@@ -188,7 +188,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
           "absolute bottom-6 left-6 right-6 text-xs opacity-60",
           isDarkMode ? "text-gray-400" : "text-soft-black"
         )}>
-          Corey Wu © 2024
+          Corey Wu © 2025
         </div>
       </div>
     </>

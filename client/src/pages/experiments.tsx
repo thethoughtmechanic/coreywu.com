@@ -162,7 +162,7 @@ export default function Experiments() {
   // Desktop Card View (3 columns)
   const DesktopView = () => (
     <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 gap-6 items-start">
         {orderedExperiments.map((experiment) => {
           const route = getExperimentRoute(experiment.id);
 
@@ -241,13 +241,13 @@ export default function Experiments() {
             <button
               key={experiment.id}
               onClick={() => setLocation(route)}
-              className="w-full bg-white rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20"
+              className="w-full bg-white rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20 h-fit"
               data-testid={`button-${experiment.id}-desktop`}
             >
               <CardContent />
             </button>
           ) : (
-            <div key={experiment.id} className="bg-white rounded-lg p-6 shadow-sm border border-warm-brown/10">
+            <div key={experiment.id} className="bg-white rounded-lg p-6 shadow-sm border border-warm-brown/10 h-fit">
               <CardContent />
             </div>
           );
@@ -426,7 +426,7 @@ export default function Experiments() {
         </p>
 
         {/* Legend */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-8">
           <div className="flex items-center gap-6 bg-light-brown/50 rounded-xl px-6 py-3 text-sm">
             {/* Connect Icon */}
             <div className="flex items-center gap-2">

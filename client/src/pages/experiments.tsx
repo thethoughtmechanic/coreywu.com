@@ -211,56 +211,14 @@ export default function Experiments() {
             <article
               key={experiment.id}
               onClick={() => setLocation(route)}
-              className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 h-fit group hover:shadow-md transition-all duration-300 overflow-hidden"
+              className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 h-fit hover:shadow-md hover:scale-[1.02] transition-all duration-300"
               data-testid={`button-${experiment.id}-desktop`}
             >
-              {/* Paint Splatter Background - appears on hover */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
-                style={{
-                  background: `
-                    radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
-                    radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
-                    radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
-                    radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
-                    radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
-                  `,
-                  minHeight: '100%',
-                  minWidth: '100%'
-                }}
-              />
-
-              {/* Text Background for better readability when splatter is visible */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
-
-              <div className="relative z-10">
-                <CardContent />
-              </div>
+              <CardContent />
             </article>
           ) : (
-            <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 h-fit group hover:shadow-md transition-all duration-300 overflow-hidden">
-              {/* Paint Splatter Background - appears on hover */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
-                style={{
-                  background: `
-                    radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
-                    radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
-                    radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
-                    radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
-                    radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
-                  `,
-                  minHeight: '100%',
-                  minWidth: '100%'
-                }}
-              />
-
-              {/* Text Background for better readability when splatter is visible */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
-
-              <div className="relative z-10">
-                <CardContent />
-              </div>
+            <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 h-fit hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+              <CardContent />
             </article>
           );
         })}
@@ -379,56 +337,14 @@ export default function Experiments() {
           <article
             key={experiment.id}
             onClick={() => setLocation(route)}
-            className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 group hover:shadow-md transition-all duration-300 overflow-hidden"
+            className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 hover:shadow-md hover:scale-[1.02] transition-all duration-300"
             data-testid={`button-${experiment.id}-mobile`}
           >
-            {/* Paint Splatter Background - appears on hover */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
-              style={{
-                background: `
-                  radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
-                  radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
-                  radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
-                  radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
-                  radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
-                `,
-                minHeight: '100%',
-                minWidth: '100%'
-              }}
-            />
-
-            {/* Text Background for better readability when splatter is visible */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
-
-            <div className="relative z-10">
-              <CardContent />
-            </div>
+            <CardContent />
           </article>
         ) : (
-          <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 group hover:shadow-md transition-all duration-300 overflow-hidden">
-            {/* Paint Splatter Background - appears on hover */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
-              style={{
-                background: `
-                  radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
-                  radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
-                  radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
-                  radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
-                  radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
-                `,
-                minHeight: '100%',
-                minWidth: '100%'
-              }}
-            />
-
-            {/* Text Background for better readability when splatter is visible */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
-
-            <div className="relative z-10">
-              <CardContent />
-            </div>
+          <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+            <CardContent />
           </article>
         );
       })}

@@ -1,0 +1,268 @@
+Collection Preview
+Interaction built using shared layout animations from Motion.
+
+View All
+See the full code on CodeSandbox.
+Preface
+I used to think shared layout animations are very complicated and involve a lot of complex calculations.
+
+
+While that is true, Motion makes it very easy and abstracts all of the complexity away. I recommend reading Inside Framer's Magic Motion by Nanda if you're interested to see how all of the calculations are done under the hood.
+
+Structure
+The way I structured this component is simple. I created an expanded and collapsed state components and a collection image component.
+
+Collection Image
+This component is shared between both states, so there is some state specific functionality that will get covered later.
+
+
+Other than that, it's very straight-forward. I used the Image component from Next wrapped in a motion.div and an absolutely positioned inset border.
+
+<motion.div
+  ref={ref}
+  className="image-container"
+  style={{
+    width,
+    height,
+    ...(isExpanded && { x: xSpring, scale: scaleSpring }),
+  }}
+>
+  <Image
+    src={src}
+    alt="Collection Item"
+    width={200}
+    height={200}
+    className="image"
+  />
+  <div className="inset-border" />
+</motion.div>
+The Collapsed State
+The collapsed state contains invididual images that are absolutely positioned and stacked on top of one another. Hovering the item sets isHovered to true which in turn animates each image individually.
+
+
+Each item has custom rotate, x and y values that are animated on hover.
+
+const imageVariants = [
+  {
+    // image 0
+    hover: { rotate: -24, x: -32, y: -20, zIndex: 3 },
+    rest: { rotate: -12, zIndex: 3 },
+  },
+  {
+    // image 1
+    hover: { rotate: 24, x: 28, y: -16, zIndex: 4 },
+    rest: { rotate: 12, zIndex: 4 },
+  },
+  {
+    // image 2
+    hover: { rotate: 24, x: 24, y: -48, zIndex: 1 },
+    rest: { rotate: 24, zIndex: 1 },
+  },
+  {
+    // image 3
+    hover: { y: -44, rotate: -16, x: -24, zIndex: 2 },
+    rest: { y: 0, rotate: -24, x: 0, zIndex: 2 },
+  },
+];
+I mapped over the images with the exception of the collection avatar, because it behaves differently in the expanded state. Each item also has a unique layoutId for the cross-state animation.
+
+
+Everything is wrapped in a div that triggers the animations on onMouseEnter and an onClick that changes the state.
+
+<button
+  className="image-stack-container"
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+  onClick={() => setIsExpanded(true)}
+  aria-label="Expand Preview"
+>
+  <motion.div
+    initial={false}
+    animate={isHovered ? { y: -4 } : { y: 0 }}
+    layoutId="collection-avatar"
+    className="collection-avatar"
+  >
+    <Image src="image-url" alt="Pudgy Penguins" width={200} height={200} />
+    <div className="inset-border" />
+  </motion.div>
+  {images.map((src, index) => (
+    <motion.div
+      key={src}
+      layoutId={`image-${src}`}
+      className={`absolute`}
+      variants={imageVariants[index]}
+      animate={isHovered ? "hover" : "rest"}
+    >
+      <CollectionImage src={src} width={64} height={64} isExpanded={false} />
+    </motion.div>
+  ))}
+</button>
+There's other elements like the collection name and the amount of items. These also have their unique layoutId.
+
+
+I used whitespace-nowrap on text elements to prevent unwanted line breaks while animating.
+
+<motion.div
+  layoutId="collection-name"
+  className="font-openrunde whitespace-nowrap font-bold"
+  aria
+>
+  Doodles
+</motion.div>
+The Expanded State
+Images are placed in a flex container rather than being absolutely positioned in the expanded state.
+
+<motion.div
+  ref={containerRef}
+  className="flex items-center justify-center gap-2"
+  onMouseMove={handleMouseMove}
+  onTouchMove={handleTouchMove}
+  onMouseLeave={handleMouseLeave}
+  onTouchEnd={handleMouseLeave}
+  style={{ willChange: "transform" }}
+>
+  {images.map((src) => (
+    <motion.div key={src} layoutId={`image-${src}`}>
+      <CollectionImage
+        src={src}
+        mouseLeft={mouseLeft}
+        width={72}
+        height={72}
+        isExpanded={true}
+      />
+    </motion.div>
+  ))}
+</motion.div>
+The "View All" button also has it's own animation properties.
+
+<motion.button
+  className="button"
+  whileTap={{ scale: 0.95 }}
+  initial={{ scale: 0.5, opacity: 0, filter: "blur(4px)" }}
+  animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+  exit={{ scale: 0.5, opacity: 0, filter: "blur(4px)" }}
+  onClick={() => setIsExpanded(false)}
+  aria-label="View All"
+>
+  View All
+  <ArrowRightIcon className="icon" />
+</motion.button>
+Hover Interaction
+The hover effect in the expanded state is the most complex part of this interaction.
+
+
+I started off by tracking the mouse/touch position in the expanded state relative to its container. This value is then stored in a mouseLeft motion value.
+
+
+The position is updated on both mouse movement and touch events.
+
+const ExpandedState = ({ images, setIsExpanded }: ExpandedStateProps) => {
+  const mouseLeft = useMotionValue(-Infinity);
+  const containerRef = useRef<HTMLDivElement>(null);
+ 
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseLeft.set(e.clientX - rect.left);
+    }
+  };
+ 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const touch = e.touches[0];
+      mouseLeft.set(touch.clientX - rect.left);
+    }
+  };
+ 
+  const handleMouseLeave = () => {
+    mouseLeft.set(-Infinity);
+  };
+};
+Then in the Collection Image component, I use useTransform which is a Motion hook that creates values that update automatically when other values change.
+
+
+For each image, I get its position offsetLeft and width offsetWidth from the DOM.
+
+
+The distance is then calculated by taking the mouse position mouseLeft.get(), subtracting the image's left edge position bounds.x and subtracting half the image's width bounds.width/2 to get the distance from the center.
+
+const distance = useTransform(() => {
+  const bounds = ref.current
+    ? { x: ref.current.offsetLeft, width: ref.current.offsetWidth }
+    : { x: 0, width: 0 };
+  return (mouseLeft?.get() ?? 0) - bounds.x - bounds.width / 2;
+});
+scale transformation and offset animation need to be handled as well. What this basically does is that if the cursor is far away from the image the scale stays at 1.
+
+
+When the cursor is directly on top of the image, i.e. distance=0, the image scales up to it's max scale. The scale interpolates between these values as the mouse moves.
+
+
+Then, the calculateOffset function creates the "push away" effect. This function returns 0 when there's no mouse interaction, pushes images away from the mouse when they're far away and transitions between these states based on both the distance and the current scale.
+
+
+The NUDGE constant determines how far the images are pushed away, and Math.sign(currentDistance) ensures images are pushed in the correct direction (away from the mouse).
+
+const scale = useTransform(distance, [-DISTANCE, 0, DISTANCE], [1, SCALE, 1]);
+const calculateOffset = (currentDistance: number, currentScale: number) => {
+  if (currentDistance === -Infinity) {
+    return 0;
+  }
+ 
+  if (currentDistance < -DISTANCE || currentDistance > DISTANCE) {
+    return Math.sign(currentDistance) * -1 * NUDGE;
+  }
+ 
+  return (-currentDistance / DISTANCE) * NUDGE * currentScale;
+};
+Then, the useSpring hook from Motion takes the raw scale and position values and applies springs to them.
+
+const springConfig = SPRING_CONFIG();
+const scaleSpring = useSpring(scale, springConfig);
+const xSpring = useSpring(x, springConfig);
+These constants are the "magic numbers" that control how the animation feels. They determine how much the image scales up, how far the mouse needs to be to affect the images and how far the images are pushed away from the mouse.
+
+export const SCALE = 1.5;
+export const DISTANCE = 100;
+export const NUDGE = 24;
+export const SPRING_CONFIG = () => ({
+  mass: 0.1,
+  stiffness: 300,
+  damping: 20,
+});
+Then, in the Collection Image component, it's determined whether these are applied or not based on the state.
+
+<motion.div
+  ref={ref}
+  className="image-container"
+  style={{
+    width,
+    height,
+    ...(isExpanded && { x: xSpring, scale: scaleSpring }),
+  }}
+/>
+Final Component
+Finally, I wrapped everything in another MotionConfig as well as AnimatePresence with the popLayout mode, added keys and render the correct content based on the state.
+
+<MotionConfig transition={{ type: "spring", duration: 0.5, bounce: 0 }}>
+  <AnimatePresence mode="popLayout" initial={false}>
+    {!isExpanded ? (
+      <div key="collapsed">
+        <CollapsedState images={IMAGES} setIsExpanded={setIsExpanded} />
+      </div>
+    ) : (
+      <div key="expanded">
+        <ExpandedState images={IMAGES} setIsExpanded={setIsExpanded} />
+      </div>
+    )}
+  </AnimatePresence>
+</MotionConfig>
+Thanks to Sam Selikoff for pointing out improvements regarding item behaviour on hover. I was also inspired by this component he built.
+
+
+You can view the full code for the Collection Preview component here.
+
+More
+In case you have any questions reach me at jakub@kbo.sk or see more of my work on Twitter.
+

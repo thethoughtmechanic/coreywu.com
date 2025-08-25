@@ -52,12 +52,17 @@ export default function CopyEmail({
         {children || email}
       </span>
       <span className={cn(
-        "absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out",
+        "absolute inset-0 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out",
         "text-green-600 font-medium",
         copied 
           ? "transform translate-y-0 opacity-100" 
           : "transform translate-y-full opacity-0"
       )}>
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          <path d="m9 14 2 2 4-4"/>
+        </svg>
         Copied!
       </span>
     </button>

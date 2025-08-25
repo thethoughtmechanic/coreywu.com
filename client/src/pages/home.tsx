@@ -1,4 +1,9 @@
 import { Link } from "wouter";
+import { useState } from "react";
+import { ChevronDown, ExternalLink } from "lucide-react";
+import { Navigation } from "@/components/navigation";
+import { useScrollToTop } from "@/hooks/use-scroll-to-top";
+import CopyEmail from "@/components/copy-email";
 
 export default function Home() {
 
@@ -148,13 +153,9 @@ export default function Home() {
         <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
           <p className="text-sm text-muted-grey">
             Interested in collaborating or just want to chat? Reach out at{' '}
-            <a 
-              href="mailto:coreydavidwu@gmail.com"
-              className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
-              onClick={() => window.trackEmailClick && window.trackEmailClick('home')}
-            >
+            <CopyEmail className="text-warm-brown hover:text-hover-brown transition-colors duration-200 no-underline" email="coreydavidwu@gmail.com">
               coreydavidwu@gmail.com
-            </a>
+            </CopyEmail>
           </p>
         </footer>
       </div>

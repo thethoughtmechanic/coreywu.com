@@ -1,5 +1,6 @@
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
+import CopyEmail from "@/components/copy-email";
 
 export default function About() {
   const systemPromptRoles = [
@@ -159,14 +160,8 @@ export default function About() {
       {/* Contact Footer */}
       <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
-          Interested in collaborating or just want to chat? Reach out at{' '}
-          <a
-            href="mailto:coreydavidwu@gmail.com"
-            className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
-            onClick={() => window.trackEmailClick && window.trackEmailClick('about')}
-          >
-            coreydavidwu@gmail.com
-          </a>
+          Want to chat? Reach out at{' '}
+          <CopyEmail className="text-sm" />
         </p>
       </footer>
     </div>

@@ -6,6 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import democracyImage from "@assets/image_1754686959251.png";
 import fourTribesImage from "@assets/image_1755886711758.png";
 import { getPaintSplatter } from "@/lib/paint-splatters";
+import CopyEmail from "@/components/copy-email";
 
 export default function Thoughts() {
   const [, setLocation] = useLocation();
@@ -54,8 +55,8 @@ export default function Thoughts() {
   });
 
   // Filter thoughts based on selected filter
-  const sortedThoughts = selectedFilter === "All" 
-    ? allSortedThoughts 
+  const sortedThoughts = selectedFilter === "All"
+    ? allSortedThoughts
     : allSortedThoughts.filter(thought => thought.tag === selectedFilter);
 
 
@@ -222,7 +223,7 @@ export default function Thoughts() {
                   <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.title}
                   </h3>
-                  <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed mb-4">
+                  <div className="space-y-3 text-sm text-soft-black/80 leading-relaxed">
                     <div className="flex items-start gap-2">
                       <span className="text-warm-brown font-medium">•</span>
                       <p>The AI Babysitter</p>
@@ -420,9 +421,9 @@ export default function Thoughts() {
                             const imageMatch = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
                             if (imageMatch) {
                               return (
-                                <img 
+                                <img
                                   key={index}
-                                  src={imageMatch[2]} 
+                                  src={imageMatch[2]}
                                   alt={imageMatch[1]}
                                   className="max-w-full h-auto rounded-lg mb-4"
                                 />
@@ -436,9 +437,9 @@ export default function Thoughts() {
                             .replace(/\*([^*]+)\*/g, '<em>$1</em>');
 
                           return (
-                            <p 
-                              key={index} 
-                              className="mb-1" 
+                            <p
+                              key={index}
+                              className="mb-1"
                               dangerouslySetInnerHTML={{ __html: formattedLine }}
                             />
                           );
@@ -526,9 +527,9 @@ export default function Thoughts() {
               <span className="relative z-10">{tag}</span>
               {/* Background for selected state */}
               {selectedFilter === tag && (
-                <div 
+                <div
                   className="absolute inset-0 rounded-full"
-                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } :
                          tag === "Thought Bite" ? { background: "#3b82f6" } :
                          tag === "Scenario" ? { background: "#ef4444" } :
                          tag === "POV" ? { background: "#22c55e" } :
@@ -538,9 +539,9 @@ export default function Thoughts() {
               )}
               {/* Hover background for unselected pills */}
               {selectedFilter !== tag && (
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"
-                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                  style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } :
                          tag === "Thought Bite" ? { background: "#3b82f6" } :
                          tag === "Scenario" ? { background: "#ef4444" } :
                          tag === "POV" ? { background: "#22c55e" } :
@@ -904,9 +905,9 @@ export default function Thoughts() {
                                   const imageMatch = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
                                   if (imageMatch) {
                                     return (
-                                      <img 
+                                      <img
                                         key={index}
-                                        src={imageMatch[2]} 
+                                        src={imageMatch[2]}
                                         alt={imageMatch[1]}
                                         className="max-w-full h-auto rounded-lg mb-4"
                                       />
@@ -920,9 +921,9 @@ export default function Thoughts() {
                                   .replace(/\*([^*]+)\*/g, '<em>$1</em>');
 
                                 return (
-                                  <p 
-                                    key={index} 
-                                    className="mb-1" 
+                                  <p
+                                    key={index}
+                                    className="mb-1"
                                     dangerouslySetInnerHTML={{ __html: formattedLine }}
                                   />
                                 );
@@ -970,7 +971,8 @@ export default function Thoughts() {
                     {expandedSlide === thought.id && getGoogleSlidesUrl(thought.id) && (
                       <div className="mt-4 bg-light-brown rounded-xl p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h4 className="text-sm font-medium text-warm-brown">Presentation</h4>
+                          <h4 className="text-sm font-medium text-warm-brown">
+                            Presentation</h4>
                           <button
                             onClick={() => setExpandedSlide(null)}
                             className="text-warm-brown hover:text-hover-brown"
@@ -1065,14 +1067,8 @@ export default function Thoughts() {
       {/* Contact Footer */}
       <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
-          Interested in collaborating or just want to chat? Reach out at{' '}
-          <a
-            href="mailto:coreydavidwu@gmail.com"
-            className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
-            onClick={() => window.trackEmailClick && window.trackEmailClick('thoughts')}
-          >
-            coreydavidwu@gmail.com
-          </a>
+          Interested in discussing any of these ideas? Reach out at{' '}
+          <CopyEmail className="text-sm" />
         </p>
       </footer>
     </div>

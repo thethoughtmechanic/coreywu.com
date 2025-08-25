@@ -160,7 +160,7 @@ export default function Experiments() {
 
   // Desktop Card View (3 columns)
   const DesktopView = () => (
-    <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8 experiments-background-texture">
+    <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
       <div className="grid grid-cols-3 gap-6 items-start">
         {orderedExperiments.map((experiment) => {
           const route = getExperimentRoute(experiment.id);
@@ -286,7 +286,7 @@ export default function Experiments() {
 
   // Mobile Card View
   const MobileView = () => (
-    <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8 experiments-background-texture">
+    <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
       <div className="space-y-4">
       {orderedExperiments.map((experiment) => {
         const route = getExperimentRoute(experiment.id);
@@ -433,8 +433,8 @@ export default function Experiments() {
         </div>
       </header>
 
-      {/* Experiments Content */}
-      <div>
+      {/* Experiments Content - Add background texture class to page level */}
+      <div className="experiments-background-texture">
         {isMobile ? <MobileView /> : <DesktopView />}
       </div>
 

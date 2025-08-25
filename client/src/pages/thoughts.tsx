@@ -485,7 +485,7 @@ export default function Thoughts() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8">
+    <div className="max-w-7xl mx-auto px-6 py-8 thoughts-background-texture">
       {/* Header */}
       <header className="text-center mb-12 pt-4">
         {/* Title */}
@@ -554,7 +554,7 @@ export default function Thoughts() {
       </div>
 
       {/* Idea Garden Content */}
-      <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8 thoughts-background-texture">
+      <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
         {/* Mobile: Instagram-style vertical feed */}
         {isMobile ? (
           <div className="space-y-4">

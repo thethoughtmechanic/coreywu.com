@@ -283,7 +283,7 @@ export default function Experiments() {
           Building Better Futures
         </h2>
         <p className="text-soft-black/80 leading-relaxed text-sm max-w-md mx-auto">
-          Projects that aim to make the world more intentional and human.
+          Projects that aim to make the world more meaningful,intentional, and human.
         </p>
       </div>
 

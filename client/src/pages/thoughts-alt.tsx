@@ -80,30 +80,30 @@ export default function ThoughtsAlt() {
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  {/* Tag pill with specific colors */}
+                  {/* Tag pill with vibrant OKLCH colors */}
                   {thought.status === 'wip' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-accent text-accent-foreground overflow-hidden group-hover/card:text-white group-hover/card:border-accent">
-                      <div className="absolute inset-0 bg-gradient-to-r from-accent/80 to-accent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
+                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-[oklch(0.7830_0.1500_45.0000)] text-[oklch(0.6830_0.1300_45.0000)] overflow-hidden group-hover/card:text-white group-hover/card:border-[oklch(0.7830_0.1500_45.0000)]">
+                      <div className="absolute inset-0 bg-[oklch(0.7830_0.1500_45.0000)] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
                       <span className="relative z-10">Coming Soon</span>
                     </span>
                   ) : thought.tag === 'Thought Bite' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-primary text-primary overflow-hidden group-hover/card:text-white group-hover/card:border-primary">
-                      <div className="absolute inset-0 bg-primary opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
+                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-[oklch(0.6500_0.2000_220.0000)] text-[oklch(0.5500_0.1800_220.0000)] overflow-hidden group-hover/card:text-white group-hover/card:border-[oklch(0.6500_0.2000_220.0000)]">
+                      <div className="absolute inset-0 bg-[oklch(0.6500_0.2000_220.0000)] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
                       <span className="relative z-10">{thought.tag}</span>
                     </span>
                   ) : thought.tag === 'Scenario' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-destructive text-destructive overflow-hidden group-hover/card:text-white group-hover/card:border-destructive">
-                      <div className="absolute inset-0 bg-destructive opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
+                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-[oklch(0.7000_0.1800_25.0000)] text-[oklch(0.6000_0.1600_25.0000)] overflow-hidden group-hover/card:text-white group-hover/card:border-[oklch(0.7000_0.1800_25.0000)]">
+                      <div className="absolute inset-0 bg-[oklch(0.7000_0.1800_25.0000)] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
                       <span className="relative z-10">{thought.tag}</span>
                     </span>
                   ) : thought.tag === 'POV' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-chart-3 text-chart-3 overflow-hidden group-hover/card:text-white group-hover/card:border-chart-3">
-                      <div className="absolute inset-0 bg-[oklch(var(--chart-3))] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
+                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-[oklch(0.6800_0.1600_160.0000)] text-[oklch(0.5800_0.1400_160.0000)] overflow-hidden group-hover/card:text-white group-hover/card:border-[oklch(0.6800_0.1600_160.0000)]">
+                      <div className="absolute inset-0 bg-[oklch(0.6800_0.1600_160.0000)] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
                       <span className="relative z-10">{thought.tag}</span>
                     </span>
                   ) : thought.tag === 'Future Seed' ? (
-                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-chart-5 text-chart-5 overflow-hidden group-hover/card:text-white group-hover/card:border-chart-5">
-                      <div className="absolute inset-0 bg-[oklch(var(--chart-5))] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
+                    <span className="relative text-xs font-medium px-2.5 py-1 rounded-lg transition-all duration-500 border border-[oklch(0.7200_0.1700_280.0000)] text-[oklch(0.6200_0.1500_280.0000)] overflow-hidden group-hover/card:text-white group-hover/card:border-[oklch(0.7200_0.1700_280.0000)]">
+                      <div className="absolute inset-0 bg-[oklch(0.7200_0.1700_280.0000)] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-lg" />
                       <span className="relative z-10">{thought.tag}</span>
                     </span>
                   ) : (

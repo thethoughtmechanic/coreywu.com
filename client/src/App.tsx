@@ -34,6 +34,7 @@ import { useState, useEffect } from "react";
 import EmailSubmissions from '@/pages/email-submissions';
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import GardenText from './pages/gardentext';
+import Backgrounds from "@/pages/backgrounds";
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
@@ -98,11 +99,12 @@ function Router() {
           <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
           <Route path="/gardentext" component={GardenText} />
+          <Route path="/backgrounds" component={Backgrounds} />
 
           <Route path="/admin" component={Admin} />
           <Route path="/admin/emails" component={EmailSubmissions} />
           <Route path="/designsystem" component={DesignSystem} />
-          <Route component={NotFound} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </main>
     </>

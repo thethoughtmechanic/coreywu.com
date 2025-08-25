@@ -554,7 +554,7 @@ export default function Thoughts() {
       </div>
 
       {/* Idea Garden Content */}
-      <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
+      <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8 thoughts-background-texture">
         {/* Mobile: Instagram-style vertical feed */}
         {isMobile ? (
           <div className="space-y-4">

@@ -306,6 +306,45 @@
               box-shadow var(--animation-duration) var(--animation-easing) !important;
 }
 
+/* Background textures */
+.experiments-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.experiments-background-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: 
+    linear-gradient(rgba(139, 115, 85, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 115, 85, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(139, 115, 85, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 115, 85, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+  transform: rotate(12deg) scale(1.2);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.thoughts-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.thoughts-background-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M20,50 Q40,30 60,50 T100,50 Q120,30 140,50 T180,50' stroke='rgba(139,115,85,0.025)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M30,80 Q50,60 70,80 T110,80 Q130,60 150,80 T190,80' stroke='rgba(139,115,85,0.02)' stroke-width='1' fill='none'/%3E%3Cpath d='M10,110 Q30,90 50,110 T90,110 Q110,90 130,110 T170,110' stroke='rgba(139,115,85,0.03)' stroke-width='1.2' fill='none'/%3E%3Cpath d='M40,140 Q60,120 80,140 T120,140 Q140,120 160,140 T200,140' stroke='rgba(139,115,85,0.015)' stroke-width='0.8' fill='none'/%3E%3Cpath d='M15,170 Q35,150 55,170 T95,170 Q115,150 135,170 T175,170' stroke='rgba(139,115,85,0.025)' stroke-width='1.3' fill='none'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+  background-repeat: repeat;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 /* Theme-specific overrides */
 .theme-cyberpunk-neon {
   --shadow-glow: 0 0 20px rgba(168, 85, 247, 0.3);

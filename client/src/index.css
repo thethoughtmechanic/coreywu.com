@@ -470,10 +470,10 @@
   bottom: 0;
   z-index: -1;
   background-image: 
-    linear-gradient(rgba(139, 115, 85, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 115, 85, 0.04) 1px, transparent 1px),
-    linear-gradient(rgba(139, 115, 85, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 115, 85, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(139, 115, 85, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 115, 85, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(139, 115, 85, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 115, 85, 0.015) 1px, transparent 1px);
   background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
   transform: rotate(12deg) scale(1.8);
   transform-origin: center;

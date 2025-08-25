@@ -158,24 +158,24 @@ export default function Experiments() {
 
   
 
-  // Desktop Card View (3 columns)
+  // Desktop Card View (responsive columns)
   const DesktopView = () => (
     <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
-      <div className="grid grid-cols-3 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
         {orderedExperiments.map((experiment) => {
           const route = getExperimentRoute(experiment.id);
 
           const CardContent = () => (
             <div className="space-y-4">
               {/* Title and Status Pill Row */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
-                    {experiment.title}
-                  </h3>
-                  <StatusPill status={experiment.status || 'unknown'} isActive={experiment.isActive} />
+              <div className="flex items-center gap-3">
+                <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'} leading-tight`}>
+                  {experiment.title}
+                </h3>
+                <StatusPill status={experiment.status || 'unknown'} isActive={experiment.isActive} />
+                <div className="ml-auto">
+                  {getCategoryIcon(experiment.id)}
                 </div>
-                {getCategoryIcon(experiment.id)}
               </div>
 
               {/* Timeframe and Team on one line */}
@@ -208,18 +208,60 @@ export default function Experiments() {
           );
 
           return route ? (
-            <button
+            <article
               key={experiment.id}
               onClick={() => setLocation(route)}
-              className="w-full bg-white rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20 h-fit"
+              className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 h-fit group hover:shadow-md transition-all duration-300 overflow-hidden"
               data-testid={`button-${experiment.id}-desktop`}
             >
-              <CardContent />
-            </button>
+              {/* Paint Splatter Background - appears on hover */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
+                style={{
+                  background: `
+                    radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
+                    radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                    radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
+                    radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
+                    radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
+                  `,
+                  minHeight: '100%',
+                  minWidth: '100%'
+                }}
+              />
+
+              {/* Text Background for better readability when splatter is visible */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
+
+              <div className="relative z-10">
+                <CardContent />
+              </div>
+            </article>
           ) : (
-            <div key={experiment.id} className="bg-white rounded-lg p-6 shadow-sm border border-warm-brown/10 h-fit">
-              <CardContent />
-            </div>
+            <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 h-fit group hover:shadow-md transition-all duration-300 overflow-hidden">
+              {/* Paint Splatter Background - appears on hover */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
+                style={{
+                  background: `
+                    radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
+                    radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                    radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
+                    radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
+                    radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
+                  `,
+                  minHeight: '100%',
+                  minWidth: '100%'
+                }}
+              />
+
+              {/* Text Background for better readability when splatter is visible */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
+
+              <div className="relative z-10">
+                <CardContent />
+              </div>
+            </article>
           );
         })}
       </div>
@@ -294,14 +336,14 @@ export default function Experiments() {
         const CardContent = () => (
           <div className="space-y-3">
             {/* Title and Status Pill Row */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
-                  {experiment.title}
-                </h3>
-                <StatusPill status={experiment.status || 'unknown'} isActive={experiment.isActive} />
+            <div className="flex items-center gap-3">
+              <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'} leading-tight`}>
+                {experiment.title}
+              </h3>
+              <StatusPill status={experiment.status || 'unknown'} isActive={experiment.isActive} />
+              <div className="ml-auto">
+                {getCategoryIcon(experiment.id)}
               </div>
-              {getCategoryIcon(experiment.id)}
             </div>
 
             {/* Timeframe and Team on one line */}
@@ -334,18 +376,60 @@ export default function Experiments() {
         );
 
         return route ? (
-          <button
+          <article
             key={experiment.id}
             onClick={() => setLocation(route)}
-            className="w-full bg-white rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20"
+            className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 group hover:shadow-md transition-all duration-300 overflow-hidden"
             data-testid={`button-${experiment.id}-mobile`}
           >
-            <CardContent />
-          </button>
+            {/* Paint Splatter Background - appears on hover */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
+              style={{
+                background: `
+                  radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
+                  radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                  radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
+                  radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
+                  radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
+                `,
+                minHeight: '100%',
+                minWidth: '100%'
+              }}
+            />
+
+            {/* Text Background for better readability when splatter is visible */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
+
+            <div className="relative z-10">
+              <CardContent />
+            </div>
+          </article>
         ) : (
-          <div key={experiment.id} className="bg-white rounded-lg p-6 shadow-sm border border-warm-brown/10">
-            <CardContent />
-          </div>
+          <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 group hover:shadow-md transition-all duration-300 overflow-hidden">
+            {/* Paint Splatter Background - appears on hover */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out rounded-xl overflow-hidden"
+              style={{
+                background: `
+                  radial-gradient(ellipse 60% 45% at 25% 15%, #f59e0b 0%, #f59e0b 55%, transparent 95%),
+                  radial-gradient(ellipse 55% 40% at 75% 25%, #dc2626 0%, #dc2626 50%, transparent 90%),
+                  radial-gradient(ellipse 50% 55% at 15% 80%, #ea580c 0%, #ea580c 60%, transparent 100%),
+                  radial-gradient(ellipse 55% 35% at 85% 90%, #facc15 0%, #facc15 45%, transparent 85%),
+                  radial-gradient(ellipse 45% 50% at 50% 60%, #ef4444 0%, #ef4444 50%, transparent 90%)
+                `,
+                minHeight: '100%',
+                minWidth: '100%'
+              }}
+            />
+
+            {/* Text Background for better readability when splatter is visible */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-xl" />
+
+            <div className="relative z-10">
+              <CardContent />
+            </div>
+          </article>
         );
       })}
       </div>

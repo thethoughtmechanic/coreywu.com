@@ -381,6 +381,185 @@
   75% { transform: translateX(-2px) translateY(-1px); }
 }
 
+/* Additional background textures for backgrounds page */
+.circuit-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.circuit-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10,10 L30,10 L30,30 L50,30 L50,50 L70,50 L70,70 L90,70' stroke='rgba(139,115,85,0.15)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M10,50 L20,50 L20,20 L40,20 L40,40 L60,40 L60,80 L80,80' stroke='rgba(139,115,85,0.12)' stroke-width='1.2' fill='none'/%3E%3Ccircle cx='30' cy='30' r='2' fill='rgba(139,115,85,0.15)'/%3E%3Ccircle cx='50' cy='50' r='2' fill='rgba(139,115,85,0.15)'/%3E%3Ccircle cx='70' cy='70' r='2' fill='rgba(139,115,85,0.15)'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.hexagon-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.hexagon-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='25,20 35,15 45,20 45,30 35,35 25,30' stroke='rgba(139,115,85,0.12)' stroke-width='1' fill='none'/%3E%3Cpolygon points='55,35 65,30 75,35 75,45 65,50 55,45' stroke='rgba(139,115,85,0.15)' stroke-width='1' fill='none'/%3E%3Cpolygon points='25,50 35,45 45,50 45,60 35,65 25,60' stroke='rgba(139,115,85,0.1)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.dot-matrix-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.dot-matrix-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgba(139,115,85,0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.vine-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.vine-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Cpath d='M10,20 Q30,10 50,25 Q70,40 90,30 Q110,20 130,35' stroke='rgba(139,115,85,0.12)' stroke-width='2.5' fill='none'/%3E%3Cellipse cx='25' cy='18' rx='3' ry='6' fill='rgba(139,115,85,0.15)' transform='rotate(30 25 18)'/%3E%3Cellipse cx='65' cy='35' rx='3' ry='6' fill='rgba(139,115,85,0.12)' transform='rotate(-20 65 35)'/%3E%3Cellipse cx='105' cy='25' rx='3' ry='6' fill='rgba(139,115,85,0.15)' transform='rotate(45 105 25)'/%3E%3Cpath d='M20,80 Q40,70 60,85 Q80,100 100,90 Q120,80 140,95' stroke='rgba(139,115,85,0.1)' stroke-width='2.5' fill='none'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.neuron-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.neuron-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='50' cy='50' r='3' fill='rgba(139,115,85,0.15)'/%3E%3Ccircle cx='150' cy='80' r='2' fill='rgba(139,115,85,0.12)'/%3E%3Ccircle cx='80' cy='150' r='2.5' fill='rgba(139,115,85,0.13)'/%3E%3Cpath d='M50,50 Q100,30 150,80' stroke='rgba(139,115,85,0.1)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M150,80 Q120,120 80,150' stroke='rgba(139,115,85,0.08)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M80,150 Q40,120 50,50' stroke='rgba(139,115,85,0.12)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.paper-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(139, 115, 85, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 80% 40%, rgba(139, 115, 85, 0.04) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 40% 80%, rgba(139, 115, 85, 0.05) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 90% 10%, rgba(139, 115, 85, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px, 70px 70px, 25px 25px;
+  background-position: 0 0, 15px 15px, 25px 25px, 5px 5px;
+  pointer-events: none;
+}
+
+.grain-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.grain-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(139, 115, 85, 0.02) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 75% 75%, rgba(139, 115, 85, 0.025) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 50% 10%, rgba(139, 115, 85, 0.015) 0.3px, transparent 0.3px);
+  background-size: 15px 15px, 12px 12px, 8px 8px;
+  background-position: 0 0, 7px 7px, 3px 3px;
+  pointer-events: none;
+}
+
+.connect-dots-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.connect-dots-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='50' cy='50' r='1.5' fill='rgba(139,115,85,0.12)'/%3E%3Ccircle cx='150' cy='50' r='1' fill='rgba(139,115,85,0.08)'/%3E%3Ccircle cx='100' cy='150' r='1.2' fill='rgba(139,115,85,0.1)'/%3E%3Cpath d='M50,50 L150,50 L100,150 L50,50' stroke='rgba(139,115,85,0.04)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.timeline-background-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-background-texture::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cline x1='10' y1='20' x2='15' y2='20' stroke='rgba(139,115,85,0.08)' stroke-width='1.5'/%3E%3Cline x1='10' y1='40' x2='20' y2='40' stroke='rgba(139,115,85,0.12)' stroke-width='1.5'/%3E%3Cline x1='10' y1='60' x2='15' y2='60' stroke='rgba(139,115,85,0.1)' stroke-width='1.5'/%3E%3Cline x1='10' y1='80' x2='18' y2='80' stroke='rgba(139,115,85,0.08)' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
 /* Theme-specific overrides */
 .theme-cyberpunk-neon {
   --shadow-glow: 0 0 20px rgba(168, 85, 247, 0.3);

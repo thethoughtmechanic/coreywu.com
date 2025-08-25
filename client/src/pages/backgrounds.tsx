@@ -1,6 +1,51 @@
 
 import { useState } from "react";
 
+// Helper function to get the appropriate texture class
+const getTextureClass = (section: string, optionName: string) => {
+  if (section === 'experiments') {
+    switch (optionName) {
+      case 'Blueprint Grid (Current)':
+        return 'experiments-background-texture';
+      case 'Circuit Board':
+        return 'circuit-background-texture';
+      case 'Hexagon Pattern':
+        return 'hexagon-background-texture';
+      case 'Dot Matrix':
+        return 'dot-matrix-background-texture';
+      default:
+        return '';
+    }
+  } else if (section === 'thoughts') {
+    switch (optionName) {
+      case 'Organic Scribbles (Current)':
+        return 'thoughts-background-texture';
+      case 'Vine Growth':
+        return 'vine-background-texture';
+      case 'Brain Neurons':
+        return 'neuron-background-texture';
+      case 'Paper Texture':
+        return 'paper-background-texture';
+      default:
+        return '';
+    }
+  } else if (section === 'about') {
+    switch (optionName) {
+      case 'Clean Minimal':
+        return '';
+      case 'Subtle Grain':
+        return 'grain-background-texture';
+      case 'Connect Dots':
+        return 'connect-dots-background-texture';
+      case 'Timeline Marks':
+        return 'timeline-background-texture';
+      default:
+        return '';
+    }
+  }
+  return '';
+};
+
 export default function Backgrounds() {
   const [selectedSection, setSelectedSection] = useState<string>("experiments");
 
@@ -259,40 +304,9 @@ export default function Backgrounds() {
             {/* Preview Card */}
             <div className="bg-white rounded-lg border border-warm-brown/10 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
               {/* Background Preview */}
-              <div 
-                className="h-48 relative bg-gradient-to-br from-cream/30 to-light-brown/20"
-                style={{
-                  backgroundImage: option.before ? undefined : 'none'
-                }}
-              >
-                {/* Apply the background texture */}
-                <div 
-                  className={option.css}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                  }}
-                >
-                  <div 
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      zIndex: -1,
-                      ...(() => {
-                        // Parse the before pseudo-element CSS
-                        const rules = option.before.split(';').reduce((acc: any, rule) => {
-                          const [prop, value] = rule.split(':').map(s => s.trim());
-                          if (prop && value && prop !== 'content' && prop !== 'pointer-events') {
-                            const camelProp = prop.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-                            acc[camelProp] = value;
-                          }
-                          return acc;
-                        }, {});
-                        return rules;
-                      })()
-                    }}
-                  />
-                </div>
+              <div className="h-48 relative bg-gradient-to-br from-cream/30 to-light-brown/20 overflow-hidden">
+                {/* Apply the background texture using CSS classes */}
+                <div className={`absolute inset-0 ${getTextureClass(selectedSection, option.name)}`}></div>
 
                 {/* Sample Content */}
                 <div className="relative z-10 p-6 h-full flex flex-col justify-center">

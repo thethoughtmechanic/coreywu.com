@@ -111,27 +111,37 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 <button
                   onClick={handleEmailClick}
                   className={cn(
-                    "transition-all duration-200 pb-1 cursor-pointer relative overflow-hidden",
+                    "transition-all duration-200 pb-1 cursor-pointer relative overflow-hidden px-3 py-1.5 rounded-lg border",
                     isDarkMode 
-                      ? "text-gray-300 hover:text-white"
-                      : "text-soft-black hover:text-warm-brown"
+                      ? "text-gray-300 hover:text-white border-gray-600/30 hover:border-white/30 hover:bg-gray-800/30"
+                      : "text-soft-black hover:text-warm-brown border-warm-brown/30 hover:border-warm-brown/50 hover:bg-warm-brown/10"
                   )}
                   data-testid="button-email-me"
                 >
                   <span className={cn(
-                    "block transition-all duration-300 ease-in-out",
+                    "flex items-center gap-2 transition-all duration-300 ease-in-out",
                     emailCopied 
                       ? "transform -translate-y-full opacity-0" 
                       : "transform translate-y-0 opacity-100"
                   )}>
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect width="20" height="16" x="2" y="4" rx="2"/>
+                      <path d="m22 7-10 5L2 7"/>
+                    </svg>
                     Email Me
                   </span>
                   <span className={cn(
-                    "absolute inset-0 block transition-all duration-300 ease-in-out",
+                    "absolute inset-0 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out text-green-600 font-medium",
+                    isDarkMode ? "text-green-400" : "text-green-600",
                     emailCopied 
                       ? "transform translate-y-0 opacity-100" 
                       : "transform translate-y-full opacity-0"
                   )}>
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                      <path d="m9 14 2 2 4-4"/>
+                    </svg>
                     Copied!
                   </span>
                 </button>
@@ -257,19 +267,29 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
           >
             <span className="relative">
               <span className={cn(
-                "block transition-all duration-300 ease-in-out",
+                "flex items-center gap-3 transition-all duration-300 ease-in-out",
                 emailCopied 
                   ? "transform -translate-y-full opacity-0" 
                   : "transform translate-y-0 opacity-100"
               )}>
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect width="20" height="16" x="2" y="4" rx="2"/>
+                  <path d="m22 7-10 5L2 7"/>
+                </svg>
                 Email Me
               </span>
               <span className={cn(
-                "absolute inset-0 block transition-all duration-300 ease-in-out",
+                "absolute inset-0 flex items-center gap-3 transition-all duration-300 ease-in-out font-semibold",
+                isDarkMode ? "text-green-400" : "text-green-600",
                 emailCopied 
                   ? "transform translate-y-0 opacity-100" 
                   : "transform translate-y-full opacity-0"
               )}>
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                  <path d="m9 14 2 2 4-4"/>
+                </svg>
                 Copied!
               </span>
             </span>

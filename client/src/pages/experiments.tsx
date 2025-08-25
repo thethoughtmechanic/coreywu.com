@@ -157,46 +157,154 @@ export default function Experiments() {
     return yearB - yearA; // Descending order
   });
 
-  // Desktop Table View
-  const DesktopView = () => (
-    <div className="bg-light-brown rounded-lg overflow-hidden">
-      <div className="px-6 py-3 border-b border-warm-brown/20 bg-warm-brown/5">
-        <div className="grid grid-cols-12 gap-4 text-sm font-medium text-warm-brown">
-          <div className="col-span-2">Status</div>
-          <div className="col-span-2">Project</div>
-          <div className="col-span-3">Description</div>
-          <div className="col-span-2">Technologies</div>
-          <div className="col-span-2">Timeline</div>
-          <div className="col-span-1">Team</div>
+  // Desktop Overview Section (similar to mobile but without scroll indicator)
+  const DesktopOverview = () => (
+    <div className="mb-12 pb-8 border-b border-warm-brown/20">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-light text-warm-brown mb-4">
+          Building Better Futures
+        </h2>
+        <p className="text-soft-black/80 leading-relaxed text-base max-w-2xl mx-auto">
+          Projects that aim to make the world more meaningful, intentional, and human.
+        </p>
+      </div>
+
+      <div className="flex justify-center items-center gap-12">
+        <div className="flex flex-col items-center gap-2 text-sm">
+          <svg className="w-12 h-12" viewBox="0 0 24 24">
+            <defs>
+              <pattern id="redSketchDesktop" patternUnits="userSpaceOnUse" width="2" height="2">
+                <rect width="2" height="2" fill="#ec4899"/>
+                <path d="M0,0.5 L2,0.5" stroke="#fce7f3" strokeWidth="0.3" opacity="0.8"/>
+                <path d="M0,1.5 L2,1.5" stroke="#fbcfe8" strokeWidth="0.3" opacity="0.6"/>
+                <path d="M0.5,0 L0.5,2" stroke="#f9a8d4" strokeWidth="0.3" opacity="0.7"/>
+                <path d="M1.5,0 L1.5,2" stroke="#f472b6" strokeWidth="0.3" opacity="0.9"/>
+                <circle cx="0.5" cy="0.5" r="0.1" fill="#fdf2f8" opacity="0.8"/>
+                <circle cx="1.5" cy="1.5" r="0.1" fill="#fef7f3" opacity="0.6"/>
+              </pattern>
+            </defs>
+            <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="url(#redSketchDesktop)" stroke="#ec4899" strokeWidth="0.5"/>
+          </svg>
+          <span className="text-muted-grey font-medium">Connect</span>
+        </div>
+        <div className="flex flex-col items-center gap-2 text-sm">
+          <svg className="w-12 h-12" viewBox="0 0 24 24">
+            <defs>
+              <pattern id="yellowSketchDesktop" patternUnits="userSpaceOnUse" width="2" height="2">
+                <rect width="2" height="2" fill="#ca8a04"/>
+                <path d="M0.2,0.2 L1.8,1.8" stroke="#fef3c7" strokeWidth="0.3" opacity="0.8"/>
+                <path d="M0.2,1.8 L1.8,0.2" stroke="#fde68a" strokeWidth="0.3" opacity="0.7"/>
+                <path d="M0,1 L2,1" stroke="#facc15" strokeWidth="0.3" opacity="0.6"/>
+                <path d="M1,0 L1,2" stroke="#eab308" strokeWidth="0.3" opacity="0.9"/>
+                <circle cx="0.3" cy="0.3" r="0.15" fill="#fffbeb" opacity="0.7"/>
+                <circle cx="1.7" cy="1.7" r="0.1" fill="#fefce8" opacity="0.8"/>
+                <rect x="0.8" y="0.8" width="0.4" height="0.4" fill="#fbbf24" opacity="0.5"/>
+              </pattern>
+            </defs>
+            <path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" fill="url(#yellowSketchDesktop)" stroke="#ca8a04" strokeWidth="0.5"/>
+            <circle cx="12" cy="12" r="3" fill="url(#yellowSketchDesktop)" stroke="#d97706" strokeWidth="0.5"/>
+          </svg>
+          <span className="text-muted-grey font-medium">Optimize</span>
+        </div>
+        <div className="flex flex-col items-center gap-2 text-sm">
+          <svg className="w-12 h-12" viewBox="0 0 24 24">
+            <defs>
+              <pattern id="purpleSketchDesktop" patternUnits="userSpaceOnUse" width="2" height="2">
+                <rect width="2" height="2" fill="#7c3aed"/>
+                <circle cx="0.5" cy="0.5" r="0.2" fill="#f3e8ff" opacity="0.8"/>
+                <circle cx="1.5" cy="1.5" r="0.15" fill="#e9d5ff" opacity="0.7"/>
+                <path d="M0,0.5 L2,0.5" stroke="#ddd6fe" strokeWidth="0.3" opacity="0.6"/>
+                <path d="M0,1.5 L2,1.5" stroke="#c4b5fd" strokeWidth="0.3" opacity="0.8"/>
+                <path d="M0.5,0 L0.5,2" stroke="#a78bfa" strokeWidth="0.3" opacity="0.7"/>
+                <path d="M1.5,0 L1.5,2" stroke="#8b5cf6" strokeWidth="0.3" opacity="0.9"/>
+                <path d="M0,0 L2,2" stroke="#a855f7" strokeWidth="0.2" opacity="0.5"/>
+                <path d="M2,0 L0,2" stroke="#9333ea" strokeWidth="0.2" opacity="0.4"/>
+              </pattern>
+            </defs>
+            <path d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" fill="url(#purpleSketchDesktop)" stroke="#7c3aed" strokeWidth="0.5"/>
+          </svg>
+          <span className="text-muted-grey font-medium">Coordinate</span>
         </div>
       </div>
-      <div className="divide-y divide-warm-brown/10">
+    </div>
+  );
+
+  // Desktop Card View (3 columns)
+  const DesktopView = () => (
+    <div className="space-y-8">
+      <DesktopOverview />
+      <div className="grid grid-cols-3 gap-6">
         {orderedExperiments.map((experiment) => {
           const route = getExperimentRoute(experiment.id);
-          const RowContent = () => (
-            <div className="grid grid-cols-12 gap-4 items-start">
-              <div className="col-span-2">
-                <StatusDot experiment={experiment} />
-              </div>
-              <div className="col-span-2">
-                <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
-                  {experiment.title}
-                </h3>
-              </div>
-              <div className="col-span-3">
-                <p className="text-sm text-soft-black">{experiment.description}</p>
-              </div>
-              <div className="col-span-2">
-                <div className="text-sm text-muted-grey">
-                  {getTechnologiesDisplay(experiment)}
+
+          const CardContent = () => (
+            <div className="space-y-4">
+              {/* Title and Status Pill Row */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'}`}>
+                    {experiment.title}
+                  </h3>
+                  <StatusPill status={experiment.status || 'unknown'} isActive={experiment.isActive} />
                 </div>
+                {getCategoryIcon(experiment.id)}
               </div>
-              <div className="col-span-2 text-sm text-muted-grey">
-                {experiment.timeframe}
+
+              {/* Timeframe and Team on one line */}
+              <div className="text-sm text-gray-400">
+                {experiment.timeframe} | {experiment.collaborators && experiment.collaborators.length > 0
+                  ? experiment.collaborators.join(', ')
+                  : 'Solo'
+                }
               </div>
-              <div className="col-span-1 text-sm text-muted-grey">
-                {getTeamDisplay(experiment)}
-              </div>
+
+              {/* Description */}
+              <p className="text-sm text-soft-black leading-relaxed">
+                {experiment.description}
+              </p>
+
+              {/* Technologies - max 2 lines, smaller pills */}
+              {experiment.technologies && experiment.technologies.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {(expandedTech.has(experiment.id) 
+                    ? experiment.technologies 
+                    : experiment.technologies.slice(0, 4)
+                  ).map((tech, index) => (
+                    <span 
+                      key={index}
+                      className="text-[10px] px-1.5 py-0.5 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {experiment.technologies.length > 4 && !expandedTech.has(experiment.id) && (
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const newExpanded = new Set(expandedTech);
+                        newExpanded.add(experiment.id);
+                        setExpandedTech(newExpanded);
+                      }}
+                      className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
+                    >
+                      +{experiment.technologies.length - 4} More
+                    </span>
+                  )}
+                  {expandedTech.has(experiment.id) && experiment.technologies.length > 4 && (
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const newExpanded = new Set(expandedTech);
+                        newExpanded.delete(experiment.id);
+                        setExpandedTech(newExpanded);
+                      }}
+                      className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
+                    >
+                      Show Less
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           );
 
@@ -204,14 +312,14 @@ export default function Experiments() {
             <button
               key={experiment.id}
               onClick={() => setLocation(route)}
-              className="w-full px-6 py-4 text-left hover:bg-warm-brown/5 transition-colors duration-200 cursor-pointer"
+              className="w-full bg-light-brown rounded-lg p-6 text-left hover:bg-warm-brown/5 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md border border-warm-brown/10 hover:border-warm-brown/20"
               data-testid={`button-${experiment.id}-desktop`}
             >
-              <RowContent />
+              <CardContent />
             </button>
           ) : (
-            <div key={experiment.id} className="px-6 py-4">
-              <RowContent />
+            <div key={experiment.id} className="bg-light-brown rounded-lg p-6 shadow-sm border border-warm-brown/10">
+              <CardContent />
             </div>
           );
         })}

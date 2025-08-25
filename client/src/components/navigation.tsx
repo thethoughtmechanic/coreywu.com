@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
@@ -11,12 +11,33 @@ interface NavigationProps {
 export function Navigation({ isDarkMode = false }: NavigationProps) {
   const [location] = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const navItems = [
     { label: "About Me", path: "/about" },
     { label: "Thoughts", path: "/thoughts" },
     { label: "Experiments", path: "/experiments" },
   ];
+
+  const handleEmailClick = async () => {
+    try {
+      await navigator.clipboard.writeText("corey.david.wu@gmail.com");
+      setEmailCopied(true);
+      
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      
+      // Reset after 2 seconds
+      timeoutRef.current = setTimeout(() => {
+        setEmailCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy email:', err);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -25,6 +46,15 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -76,6 +106,35 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                     {item.label}
                   </Link>
                 ))}
+                
+                {/* Email Me Button */}
+                <button
+                  onClick={handleEmailClick}
+                  className={cn(
+                    "transition-all duration-200 pb-1 cursor-pointer relative overflow-hidden",
+                    isDarkMode 
+                      ? "text-gray-300 hover:text-white"
+                      : "text-soft-black hover:text-warm-brown"
+                  )}
+                  data-testid="button-email-me"
+                >
+                  <span className={cn(
+                    "block transition-all duration-300 ease-in-out",
+                    emailCopied 
+                      ? "transform -translate-y-full opacity-0" 
+                      : "transform translate-y-0 opacity-100"
+                  )}>
+                    Email Me
+                  </span>
+                  <span className={cn(
+                    "absolute inset-0 block transition-all duration-300 ease-in-out",
+                    emailCopied 
+                      ? "transform translate-y-0 opacity-100" 
+                      : "transform translate-y-full opacity-0"
+                  )}>
+                    Copied!
+                  </span>
+                </button>
               </div>
             </div>
 
@@ -181,6 +240,40 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               </span>
             </Link>
           ))}
+          
+          {/* Mobile Email Me Button */}
+          <button
+            onClick={handleEmailClick}
+            className={cn(
+              "group flex items-center px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative overflow-hidden",
+              isDarkMode 
+                ? "text-gray-300 hover:text-white hover:bg-gray-800/50"
+                : "text-soft-black hover:text-warm-brown hover:bg-light-brown/50"
+            )}
+            data-testid="button-mobile-email-me"
+            style={{
+              animationDelay: isMenuOpen ? `${navItems.length * 50}ms` : '0ms'
+            }}
+          >
+            <span className="relative">
+              <span className={cn(
+                "block transition-all duration-300 ease-in-out",
+                emailCopied 
+                  ? "transform -translate-y-full opacity-0" 
+                  : "transform translate-y-0 opacity-100"
+              )}>
+                Email Me
+              </span>
+              <span className={cn(
+                "absolute inset-0 block transition-all duration-300 ease-in-out",
+                emailCopied 
+                  ? "transform translate-y-0 opacity-100" 
+                  : "transform translate-y-full opacity-0"
+              )}>
+                Copied!
+              </span>
+            </span>
+          </button>
         </div>
 
         {/* Footer */}

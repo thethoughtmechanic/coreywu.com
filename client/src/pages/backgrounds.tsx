@@ -304,10 +304,7 @@ export default function Backgrounds() {
             {/* Preview Card */}
             <div className="bg-white rounded-lg border border-warm-brown/10 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
               {/* Background Preview */}
-              <div className="h-48 relative bg-gradient-to-br from-cream/30 to-light-brown/20 overflow-hidden">
-                {/* Apply the background texture using CSS classes */}
-                <div className={`absolute inset-0 ${getTextureClass(selectedSection, option.name)}`}></div>
-
+              <div className={`h-48 relative bg-gradient-to-br from-cream/30 to-light-brown/20 overflow-hidden ${getTextureClass(selectedSection, option.name)}`}>
                 {/* Sample Content */}
                 <div className="relative z-10 p-6 h-full flex flex-col justify-center">
                   <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 border border-warm-brown/10">

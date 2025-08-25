@@ -280,11 +280,10 @@ export default function Experiments() {
     <div className="mb-8 pb-6 border-b border-warm-brown/20">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-light text-warm-brown mb-3">
-          Building Better Things
+          Building Better Futures
         </h2>
         <p className="text-soft-black/80 leading-relaxed text-sm max-w-md mx-auto">
-          Each project is an experiment in making the world a little more intentional, 
-          meaningful, and human. From AI tools to coffee experiences to music.
+          Each project is an experiment in making the world a little more intentional, meaningful, and human.  
         </p>
       </div>
 

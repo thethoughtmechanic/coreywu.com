@@ -7,6 +7,7 @@ import kpmgLogo from "@assets/kpmg-logo_1755889943439.png";
 import { TimelineItem } from "@/components/timeline-item";
 import { timelineEvents } from "@/data/timeline";
 import { X } from "lucide-react";
+import CopyEmail from "@/components/copy-email";
 
 export default function AboutExperimental() {
   const [isGameMode, setIsGameMode] = useState(false);
@@ -543,12 +544,7 @@ export default function AboutExperimental() {
         <footer className="text-center mt-12 pt-8 pb-12 border-t border-warm-brown/20">
           <p className="text-sm text-muted-grey">
             Interested in collaborating or just want to chat? Reach out at{' '}
-            <a
-              href="mailto:coreydavidwu@gmail.com"
-              className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
-            >
-              coreydavidwu@gmail.com
-            </a>
+            <CopyEmail className="text-sm" />
           </p>
         </footer>
       </div>

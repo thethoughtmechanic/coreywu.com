@@ -6,7 +6,6 @@ import { useLocation } from "wouter";
 
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
-  const [expandedTech, setExpandedTech] = useState<Set<string>>(new Set());
   const [, setLocation] = useLocation();
   const isMobile = useIsMobile();
 
@@ -192,13 +191,10 @@ export default function Experiments() {
                 {experiment.description}
               </p>
 
-              {/* Technologies - max 2 lines, smaller pills */}
+              {/* Technologies */}
               {experiment.technologies && experiment.technologies.length > 0 && (
                 <div className="flex flex-wrap gap-1">
-                  {(expandedTech.has(experiment.id) 
-                    ? experiment.technologies 
-                    : experiment.technologies.slice(0, 4)
-                  ).map((tech, index) => (
+                  {experiment.technologies.map((tech, index) => (
                     <span 
                       key={index}
                       className="text-[10px] px-1.5 py-0.5 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
@@ -206,32 +202,6 @@ export default function Experiments() {
                       {tech}
                     </span>
                   ))}
-                  {experiment.technologies.length > 4 && !expandedTech.has(experiment.id) && (
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const newExpanded = new Set(expandedTech);
-                        newExpanded.add(experiment.id);
-                        setExpandedTech(newExpanded);
-                      }}
-                      className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
-                    >
-                      +{experiment.technologies.length - 4} More
-                    </span>
-                  )}
-                  {expandedTech.has(experiment.id) && experiment.technologies.length > 4 && (
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const newExpanded = new Set(expandedTech);
-                        newExpanded.delete(experiment.id);
-                        setExpandedTech(newExpanded);
-                      }}
-                      className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
-                    >
-                      Show Less
-                    </span>
-                  )}
                 </div>
               )}
             </div>
@@ -347,13 +317,10 @@ export default function Experiments() {
               {experiment.description}
             </p>
 
-            {/* Technologies - max 2 lines, smaller pills */}
+            {/* Technologies */}
             {experiment.technologies && experiment.technologies.length > 0 && (
               <div className="flex flex-wrap gap-1">
-                {(expandedTech.has(experiment.id) 
-                  ? experiment.technologies 
-                  : experiment.technologies.slice(0, 6)
-                ).map((tech, index) => (
+                {experiment.technologies.map((tech, index) => (
                   <span 
                     key={index}
                     className="text-[10px] px-1.5 py-0.5 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
@@ -361,32 +328,6 @@ export default function Experiments() {
                     {tech}
                   </span>
                 ))}
-                {experiment.technologies.length > 6 && !expandedTech.has(experiment.id) && (
-                  <span
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const newExpanded = new Set(expandedTech);
-                      newExpanded.add(experiment.id);
-                      setExpandedTech(newExpanded);
-                    }}
-                    className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
-                  >
-                    +{experiment.technologies.length - 6} More
-                  </span>
-                )}
-                {expandedTech.has(experiment.id) && experiment.technologies.length > 6 && (
-                  <span
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const newExpanded = new Set(expandedTech);
-                      newExpanded.delete(experiment.id);
-                      setExpandedTech(newExpanded);
-                    }}
-                    className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 border border-gray-200 rounded-full font-medium hover:bg-gray-200 transition-colors cursor-pointer"
-                  >
-                    Show Less
-                  </span>
-                )}
               </div>
             )}
           </div>

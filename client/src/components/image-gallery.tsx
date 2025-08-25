@@ -1,6 +1,16 @@
-
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+
+// Animation constants for proximity scaling
+const SCALE = 1.2;
+const DISTANCE = 120;
+const NUDGE = 16;
+const SPRING_CONFIG = {
+  mass: 0.1,
+  stiffness: 300,
+  damping: 20,
+};
 
 interface ImageGalleryProps {
   images: string[];
@@ -11,6 +21,69 @@ interface ImageGalleryProps {
   altPrefix?: string;
   galleryId?: string;
 }
+
+interface ProximityImageProps {
+  src: string;
+  alt: string;
+  onClick: () => void;
+  mouseLeft: any;
+  testId: string;
+}
+
+const ProximityImage = ({ src, alt, onClick, mouseLeft, testId }: ProximityImageProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const distance = useTransform(() => {
+    if (!mouseLeft) return -Infinity;
+
+    const bounds = ref.current
+      ? { x: ref.current.offsetLeft, width: ref.current.offsetWidth }
+      : { x: 0, width: 0 };
+    return (mouseLeft?.get() ?? 0) - bounds.x - bounds.width / 2;
+  });
+
+  const scale = useTransform(distance, [-DISTANCE, 0, DISTANCE], [1, SCALE, 1]);
+
+  const calculateOffset = (currentDistance: number, currentScale: number) => {
+    if (currentDistance === -Infinity) {
+      return 0;
+    }
+
+    if (currentDistance < -DISTANCE || currentDistance > DISTANCE) {
+      return Math.sign(currentDistance) * -1 * NUDGE;
+    }
+
+    return (-currentDistance / DISTANCE) * NUDGE * currentScale;
+  };
+
+  const x = useTransform(() => {
+    const currentDistance = distance.get();
+    const currentScale = scale.get();
+    return calculateOffset(currentDistance, currentScale);
+  });
+
+  const scaleSpring = useSpring(scale, SPRING_CONFIG);
+  const xSpring = useSpring(x, SPRING_CONFIG);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="flex-shrink-0 cursor-pointer"
+      style={{
+        x: xSpring,
+        scale: scaleSpring,
+      }}
+      onClick={onClick}
+    >
+      <img
+        src={src}
+        alt={alt}
+        className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-lg shadow-lg border-2 border-white/20"
+        data-testid={testId}
+      />
+    </motion.div>
+  );
+};
 
 export function ImageGallery({
   images,
@@ -52,11 +125,11 @@ export function ImageGallery({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!expandedImage) return;
-      
+
       // Check if the expanded image belongs to this gallery
       const isThisGalleryActive = images.includes(expandedImage);
       if (!isThisGalleryActive) return;
-      
+
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         goToPrevious();
@@ -87,7 +160,7 @@ export function ImageGallery({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -99,28 +172,57 @@ export function ImageGallery({
     }
   };
 
+  const mouseLeft = useMotionValue(-Infinity);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseLeft.set(e.clientX - rect.left);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const touch = e.touches[0];
+      mouseLeft.set(touch.clientX - rect.left);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    mouseLeft.set(-Infinity);
+  };
+
   return (
     <>
-      {/* Image Grid */}
-      <div className={`grid gap-4 ${gridClassName} mb-8`}>
-        {images.map((image, index) => (
-          <div 
-            key={index} 
-            className="bg-gray-50 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 aspect-square flex items-center justify-center p-2"
-            onClick={() => onImageClick(image)}
-          >
-            <img 
-              src={image} 
+      {/* Main Gallery - Horizontal scrollable layout with proximity scaling */}
+      <div className="mb-8">
+        <motion.div
+          ref={containerRef}
+          className="flex items-center gap-4 overflow-x-auto pb-4 px-4"
+          onMouseMove={handleMouseMove}
+          onTouchMove={handleTouchMove}
+          onMouseLeave={handleMouseLeave}
+          onTouchEnd={handleMouseLeave}
+          style={{ willChange: "transform", scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {images.map((image, index) => (
+            <ProximityImage
+              key={index}
+              src={image}
               alt={`${altPrefix} ${index + 1}`}
-              className="max-w-full max-h-full object-contain"
+              onClick={() => onImageClick(image)}
+              mouseLeft={mouseLeft}
+              testId={`image-${galleryId}-${index}`}
             />
-          </div>
-        ))}
+          ))}
+        </motion.div>
       </div>
 
       {/* Expanded Image Modal - only show if expanded image belongs to this gallery */}
       {expandedImage && images.includes(expandedImage) && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 overflow-hidden"
           onClick={onClose}
           onTouchStart={onTouchStart}

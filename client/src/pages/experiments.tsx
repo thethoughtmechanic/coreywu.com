@@ -3,6 +3,7 @@ import { Experiment } from "@shared/schema";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLocation } from "wouter";
+import CopyEmail from "@/components/copy-email";
 
 export default function Experiments() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
@@ -156,7 +157,7 @@ export default function Experiments() {
     return yearB - yearA; // Descending order
   });
 
-  
+
 
   // Desktop Card View (responsive columns)
   const DesktopView = () => (
@@ -282,7 +283,7 @@ export default function Experiments() {
     );
   };
 
-  
+
 
   // Mobile Card View
   const MobileView = () => (
@@ -441,12 +442,7 @@ export default function Experiments() {
       <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
         <p className="text-sm text-muted-grey">
           Interested in collaborating or just want to chat? Reach out at{' '}
-          <a 
-            href="mailto:coreydavidwu@gmail.com"
-            className="text-warm-brown hover:text-hover-brown transition-colors duration-200 underline"
-          >
-            coreydavidwu@gmail.com
-          </a>
+          <CopyEmail className="text-sm" />
         </p>
       </footer>
 

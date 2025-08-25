@@ -6,16 +6,29 @@ import { thoughts } from "@/data/thoughts";
 import { experiments } from "@/data/experiments";
 
 type ContentType = 'timeline' | 'thoughts' | 'experiments';
+type ThoughtTag = 'POV' | 'Thought Bite' | 'Future Seed' | 'Scenario';
 
 export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
-  const [activeTab, setActiveTab] = useState<ContentType>('timeline');
+  const [activeTab, setActiveTab] = useState<ContentType>('thoughts');
   
   // Local state for content
   const [localTimeline, setLocalTimeline] = useState<TimelineEvent[]>([]);
   const [localThoughts, setLocalThoughts] = useState<Thought[]>([]);
   const [localExperiments, setLocalExperiments] = useState<Experiment[]>([]);
+
+  // New thought form state
+  const [isCreatingThought, setIsCreatingThought] = useState(false);
+  const [newThought, setNewThought] = useState({
+    title: '',
+    description: '',
+    fullDescription: '',
+    tag: 'Thought Bite' as ThoughtTag,
+    readTime: '',
+    status: 'wip' as 'wip' | 'published',
+    date: new Date().toISOString().split('T')[0]
+  });
 
   // Load data from localStorage or use defaults
   useEffect(() => {
@@ -58,6 +71,65 @@ export default function Admin() {
     a.download = `content-export-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  // Get gradient class based on tag
+  const getGradientForTag = (tag: ThoughtTag): string => {
+    const gradients = {
+      'POV': 'from-green-600 to-green-400',
+      'Thought Bite': 'from-teal-600 to-teal-400',
+      'Future Seed': 'from-purple-600 to-purple-400',
+      'Scenario': 'from-orange-600 to-orange-400'
+    };
+    return gradients[tag];
+  };
+
+  // Get estimated read time
+  const calculateReadTime = (description: string, fullDescription: string = ''): string => {
+    const text = description + ' ' + fullDescription;
+    const wordCount = text.split(' ').length;
+    const readTime = Math.max(1, Math.ceil(wordCount / 200)); // 200 words per minute
+    return `${readTime} min read`;
+  };
+
+  // Handle creating new thought
+  const handleCreateThought = () => {
+    const readTime = newThought.readTime || calculateReadTime(newThought.description, newThought.fullDescription);
+    
+    const thoughtToCreate: Thought = {
+      id: Date.now().toString(),
+      title: newThought.title,
+      description: newThought.description,
+      fullDescription: newThought.fullDescription || null,
+      tag: newThought.tag,
+      readTime: readTime,
+      imageGradient: getGradientForTag(newThought.tag),
+      date: newThought.date,
+      status: newThought.status
+    };
+
+    setLocalThoughts([thoughtToCreate, ...localThoughts]);
+    
+    // Reset form
+    setNewThought({
+      title: '',
+      description: '',
+      fullDescription: '',
+      tag: 'Thought Bite',
+      readTime: '',
+      status: 'wip',
+      date: new Date().toISOString().split('T')[0]
+    });
+    
+    setIsCreatingThought(false);
+    alert(`${newThought.status === 'published' ? 'Published' : 'Saved draft'}: "${thoughtToCreate.title}"`);
+  };
+
+  // Handle publishing/unpublishing thoughts
+  const toggleThoughtStatus = (index: number) => {
+    const updated = [...localThoughts];
+    updated[index].status = updated[index].status === 'published' ? 'wip' : 'published';
+    setLocalThoughts(updated);
   };
 
   if (!isAuthenticated) {
@@ -168,88 +240,221 @@ export default function Admin() {
   );
 
   const renderThoughtsEditor = () => (
-    <div className="space-y-4">
-      {localThoughts.map((thought, index) => (
-        <div key={thought.id} className="bg-light-brown p-4 rounded-lg">
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <input
-              type="text"
-              value={thought.title}
-              onChange={(e) => {
-                const updated = [...localThoughts];
-                updated[index].title = e.target.value;
-                setLocalThoughts(updated);
-              }}
-              placeholder="Title"
-              className="px-3 py-2 border border-warm-brown/30 rounded"
-            />
-            <input
-              type="text"
-              value={thought.tag}
-              onChange={(e) => {
-                const updated = [...localThoughts];
-                updated[index].tag = e.target.value;
-                setLocalThoughts(updated);
-              }}
-              placeholder="Tag"
-              className="px-3 py-2 border border-warm-brown/30 rounded"
-            />
-          </div>
-          <textarea
-            value={thought.description}
-            onChange={(e) => {
-              const updated = [...localThoughts];
-              updated[index].description = e.target.value;
-              setLocalThoughts(updated);
-            }}
-            placeholder="Description"
-            className="w-full px-3 py-2 border border-warm-brown/30 rounded mb-2"
-            rows={3}
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              value={thought.readTime || ""}
-              onChange={(e) => {
-                const updated = [...localThoughts];
-                updated[index].readTime = e.target.value || null;
-                setLocalThoughts(updated);
-              }}
-              placeholder="Read Time"
-              className="px-3 py-2 border border-warm-brown/30 rounded"
-            />
-            <div className="flex justify-end">
-              <button
-                onClick={() => {
-                  const updated = localThoughts.filter((_, i) => i !== index);
-                  setLocalThoughts(updated);
-                }}
-                className="text-red-600 text-sm hover:underline"
+    <div className="space-y-6">
+      {/* Create New Thought Section */}
+      <div className="bg-active-green/10 border border-active-green/20 rounded-xl p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-medium text-warm-brown">Create New Thought</h3>
+          {!isCreatingThought && (
+            <button
+              onClick={() => setIsCreatingThought(true)}
+              className="bg-active-green text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+            >
+              + New Thought
+            </button>
+          )}
+        </div>
+
+        {isCreatingThought && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                value={newThought.title}
+                onChange={(e) => setNewThought({...newThought, title: e.target.value})}
+                placeholder="Thought title..."
+                className="px-3 py-2 border border-warm-brown/30 rounded-lg"
+              />
+              <select
+                value={newThought.tag}
+                onChange={(e) => setNewThought({...newThought, tag: e.target.value as ThoughtTag})}
+                className="px-3 py-2 border border-warm-brown/30 rounded-lg"
               >
-                Delete
+                <option value="Thought Bite">Thought Bite</option>
+                <option value="POV">POV</option>
+                <option value="Future Seed">Future Seed</option>
+                <option value="Scenario">Scenario</option>
+              </select>
+            </div>
+
+            <textarea
+              value={newThought.description}
+              onChange={(e) => setNewThought({...newThought, description: e.target.value})}
+              placeholder="Short description (appears on cards)..."
+              className="w-full px-3 py-2 border border-warm-brown/30 rounded-lg"
+              rows={3}
+            />
+
+            <textarea
+              value={newThought.fullDescription}
+              onChange={(e) => setNewThought({...newThought, fullDescription: e.target.value})}
+              placeholder="Full content (optional - for detailed thoughts)..."
+              className="w-full px-3 py-2 border border-warm-brown/30 rounded-lg"
+              rows={6}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input
+                type="text"
+                value={newThought.readTime}
+                onChange={(e) => setNewThought({...newThought, readTime: e.target.value})}
+                placeholder="Read time (auto-calculated if empty)"
+                className="px-3 py-2 border border-warm-brown/30 rounded-lg"
+              />
+              <input
+                type="date"
+                value={newThought.date}
+                onChange={(e) => setNewThought({...newThought, date: e.target.value})}
+                className="px-3 py-2 border border-warm-brown/30 rounded-lg"
+              />
+              <select
+                value={newThought.status}
+                onChange={(e) => setNewThought({...newThought, status: e.target.value as 'wip' | 'published'})}
+                className="px-3 py-2 border border-warm-brown/30 rounded-lg"
+              >
+                <option value="wip">Save as Draft</option>
+                <option value="published">Publish Now</option>
+              </select>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={handleCreateThought}
+                className="bg-warm-brown text-cream px-6 py-2 rounded-lg hover:bg-hover-brown transition-colors"
+                disabled={!newThought.title || !newThought.description}
+              >
+                {newThought.status === 'published' ? 'Publish Thought' : 'Save Draft'}
+              </button>
+              <button
+                onClick={() => setIsCreatingThought(false)}
+                className="border border-warm-brown/30 text-warm-brown px-6 py-2 rounded-lg hover:bg-warm-brown/5 transition-colors"
+              >
+                Cancel
               </button>
             </div>
           </div>
+        )}
+      </div>
+
+      {/* Existing Thoughts */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-warm-brown">Manage Existing Thoughts</h3>
+        
+        {/* Quick stats */}
+        <div className="flex gap-4 text-sm text-muted-grey mb-4">
+          <span>Total: {localThoughts.length}</span>
+          <span>Published: {localThoughts.filter(t => t.status === 'published').length}</span>
+          <span>Drafts: {localThoughts.filter(t => t.status === 'wip').length}</span>
         </div>
-      ))}
-      <button
-        onClick={() => {
-          const newThought: Thought = {
-            id: Date.now().toString(),
-            title: "New Thought",
-            description: "Description of the thought...",
-            tag: "Category",
-            readTime: "5 min read",
-            imageGradient: "from-warmBrown to-hoverBrown",
-            date: new Date().toISOString().split('T')[0],
-            status: "published"
-          };
-          setLocalThoughts([...localThoughts, newThought]);
-        }}
-        className="bg-warm-brown text-cream px-4 py-2 rounded hover:bg-hover-brown"
-      >
-        Add Thought
-      </button>
+
+        {localThoughts.map((thought, index) => (
+          <div key={thought.id} className="bg-light-brown p-4 rounded-lg">
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <div className={`w-3 h-3 rounded-full bg-gradient-to-br ${thought.imageGradient}`} />
+                <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                  thought.tag === 'POV' ? 'bg-green-100 text-green-700' :
+                  thought.tag === 'Thought Bite' ? 'bg-teal-100 text-teal-700' :
+                  thought.tag === 'Future Seed' ? 'bg-purple-100 text-purple-700' :
+                  'bg-orange-100 text-orange-700'
+                }`}>
+                  {thought.tag}
+                </span>
+                <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                  thought.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                }`}>
+                  {thought.status === 'published' ? 'Published' : 'Draft'}
+                </span>
+              </div>
+              
+              <div className="flex gap-2">
+                <button
+                  onClick={() => toggleThoughtStatus(index)}
+                  className={`text-xs px-3 py-1 rounded-lg transition-colors ${
+                    thought.status === 'published' 
+                      ? 'bg-amber-100 text-amber-700 hover:bg-amber-200' 
+                      : 'bg-green-100 text-green-700 hover:bg-green-200'
+                  }`}
+                >
+                  {thought.status === 'published' ? 'Unpublish' : 'Publish'}
+                </button>
+                <button
+                  onClick={() => {
+                    const updated = localThoughts.filter((_, i) => i !== index);
+                    setLocalThoughts(updated);
+                  }}
+                  className="text-red-600 text-xs hover:underline"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <input
+                type="text"
+                value={thought.title}
+                onChange={(e) => {
+                  const updated = [...localThoughts];
+                  updated[index].title = e.target.value;
+                  setLocalThoughts(updated);
+                }}
+                placeholder="Title"
+                className="px-3 py-2 border border-warm-brown/30 rounded text-sm"
+              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={thought.readTime || ""}
+                  onChange={(e) => {
+                    const updated = [...localThoughts];
+                    updated[index].readTime = e.target.value || null;
+                    setLocalThoughts(updated);
+                  }}
+                  placeholder="Read Time"
+                  className="px-3 py-2 border border-warm-brown/30 rounded text-sm flex-1"
+                />
+                <input
+                  type="date"
+                  value={thought.date}
+                  onChange={(e) => {
+                    const updated = [...localThoughts];
+                    updated[index].date = e.target.value;
+                    setLocalThoughts(updated);
+                  }}
+                  className="px-3 py-2 border border-warm-brown/30 rounded text-sm"
+                />
+              </div>
+            </div>
+
+            <textarea
+              value={thought.description}
+              onChange={(e) => {
+                const updated = [...localThoughts];
+                updated[index].description = e.target.value;
+                setLocalThoughts(updated);
+              }}
+              placeholder="Short description"
+              className="w-full px-3 py-2 border border-warm-brown/30 rounded mb-2 text-sm"
+              rows={2}
+            />
+
+            {thought.fullDescription && (
+              <textarea
+                value={thought.fullDescription}
+                onChange={(e) => {
+                  const updated = [...localThoughts];
+                  updated[index].fullDescription = e.target.value;
+                  setLocalThoughts(updated);
+                }}
+                placeholder="Full description"
+                className="w-full px-3 py-2 border border-warm-brown/30 rounded text-sm"
+                rows={3}
+              />
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 
@@ -325,11 +530,12 @@ export default function Admin() {
             timeframe: "Present",
             description: "Description of the experiment...",
             collaborators: [],
+            technologies: [],
             isActive: true,
             imageGradient: null,
-            status: "learn",
-            collaborationType: "Individual",
-            problemType: "Horizontal"
+            status: "wip",
+            collaborationType: "solo",
+            problemType: "horizontal"
           };
           setLocalExperiments([...localExperiments, newExperiment]);
         }}
@@ -344,7 +550,7 @@ export default function Admin() {
     <div className="max-w-6xl mx-auto px-6 py-8">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-light text-warm-brown mb-4">Content Admin</h1>
-        <p className="text-muted-grey">Edit your content and export for deployment</p>
+        <p className="text-muted-grey">Create, edit, and publish your content</p>
       </header>
 
       {/* Action Buttons */}
@@ -353,7 +559,7 @@ export default function Admin() {
           onClick={saveData}
           className="bg-active-green text-white px-6 py-2 rounded-lg hover:opacity-90"
         >
-          Save to localStorage
+          Save Changes
         </button>
         <button
           onClick={exportData}
@@ -372,7 +578,7 @@ export default function Admin() {
       {/* Tab Navigation */}
       <div className="flex justify-center mb-8">
         <div className="flex gap-1 bg-light-brown rounded-lg p-1">
-          {(['timeline', 'thoughts', 'experiments'] as ContentType[]).map((tab) => (
+          {(['thoughts', 'timeline', 'experiments'] as ContentType[]).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -397,13 +603,13 @@ export default function Admin() {
 
       {/* Instructions */}
       <div className="mt-8 bg-light-brown/50 rounded-lg p-6">
-        <h3 className="font-medium text-warm-brown mb-2">How to use:</h3>
+        <h3 className="font-medium text-warm-brown mb-2">Publishing Workflow:</h3>
         <ol className="text-sm text-soft-black space-y-1 list-decimal list-inside">
-          <li>Edit your content using the forms above</li>
-          <li>Click "Save to localStorage" to save your changes temporarily</li>
-          <li>Click "Export JSON" to download your updated content</li>
-          <li>Copy the exported data into your static data files (client/src/data/)</li>
-          <li>Redeploy your site to see the changes live</li>
+          <li><strong>Create:</strong> Use the "New Thought" form to write your content</li>
+          <li><strong>Draft:</strong> Save as draft to review later, or publish immediately</li>
+          <li><strong>Edit:</strong> Modify existing thoughts and toggle publish status</li>
+          <li><strong>Export:</strong> Download your content as JSON when ready</li>
+          <li><strong>Deploy:</strong> Copy exported data to your static files and redeploy</li>
         </ol>
       </div>
     </div>

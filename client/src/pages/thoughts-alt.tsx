@@ -491,7 +491,7 @@ export default function ThoughtsAlt() {
 
       <style jsx>{`
         .thoughts-alt-container {
-          /* Apply the new shadcn notebook theme */
+          /* Apply the refined OKLCH notebook theme */
           --background: oklch(0.9821 0 0);
           --foreground: oklch(0.3485 0 0);
           --card: oklch(1.0000 0 0);
@@ -579,6 +579,15 @@ export default function ThoughtsAlt() {
           --font-sans: Architects Daughter, sans-serif;
           --font-serif: Georgia, serif;
           --font-mono: "Fira Code", "Courier New", monospace;
+          --radius: 0.625rem;
+          --shadow-2xs: 1px 4px 5px 0px hsl(0 0% 0% / 0.01);
+          --shadow-xs: 1px 4px 5px 0px hsl(0 0% 0% / 0.01);
+          --shadow-sm: 1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 1px 2px -1px hsl(0 0% 0% / 0.03);
+          --shadow: 1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 1px 2px -1px hsl(0 0% 0% / 0.03);
+          --shadow-md: 1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 2px 4px -1px hsl(0 0% 0% / 0.03);
+          --shadow-lg: 1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 4px 6px -1px hsl(0 0% 0% / 0.03);
+          --shadow-xl: 1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 8px 10px -1px hsl(0 0% 0% / 0.03);
+          --shadow-2xl: 1px 4px 5px 0px hsl(0 0% 0% / 0.07);
         }
       `}</style>
     </div>

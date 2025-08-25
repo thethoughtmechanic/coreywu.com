@@ -35,6 +35,7 @@ import EmailSubmissions from '@/pages/email-submissions';
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import GardenText from './pages/gardentext';
 import Backgrounds from "@/pages/backgrounds";
+import Components from "./pages/components";
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
@@ -100,6 +101,7 @@ function Router() {
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
           <Route path="/gardentext" component={GardenText} />
           <Route path="/backgrounds" component={Backgrounds} />
+          <Route path="/components" component={Components} />
 
           <Route path="/admin" component={Admin} />
           <Route path="/admin/emails" component={EmailSubmissions} />

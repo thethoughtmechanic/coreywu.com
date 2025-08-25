@@ -157,7 +157,7 @@ export default function Experiments() {
     return yearB - yearA; // Descending order
   });
 
-  // Desktop Overview Section (similar to mobile but without scroll indicator)
+  // Desktop Overview Section
   const DesktopOverview = () => (
     <div className="mb-12 pb-8 border-b border-warm-brown/20">
       <div className="text-center mb-8">

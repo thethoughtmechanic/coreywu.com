@@ -18,7 +18,7 @@ export default function LandingAlt() {
         <div className="mb-8 flex justify-center">
           <SpringElement 
             className="block"
-            springClassName="stroke-2 stroke-warm-brown/60 fill-none"
+            springClassName="stroke-4 stroke-warm-brown fill-none"
             springConfig={{ stiffness: 200, damping: 16 }}
             springPathConfig={{
               coilCount: 8,

@@ -180,28 +180,58 @@ function SpringElement({
     center.y + sy,
     springPathConfig,
   );
+
+  // Debug: ensure we have valid positions
+  const hasValidPositions = anchorPosition.x > 0 && anchorPosition.y > 0;
  
   return (
     <>
-      <svg
-        width="100vw"
-        height="100vh"
-        className="fixed inset-0 w-screen h-screen pointer-events-none z-40 inset-0"
-      >
-        <path
-          d={path}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={cn(
-            'stroke-2 stroke-neutral-900 dark:stroke-neutral-100 fill-none',
-            springClassName,
-          )}
-        />
-      </svg>
+      {hasValidPositions && (
+        <svg
+          width="100vw"
+          height="100vh"
+          className="fixed inset-0 w-screen h-screen pointer-events-none z-30"
+          style={{ position: 'fixed', top: 0, left: 0 }}
+        >
+          {/* Debug circle at anchor position */}
+          <circle
+            cx={anchorPosition.x}
+            cy={anchorPosition.y}
+            r="4"
+            fill="#FF0000"
+            opacity="0.7"
+          />
+          
+          {/* Debug circle at current position */}
+          <circle
+            cx={center.x + sx}
+            cy={center.y + sy}
+            r="4"
+            fill="#00FF00"
+            opacity="0.7"
+          />
+          
+          {/* Spring path */}
+          <path
+            d={path}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={cn(
+              'fill-none',
+              springClassName,
+            )}
+            style={{ 
+              stroke: '#8B4513', 
+              strokeWidth: '3px',
+              opacity: isDragging ? 1 : 0.5 
+            }}
+          />
+        </svg>
+      )}
       <motion.div
         ref={childRef}
         className={cn(
-          'z-50 relative',
+          'z-40 relative',
           isDragging ? 'cursor-grabbing' : 'cursor-grab',
           className,
         )}

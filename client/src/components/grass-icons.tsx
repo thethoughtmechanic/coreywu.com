@@ -203,25 +203,25 @@ interface GeometricFieldProps {
 export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNavigate }) => {
   const variants = Object.keys(ShapeVariants) as (keyof typeof ShapeVariants)[];
 
-  // Navigation shapes configuration - positioned left to right: about me, thoughts, experiments
+  // Navigation shapes configuration - positioned to avoid text content area
   const navigationShapes = [
     {
       variant: 'outlineCircle' as keyof typeof ShapeVariants, // About me - outline pattern
       label: 'about me',
       path: '/about',
-      position: { x: 15, y: 25 } // Left side
+      position: { x: 8, y: 20 } // Far left, clear of text
     },
     {
       variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern  
       label: 'thoughts',
       path: '/thoughts',
-      position: { x: 65, y: 15 } // Moved right to avoid image overlap
+      position: { x: 85, y: 12 } // Far right, above text (moved slightly left)
     },
     {
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments', 
       path: '/experiments',
-      position: { x: 85, y: 35 } // Lower right with vertical variation
+      position: { x: 50, y: 88 } // Centered horizontally, well below text
     }
   ];
 
@@ -234,17 +234,17 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
     const size = Math.random() * 15 + 8; // Random size between 8-23px
     const rotation = (Math.random() - 0.5) * 45; // Random rotation between -22.5 to 22.5 degrees
 
-    // Better distribution avoiding center content area
+    // Better distribution avoiding center content area and navigation shapes
     let x, y;
     do {
       x = Math.random() * 100;
       y = Math.random() * 100;
-      // Avoid center content area (30-70% width, 25-75% height) and navigation shape areas
+      // Avoid center content area (25-75% width, 15-85% height) and navigation shape areas
     } while (
-      (x > 30 && x < 70 && y > 25 && y < 75) || // Center content area
-      (x > 10 && x < 20 && y > 20 && y < 30) || // About me nav area
-      (x > 60 && x < 70 && y > 10 && y < 20) || // Thoughts nav area (moved right)
-      (x > 80 && x < 90 && y > 30 && y < 40)    // Experiments nav area (moved lower)
+      (x > 25 && x < 75 && y > 15 && y < 85) || // Expanded center content area
+      (x > 3 && x < 13 && y > 15 && y < 25) ||  // About me nav area (far left)
+      (x > 80 && x < 90 && y > 7 && y < 17) ||  // Thoughts nav area (moved slightly left)
+      (x > 45 && x < 55 && y > 83 && y < 93)    // Experiments nav area (centered bottom)
     );
 
     allShapes.push(

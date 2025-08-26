@@ -41,7 +41,7 @@ export default function Home() {
 
         {/* Welcome Title - Mobile Optimized */}
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
             <TypingText 
               text="Welcome to my digital garden."
               duration={80}
@@ -52,7 +52,7 @@ export default function Home() {
           </h1>
         </div>
 
-        <p className="text-sm md:text-base text-soft-black/60 leading-relaxed max-w-2xl mx-auto px-4">
+        <p className="text-base md:text-lg text-soft-black/60 leading-relaxed max-w-2xl mx-auto px-4">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
         </p>
       </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 // Geometric shape variants with background textures from experiments, thoughts, and about pages
@@ -17,7 +16,7 @@ const ShapeVariants = {
       <circle cx="10" cy="10" r="7" fill="url(#gridPattern1)" opacity="0.7" />
     </svg>
   ),
-  
+
   gridTriangle: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
       <defs>
@@ -31,7 +30,7 @@ const ShapeVariants = {
       <polygon points="10,3 17,15 3,15" fill="url(#gridPattern2)" opacity="0.6" />
     </svg>
   ),
-  
+
   gridSquare: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
       <defs>
@@ -203,7 +202,7 @@ interface GeometricFieldProps {
 
 export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNavigate }) => {
   const variants = Object.keys(ShapeVariants) as (keyof typeof ShapeVariants)[];
-  
+
   // Navigation shapes configuration - positioned left to right: about me, thoughts, experiments
   const navigationShapes = [
     {
@@ -225,16 +224,16 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       position: { x: 85, y: 35 } // Lower right with vertical variation
     }
   ];
-  
+
   // Create navigation shapes mixed in with regular shapes
   const allShapes = [];
-  
+
   // Add regular shapes
   for (let i = 0; i < count; i++) {
     const variant = variants[i % variants.length];
     const size = Math.random() * 15 + 8; // Random size between 8-23px
     const rotation = (Math.random() - 0.5) * 45; // Random rotation between -22.5 to 22.5 degrees
-    
+
     // Better distribution avoiding center content area
     let x, y;
     do {
@@ -247,7 +246,7 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       (x > 60 && x < 70 && y > 10 && y < 20) || // Thoughts nav area (moved right)
       (x > 80 && x < 90 && y > 30 && y < 40)    // Experiments nav area (moved lower)
     );
-    
+
     allShapes.push(
       <div
         key={`regular-${i}`}
@@ -265,32 +264,43 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       </div>
     );
   }
-  
+
   // Add navigation shapes integrated with regular shapes
   if (onNavigate) {
     navigationShapes.forEach((shape, index) => {
       const [isHovered, setIsHovered] = React.useState(false);
-      
+
+      // Determine size and rotation for navigation shapes
+      // These are fixed for navigation shapes to ensure consistency and correct positioning
+      const size = 46; // Fixed size for navigation shapes
+      const rotation = 0; // No rotation for navigation shapes to keep labels aligned
+
       allShapes.push(
         <div
-          key={`nav-${index}`}
-          className="absolute z-10 cursor-pointer pointer-events-auto group"
+          key={`nav-${shape.label}`}
+          className="absolute cursor-pointer transition-all duration-300 z-10 group"
           style={{
             left: `${shape.position.x}%`,
             top: `${shape.position.y}%`,
-            width: '46px', // 100% larger than max size (23px * 2)
-            height: '46px',
+            width: `${size}px`,
+            height: `${size}px`,
+            transform: `rotate(${rotation}deg)`,
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => onNavigate(shape.path)}
         >
-          {/* Tooltip */}
-          <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
+          {/* Desktop Tooltip - Hidden on mobile */}
+          <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
             {shape.label}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
           </div>
-          
+
+          {/* Mobile Label - Always visible, positioned below shape */}
+          <div className="md:hidden absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-1.5 py-0.5 bg-warm-brown/90 text-cream text-[10px] rounded whitespace-nowrap z-20 font-medium">
+            {shape.label}
+          </div>
+
           {/* Shape with animations */}
           <div 
             className={`w-full h-full transition-all duration-300 ${

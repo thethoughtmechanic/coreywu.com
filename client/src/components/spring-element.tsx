@@ -194,7 +194,7 @@ function SpringElement({
       <motion.div
         ref={childRef}
         className={cn(
-          'z-50',
+          'z-50 relative',
           isDragging ? 'cursor-grabbing' : 'cursor-grab',
           className,
         )}
@@ -202,9 +202,14 @@ function SpringElement({
           x: springX,
           y: springY,
         }}
-        drag
+        drag={true}
         dragElastic={dragElastic}
         dragMomentum={false}
+        dragControls={undefined}
+        dragListener={true}
+        dragConstraints={false}
+        whileDrag={{ scale: 1.1 }}
+        onMouseDown={() => console.log('Mouse down on draggable element')}
         onDragStart={() => {
           console.log('Drag started');
           setIsDragging(true);

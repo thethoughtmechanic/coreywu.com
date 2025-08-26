@@ -28,13 +28,14 @@ export default function LandingAlt() {
               bezierOffset: 10
             }}
           >
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl border-4 border-white/80 hover:border-warm-brown/60 transition-all duration-300 cursor-grab active:cursor-grabbing">
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl border-4 border-white/80 hover:border-warm-brown/60 transition-all duration-300">
               <img 
-                src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                src="/attached_assets/0X5A2925_2_pp_1756228010847.jpg"
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover"
-                style={{
-                  backgroundImage: `url('data:image/svg+xml;base64,${btoa(`
+                onError={(e) => {
+                  // Fallback to the SVG avatar if the image fails to load
+                  e.currentTarget.src = `data:image/svg+xml;base64,${btoa(`
                     <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                       <defs>
                         <radialGradient id="faceGradient" cx="50%" cy="40%" r="60%">
@@ -64,7 +65,7 @@ export default function LandingAlt() {
                       <!-- Sweater -->
                       <ellipse cx="64" cy="115" rx="45" ry="20" fill="#F0E68C"/>
                     </svg>
-                  `)}')`
+                  `)}`;
                 }}
               />
             </div>

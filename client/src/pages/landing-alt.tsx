@@ -11,14 +11,45 @@ import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 export default function LandingAlt() {
 
   return (
-    <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] flex flex-col items-center justify-center py-6 md:py-8">
+    <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col">
       <div className="text-center w-full flex flex-col items-center justify-center flex-1">
         {/* Draggable Headshot - positioned above the welcome text */}
-        <div className="mb-16 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <SpringElement>
             <div 
               className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl transition-all duration-300"
-            >
+            ></div>
+          </SpringElement>
+        </div>
+
+        {/* Welcome Title - Mobile Optimized */}
+        <div className="mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
+            <TypingText 
+              text="Welcome to my digital garden."
+              duration={80}
+              delay={500}
+              cursor={false}
+              className="inline"
+            />
+          </h1>
+        </div>
+
+        <p className="text-sm md:text-base text-soft-black/60 mb-8 leading-relaxed max-w-2xl mx-auto">
+          As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
+        </p>
+
+        {/* Contact Footer */}
+        <footer className="text-center mt-auto pt-8 border-t border-warm-brown/20">
+          <p className="text-sm text-muted-grey">
+            Interested in collaborating or just want to chat? Reach out at{' '}
+            <CopyEmail className="text-warm-brown hover:text-hover-brown transition-colors duration-200 no-underline" email="coreydavidwu@gmail.com">
+              coreydavidwu@gmail.com
+            </CopyEmail>
+          </p>
+        </footer>
+      </div>
+    </div>
               <img 
                 src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
@@ -61,37 +92,5 @@ export default function LandingAlt() {
                   `)}`;
                 }}
               />
-            </div>
-          </SpringElement>
-        </div>
-
-        {/* Welcome Title - Mobile Optimized */}
-        <div className="mb-8 md:mb-12">
-          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
-            <TypingText 
-              text="Welcome to my digital garden."
-              duration={80}
-              delay={500}
-              cursor={false}
-              className="inline"
-            />
-          </h1>
-        </div>
-
-        <p className="text-sm md:text-base text-soft-black/60 mb-20 md:mb-24 leading-relaxed max-w-2xl mx-auto">
-          As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
-        </p>
-
-        {/* Contact Footer */}
-        <footer className="text-center mt-12 pt-8 border-t border-warm-brown/20">
-          <p className="text-sm text-muted-grey">
-            Interested in collaborating or just want to chat? Reach out at{' '}
-            <CopyEmail className="text-warm-brown hover:text-hover-brown transition-colors duration-200 no-underline" email="coreydavidwu@gmail.com">
-              coreydavidwu@gmail.com
-            </CopyEmail>
-          </p>
-        </footer>
-      </div>
-    </div>
   );
 }

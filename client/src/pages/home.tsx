@@ -4,6 +4,7 @@ import { ChevronDown, ExternalLink } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import CopyEmail from "@/components/copy-email";
+import { TypingText } from "@/components/typing-text";
 
 export default function Home() {
 
@@ -13,7 +14,13 @@ export default function Home() {
         {/* Welcome Title - Mobile Optimized */}
         <div className="mb-4 md:mb-6">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
-            Welcome to my digital <span className="garden-text-glow relative inline-block cursor-pointer">garden</span>.
+            <TypingText 
+              text="Welcome to my digital garden."
+              duration={80}
+              delay={500}
+              cursor={false}
+              className="inline"
+            />
           </h1>
         </div>
 

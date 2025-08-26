@@ -71,12 +71,14 @@ function TypingText({
  
   const [started, setStarted] = React.useState(false);
   const [displayedText, setDisplayedText] = React.useState<string>('');
+  const [isComplete, setIsComplete] = React.useState(false);
  
   React.useEffect(() => {
     // Reset animation when text changes (if animateOnChange is true)
     if (animateOnChange) {
       setStarted(false);
       setDisplayedText('');
+      setIsComplete(false);
     }
  
     if (isInView) {
@@ -106,6 +108,7 @@ function TypingText({
           const id = setTimeout(type, duration);
           timeoutIds.push(id);
         } else {
+          setIsComplete(true);
           onComplete();
         }
       };
@@ -150,9 +153,36 @@ function TypingText({
     };
   }, [text, duration, started, loop, holdDelay]);
  
+  // Function to apply garden glow effect to the word "garden"
+  const formatTextWithGlow = (text: string) => {
+    if (!isComplete) {
+      return text;
+    }
+    
+    // Check if text contains "garden" and apply glow effect
+    const gardenIndex = text.toLowerCase().indexOf('garden');
+    if (gardenIndex !== -1) {
+      const beforeGarden = text.substring(0, gardenIndex);
+      const garden = text.substring(gardenIndex, gardenIndex + 6);
+      const afterGarden = text.substring(gardenIndex + 6);
+      
+      return (
+        <>
+          {beforeGarden}
+          <span className="garden-text-glow relative inline-block cursor-pointer">
+            {garden}
+          </span>
+          {afterGarden}
+        </>
+      );
+    }
+    
+    return text;
+  };
+
   return (
     <span ref={localRef} data-slot="typing-text" {...props}>
-      <motion.span>{displayedText}</motion.span>
+      <motion.span>{formatTextWithGlow(displayedText)}</motion.span>
       {cursor && <CursorBlinker className={cursorClassName} />}
     </span>
   );

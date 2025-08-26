@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, MotionConfig } from "framer-motion";
 import CopyEmail from "@/components/copy-email";
 import { Counter } from "@/components/counter";
+import { SpringElement } from "@/components/spring-element";
 
 // Animation constants
 const SCALE = 1.5;
@@ -282,6 +283,18 @@ const CounterDemo = () => {
   return <Counter number={number} setNumber={setNumber} />;
 };
 
+const SpringElementDemo = () => {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <SpringElement className="flex items-center justify-center">
+        <div className="w-20 h-20 bg-gradient-to-br from-warm-brown to-hover-brown rounded-2xl flex items-center justify-center text-cream font-bold text-xl shadow-lg">
+          AK
+        </div>
+      </SpringElement>
+    </div>
+  );
+};
+
 const CardCollectionComponent = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -355,6 +368,47 @@ export default function Components() {
               <li>• <strong>Click</strong> to expand into horizontal layout</li>
               <li>• <strong>Hover</strong> individual cards in expanded view for proximity scaling</li>
               <li>• <strong>Click "View All"</strong> to collapse back to stack</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Spring Element Section */}
+        <section>
+          <div className="mb-8">
+            <h2 className="text-2xl font-medium text-warm-brown mb-4">
+              Spring Element
+            </h2>
+            <p className="text-muted-grey mb-6">
+              A reusable spring animation wrapper that adds interactive hover and click effects 
+              to any child element using smooth spring physics.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Framer Motion
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Spring Physics
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Reusable Wrapper
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Interactive Hover
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-2xl p-8 flex items-center justify-center min-h-[200px]">
+            <SpringElementDemo />
+          </div>
+
+          <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
+            <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
+            <ul className="text-sm text-muted-grey space-y-1">
+              <li>• <strong>Hover</strong> to see scale and rotation effects</li>
+              <li>• <strong>Click and hold</strong> for press-down animation</li>
+              <li>• <strong>Configurable</strong> spring physics parameters</li>
+              <li>• <strong>Wraps any content</strong> with spring animations</li>
             </ul>
           </div>
         </section>

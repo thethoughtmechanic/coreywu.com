@@ -184,13 +184,13 @@ function TypingText({
   };
 
   return (
-    <span ref={localRef} data-slot="typing-text" {...props} className="relative">
+    <span ref={localRef} data-slot="typing-text" {...props} className={cn("relative inline-block whitespace-nowrap", props.className)}>
       {/* Invisible placeholder to reserve space and prevent layout shift */}
-      <span className="invisible" aria-hidden="true">
+      <span className="invisible whitespace-nowrap" aria-hidden="true">
         {fullText}
       </span>
       {/* Actual typing text - positioned absolutely over the invisible text */}
-      <motion.span className="absolute inset-0">
+      <motion.span className="absolute inset-0 whitespace-nowrap">
         {formatTextWithGlow(displayedText)}
       </motion.span>
       {cursor && <CursorBlinker className={cursorClassName} />}

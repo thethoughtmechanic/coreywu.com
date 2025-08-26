@@ -187,6 +187,8 @@ function TypingText({
           onMouseEnter={(e) => {
             const target = e.currentTarget;
             const originalText = 'digital';
+            const duration = 800; // Match original HyperText duration
+            const characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
             
             // Clear any existing animation
             if (target.dataset.animating === 'true') {
@@ -194,30 +196,34 @@ function TypingText({
             }
             
             target.dataset.animating = 'true';
-            let iteration = 0;
-            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const startTime = performance.now();
+            let animationFrameId;
             
-            const animate = () => {
-              target.textContent = originalText
+            const animate = (currentTime) => {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const iterationCount = progress * originalText.length;
+              
+              const newText = originalText
                 .split("")
                 .map((letter, index) => {
                   if (letter === " ") return letter;
-                  if (index < iteration) return originalText[index];
-                  return characters[Math.floor(Math.random() * characters.length)];
+                  if (index <= iterationCount) return originalText[index];
+                  return characterSet[Math.floor(Math.random() * characterSet.length)];
                 })
                 .join("");
               
-              iteration += 1 / 8;
+              target.textContent = newText;
               
-              if (iteration < originalText.length) {
-                setTimeout(animate, 50); // 50ms delay between frames for slower, more visible scramble
+              if (progress < 1) {
+                animationFrameId = requestAnimationFrame(animate);
               } else {
                 target.textContent = originalText;
                 target.dataset.animating = 'false';
               }
             };
             
-            animate();
+            animationFrameId = requestAnimationFrame(animate);
           }}
         >
           {digital}

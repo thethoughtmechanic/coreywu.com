@@ -1,118 +1,183 @@
 
+```
 import React from 'react';
 
-// Geometric shape variants with different styles
+// Geometric shape variants with background textures from experiments, thoughts, and about pages
 const ShapeVariants = {
-  // Filled shapes
-  filledCircle: (
-    <svg viewBox="0 0 20 20" className="w-full h-full">
-      <circle cx="10" cy="10" r="8" fill="currentColor" />
-    </svg>
-  ),
-  
-  filledTriangle: (
-    <svg viewBox="0 0 20 20" className="w-full h-full">
-      <polygon points="10,2 18,16 2,16" fill="currentColor" />
-    </svg>
-  ),
-  
-  filledSquare: (
-    <svg viewBox="0 0 20 20" className="w-full h-full">
-      <rect x="3" y="3" width="14" height="14" fill="currentColor" />
-    </svg>
-  ),
-  
-  // Dotted/dashed shapes
-  dottedCircle: (
-    <svg viewBox="0 0 20 20" className="w-full h-full">
-      <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="2,2" />
-    </svg>
-  ),
-  
-  dottedTriangle: (
-    <svg viewBox="0 0 20 20" className="w-full h-full">
-      <polygon points="10,3 17,15 3,15" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="2,2" />
-    </svg>
-  ),
-  
-  dottedSquare: (
-    <svg viewBox="0 0 20 20" className="w-full h-full">
-      <rect x="4" y="4" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="2,2" />
-    </svg>
-  ),
-  
-  // Shaded/gradient shapes
-  shadedCircle: (
+  // Grid pattern shapes (from experiments page)
+  gridCircle: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
       <defs>
-        <radialGradient id="circleGrad" cx="30%" cy="30%" r="70%">
-          <stop offset="0%" stopColor="currentColor" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.2" />
-        </radialGradient>
+        <pattern id="gridPattern1" patternUnits="userSpaceOnUse" width="3" height="3">
+          <rect width="3" height="3" fill="none"/>
+          <path d="M0,0.5 L3,0.5 M0,1.5 L3,1.5 M0,2.5 L3,2.5" stroke="currentColor" strokeWidth="0.15" opacity="0.8"/>
+          <path d="M0.5,0 L0.5,3 M1.5,0 L1.5,3 M2.5,0 L2.5,3" stroke="currentColor" strokeWidth="0.15" opacity="0.6"/>
+        </pattern>
       </defs>
-      <circle cx="10" cy="10" r="8" fill="url(#circleGrad)" />
+      <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1" />
+      <circle cx="10" cy="10" r="7" fill="url(#gridPattern1)" opacity="0.7" />
     </svg>
   ),
   
-  shadedTriangle: (
+  gridTriangle: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
       <defs>
-        <linearGradient id="triangleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="currentColor" stopOpacity="0.7" />
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.1" />
-        </linearGradient>
+        <pattern id="gridPattern2" patternUnits="userSpaceOnUse" width="2.5" height="2.5">
+          <rect width="2.5" height="2.5" fill="none"/>
+          <path d="M0,0.5 L2.5,0.5 M0,1.5 L2.5,1.5 M0,2 L2.5,2" stroke="currentColor" strokeWidth="0.12" opacity="0.9"/>
+          <path d="M0.5,0 L0.5,2.5 M1.5,0 L1.5,2.5 M2,0 L2,2.5" stroke="currentColor" strokeWidth="0.12" opacity="0.7"/>
+        </pattern>
       </defs>
-      <polygon points="10,2 18,16 2,16" fill="url(#triangleGrad)" />
+      <polygon points="10,2 18,16 2,16" fill="none" stroke="currentColor" strokeWidth="1" />
+      <polygon points="10,3 17,15 3,15" fill="url(#gridPattern2)" opacity="0.6" />
     </svg>
   ),
   
-  shadedSquare: (
+  gridSquare: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
       <defs>
-        <linearGradient id="squareGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="currentColor" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.1" />
-        </linearGradient>
+        <pattern id="gridPattern3" patternUnits="userSpaceOnUse" width="2" height="2">
+          <rect width="2" height="2" fill="none"/>
+          <path d="M0,0.5 L2,0.5 M0,1.5 L2,1.5" stroke="currentColor" strokeWidth="0.1" opacity="0.8"/>
+          <path d="M0.5,0 L0.5,2 M1.5,0 L1.5,2" stroke="currentColor" strokeWidth="0.1" opacity="0.6"/>
+        </pattern>
       </defs>
-      <rect x="3" y="3" width="14" height="14" fill="url(#squareGrad)" />
+      <rect x="3" y="3" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1" />
+      <rect x="4" y="4" width="12" height="12" fill="url(#gridPattern3)" opacity="0.7" />
     </svg>
   ),
-  
-  // Small accent shapes
-  smallCircle: (
+
+  // Scribble pattern shapes (from thoughts page)
+  scribbleCircle: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
-      <circle cx="10" cy="10" r="4" fill="currentColor" />
+      <defs>
+        <pattern id="scribblePattern1" patternUnits="userSpaceOnUse" width="4" height="4">
+          <rect width="4" height="4" fill="none"/>
+          <path d="M0.5,1 Q1.5,0.5 2.5,1.5 Q3,2 3.5,1.5" stroke="currentColor" strokeWidth="0.15" opacity="0.8" fill="none"/>
+          <path d="M1,3 Q2,2.5 3,3 Q3.5,3.5 4,3" stroke="currentColor" strokeWidth="0.12" opacity="0.6" fill="none"/>
+          <path d="M0,2.5 Q0.5,2 1,2.5 Q1.5,3 2,2.5" stroke="currentColor" strokeWidth="0.1" opacity="0.7" fill="none"/>
+        </pattern>
+      </defs>
+      <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1" />
+      <circle cx="10" cy="10" r="7" fill="url(#scribblePattern1)" opacity="0.6" />
     </svg>
   ),
-  
-  smallTriangle: (
+
+  scribbleTriangle: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
-      <polygon points="10,6 14,14 6,14" fill="currentColor" />
+      <defs>
+        <pattern id="scribblePattern2" patternUnits="userSpaceOnUse" width="3.5" height="3.5">
+          <rect width="3.5" height="3.5" fill="none"/>
+          <path d="M0.5,1.5 Q1.5,1 2.5,1.8 Q3,2.5 3.5,2" stroke="currentColor" strokeWidth="0.12" opacity="0.9" fill="none"/>
+          <path d="M1,3 Q2,2.3 3,3.2" stroke="currentColor" strokeWidth="0.1" opacity="0.7" fill="none"/>
+          <path d="M0,2.8 Q1,2.2 1.5,2.8" stroke="currentColor" strokeWidth="0.08" opacity="0.6" fill="none"/>
+        </pattern>
+      </defs>
+      <polygon points="10,2 18,16 2,16" fill="none" stroke="currentColor" strokeWidth="1" />
+      <polygon points="10,3 17,15 3,15" fill="url(#scribblePattern2)" opacity="0.5" />
     </svg>
   ),
-  
-  smallSquare: (
+
+  scribbleSquare: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
-      <rect x="7" y="7" width="6" height="6" fill="currentColor" />
+      <defs>
+        <pattern id="scribblePattern3" patternUnits="userSpaceOnUse" width="3" height="3">
+          <rect width="3" height="3" fill="none"/>
+          <path d="M0.3,1.2 Q1.2,0.8 2.1,1.4 Q2.7,2 3,1.6" stroke="currentColor" strokeWidth="0.1" opacity="0.8" fill="none"/>
+          <path d="M0.8,2.5 Q1.5,2.1 2.3,2.6" stroke="currentColor" strokeWidth="0.08" opacity="0.6" fill="none"/>
+        </pattern>
+      </defs>
+      <rect x="3" y="3" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1" />
+      <rect x="4" y="4" width="12" height="12" fill="url(#scribblePattern3)" opacity="0.6" />
     </svg>
   ),
-  
-  // Outlined shapes
-  outlinedCircle: (
+
+  // Outline shapes (from about page - paint splatter inspired)
+  outlineCircle: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
-      <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <defs>
+        <pattern id="outlinePattern1" patternUnits="userSpaceOnUse" width="4" height="4">
+          <rect width="4" height="4" fill="none"/>
+          <circle cx="1" cy="1" r="0.3" fill="none" stroke="currentColor" strokeWidth="0.1" opacity="0.6"/>
+          <circle cx="3" cy="2.5" r="0.2" fill="none" stroke="currentColor" strokeWidth="0.08" opacity="0.7"/>
+          <circle cx="2" cy="3.5" r="0.25" fill="none" stroke="currentColor" strokeWidth="0.09" opacity="0.5"/>
+        </pattern>
+      </defs>
+      <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1" />
+      <circle cx="10" cy="10" r="7" fill="url(#outlinePattern1)" opacity="0.6" />
     </svg>
   ),
-  
-  outlinedTriangle: (
+
+  outlineTriangle: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
-      <polygon points="10,3 17,15 3,15" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <defs>
+        <pattern id="outlinePattern2" patternUnits="userSpaceOnUse" width="3.5" height="3.5">
+          <rect width="3.5" height="3.5" fill="none"/>
+          <rect x="0.5" y="0.5" width="0.8" height="0.8" fill="none" stroke="currentColor" strokeWidth="0.08" opacity="0.6"/>
+          <polygon points="2.5,1 3,1.5 2.5,2 2,1.5" fill="none" stroke="currentColor" strokeWidth="0.06" opacity="0.7"/>
+          <rect x="1.2" y="2.5" width="0.6" height="0.6" fill="none" stroke="currentColor" strokeWidth="0.07" opacity="0.5"/>
+        </pattern>
+      </defs>
+      <polygon points="10,2 18,16 2,16" fill="none" stroke="currentColor" strokeWidth="1" />
+      <polygon points="10,3 17,15 3,15" fill="url(#outlinePattern2)" opacity="0.5" />
     </svg>
   ),
-  
-  outlinedSquare: (
+
+  outlineSquare: (
     <svg viewBox="0 0 20 20" className="w-full h-full">
-      <rect x="4" y="4" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <defs>
+        <pattern id="outlinePattern3" patternUnits="userSpaceOnUse" width="3" height="3">
+          <rect width="3" height="3" fill="none"/>
+          <polygon points="1,0.5 1.5,1 1,1.5 0.5,1" fill="none" stroke="currentColor" strokeWidth="0.06" opacity="0.6"/>
+          <circle cx="2.3" cy="2.3" r="0.2" fill="none" stroke="currentColor" strokeWidth="0.05" opacity="0.7"/>
+          <rect x="0.2" y="2" width="0.5" height="0.5" fill="none" stroke="currentColor" strokeWidth="0.04" opacity="0.5"/>
+        </pattern>
+      </defs>
+      <rect x="3" y="3" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1" />
+      <rect x="4" y="4" width="12" height="12" fill="url(#outlinePattern3)" opacity="0.6" />
+    </svg>
+  ),
+
+  // Small accent shapes with mixed patterns
+  smallGridCircle: (
+    <svg viewBox="0 0 20 20" className="w-full h-full">
+      <defs>
+        <pattern id="smallGrid1" patternUnits="userSpaceOnUse" width="1.5" height="1.5">
+          <rect width="1.5" height="1.5" fill="none"/>
+          <path d="M0,0.5 L1.5,0.5 M0,1 L1.5,1" stroke="currentColor" strokeWidth="0.08" opacity="0.8"/>
+          <path d="M0.5,0 L0.5,1.5 M1,0 L1,1.5" stroke="currentColor" strokeWidth="0.08" opacity="0.6"/>
+        </pattern>
+      </defs>
+      <circle cx="10" cy="10" r="4" fill="none" stroke="currentColor" strokeWidth="0.8" />
+      <circle cx="10" cy="10" r="3.2" fill="url(#smallGrid1)" opacity="0.7" />
+    </svg>
+  ),
+
+  smallScribbleTriangle: (
+    <svg viewBox="0 0 20 20" className="w-full h-full">
+      <defs>
+        <pattern id="smallScribble1" patternUnits="userSpaceOnUse" width="2" height="2">
+          <rect width="2" height="2" fill="none"/>
+          <path d="M0.3,0.8 Q1,0.5 1.7,1.2" stroke="currentColor" strokeWidth="0.06" opacity="0.8" fill="none"/>
+          <path d="M0.8,1.6 Q1.3,1.3 1.8,1.8" stroke="currentColor" strokeWidth="0.05" opacity="0.6" fill="none"/>
+        </pattern>
+      </defs>
+      <polygon points="10,6 14,14 6,14" fill="none" stroke="currentColor" strokeWidth="0.8" />
+      <polygon points="10,6.8 13.2,13.2 6.8,13.2" fill="url(#smallScribble1)" opacity="0.6" />
+    </svg>
+  ),
+
+  smallOutlineSquare: (
+    <svg viewBox="0 0 20 20" className="w-full h-full">
+      <defs>
+        <pattern id="smallOutline1" patternUnits="userSpaceOnUse" width="1.8" height="1.8">
+          <rect width="1.8" height="1.8" fill="none"/>
+          <circle cx="0.5" cy="0.5" r="0.15" fill="none" stroke="currentColor" strokeWidth="0.04" opacity="0.6"/>
+          <rect x="1" y="1" width="0.3" height="0.3" fill="none" stroke="currentColor" strokeWidth="0.03" opacity="0.7"/>
+        </pattern>
+      </defs>
+      <rect x="7" y="7" width="6" height="6" fill="none" stroke="currentColor" strokeWidth="0.8" />
+      <rect x="7.5" y="7.5" width="5" height="5" fill="url(#smallOutline1)" opacity="0.6" />
     </svg>
   )
 };
@@ -124,7 +189,7 @@ interface ShapeIconProps {
 
 const ShapeIcon: React.FC<ShapeIconProps> = ({ variant, className = "" }) => {
   return (
-    <div className={`text-warm-brown/30 ${className}`}>
+    <div className={`text-warm-brown/40 ${className}`}>
       {ShapeVariants[variant]}
     </div>
   );
@@ -139,7 +204,7 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20 }) =>
   
   const shapeElements = Array.from({ length: count }, (_, i) => {
     const variant = variants[i % variants.length];
-    const size = Math.random() * 20 + 10; // Random size between 10-30px
+    const size = Math.random() * 15 + 8; // Random size between 8-23px (smaller than before)
     const rotation = (Math.random() - 0.5) * 45; // Random rotation between -22.5 to 22.5 degrees
     
     // Position shapes only at edges and corners to avoid text overlap
@@ -164,7 +229,7 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20 }) =>
           width: `${size}px`,
           height: `${size}px`,
           transform: `rotate(${rotation}deg)`,
-          opacity: Math.random() * 0.4 + 0.1, // Random opacity between 0.1-0.5
+          opacity: Math.random() * 0.3 + 0.1, // Random opacity between 0.1-0.4 (slightly more transparent)
         }}
       >
         <ShapeIcon variant={variant} className="w-full h-full" />
@@ -180,3 +245,4 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20 }) =>
 };
 
 export default ShapeIcon;
+```

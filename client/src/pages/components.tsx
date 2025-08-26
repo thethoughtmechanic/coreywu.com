@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, MotionConfig } from "framer-motion";
 import CopyEmail from "@/components/copy-email";
+import { Counter } from "@/components/counter";
 
 // Animation constants
 const SCALE = 1.5;
@@ -276,6 +277,12 @@ const ExpandedState = ({ cards, setIsExpanded }: ExpandedStateProps) => {
   );
 };
 
+const CounterDemo = () => {
+  const [number, setNumber] = useState(100);
+ 
+  return <Counter number={number} setNumber={setNumber} />;
+};
+
 const CardCollectionComponent = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -349,6 +356,43 @@ export default function Components() {
               <li>• <strong>Click</strong> to expand into horizontal layout</li>
               <li>• <strong>Hover</strong> individual cards in expanded view for proximity scaling</li>
               <li>• <strong>Click "View All"</strong> to collapse back to stack</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Counter Section */}
+        <section>
+          <div className="mb-8">
+            <h2 className="text-2xl font-medium text-warm-brown mb-4">
+              Animated Counter
+            </h2>
+            <p className="text-muted-grey mb-6">
+              A simple counter component with smooth animations on value changes. 
+              Built with Framer Motion for spring-based transitions.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                React State
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Framer Motion
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Spring Animation
+              </span>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 min-h-[200px] flex items-center justify-center">
+            <CounterDemo />
+          </div>
+          
+          <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
+            <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
+            <ul className="text-sm text-muted-grey space-y-1">
+              <li>• <strong>Click "+"</strong> to increment the counter</li>
+              <li>• <strong>Click "−"</strong> to decrement the counter</li>
+              <li>• <strong>Watch</strong> the smooth scale and fade animation on each change</li>
             </ul>
           </div>
         </section>

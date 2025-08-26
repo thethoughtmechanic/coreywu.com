@@ -177,9 +177,23 @@ function TypingText({
         <span
           key="digital-hover"
           className="relative inline-block cursor-pointer"
+          style={{ 
+            fontFamily: 'inherit',
+            fontSize: 'inherit',
+            fontWeight: 'inherit',
+            lineHeight: 'inherit',
+            color: 'inherit'
+          }}
           onMouseEnter={(e) => {
             const target = e.currentTarget;
-            const originalText = target.textContent || '';
+            const originalText = 'digital';
+            
+            // Clear any existing animation
+            if (target.dataset.animating === 'true') {
+              return;
+            }
+            
+            target.dataset.animating = 'true';
             let iteration = 0;
             const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             
@@ -193,12 +207,13 @@ function TypingText({
                 })
                 .join("");
               
-              iteration += 1 / 8;
+              iteration += 1 / 3;
               
               if (iteration < originalText.length) {
                 requestAnimationFrame(animate);
               } else {
                 target.textContent = originalText;
+                target.dataset.animating = 'false';
               }
             };
             

@@ -215,13 +215,13 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern  
       label: 'thoughts',
       path: '/thoughts',
-      position: { x: 72, y: 12 } // Moved left to make room for experiments
+      position: { x: 68, y: 8 } // Moved left and up for better mobile positioning
     },
     {
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments', 
       path: '/experiments',
-      position: { x: 85, y: 72 } // Moved right to avoid text overlap
+      position: { x: 78, y: 72 } // Moved left for better mobile positioning
     }
   ];
 
@@ -243,8 +243,8 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
     } while (
       (x > 25 && x < 75 && y > 15 && y < 85) || // Expanded center content area
       (x > 3 && x < 13 && y > 15 && y < 25) ||  // About me nav area (far left)
-      (x > 67 && x < 77 && y > 7 && y < 17) ||  // Thoughts nav area (moved left)
-      (x > 80 && x < 90 && y > 67 && y < 77)    // Experiments nav area (moved right)
+      (x > 63 && x < 73 && y > 3 && y < 13) ||  // Thoughts nav area (moved left and up)
+      (x > 73 && x < 83 && y > 67 && y < 77)    // Experiments nav area (moved left)
     );
 
     allShapes.push(

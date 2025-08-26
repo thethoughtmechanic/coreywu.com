@@ -199,98 +199,49 @@ interface GeometricFieldProps {
   onNavigate?: (path: string) => void;
 }
 
-// Interactive navigation shapes
-const NavigationShape: React.FC<{
-  variant: keyof typeof ShapeVariants;
-  label: string;
-  path: string;
-  position: { x: number; y: number };
-  onNavigate: (path: string) => void;
-}> = ({ variant, label, path, position, onNavigate }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
-  
-  return (
-    <div
-      className="absolute z-10 cursor-pointer pointer-events-auto group"
-      style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
-        width: '46px', // 100% larger than max size (23px * 2)
-        height: '46px',
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={() => onNavigate(path)}
-    >
-      {/* Tooltip */}
-      <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
-        {label}
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
-      </div>
-      
-      {/* Shape with animations */}
-      <div 
-        className={`w-full h-full transition-all duration-300 ${
-          isHovered 
-            ? 'transform scale-110 drop-shadow-lg' 
-            : 'animate-pulse' // Subtle shake/pulse when not hovered
-        }`}
-        style={{
-          filter: isHovered ? 'drop-shadow(0 4px 8px rgba(139, 69, 19, 0.3))' : 'none',
-          animation: !isHovered ? 'gentle-shake 3s infinite' : 'none',
-        }}
-      >
-        <ShapeIcon variant={variant} className="w-full h-full text-warm-brown/60 hover:text-warm-brown/80 transition-colors duration-300" />
-      </div>
-    </div>
-  );
-};
+
 
 export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNavigate }) => {
   const variants = Object.keys(ShapeVariants) as (keyof typeof ShapeVariants)[];
   
-  // Navigation shapes configuration
+  // Navigation shapes configuration - positioned to blend with regular shapes
   const navigationShapes = [
     {
       variant: 'outlineCircle' as keyof typeof ShapeVariants, // About me - outline pattern
       label: 'about me',
       path: '/about',
-      position: { x: 15, y: 25 } // Top left area
+      position: { x: 12, y: 35 } // Left side, better integrated
     },
     {
       variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern  
       label: 'thoughts',
       path: '/thoughts',
-      position: { x: 85, y: 35 } // Top right area
+      position: { x: 88, y: 45 } // Right side, better integrated
     },
     {
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments', 
       path: '/experiments',
-      position: { x: 50, y: 15 } // Top center area
+      position: { x: 75, y: 20 } // Top right, better integrated
     }
   ];
   
-  const shapeElements = Array.from({ length: count }, (_, i) => {
+  // Create navigation shapes mixed in with regular shapes
+  const allShapes = [];
+  
+  // Add regular shapes
+  for (let i = 0; i < count; i++) {
     const variant = variants[i % variants.length];
-    const size = Math.random() * 15 + 8; // Random size between 8-23px (smaller than before)
+    const size = Math.random() * 15 + 8; // Random size between 8-23px
     const rotation = (Math.random() - 0.5) * 45; // Random rotation between -22.5 to 22.5 degrees
     
-    // Position shapes only at edges and corners to avoid text overlap
-    const isBottomRow = Math.random() < 0.7; // 70% chance for bottom positioning
-    const x = isBottomRow 
-      ? Math.random() * 100 // Full width for bottom
-      : Math.random() < 0.5 
-        ? Math.random() * 15 // Left edge (0-15%)
-        : 85 + Math.random() * 15; // Right edge (85-100%)
+    // Better distribution across the entire viewport
+    const x = Math.random() * 100; // Full width
+    const y = Math.random() * 100; // Full height
     
-    const y = isBottomRow
-      ? 75 + Math.random() * 25 // Bottom area (75-100%)
-      : 50 + Math.random() * 40; // Middle to bottom for edges (50-90%)
-    
-    return (
+    allShapes.push(
       <div
-        key={i}
+        key={`regular-${i}`}
         className="absolute pointer-events-none z-0"
         style={{
           left: `${x}%`,
@@ -298,28 +249,61 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
           width: `${size}px`,
           height: `${size}px`,
           transform: `rotate(${rotation}deg)`,
-          opacity: Math.random() * 0.3 + 0.1, // Random opacity between 0.1-0.4 (slightly more transparent)
+          opacity: Math.random() * 0.3 + 0.1, // Random opacity between 0.1-0.4
         }}
       >
         <ShapeIcon variant={variant} className="w-full h-full" />
       </div>
     );
-  });
+  }
+  
+  // Add navigation shapes integrated with regular shapes
+  if (onNavigate) {
+    navigationShapes.forEach((shape, index) => {
+      const [isHovered, setIsHovered] = React.useState(false);
+      
+      allShapes.push(
+        <div
+          key={`nav-${index}`}
+          className="absolute z-10 cursor-pointer pointer-events-auto group"
+          style={{
+            left: `${shape.position.x}%`,
+            top: `${shape.position.y}%`,
+            width: '46px', // 100% larger than max size (23px * 2)
+            height: '46px',
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={() => onNavigate(shape.path)}
+        >
+          {/* Tooltip */}
+          <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
+            {shape.label}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
+          </div>
+          
+          {/* Shape with animations */}
+          <div 
+            className={`w-full h-full transition-all duration-300 ${
+              isHovered 
+                ? 'transform scale-110 drop-shadow-lg' 
+                : 'animate-pulse' // Subtle shake/pulse when not hovered
+            }`}
+            style={{
+              filter: isHovered ? 'drop-shadow(0 4px 8px rgba(139, 69, 19, 0.3))' : 'none',
+              animation: !isHovered ? 'gentle-shake 3s infinite' : 'none',
+            }}
+          >
+            <ShapeIcon variant={shape.variant} className="w-full h-full text-warm-brown/60 hover:text-warm-brown/80 transition-colors duration-300" />
+          </div>
+        </div>
+      );
+    });
+  }
 
   return (
     <>
-      {shapeElements}
-      {/* Navigation shapes */}
-      {onNavigate && navigationShapes.map((shape, index) => (
-        <NavigationShape
-          key={`nav-${index}`}
-          variant={shape.variant}
-          label={shape.label}
-          path={shape.path}
-          position={shape.position}
-          onNavigate={onNavigate}
-        />
-      ))}
+      {allShapes}
     </>
   );
 };

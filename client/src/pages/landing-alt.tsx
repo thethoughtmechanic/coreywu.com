@@ -43,7 +43,7 @@ export default function LandingAlt() {
               className="inline"
             />
             <HyperText 
-              className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown inline"
+              className="inline"
               duration={600}
               delay={2000}
               startOnView={true}

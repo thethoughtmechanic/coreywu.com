@@ -12,15 +12,36 @@ import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
 export default function Home() {
   const [, setLocation] = useLocation();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Assuming mobile is < 768px
 
   const handleNavigation = (path: string) => {
     setLocation(path);
   };
 
+  // Effect to update isMobile state on window resize
+  // Not strictly necessary for this change, but good practice if isMobile is used elsewhere
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth < 768);
+  //   };
+  //   window.addEventListener('resize', handleResize);
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
+
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col relative">
       <GeometricField count={25} onNavigate={handleNavigation} />
-      
+
+      {/* Experiments Icon - Triangle */}
+        <div 
+          className={`absolute transition-all duration-300 cursor-pointer z-20 ${
+            isMobile 
+              ? 'top-[65%] right-8 transform -translate-y-1/2' 
+              : 'top-1/2 right-12 transform -translate-y-1/2'
+          }`}
+          onClick={() => setLocation('/experiments')}
+        ></div>
+
       {/* Main Content Area - Constrained height to leave room for footer */}
       <main className="flex flex-col items-center justify-center py-8 md:py-12" style={{ minHeight: 'calc(100vh - 200px)' }}>
         {/* Draggable Headshot - positioned above the welcome text */}

@@ -22,8 +22,8 @@ export default function CopyEmail({
       setTimeout(() => setCopied(false), 2000);
       
       // Track email copy if analytics is available
-      if (window.gtag) {
-        window.gtag('event', 'email_copy', {
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'email_copy', {
           email_address: email,
           event_category: 'contact',
           event_label: 'Email copied to clipboard'
@@ -35,10 +35,10 @@ export default function CopyEmail({
   };
 
   return (
-    <button
+    <span
       onClick={handleCopy}
       className={cn(
-        "bg-transparent border-none cursor-pointer p-0 font-inherit relative overflow-hidden",
+        "bg-transparent border-none cursor-pointer p-0 font-inherit relative overflow-hidden inline-block",
         "text-warm-brown hover:text-hover-brown transition-colors duration-200 underline",
         className
       )}
@@ -60,11 +60,11 @@ export default function CopyEmail({
       )}>
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2h2"/>
           <path d="m9 14 2 2 4-4"/>
         </svg>
         Copied!
       </span>
-    </button>
+    </span>
   );
 }

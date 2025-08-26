@@ -1,5 +1,4 @@
 
-```
 import React from 'react';
 
 // Geometric shape variants with background textures from experiments, thoughts, and about pages
@@ -245,4 +244,3 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20 }) =>
 };
 
 export default ShapeIcon;
-```

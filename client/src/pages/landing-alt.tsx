@@ -30,7 +30,7 @@ export default function LandingAlt() {
           >
             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl border-4 border-white/80 hover:border-warm-brown/60 transition-all duration-300">
               <img 
-                src="/attached_assets/0X5A2925_2_pp_1756228010847.jpg"
+                src="/attached_assets/0X5A2925_2_pp_1756229624864.jpg"
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -100,11 +100,7 @@ export default function LandingAlt() {
           <Link href="/about">
             <div 
               className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden"
-              onClick={() => {
-                window.trackCardInteraction && window.trackCardInteraction('navigation', 'About Me', 'landing-alt');
-                window.trackNavigationClick && window.trackNavigationClick('about', 'landing-alt');
-              }}
-              onMouseEnter={() => window.trackPaintSplatterTrigger && window.trackPaintSplatterTrigger('about_card', 'landing-alt')}
+              data-testid="card-about"
             >
               {/* Paint Splatter Background for About Me */}
               <div
@@ -141,11 +137,7 @@ export default function LandingAlt() {
           <Link href="/thoughts">
             <div 
               className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden"
-              onClick={() => {
-                window.trackCardInteraction && window.trackCardInteraction('navigation', 'Thoughts', 'landing-alt');
-                window.trackNavigationClick && window.trackNavigationClick('thoughts', 'landing-alt');
-              }}
-              onMouseEnter={() => window.trackPaintSplatterTrigger && window.trackPaintSplatterTrigger('thoughts_card', 'landing-alt')}
+              data-testid="card-thoughts"
             >
               {/* Paint Splatter Background for Thoughts */}
               <div
@@ -182,11 +174,7 @@ export default function LandingAlt() {
           <Link href="/experiments">
             <div 
               className="relative bg-light-brown rounded-xl p-4 lg:p-8 hover:shadow-xl transition-all duration-500 cursor-pointer group border border-warm-brown/10 hover:border-warm-brown/30 h-32 lg:h-64 flex flex-col overflow-hidden"
-              onClick={() => {
-                window.trackCardInteraction && window.trackCardInteraction('navigation', 'Experiments', 'landing-alt');
-                window.trackNavigationClick && window.trackNavigationClick('experiments', 'landing-alt');
-              }}
-              onMouseEnter={() => window.trackPaintSplatterTrigger && window.trackPaintSplatterTrigger('experiments_card', 'landing-alt')}
+              data-testid="card-experiments"
             >
               {/* Paint Splatter Background for Experiments */}
               <div

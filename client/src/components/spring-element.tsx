@@ -106,10 +106,9 @@ type SpringAvatarProps = {
     curveRatioMax?: number;
     bezierOffset?: number;
   };
-} & HTMLMotionProps<'div'>;
+} & Omit<HTMLMotionProps<'div'>, 'ref'>;
  
 function SpringElement({
-  ref,
   children,
   className,
   springClassName,
@@ -134,7 +133,6 @@ function SpringElement({
   const sy = useMotionValueValue(springY);
  
   const childRef = React.useRef<HTMLDivElement>(null);
-  React.useImperativeHandle(ref, () => childRef.current as HTMLDivElement);
   const [center, setCenter] = React.useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = React.useState(false);
  

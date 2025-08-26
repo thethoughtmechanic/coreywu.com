@@ -229,7 +229,7 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments',
       path: '/experiments',
-      position: { x: 72, y: 55 } // Moved further left to prevent tooltip cutoff
+      position: { x: 82, y: 55 } // Moved further right to prevent text overlap
     },
     {
       variant: 'emailIcon' as keyof typeof ShapeVariants, // Email - grid pattern

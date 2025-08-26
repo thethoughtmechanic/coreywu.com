@@ -72,6 +72,9 @@ function TypingText({
   const [started, setStarted] = React.useState(false);
   const [displayedText, setDisplayedText] = React.useState<string>('');
   const [isComplete, setIsComplete] = React.useState(false);
+  
+  // Get the full text to reserve space
+  const fullText = typeof text === 'string' ? text : text[0] || '';
  
   React.useEffect(() => {
     // Reset animation when text changes (if animateOnChange is true)
@@ -182,7 +185,14 @@ function TypingText({
 
   return (
     <span ref={localRef} data-slot="typing-text" {...props}>
-      <motion.span>{formatTextWithGlow(displayedText)}</motion.span>
+      {/* Invisible placeholder to reserve space and prevent layout shift */}
+      <span className="invisible absolute" aria-hidden="true">
+        {fullText}
+      </span>
+      {/* Actual typing text */}
+      <motion.span className="relative">
+        {formatTextWithGlow(displayedText)}
+      </motion.span>
       {cursor && <CursorBlinker className={cursorClassName} />}
     </span>
   );

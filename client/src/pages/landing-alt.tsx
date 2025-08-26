@@ -1,4 +1,3 @@
-
 import { Link } from "wouter";
 import { useState } from "react";
 import { ChevronDown, ExternalLink } from "lucide-react";
@@ -68,7 +67,7 @@ export default function LandingAlt() {
 
         {/* Welcome Title - Mobile Optimized */}
         <div className="mb-8 md:mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
             <TypingText 
               text="Welcome to my digital garden."
               duration={80}

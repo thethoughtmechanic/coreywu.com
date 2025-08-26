@@ -1,7 +1,7 @@
 
 import { Link } from "wouter";
 import { useState, useRef } from "react";
-import { ChevronDown, ExternalLink, Lightbulb, Timeline, Beaker, User } from "lucide-react";
+import { ChevronDown, ExternalLink, Lightbulb, Beaker, User } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, MotionConfig } from "framer-motion";
 import { Navigation } from "@/components/navigation";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";

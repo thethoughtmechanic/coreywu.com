@@ -105,18 +105,10 @@ type SpringAvatarProps = {
     curveRatioMax?: number;
     bezierOffset?: number;
   };
-} & HTMLMotionProps<'div'>;
+} & Omit<HTMLMotionProps<'div'>, 'ref'>;
  
-function SpringElement({
-  ref,
-  children,
-  className,
-  springClassName,
-  dragElastic = 0.2,
-  springConfig = { stiffness: 200, damping: 16 },
-  springPathConfig = {},
-  ...props
-}: SpringAvatarProps) {
+const SpringElement = React.forwardRef<HTMLDivElement, SpringAvatarProps>(
+  ({ children, className, springClassName, dragElastic = 0.2, springConfig = { stiffness: 200, damping: 16 }, springPathConfig = {}, ...props }, ref) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
  
@@ -133,7 +125,7 @@ function SpringElement({
   const sy = useMotionValueValue(springY);
  
   const childRef = React.useRef<HTMLDivElement>(null);
-  React.useImperativeHandle(ref, () => childRef.current as HTMLDivElement);
+  React.useImperativeHandle(ref, () => childRef.current!);
   const [center, setCenter] = React.useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = React.useState(false);
  
@@ -221,6 +213,8 @@ function SpringElement({
       </motion.div>
     </>
   );
-}
+});
+ 
+SpringElement.displayName = 'SpringElement';
  
 export { SpringElement };

@@ -283,86 +283,120 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
   // Add navigation shapes integrated with regular shapes
   if (onNavigate) {
     navigationShapes.forEach((shape, index) => {
-      const [isHovered, setIsHovered] = React.useState(false);
-      const [isClicked, setIsClicked] = React.useState(false);
-      const [originalContent, setOriginalContent] = React.useState(shape.label);
-      const [currentVariant, setCurrentVariant] = React.useState(shape.variant);
+      // Create a functional component for each navigation shape to properly handle hooks
+      const NavigationShape = () => {
+        const [isHovered, setIsHovered] = React.useState(false);
+        const [emailCopied, setEmailCopied] = React.useState(false);
+        const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-      const handleClick = async () => {
-        if (shape.path === 'email') {
-          const emailAddress = 'your.email@example.com'; // Replace with actual email
-          try {
-            await navigator.clipboard.writeText(emailAddress);
-            setOriginalContent('Copied!');
-            setCurrentVariant('gridCircle'); // Placeholder for clipboard icon, replace with actual clipboard SVG if needed
-            setIsClicked(true);
-            setTimeout(() => {
-              setOriginalContent(shape.label);
-              setCurrentVariant(shape.variant);
-              setIsHovered(false); // Reset hover state after timeout
-              setIsClicked(false);
-            }, 2000);
-          } catch (err) {
-            console.error('Failed to copy email: ', err);
-            setOriginalContent('Failed!');
-            setTimeout(() => {
-              setOriginalContent(shape.label);
-            }, 2000);
+        const handleClick = async () => {
+          if (shape.path === 'email') {
+            try {
+              await navigator.clipboard.writeText('coreydavidwu@gmail.com');
+              setEmailCopied(true);
+              
+              // Clear any existing timeout
+              if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+              }
+              
+              // Reset after 2 seconds
+              timeoutRef.current = setTimeout(() => {
+                setEmailCopied(false);
+              }, 2000);
+            } catch (err) {
+              console.error('Failed to copy email:', err);
+            }
+          } else {
+            onNavigate(shape.path);
           }
-        } else {
-          onNavigate(shape.path);
-        }
+        };
+
+        // Cleanup timeout on unmount
+        React.useEffect(() => {
+          return () => {
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+            }
+          };
+        }, []);
+
+        // Determine size and rotation for navigation shapes
+        const size = 46; // Fixed size for navigation shapes
+        const rotation = 0; // No rotation for navigation shapes to keep labels aligned
+
+        // Determine current variant and label based on email state
+        const currentVariant = shape.path === 'email' && emailCopied ? 'gridSquare' : shape.variant;
+        const currentLabel = shape.path === 'email' && emailCopied ? 'Copied!' : shape.label;
+
+        return (
+          <div
+            className="absolute cursor-pointer transition-all duration-300 z-10 group"
+            style={{
+              left: `${shape.position.x}%`,
+              top: `${shape.position.y}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              transform: `rotate(${rotation}deg)`,
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onClick={handleClick}
+          >
+            {/* Desktop Tooltip */}
+            <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered && !emailCopied ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
+              {currentLabel}
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
+            </div>
+
+            {/* Mobile Tooltip - Always visible with arrow, positioned closer to shape */}
+            <div className={`md:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap z-20 font-medium ${emailCopied ? 'text-green-400' : ''}`}>
+              {shape.path === 'email' && emailCopied ? (
+                <span className="flex items-center gap-1">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                    <path d="m9 14 2 2 4-4"/>
+                  </svg>
+                  Copied!
+                </span>
+              ) : (
+                currentLabel
+              )}
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
+            </div>
+
+            {/* Shape with animations */}
+            <div
+              className={`w-full h-full transition-all duration-300 ${
+                isHovered && !emailCopied
+                  ? 'transform scale-110 drop-shadow-lg'
+                  : emailCopied
+                  ? 'transform scale-100' // No pulse when clicked
+                  : 'animate-pulse' // Subtle shake/pulse when not hovered
+              }`}
+              style={{
+                filter: isHovered && !emailCopied ? 'drop-shadow(0 4px 8px rgba(139, 69, 19, 0.3))' : 'none',
+                animation: !isHovered && !emailCopied ? 'gentle-shake 3s infinite' : 'none',
+              }}
+            >
+              {shape.path === 'email' && emailCopied ? (
+                // Clipboard icon when email is copied
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-green-600">
+                  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="m9 14 2 2 4-4" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+              ) : (
+                <ShapeIcon variant={currentVariant} className="w-full h-full text-warm-brown/60 hover:text-warm-brown/80 transition-colors duration-300" />
+              )}
+            </div>
+          </div>
+        );
       };
 
-      // Determine size and rotation for navigation shapes
-      // These are fixed for navigation shapes to ensure consistency and correct positioning
-      const size = 46; // Fixed size for navigation shapes
-      const rotation = 0; // No rotation for navigation shapes to keep labels aligned
-
       allShapes.push(
-        <div
-          key={`nav-${shape.label}`}
-          className="absolute cursor-pointer transition-all duration-300 z-10 group"
-          style={{
-            left: `${shape.position.x}%`,
-            top: `${shape.position.y}%`,
-            width: `${size}px`,
-            height: `${size}px`,
-            transform: `rotate(${rotation}deg)`,
-          }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={handleClick}
-        >
-          {/* Desktop Tooltip */}
-          <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered && !isClicked ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
-            {originalContent}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
-          </div>
-
-          {/* Mobile Tooltip - Always visible with arrow, positioned closer to shape */}
-          <div className="md:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap z-20 font-medium">
-            {originalContent}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
-          </div>
-
-          {/* Shape with animations */}
-          <div
-            className={`w-full h-full transition-all duration-300 ${
-              isHovered && !isClicked
-                ? 'transform scale-110 drop-shadow-lg'
-                : isClicked
-                ? 'transform scale-100' // No pulse when clicked
-                : 'animate-pulse' // Subtle shake/pulse when not hovered
-            }`}
-            style={{
-              filter: isHovered && !isClicked ? 'drop-shadow(0 4px 8px rgba(139, 69, 19, 0.3))' : 'none',
-              animation: !isHovered && !isClicked ? 'gentle-shake 3s infinite' : 'none',
-            }}
-          >
-            <ShapeIcon variant={currentVariant} className="w-full h-full text-warm-brown/60 hover:text-warm-brown/80 transition-colors duration-300" />
-          </div>
-        </div>
+        <NavigationShape key={`nav-${shape.label}`} />
       );
     });
   }

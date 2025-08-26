@@ -6,7 +6,7 @@ import {
   motion,
   useMotionValue,
   useSpring,
-} from 'framer-motion';
+} from 'motion/react';
 import { cn } from '@/lib/utils';
  
 const generateSpringPath = (
@@ -107,7 +107,8 @@ type SpringAvatarProps = {
   };
 } & HTMLMotionProps<'div'>;
  
-const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, 'ref'>>(({
+function SpringElement({
+  ref,
   children,
   className,
   springClassName,
@@ -115,10 +116,10 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
   springConfig = { stiffness: 200, damping: 16 },
   springPathConfig = {},
   ...props
-}, ref) => {
+}: SpringAvatarProps) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
+ 
   const springX = useSpring(x, {
     stiffness: springConfig.stiffness,
     damping: springConfig.damping,
@@ -127,15 +128,15 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
     stiffness: springConfig.stiffness,
     damping: springConfig.damping,
   });
-
+ 
   const sx = useMotionValueValue(springX);
   const sy = useMotionValueValue(springY);
-
+ 
   const childRef = React.useRef<HTMLDivElement>(null);
-  React.useImperativeHandle(ref, () => childRef.current!);
+  React.useImperativeHandle(ref, () => childRef.current as HTMLDivElement);
   const [center, setCenter] = React.useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = React.useState(false);
-
+ 
   React.useLayoutEffect(() => {
     function update() {
       if (childRef.current) {
@@ -154,7 +155,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
       window.removeEventListener('scroll', update, true);
     };
   }, []);
-
+ 
   React.useEffect(() => {
     if (isDragging) {
       document.body.style.cursor = 'grabbing';
@@ -162,7 +163,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
       document.body.style.cursor = 'default';
     }
   }, [isDragging]);
-
+ 
   const path = generateSpringPath(
     center.x,
     center.y,
@@ -170,7 +171,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
     center.y + sy,
     springPathConfig,
   );
-
+ 
   return (
     <>
       <svg
@@ -220,7 +221,6 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
       </motion.div>
     </>
   );
-});
-
-SpringElement.displayName = 'SpringElement';
+}
+ 
 export { SpringElement };

@@ -7,17 +7,13 @@ import CopyEmail from "@/components/copy-email";
 import { TypingText } from "@/components/typing-text";
 import { SpringElement } from "@/components/spring-element";
 import { HyperText } from "@/components/hyper-text";
-import { GeometricField } from "@/components/geometric-field"; // Assuming GeometricField is the new component name
 import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
 export default function LandingAlt() {
 
   return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Geometric Field Background */}
-      <GeometricField count={25} />
-
-      <div className="max-w-4xl mx-auto px-4 md:px-6 flex-1 flex flex-col items-center justify-center text-center relative z-10">
+    <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col">
+      <div className="text-center w-full flex flex-col items-center justify-center flex-1">
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-8 flex justify-center">
           <SpringElement>

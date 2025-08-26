@@ -1,3 +1,4 @@
+
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { ChevronDown, ExternalLink } from "lucide-react";
@@ -10,7 +11,7 @@ import { HyperText } from "@/components/hyper-text";
 import { GeometricField } from "@/components/grass-icons";
 import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
-export default function Home() {
+export default function HomeWithShapes() {
   const [, setLocation] = useLocation();
 
   const handleNavigation = (path: string) => {

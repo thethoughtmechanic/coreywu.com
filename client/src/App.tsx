@@ -39,8 +39,9 @@ import Components from "./pages/components";
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
-// Import the LandingAlt component
-import LandingAlt from "@/pages/landing-alt";
+// Import the renamed components
+import HomeOriginal from "@/pages/home-original";
+import HomeWithShapes from "@/pages/home-with-shapes";
 
 function Router() {
   const [location] = useLocation();
@@ -104,7 +105,8 @@ function Router() {
           <Route path="/gardentext" component={GardenText} />
           <Route path="/backgrounds" component={Backgrounds} />
           <Route path="/components" component={Components} />
-          <Route path="/landing-alt" component={LandingAlt} /> {/* Add the missing route */}
+          <Route path="/home-original" component={HomeOriginal} /> {/* Original home with cards */}
+          <Route path="/home-with-shapes" component={HomeWithShapes} /> {/* Home with geometric shapes */}
 
           <Route path="/admin" component={Admin} />
           <Route path="/admin/emails" component={EmailSubmissions} />

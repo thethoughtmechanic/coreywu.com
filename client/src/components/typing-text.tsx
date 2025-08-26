@@ -188,7 +188,7 @@ function TypingText({
             const target = e.currentTarget;
             const originalText = 'digital';
             const duration = 800; // Match original HyperText duration
-            const characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+            const characterSet = "abcdefghijklmnopqrstuvwxyz".split("");
             
             // Clear any existing animation
             if (target.dataset.animating === 'true') {

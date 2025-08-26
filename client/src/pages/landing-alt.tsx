@@ -7,13 +7,17 @@ import CopyEmail from "@/components/copy-email";
 import { TypingText } from "@/components/typing-text";
 import { SpringElement } from "@/components/spring-element";
 import { HyperText } from "@/components/hyper-text";
+import { GrassField } from "@/components/grass-icons";
 import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
 export default function LandingAlt() {
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="max-w-4xl mx-auto px-4 md:px-6 flex-1 flex flex-col items-center justify-center text-center">
+    <div className="min-h-screen flex flex-col relative">
+      {/* Grass Field Background */}
+      <GrassField count={25} />
+      
+      <div className="max-w-4xl mx-auto px-4 md:px-6 flex-1 flex flex-col items-center justify-center text-center relative z-10">
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-8 flex justify-center">
           <SpringElement>

@@ -196,10 +196,80 @@ const ShapeIcon: React.FC<ShapeIconProps> = ({ variant, className = "" }) => {
 
 interface GeometricFieldProps {
   count?: number;
+  onNavigate?: (path: string) => void;
 }
 
-export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20 }) => {
+// Interactive navigation shapes
+const NavigationShape: React.FC<{
+  variant: keyof typeof ShapeVariants;
+  label: string;
+  path: string;
+  position: { x: number; y: number };
+  onNavigate: (path: string) => void;
+}> = ({ variant, label, path, position, onNavigate }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+  
+  return (
+    <div
+      className="absolute z-10 cursor-pointer pointer-events-auto group"
+      style={{
+        left: `${position.x}%`,
+        top: `${position.y}%`,
+        width: '46px', // 100% larger than max size (23px * 2)
+        height: '46px',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onNavigate(path)}
+    >
+      {/* Tooltip */}
+      <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
+        {label}
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
+      </div>
+      
+      {/* Shape with animations */}
+      <div 
+        className={`w-full h-full transition-all duration-300 ${
+          isHovered 
+            ? 'transform scale-110 drop-shadow-lg' 
+            : 'animate-pulse' // Subtle shake/pulse when not hovered
+        }`}
+        style={{
+          filter: isHovered ? 'drop-shadow(0 4px 8px rgba(139, 69, 19, 0.3))' : 'none',
+          animation: !isHovered ? 'gentle-shake 3s infinite' : 'none',
+        }}
+      >
+        <ShapeIcon variant={variant} className="w-full h-full text-warm-brown/60 hover:text-warm-brown/80 transition-colors duration-300" />
+      </div>
+    </div>
+  );
+};
+
+export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNavigate }) => {
   const variants = Object.keys(ShapeVariants) as (keyof typeof ShapeVariants)[];
+  
+  // Navigation shapes configuration
+  const navigationShapes = [
+    {
+      variant: 'outlineCircle' as keyof typeof ShapeVariants, // About me - outline pattern
+      label: 'about me',
+      path: '/about',
+      position: { x: 15, y: 25 } // Top left area
+    },
+    {
+      variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern  
+      label: 'thoughts',
+      path: '/thoughts',
+      position: { x: 85, y: 35 } // Top right area
+    },
+    {
+      variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
+      label: 'experiments', 
+      path: '/experiments',
+      position: { x: 50, y: 15 } // Top center area
+    }
+  ];
   
   const shapeElements = Array.from({ length: count }, (_, i) => {
     const variant = variants[i % variants.length];
@@ -239,6 +309,17 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20 }) =>
   return (
     <>
       {shapeElements}
+      {/* Navigation shapes */}
+      {onNavigate && navigationShapes.map((shape, index) => (
+        <NavigationShape
+          key={`nav-${index}`}
+          variant={shape.variant}
+          label={shape.label}
+          path={shape.path}
+          position={shape.position}
+          onNavigate={onNavigate}
+        />
+      ))}
     </>
   );
 };

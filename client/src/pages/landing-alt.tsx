@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import { Navigation } from "@/components/navigation";
@@ -11,10 +11,15 @@ import { GeometricField } from "@/components/grass-icons";
 import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
 export default function LandingAlt() {
+  const [, setLocation] = useLocation();
+
+  const handleNavigation = (path: string) => {
+    setLocation(path);
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col relative">
-      <GeometricField count={25} />
+      <GeometricField count={25} onNavigate={handleNavigation} />
       <div className="text-center w-full flex flex-col items-center justify-center flex-1">
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-8 flex justify-center">

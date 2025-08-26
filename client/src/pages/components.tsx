@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, MotionConfig } from "framer-motion";
 import CopyEmail from "@/components/copy-email";
@@ -37,7 +36,7 @@ const CollectionCard = ({ color, width, height, isExpanded = false, mouseLeft, n
 
   const distance = useTransform(() => {
     if (!isExpanded || !mouseLeft) return -Infinity;
-    
+
     const bounds = ref.current
       ? { x: ref.current.offsetLeft, width: ref.current.offsetWidth }
       : { x: 0, width: 0 };
@@ -279,7 +278,7 @@ const ExpandedState = ({ cards, setIsExpanded }: ExpandedStateProps) => {
 
 const CounterDemo = () => {
   const [number, setNumber] = useState(100);
- 
+
   return <Counter number={number} setNumber={setNumber} />;
 };
 
@@ -314,7 +313,7 @@ export default function Components() {
           Component Playground
         </h1>
         <p className="text-muted-grey max-w-2xl mx-auto mb-8">
-          Experimental UI components for future design exploration. Interactive prototypes 
+          Experimental UI components for future design exploration. Interactive prototypes
           to test new patterns and interactions.
         </p>
       </header>
@@ -328,7 +327,7 @@ export default function Components() {
               Card Collection Preview
             </h2>
             <p className="text-muted-grey mb-6">
-              Interactive card stack that expands on hover and shows proximity-based scaling 
+              Interactive card stack that expands on hover and shows proximity-based scaling
               when clicked. Based on shared layout animations with spring physics.
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
@@ -346,9 +345,9 @@ export default function Components() {
               </span>
             </div>
           </div>
-          
+
           <CardCollectionComponent />
-          
+
           <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
             <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
             <ul className="text-sm text-muted-grey space-y-1">
@@ -360,15 +359,15 @@ export default function Components() {
           </div>
         </section>
 
-        {/* Counter Section */}
+        {/* Counter Demo Section */}
         <section>
           <div className="mb-8">
             <h2 className="text-2xl font-medium text-warm-brown mb-4">
-              Animated Counter
+              Interactive Counter
             </h2>
             <p className="text-muted-grey mb-6">
-              A simple counter component with smooth animations on value changes. 
-              Built with Framer Motion for spring-based transitions.
+              A simple counter component with smooth spring animations on value changes.
+              Features custom styling and responsive button interactions.
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
               <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
@@ -380,19 +379,24 @@ export default function Components() {
               <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
                 Spring Animation
               </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Persistent State
+              </span>
             </div>
           </div>
-          
-          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 min-h-[200px] flex items-center justify-center">
+
+          <div className="bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-2xl p-8 flex items-center justify-center min-h-[200px]">
             <CounterDemo />
           </div>
-          
+
           <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
-            <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
+            <h3 className="font-medium text-warm-brown mb-2">Features:</h3>
             <ul className="text-sm text-muted-grey space-y-1">
-              <li>• <strong>Click "+"</strong> to increment the counter</li>
-              <li>• <strong>Click "−"</strong> to decrement the counter</li>
-              <li>• <strong>Watch</strong> the smooth scale and fade animation on each change</li>
+              <li>• Smooth spring animations on number changes</li>
+              <li>• Responsive button hover states with warm color transitions</li>
+              <li>• Accessible with proper ARIA labels</li>
+              <li>• Organic design language matching site aesthetic</li>
+              <li>• Natural motion that feels alive and responsive</li>
             </ul>
           </div>
         </section>

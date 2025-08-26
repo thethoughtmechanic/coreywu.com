@@ -221,7 +221,7 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments', 
       path: '/experiments',
-      position: { x: 50, y: 82 } // Moved higher to avoid being cut off
+      position: { x: 50, y: 65 } // Positioned halfway between text and bottom
     }
   ];
 
@@ -244,7 +244,7 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       (x > 25 && x < 75 && y > 15 && y < 85) || // Expanded center content area
       (x > 3 && x < 13 && y > 15 && y < 25) ||  // About me nav area (far left)
       (x > 73 && x < 83 && y > 7 && y < 17) ||  // Thoughts nav area (adjusted position)
-      (x > 45 && x < 55 && y > 77 && y < 87)    // Experiments nav area (moved higher)
+      (x > 45 && x < 55 && y > 60 && y < 70)    // Experiments nav area (positioned halfway)
     );
 
     allShapes.push(

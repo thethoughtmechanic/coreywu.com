@@ -36,25 +36,9 @@ export default function LandingAlt() {
         <div className="mb-2">
           <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
             <TypingText 
-              text="Welcome to my "
+              text="Welcome to my digital garden."
               duration={80}
               delay={500}
-              cursor={false}
-              className="inline"
-            />
-            <HyperText 
-              className="inline"
-              duration={600}
-              delay={2000}
-              startOnView={true}
-              animateOnHover={true}
-            >
-              digital
-            </HyperText>
-            <TypingText 
-              text=" garden."
-              duration={80}
-              delay={2600}
               cursor={false}
               className="inline"
             />

@@ -156,31 +156,83 @@ function TypingText({
     };
   }, [text, duration, started, loop, holdDelay]);
  
-  // Function to apply garden glow effect to the word "garden"
-  const formatTextWithGlow = (text: string) => {
+  // Function to apply special effects to words
+  const formatTextWithEffects = (text: string) => {
     if (!isComplete) {
       return text;
     }
     
-    // Check if text contains "garden" and apply glow effect
+    let formattedText = text;
+    let elements: React.ReactNode[] = [];
+    let lastIndex = 0;
+
+    // Check for "digital" and add HyperText effect
+    const digitalIndex = text.toLowerCase().indexOf('digital');
+    if (digitalIndex !== -1) {
+      const beforeDigital = text.substring(lastIndex, digitalIndex);
+      const digital = text.substring(digitalIndex, digitalIndex + 7);
+      
+      elements.push(beforeDigital);
+      elements.push(
+        <span
+          key="digital-hover"
+          className="relative inline-block cursor-pointer"
+          onMouseEnter={(e) => {
+            const target = e.currentTarget;
+            const originalText = target.textContent || '';
+            let iteration = 0;
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            
+            const animate = () => {
+              target.textContent = originalText
+                .split("")
+                .map((letter, index) => {
+                  if (letter === " ") return letter;
+                  if (index < iteration) return originalText[index];
+                  return characters[Math.floor(Math.random() * characters.length)];
+                })
+                .join("");
+              
+              iteration += 1 / 8;
+              
+              if (iteration < originalText.length) {
+                requestAnimationFrame(animate);
+              } else {
+                target.textContent = originalText;
+              }
+            };
+            
+            animate();
+          }}
+        >
+          {digital}
+        </span>
+      );
+      
+      lastIndex = digitalIndex + 7;
+    }
+
+    // Check for "garden" and add glow effect
     const gardenIndex = text.toLowerCase().indexOf('garden');
     if (gardenIndex !== -1) {
-      const beforeGarden = text.substring(0, gardenIndex);
+      const beforeGarden = text.substring(lastIndex, gardenIndex);
       const garden = text.substring(gardenIndex, gardenIndex + 6);
       const afterGarden = text.substring(gardenIndex + 6);
       
-      return (
-        <>
-          {beforeGarden}
-          <span className="garden-text-glow relative inline-block cursor-pointer">
-            {garden}
-          </span>
-          {afterGarden}
-        </>
+      elements.push(beforeGarden);
+      elements.push(
+        <span key="garden-glow" className="garden-text-glow relative inline-block cursor-pointer">
+          {garden}
+        </span>
       );
+      elements.push(afterGarden);
+    } else if (lastIndex < text.length) {
+      // Add remaining text if no garden found
+      elements.push(text.substring(lastIndex));
     }
     
-    return text;
+    // If no special words found, return original text
+    return elements.length > 0 ? elements : text;
   };
 
   return (
@@ -191,7 +243,7 @@ function TypingText({
       </span>
       {/* Actual typing text - positioned absolutely over the invisible text */}
       <motion.span className="absolute inset-0 whitespace-nowrap">
-        {formatTextWithGlow(displayedText)}
+        {formatTextWithEffects(displayedText)}
       </motion.span>
       {cursor && <CursorBlinker className={cursorClassName} />}
     </span>

@@ -228,10 +228,10 @@ const NavigationShapeComponent: React.FC<{
           clearTimeout(timeoutRef.current);
         }
 
-        // Reset after 2 seconds
+        // Reset after 3 seconds
         timeoutRef.current = setTimeout(() => {
           setEmailCopied(false);
-        }, 2000);
+        }, 3000);
       } catch (err) {
         console.error('Failed to copy email:', err);
       }
@@ -272,13 +272,30 @@ const NavigationShapeComponent: React.FC<{
       onClick={handleClick}
     >
       {/* Desktop Tooltip */}
-      <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered && !emailCopied ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
-        {currentLabel}
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
+      <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs rounded whitespace-nowrap transition-all duration-200 ${
+        emailCopied 
+          ? 'bg-green-600 text-white opacity-100' 
+          : isHovered 
+            ? 'bg-warm-brown text-cream opacity-100' 
+            : 'bg-warm-brown text-cream opacity-0'
+      } pointer-events-none z-20`}>
+        {shape.path === 'email' && emailCopied ? (
+          <span className="flex items-center gap-1">
+            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <path d="m9 14 2 2 4-4"/>
+            </svg>
+            Copied!
+          </span>
+        ) : (
+          currentLabel
+        )}
+        <div className={`absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent ${emailCopied ? 'border-t-green-600' : 'border-t-warm-brown'}`}></div>
       </div>
 
       {/* Mobile Tooltip - Always visible with arrow, positioned closer to shape */}
-      <div className={`md:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap z-20 font-medium ${emailCopied ? 'text-green-400' : ''}`}>
+      <div className={`md:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded whitespace-nowrap z-20 font-medium ${emailCopied ? 'bg-green-600 text-white' : 'bg-warm-brown text-cream'} text-xs`}>
         {shape.path === 'email' && emailCopied ? (
           <span className="flex items-center gap-1">
             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

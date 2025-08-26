@@ -7,6 +7,7 @@ import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import CopyEmail from "@/components/copy-email";
 import { TypingText } from "@/components/typing-text";
 import { SpringElement } from "@/components/spring-element";
+import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
 export default function LandingAlt() {
 
@@ -30,9 +31,10 @@ export default function LandingAlt() {
           >
             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl border-4 border-white/80 hover:border-warm-brown/60 transition-all duration-300">
               <img 
-                src="/attached_assets/0X5A2925_2_pp_1756229624864.jpg"
+                src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover"
+                data-testid="img-headshot"
                 onError={(e) => {
                   // Fallback to the SVG avatar if the image fails to load
                   e.currentTarget.src = `data:image/svg+xml;base64,${btoa(`

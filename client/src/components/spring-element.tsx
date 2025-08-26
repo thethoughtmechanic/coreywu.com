@@ -203,13 +203,16 @@ function SpringElement({
         dragElastic={dragElastic}
         dragMomentum={false}
         onDragStart={() => {
+          console.log('Drag started');
           setIsDragging(true);
         }}
         onDrag={(_, info) => {
+          console.log('Dragging:', info.offset.x, info.offset.y);
           x.set(info.offset.x);
           y.set(info.offset.y);
         }}
         onDragEnd={() => {
+          console.log('Drag ended');
           x.set(0);
           y.set(0);
           setIsDragging(false);

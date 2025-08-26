@@ -11,8 +11,8 @@ import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 export default function LandingAlt() {
 
   return (
-    <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col">
-      <div className="text-center w-full flex flex-col items-center justify-center flex-1">
+    <div className="min-h-screen flex flex-col">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 flex-1 flex flex-col items-center justify-center text-center">
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-8 flex justify-center">
           <SpringElement>
@@ -32,7 +32,7 @@ export default function LandingAlt() {
         </div>
 
         {/* Welcome Title - Mobile Optimized */}
-        <div className="mb-4">
+        <div className="mb-2">
           <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
             <TypingText 
               text="Welcome to my digital garden."
@@ -44,20 +44,22 @@ export default function LandingAlt() {
           </h1>
         </div>
 
-        <p className="text-sm md:text-base text-soft-black/60 mb-8 leading-relaxed max-w-2xl mx-auto">
+        <p className="text-sm md:text-base text-soft-black/60 leading-relaxed max-w-2xl mx-auto">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
         </p>
+      </div>
 
-        {/* Contact Footer */}
-        <footer className="text-center mt-auto pt-8 border-t border-warm-brown/20">
+      {/* Contact Footer */}
+      <footer className="text-center pb-8 px-4 md:px-6">
+        <div className="max-w-4xl mx-auto pt-8 border-t border-warm-brown/20">
           <p className="text-sm text-muted-grey">
             Interested in collaborating or just want to chat? Reach out at{' '}
             <CopyEmail className="text-warm-brown hover:text-hover-brown transition-colors duration-200 no-underline" email="coreydavidwu@gmail.com">
               coreydavidwu@gmail.com
             </CopyEmail>
           </p>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 }

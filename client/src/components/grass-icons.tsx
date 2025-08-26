@@ -215,13 +215,13 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern  
       label: 'thoughts',
       path: '/thoughts',
-      position: { x: 85, y: 12 } // Far right, above text (moved slightly left)
+      position: { x: 78, y: 12 } // Moved further left for mobile
     },
     {
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments', 
       path: '/experiments',
-      position: { x: 50, y: 88 } // Centered horizontally, well below text
+      position: { x: 50, y: 82 } // Moved higher to avoid being cut off
     }
   ];
 
@@ -243,8 +243,8 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
     } while (
       (x > 25 && x < 75 && y > 15 && y < 85) || // Expanded center content area
       (x > 3 && x < 13 && y > 15 && y < 25) ||  // About me nav area (far left)
-      (x > 80 && x < 90 && y > 7 && y < 17) ||  // Thoughts nav area (moved slightly left)
-      (x > 45 && x < 55 && y > 83 && y < 93)    // Experiments nav area (centered bottom)
+      (x > 73 && x < 83 && y > 7 && y < 17) ||  // Thoughts nav area (adjusted position)
+      (x > 45 && x < 55 && y > 77 && y < 87)    // Experiments nav area (moved higher)
     );
 
     allShapes.push(
@@ -290,15 +290,16 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => onNavigate(shape.path)}
         >
-          {/* Desktop Tooltip - Hidden on mobile */}
+          {/* Desktop Tooltip */}
           <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
             {shape.label}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
           </div>
 
-          {/* Mobile Label - Always visible, positioned below shape */}
-          <div className="md:hidden absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-1.5 py-0.5 bg-warm-brown/90 text-cream text-[10px] rounded whitespace-nowrap z-20 font-medium">
+          {/* Mobile Tooltip - Always visible with arrow, positioned above shape */}
+          <div className="md:hidden absolute -top-12 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap z-20 font-medium">
             {shape.label}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
           </div>
 
           {/* Shape with animations */}

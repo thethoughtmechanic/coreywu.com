@@ -11,8 +11,8 @@ import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 export default function LandingAlt() {
 
   return (
-    <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] flex items-center justify-center py-6 md:py-8">
-      <div className="text-center w-full">
+    <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] flex flex-col items-center justify-center py-6 md:py-8">
+      <div className="text-center w-full flex flex-col items-center justify-center flex-1">
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-16 flex justify-center">
           <SpringElement>
@@ -78,13 +78,8 @@ export default function LandingAlt() {
           </h1>
         </div>
 
-        <p className="text-sm md:text-base text-soft-black/60 mb-16 md:mb-20 leading-relaxed max-w-2xl mx-auto">
+        <p className="text-sm md:text-base text-soft-black/60 mb-20 md:mb-24 leading-relaxed max-w-2xl mx-auto">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
-        </p>
-
-        {/* Fun interaction hint */}
-        <p className="text-xs text-warm-brown/60 mb-16 italic">
-          ✨ Try dragging my head around for some fun!
         </p>
 
         {/* Contact Footer */}

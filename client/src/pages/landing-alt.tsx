@@ -18,7 +18,16 @@ export default function LandingAlt() {
           <SpringElement>
             <div 
               className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl transition-all duration-300"
-            ></div>
+            >
+              <img 
+                src={headshotImage}
+                alt="Corey Wu - Draggable headshot"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: '50% 40%', transform: 'scale(1.2)' }}
+                draggable={false}
+                data-testid="img-headshot"
+              />
+            </div>
           </SpringElement>
         </div>
 
@@ -50,47 +59,5 @@ export default function LandingAlt() {
         </footer>
       </div>
     </div>
-              <img 
-                src={headshotImage}
-                alt="Corey Wu - Draggable headshot"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: '50% 40%', transform: 'scale(1.2)' }}
-                draggable={false}
-                data-testid="img-headshot"
-                onError={(e) => {
-                  // Fallback to the SVG avatar if the image fails to load
-                  e.currentTarget.src = `data:image/svg+xml;base64,${btoa(`
-                    <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <radialGradient id="faceGradient" cx="50%" cy="40%" r="60%">
-                          <stop offset="0%" style="stop-color:#F5E6D3;stop-opacity:1" />
-                          <stop offset="100%" style="stop-color:#E8D5C0;stop-opacity:1" />
-                        </radialGradient>
-                        <radialGradient id="hairGradient" cx="50%" cy="30%" r="70%">
-                          <stop offset="0%" style="stop-color:#3D2914;stop-opacity:1" />
-                          <stop offset="100%" style="stop-color:#2C1810;stop-opacity:1" />
-                        </radialGradient>
-                      </defs>
-                      <!-- Hair -->
-                      <ellipse cx="64" cy="45" rx="40" ry="35" fill="url(#hairGradient)"/>
-                      <!-- Face -->
-                      <ellipse cx="64" cy="70" rx="32" ry="38" fill="url(#faceGradient)"/>
-                      <!-- Glasses -->
-                      <circle cx="54" cy="65" r="8" fill="none" stroke="#4A4A4A" stroke-width="2"/>
-                      <circle cx="74" cy="65" r="8" fill="none" stroke="#4A4A4A" stroke-width="2"/>
-                      <line x1="62" y1="65" x2="66" y2="65" stroke="#4A4A4A" stroke-width="2"/>
-                      <!-- Eyes -->
-                      <circle cx="54" cy="65" r="3" fill="#2C1810"/>
-                      <circle cx="74" cy="65" r="3" fill="#2C1810"/>
-                      <circle cx="55" cy="64" r="1" fill="#FFFFFF"/>
-                      <circle cx="75" cy="64" r="1" fill="#FFFFFF"/>
-                      <!-- Smile -->
-                      <path d="M 52 80 Q 64 88 76 80" stroke="#D4AF37" stroke-width="2" fill="none"/>
-                      <!-- Sweater -->
-                      <ellipse cx="64" cy="115" rx="45" ry="20" fill="#F0E68C"/>
-                    </svg>
-                  `)}`;
-                }}
-              />
   );
 }

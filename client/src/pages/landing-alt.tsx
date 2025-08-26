@@ -17,7 +17,7 @@ export default function LandingAlt() {
         <div className="mb-16 flex justify-center">
           <SpringElement>
             <div 
-              className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl transition-all duration-300"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl transition-all duration-300"
             >
               <img 
                 src={headshotImage}

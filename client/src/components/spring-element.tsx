@@ -119,6 +119,8 @@ function SpringElement({
 }: SpringAvatarProps) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const avoidanceX = useMotionValue(0);
+  const avoidanceY = useMotionValue(0);
  
   const springX = useSpring(x, {
     stiffness: springConfig.stiffness,
@@ -128,14 +130,26 @@ function SpringElement({
     stiffness: springConfig.stiffness,
     damping: springConfig.damping,
   });
+
+  const avoidanceSpringX = useSpring(avoidanceX, {
+    stiffness: 300,
+    damping: 20,
+  });
+  const avoidanceSpringY = useSpring(avoidanceY, {
+    stiffness: 300,
+    damping: 20,
+  });
  
   const sx = useMotionValueValue(springX);
   const sy = useMotionValueValue(springY);
+  const avoidanceSx = useMotionValueValue(avoidanceSpringX);
+  const avoidanceSy = useMotionValueValue(avoidanceSpringY);
  
   const childRef = React.useRef<HTMLDivElement>(null);
   React.useImperativeHandle(ref, () => childRef.current as HTMLDivElement);
   const [center, setCenter] = React.useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = React.useState(false);
+  const [isHovering, setIsHovering] = React.useState(false);
  
   React.useLayoutEffect(() => {
     function update() {
@@ -163,6 +177,50 @@ function SpringElement({
       document.body.style.cursor = 'default';
     }
   }, [isDragging]);
+
+  // Mouse avoidance effect
+  React.useEffect(() => {
+    function handleMouseMove(event: MouseEvent) {
+      if (!childRef.current || isDragging) return;
+
+      const rect = childRef.current.getBoundingClientRect();
+      const elementCenterX = rect.left + rect.width / 2;
+      const elementCenterY = rect.top + rect.height / 2;
+      
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+      
+      const distance = Math.sqrt(
+        Math.pow(mouseX - elementCenterX, 2) + Math.pow(mouseY - elementCenterY, 2)
+      );
+      
+      const threshold = 120; // Distance at which avoidance starts
+      const maxAvoidance = 20; // Maximum pixels to move away
+      
+      if (distance < threshold) {
+        setIsHovering(true);
+        const avoidanceStrength = Math.max(0, (threshold - distance) / threshold);
+        const deltaX = elementCenterX - mouseX;
+        const deltaY = elementCenterY - mouseY;
+        const magnitude = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        
+        if (magnitude > 0) {
+          const normalizedX = deltaX / magnitude;
+          const normalizedY = deltaY / magnitude;
+          
+          avoidanceX.set(normalizedX * maxAvoidance * avoidanceStrength);
+          avoidanceY.set(normalizedY * maxAvoidance * avoidanceStrength);
+        }
+      } else {
+        setIsHovering(false);
+        avoidanceX.set(0);
+        avoidanceY.set(0);
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [isDragging, avoidanceX, avoidanceY]);
  
   const path = generateSpringPath(
     center.x,
@@ -197,14 +255,22 @@ function SpringElement({
           className,
         )}
         style={{
-          x: springX,
-          y: springY,
+          x: isDragging ? springX : avoidanceSpringX,
+          y: isDragging ? springY : avoidanceSpringY,
         }}
         drag
         dragElastic={dragElastic}
         dragMomentum={false}
+        animate={{
+          scale: isHovering && !isDragging ? 1.05 : 1,
+        }}
+        transition={{
+          scale: { duration: 0.2, ease: "easeOut" }
+        }}
         onDragStart={() => {
           setIsDragging(true);
+          avoidanceX.set(0);
+          avoidanceY.set(0);
         }}
         onDrag={(_, info) => {
           x.set(info.offset.x);

@@ -229,13 +229,13 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments',
       path: '/experiments',
-      position: { x: 78, y: 55 } // Moved higher up the page
+      position: { x: 72, y: 55 } // Moved further left to prevent tooltip cutoff
     },
     {
       variant: 'emailIcon' as keyof typeof ShapeVariants, // Email - grid pattern
       label: 'email me',
       path: 'email', // Special path for email functionality
-      position: { x: 8, y: 85 } // Bottom left of page
+      position: { x: 12, y: 80 } // Moved right and up to prevent tooltip cutoff
     }
   ];
 
@@ -294,12 +294,12 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
             try {
               await navigator.clipboard.writeText('coreydavidwu@gmail.com');
               setEmailCopied(true);
-              
+
               // Clear any existing timeout
               if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
               }
-              
+
               // Reset after 2 seconds
               timeoutRef.current = setTimeout(() => {
                 setEmailCopied(false);

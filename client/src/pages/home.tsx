@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col relative">
       <GeometricField count={25} onNavigate={handleNavigation} />
-      <div className="text-center w-full flex flex-col items-center justify-center flex-1 py-8">
+      <div className="text-center w-full flex flex-col items-center justify-center py-8" style={{ minHeight: 'calc(100vh - 120px)' }}>
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-10 flex justify-center">
           <SpringElement>

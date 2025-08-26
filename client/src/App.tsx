@@ -39,6 +39,8 @@ import Components from "./pages/components";
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
+// Import the LandingAlt component
+import LandingAlt from "@/pages/landing-alt";
 
 function Router() {
   const [location] = useLocation();
@@ -102,6 +104,7 @@ function Router() {
           <Route path="/gardentext" component={GardenText} />
           <Route path="/backgrounds" component={Backgrounds} />
           <Route path="/components" component={Components} />
+          <Route path="/landing-alt" component={LandingAlt} /> {/* Add the missing route */}
 
           <Route path="/admin" component={Admin} />
           <Route path="/admin/emails" component={EmailSubmissions} />

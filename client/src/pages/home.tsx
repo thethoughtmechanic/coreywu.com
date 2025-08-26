@@ -20,7 +20,9 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col relative">
       <GeometricField count={25} onNavigate={handleNavigation} />
-      <div className="text-center w-full flex flex-col items-center justify-center py-8" style={{ minHeight: 'calc(100vh - 120px)' }}>
+      
+      {/* Main Content Area - Flexible centering */}
+      <main className="flex-1 flex flex-col items-center justify-center py-12 md:py-16">
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-10 flex justify-center">
           <SpringElement>
@@ -41,7 +43,7 @@ export default function Home() {
 
         {/* Welcome Title - Mobile Optimized */}
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-warm-brown leading-tight px-2 text-center" data-testid="text-home-title">
             <TypingText 
               text="Welcome to my digital garden."
               duration={80}
@@ -52,14 +54,14 @@ export default function Home() {
           </h1>
         </div>
 
-        <p className="text-base md:text-lg text-soft-black/60 leading-relaxed max-w-2xl mx-auto px-4">
+        <p className="text-base md:text-lg text-soft-black/60 leading-relaxed max-w-2xl mx-auto px-4 text-center">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
         </p>
-      </div>
+      </main>
 
-      {/* Contact Footer */}
-      <footer className="text-center pb-8 px-4 md:px-6">
-        <div className="max-w-4xl mx-auto pt-8 border-t border-warm-brown/20">
+      {/* Contact Footer - Always visible */}
+      <footer className="text-center py-8 px-4 md:px-6 mt-auto">
+        <div className="max-w-4xl mx-auto pt-6 border-t border-warm-brown/20">
           <p className="text-sm text-muted-grey">
             Interested in collaborating or just want to chat? Reach out at{' '}
             <CopyEmail className="text-warm-brown hover:text-hover-brown transition-colors duration-200 no-underline" email="coreydavidwu@gmail.com">

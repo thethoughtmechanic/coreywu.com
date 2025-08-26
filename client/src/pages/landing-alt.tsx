@@ -20,9 +20,9 @@ export default function LandingAlt() {
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col relative">
       <GeometricField count={25} onNavigate={handleNavigation} />
-      <div className="text-center w-full flex flex-col items-center justify-center flex-1">
+      <div className="text-center w-full flex flex-col items-center justify-center flex-1 py-8">
         {/* Draggable Headshot - positioned above the welcome text */}
-        <div className="mb-8 flex justify-center">
+        <div className="mb-10 flex justify-center">
           <SpringElement>
             <div 
               className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl transition-all duration-300"
@@ -40,7 +40,7 @@ export default function LandingAlt() {
         </div>
 
         {/* Welcome Title - Mobile Optimized */}
-        <div className="mb-2">
+        <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
             <TypingText 
               text="Welcome to my digital garden."
@@ -52,7 +52,7 @@ export default function LandingAlt() {
           </h1>
         </div>
 
-        <p className="text-sm md:text-base text-soft-black/60 leading-relaxed max-w-2xl mx-auto">
+        <p className="text-sm md:text-base text-soft-black/60 leading-relaxed max-w-2xl mx-auto px-4">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
         </p>
       </div>

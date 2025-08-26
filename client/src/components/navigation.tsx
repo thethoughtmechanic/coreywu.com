@@ -172,7 +172,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
 
       {/* Mobile navigation overlay */}
       <div className={cn(
-        "fixed inset-0 z-[90] md:hidden transition-all duration-300 ease-out",
+        "fixed inset-0 z-[105] md:hidden transition-all duration-300 ease-out",
         isMenuOpen 
           ? "opacity-100 backdrop-blur-sm pointer-events-auto" 
           : "opacity-0 pointer-events-none",
@@ -184,7 +184,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
 
       {/* Mobile navigation menu */}
       <div className={cn(
-        "fixed top-0 left-0 h-full w-[280px] z-[95] md:hidden transform transition-transform duration-300 ease-out shadow-xl",
+        "fixed top-0 left-0 h-full w-[280px] z-[110] md:hidden transform transition-transform duration-300 ease-out shadow-xl",
         isDarkMode 
           ? "bg-gray-900/98 backdrop-blur-md border-r border-gray-700/30" 
           : "bg-cream/98 backdrop-blur-md border-r border-warm-brown/20",

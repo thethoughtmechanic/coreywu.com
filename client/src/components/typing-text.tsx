@@ -207,10 +207,10 @@ function TypingText({
                 })
                 .join("");
               
-              iteration += 1 / 3;
+              iteration += 1 / 8;
               
               if (iteration < originalText.length) {
-                requestAnimationFrame(animate);
+                setTimeout(animate, 50); // 50ms delay between frames for slower, more visible scramble
               } else {
                 target.textContent = originalText;
                 target.dataset.animating = 'false';

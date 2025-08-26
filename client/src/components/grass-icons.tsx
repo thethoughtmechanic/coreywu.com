@@ -203,25 +203,25 @@ interface GeometricFieldProps {
 export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNavigate }) => {
   const variants = Object.keys(ShapeVariants) as (keyof typeof ShapeVariants)[];
 
-  // Navigation shapes configuration - positioned to avoid text content area
+  // Navigation shapes configuration - positioned left to right: about me, thoughts, experiments
   const navigationShapes = [
     {
       variant: 'outlineCircle' as keyof typeof ShapeVariants, // About me - outline pattern
       label: 'about me',
       path: '/about',
-      position: { x: 8, y: 20 } // Far left, clear of text
+      position: { x: 15, y: 25 } // Left side
     },
     {
       variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern  
       label: 'thoughts',
       path: '/thoughts',
-      position: { x: 88, y: 12 } // Far right, above text
+      position: { x: 65, y: 15 } // Moved right to avoid image overlap
     },
     {
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
       label: 'experiments', 
       path: '/experiments',
-      position: { x: 92, y: 75 } // Far right, below text
+      position: { x: 85, y: 35 } // Lower right with vertical variation
     }
   ];
 
@@ -234,17 +234,17 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
     const size = Math.random() * 15 + 8; // Random size between 8-23px
     const rotation = (Math.random() - 0.5) * 45; // Random rotation between -22.5 to 22.5 degrees
 
-    // Better distribution avoiding center content area and navigation shapes
+    // Better distribution avoiding center content area
     let x, y;
     do {
       x = Math.random() * 100;
       y = Math.random() * 100;
-      // Avoid center content area (25-75% width, 15-85% height) and navigation shape areas
+      // Avoid center content area (30-70% width, 25-75% height) and navigation shape areas
     } while (
-      (x > 25 && x < 75 && y > 15 && y < 85) || // Expanded center content area
-      (x > 3 && x < 13 && y > 15 && y < 25) ||  // About me nav area (far left)
-      (x > 83 && x < 93 && y > 7 && y < 17) ||  // Thoughts nav area (far right, top)
-      (x > 87 && x < 97 && y > 70 && y < 80)    // Experiments nav area (far right, bottom)
+      (x > 30 && x < 70 && y > 25 && y < 75) || // Center content area
+      (x > 10 && x < 20 && y > 20 && y < 30) || // About me nav area
+      (x > 60 && x < 70 && y > 10 && y < 20) || // Thoughts nav area (moved right)
+      (x > 80 && x < 90 && y > 30 && y < 40)    // Experiments nav area (moved lower)
     );
 
     allShapes.push(
@@ -290,10 +290,15 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => onNavigate(shape.path)}
         >
-          {/* Tooltip for all screen sizes - positioned above with arrow */}
-          <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
+          {/* Desktop Tooltip - Hidden on mobile */}
+          <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
             {shape.label}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
+          </div>
+
+          {/* Mobile Label - Always visible, positioned below shape */}
+          <div className="md:hidden absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-1.5 py-0.5 bg-warm-brown/90 text-cream text-[10px] rounded whitespace-nowrap z-20 font-medium">
+            {shape.label}
           </div>
 
           {/* Shape with animations */}

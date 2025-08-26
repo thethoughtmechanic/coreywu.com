@@ -33,7 +33,8 @@ export default function LandingAlt() {
               <img 
                 src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
+                style={{ objectPosition: '50% 20%', transform: 'scale(1.2)' }}
                 data-testid="img-headshot"
                 onError={(e) => {
                   // Fallback to the SVG avatar if the image fails to load

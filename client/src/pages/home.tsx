@@ -22,7 +22,7 @@ export default function Home() {
       <GeometricField count={25} onNavigate={handleNavigation} />
       
       {/* Main Content Area - Constrained height to leave room for footer */}
-      <main className="flex flex-col items-center justify-center py-8 md:py-12" style={{ minHeight: 'calc(100vh - 200px)' }}>
+      <main className="flex flex-col items-center justify-center py-6 md:py-8" style={{ minHeight: 'calc(100vh - 280px)' }}>
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-8 md:mb-10 flex justify-center">
           <SpringElement>
@@ -60,9 +60,9 @@ export default function Home() {
       </main>
 
       {/* Contact Footer - Always visible with guaranteed space */}
-      <footer className="text-center py-6 px-6 mt-auto flex-shrink-0">
-        <div className="max-w-4xl mx-auto pt-4 border-t border-warm-brown/20">
-          <p className="text-sm text-muted-grey">
+      <footer className="text-center py-4 px-6 mt-auto flex-shrink-0">
+        <div className="max-w-4xl mx-auto pt-3 border-t border-warm-brown/20">
+          <p className="text-xs md:text-sm text-muted-grey">
             Interested in collaborating or just want to chat? Reach out at{' '}
             <CopyEmail className="text-warm-brown hover:text-hover-brown transition-colors duration-200 no-underline" email="coreydavidwu@gmail.com">
               coreydavidwu@gmail.com

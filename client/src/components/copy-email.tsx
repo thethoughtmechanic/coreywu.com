@@ -38,7 +38,7 @@ export default function CopyEmail({
     <span
       onClick={handleCopy}
       className={cn(
-        "bg-transparent border-none cursor-pointer p-0 font-inherit relative overflow-hidden inline-block",
+        "bg-transparent border-none cursor-pointer p-0 font-inherit relative overflow-hidden inline align-baseline",
         "text-warm-brown hover:text-hover-brown transition-colors duration-200 underline",
         className
       )}

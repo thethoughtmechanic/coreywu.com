@@ -21,13 +21,13 @@ export default function Home() {
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col relative">
       <GeometricField count={25} onNavigate={handleNavigation} />
       
-      {/* Main Content Area - Flexible centering */}
-      <main className="flex-1 flex flex-col items-center justify-center py-12 md:py-16">
+      {/* Main Content Area - Constrained height to leave room for footer */}
+      <main className="flex flex-col items-center justify-center py-8 md:py-12" style={{ minHeight: 'calc(100vh - 200px)' }}>
         {/* Draggable Headshot - positioned above the welcome text */}
-        <div className="mb-10 flex justify-center">
+        <div className="mb-8 md:mb-10 flex justify-center">
           <SpringElement>
             <div 
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl transition-all duration-300"
+              className="w-28 h-28 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl transition-all duration-300"
             >
               <img 
                 src={headshotImage}
@@ -41,9 +41,9 @@ export default function Home() {
           </SpringElement>
         </div>
 
-        {/* Welcome Title - Mobile Optimized */}
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-warm-brown leading-tight px-2 text-center" data-testid="text-home-title">
+        {/* Welcome Title - Better Mobile Sizing */}
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-warm-brown leading-tight px-6 text-center" data-testid="text-home-title">
             <TypingText 
               text="Welcome to my digital garden."
               duration={80}
@@ -54,14 +54,14 @@ export default function Home() {
           </h1>
         </div>
 
-        <p className="text-base md:text-lg text-soft-black/60 leading-relaxed max-w-2xl mx-auto px-4 text-center">
+        <p className="text-sm sm:text-base md:text-lg text-soft-black/60 leading-relaxed max-w-2xl mx-auto px-6 text-center">
           As a designer of systems and experiences, I'm exploring how we can build toward futures that are more meaningful, intentional, and human. Let's tend to these ideas and see what they grow into.
         </p>
       </main>
 
-      {/* Contact Footer - Always visible */}
-      <footer className="text-center py-8 px-4 md:px-6 mt-auto">
-        <div className="max-w-4xl mx-auto pt-6 border-t border-warm-brown/20">
+      {/* Contact Footer - Always visible with guaranteed space */}
+      <footer className="text-center py-6 px-6 mt-auto flex-shrink-0">
+        <div className="max-w-4xl mx-auto pt-4 border-t border-warm-brown/20">
           <p className="text-sm text-muted-grey">
             Interested in collaborating or just want to chat? Reach out at{' '}
             <CopyEmail className="text-warm-brown hover:text-hover-brown transition-colors duration-200 no-underline" email="coreydavidwu@gmail.com">

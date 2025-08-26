@@ -1,5 +1,5 @@
 'use client';
- 
+
 import * as React from 'react';
 import {
   type HTMLMotionProps,
@@ -8,7 +8,7 @@ import {
   useSpring,
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
- 
+
 const generateSpringPath = (
   x1: number,
   y1: number,
@@ -31,7 +31,7 @@ const generateSpringPath = (
     curveRatioMax = 1,
     bezierOffset = 8,
   } = springConfig;
- 
+
   const dx = x2 - x1;
   const dy = y2 - y1;
   const dist = Math.sqrt(dx * dx + dy * dy);
@@ -52,17 +52,17 @@ const generateSpringPath = (
     uy = dy / dist;
   const perpX = -uy,
     perpY = ux;
- 
+
   let path = [];
   for (let i = 0; i < coilCount; i++) {
     const sx = x1 + ux * (i * d);
     const sy = y1 + uy * (i * d);
     const ex = x1 + ux * ((i + 1) * d);
     const ey = y1 + uy * ((i + 1) * d);
- 
+
     const mx = x1 + ux * ((i + 0.5) * d) + perpX * amplitude;
     const my = y1 + uy * ((i + 0.5) * d) + perpY * amplitude;
- 
+
     const c1x = sx + d * curveRatio * ux;
     const c1y = sy + d * curveRatio * uy;
     const c2x = mx + ux * bezierOffset;
@@ -71,7 +71,7 @@ const generateSpringPath = (
     const c3y = my - uy * bezierOffset;
     const c4x = ex - d * curveRatio * ux;
     const c4y = ey - d * curveRatio * uy;
- 
+
     if (i === 0) path.push(`M${sx},${sy}`);
     else path.push(`L${sx},${sy}`);
     path.push(`C${c1x},${c1y} ${c2x},${c2y} ${mx},${my}`);
@@ -79,7 +79,7 @@ const generateSpringPath = (
   }
   return path.join(' ');
 };
- 
+
 function useMotionValueValue(mv: any) {
   return React.useSyncExternalStore(
     (callback) => {
@@ -90,7 +90,7 @@ function useMotionValueValue(mv: any) {
     () => mv.get(),
   );
 }
- 
+
 type SpringAvatarProps = {
   children: React.ReactElement;
   className?: string;
@@ -106,7 +106,7 @@ type SpringAvatarProps = {
     bezierOffset?: number;
   };
 } & HTMLMotionProps<'div'>;
- 
+
 const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, 'ref'>>(({
   children,
   className,
@@ -120,7 +120,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
   const y = useMotionValue(0);
   const avoidanceX = useMotionValue(0);
   const avoidanceY = useMotionValue(0);
- 
+
   const springX = useSpring(x, {
     stiffness: springConfig.stiffness,
     damping: springConfig.damping,
@@ -138,18 +138,18 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
     stiffness: 300,
     damping: 20,
   });
- 
+
   const sx = useMotionValueValue(springX);
   const sy = useMotionValueValue(springY);
   const avoidanceSx = useMotionValueValue(avoidanceSpringX);
   const avoidanceSy = useMotionValueValue(avoidanceSpringY);
- 
+
   const childRef = React.useRef<HTMLDivElement>(null);
   React.useImperativeHandle(ref, () => childRef.current!);
   const [center, setCenter] = React.useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = React.useState(false);
   const [isHovering, setIsHovering] = React.useState(false);
- 
+
   React.useLayoutEffect(() => {
     function update() {
       if (childRef.current) {
@@ -168,7 +168,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
       window.removeEventListener('scroll', update, true);
     };
   }, []);
- 
+
   React.useEffect(() => {
     if (isDragging) {
       document.body.style.cursor = 'grabbing';
@@ -185,28 +185,28 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
       const rect = childRef.current.getBoundingClientRect();
       const elementCenterX = rect.left + rect.width / 2;
       const elementCenterY = rect.top + rect.height / 2;
-      
+
       const mouseX = event.clientX;
       const mouseY = event.clientY;
-      
+
       const distance = Math.sqrt(
         Math.pow(mouseX - elementCenterX, 2) + Math.pow(mouseY - elementCenterY, 2)
       );
-      
+
       const threshold = 120; // Distance at which avoidance starts
       const maxAvoidance = 20; // Maximum pixels to move away
-      
+
       if (distance < threshold) {
         setIsHovering(true);
         const avoidanceStrength = Math.max(0, (threshold - distance) / threshold);
         const deltaX = elementCenterX - mouseX;
         const deltaY = elementCenterY - mouseY;
         const magnitude = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
+
         if (magnitude > 0) {
           const normalizedX = deltaX / magnitude;
           const normalizedY = deltaY / magnitude;
-          
+
           avoidanceX.set(normalizedX * maxAvoidance * avoidanceStrength);
           avoidanceY.set(normalizedY * maxAvoidance * avoidanceStrength);
         }
@@ -220,7 +220,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isDragging, avoidanceX, avoidanceY]);
- 
+
   const path = generateSpringPath(
     center.x,
     center.y,
@@ -228,7 +228,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
     center.y + sy,
     springPathConfig,
   );
- 
+
   return (
     <>
       <svg
@@ -268,6 +268,9 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
         }}
         onDragStart={() => {
           setIsDragging(true);
+          // Smoothly transition from avoidance to drag
+          x.set(avoidanceX.get());
+          y.set(avoidanceY.get());
           avoidanceX.set(0);
           avoidanceY.set(0);
         }}
@@ -276,6 +279,7 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
           y.set(info.offset.y);
         }}
         onDragEnd={() => {
+          // Let the spring animation handle the return to origin
           x.set(0);
           y.set(0);
           setIsDragging(false);
@@ -287,6 +291,6 @@ const SpringElement = React.forwardRef<HTMLDivElement, Omit<SpringAvatarProps, '
     </>
   );
 });
- 
+
 SpringElement.displayName = 'SpringElement';
 export { SpringElement };

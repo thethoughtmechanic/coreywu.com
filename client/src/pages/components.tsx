@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, Motio
 import CopyEmail from "@/components/copy-email";
 import { Counter } from "@/components/counter";
 import { SpringElement } from "@/components/spring-element";
+import { TypingText } from "@/components/typing-text";
 
 // Animation constants
 const SCALE = 1.5;
@@ -295,6 +296,14 @@ const SpringElementDemo = () => {
   );
 };
 
+const TypingTextDemo = () => {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <TypingText text="Welcome to my digital garden" />
+    </div>
+  );
+};
+
 const CardCollectionComponent = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -379,7 +388,7 @@ export default function Components() {
               Spring Element
             </h2>
             <p className="text-muted-grey mb-6">
-              A reusable spring animation wrapper that adds interactive hover and click effects 
+              A reusable spring animation wrapper that adds interactive hover and click effects
               to any child element using smooth spring physics.
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
@@ -403,12 +412,55 @@ export default function Components() {
           </div>
 
           <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
-            <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
+            <h3 className="font-medium text-warm-brown mb-2">Features:</h3>
             <ul className="text-sm text-muted-grey space-y-1">
-              <li>• <strong>Hover</strong> to see scale and rotation effects</li>
-              <li>• <strong>Click and hold</strong> for press-down animation</li>
-              <li>• <strong>Configurable</strong> spring physics parameters</li>
-              <li>• <strong>Wraps any content</strong> with spring animations</li>
+              <li>• Draggable element with spring physics</li>
+              <li>• Smooth spring line that follows the dragged element</li>
+              <li>• Customizable spring configuration</li>
+              <li>• Returns to original position when released</li>
+              <li>• Works with any child component</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Typing Text Section */}
+        <section>
+          <div className="mb-8">
+            <h2 className="text-2xl font-medium text-warm-brown mb-4">
+              Typing Text
+            </h2>
+            <p className="text-muted-grey mb-6">
+              An animated typing text component that simulates typing with a blinking cursor.
+              Supports multiple texts with looping and customizable timing.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Framer Motion
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Typing Animation
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                InView Detection
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Cursor Blink
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-2xl p-8 flex items-center justify-center min-h-[200px]">
+            <TypingTextDemo />
+          </div>
+
+          <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
+            <h3 className="font-medium text-warm-brown mb-2">Features:</h3>
+            <ul className="text-sm text-muted-grey space-y-1">
+              <li>• Smooth character-by-character typing animation</li>
+              <li>• Animated blinking cursor</li>
+              <li>• Support for multiple texts with looping</li>
+              <li>• InView detection for performance</li>
+              <li>• Customizable typing speed and delays</li>
             </ul>
           </div>
         </section>

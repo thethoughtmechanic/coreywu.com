@@ -27,7 +27,7 @@ export default function Home() {
         <div className="mb-8 md:mb-10 flex justify-center">
           <SpringElement>
             <div 
-              className="w-28 h-28 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl transition-all duration-300"
+              className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden shadow-xl transition-all duration-300"
             >
               <img 
                 src={headshotImage}

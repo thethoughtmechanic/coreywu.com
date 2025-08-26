@@ -228,10 +228,10 @@ const NavigationShapeComponent: React.FC<{
           clearTimeout(timeoutRef.current);
         }
 
-        // Reset after 3 seconds
+        // Reset after 2.5 seconds (reduced from 3)
         timeoutRef.current = setTimeout(() => {
           setEmailCopied(false);
-        }, 3000);
+        }, 2500);
       } catch (err) {
         console.error('Failed to copy email:', err);
       }

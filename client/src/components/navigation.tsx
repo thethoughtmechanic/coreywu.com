@@ -4,6 +4,73 @@ import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
+// Placeholder for CopyEmail component, assuming it's defined elsewhere and handles email copying
+const CopyEmail = () => {
+  const [emailCopied, setEmailCopied] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleEmailClick = async () => {
+    try {
+      await navigator.clipboard.writeText("corey.david.wu@gmail.com");
+      setEmailCopied(true);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        setEmailCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy email:', err);
+    }
+  };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <button
+      onClick={handleEmailClick}
+      className={cn(
+        "transition-all duration-200 pb-1 cursor-pointer relative overflow-hidden px-3 py-1.5 rounded-lg border",
+        "text-soft-black hover:text-warm-brown border-warm-brown/30 hover:border-warm-brown/50 hover:bg-warm-brown/10" // Assuming default non-dark mode
+      )}
+      data-testid="button-email-me"
+    >
+      <span className={cn(
+        "flex items-center gap-2 transition-all duration-300 ease-in-out",
+        emailCopied 
+          ? "transform -translate-y-full opacity-0" 
+          : "transform translate-y-0 opacity-100"
+      )}>
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect width="20" height="16" x="2" y="4" rx="2"/>
+          <path d="m22 7-10 5L2 7"/>
+        </svg>
+        Email Me
+      </span>
+      <span className={cn(
+        "absolute inset-0 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out text-green-600 font-medium",
+        emailCopied 
+          ? "transform translate-y-0 opacity-100" 
+          : "transform translate-y-full opacity-0"
+      )}>
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          <path d="m9 14 2 2 4-4"/>
+        </svg>
+        Copied!
+      </span>
+    </button>
+  );
+};
+
 interface NavigationProps {
   isDarkMode?: boolean;
 }
@@ -24,12 +91,12 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
     try {
       await navigator.clipboard.writeText("corey.david.wu@gmail.com");
       setEmailCopied(true);
-      
+
       // Clear any existing timeout
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      
+
       // Reset after 2 seconds
       timeoutRef.current = setTimeout(() => {
         setEmailCopied(false);
@@ -55,6 +122,9 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       }
     };
   }, []);
+
+  // Helper function to determine if a link is active
+  const isActive = (path: string) => location === path;
 
   return (
     <>
@@ -82,71 +152,68 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             </Link>
 
             {/* Desktop navigation */}
-            <div className="hidden md:flex items-center space-x-3">
-              <div className="flex items-center space-x-8">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    href={item.path}
-                    className={cn(
-                      "transition-colors duration-200 pb-1",
-                      isDarkMode 
-                        ? cn(
-                            "text-gray-300 hover:text-white",
-                            location === item.path && "border-b-2 border-white text-white"
-                          )
-                        : cn(
-                            "text-soft-black hover:text-warm-brown",
-                            location === item.path && "border-b-2 border-warm-brown text-warm-brown"
-                          )
-                    )}
-                    data-testid={`link-${item.label.toLowerCase().replace(" ", "-")}`}
-                    onClick={() => (window as any).trackNavigationClick && (window as any).trackNavigationClick(item.path.substring(1), 'navigation')}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-                
-                {/* Email Me Button */}
-                <button
-                  onClick={handleEmailClick}
+            <nav className="hidden md:flex items-center gap-6 lg:gap-10">
+              <Link
+                href="/about"
+                className={cn(
+                  "transition-colors duration-200 pb-1",
+                  isDarkMode
+                    ? cn(
+                        "text-gray-300 hover:text-white",
+                        isActive("/about") && "border-b-2 border-white text-white"
+                      )
+                    : cn(
+                        "text-soft-black hover:text-warm-brown",
+                        isActive("/about") && "border-b-2 border-warm-brown text-warm-brown"
+                      )
+                )}
+                data-testid="link-about-me"
+                onClick={() => window.trackNavigationClick && window.trackNavigationClick('about', 'navigation')}
+              >
+                About Me
+              </Link>
+              <Link
+                href="/thoughts"
+                className={cn(
+                  "transition-colors duration-200 pb-1",
+                  isDarkMode
+                    ? cn(
+                        "text-gray-300 hover:text-white",
+                        isActive("/thoughts") && "border-b-2 border-white text-white"
+                      )
+                    : cn(
+                        "text-soft-black hover:text-warm-brown",
+                        isActive("/thoughts") && "border-b-2 border-warm-brown text-warm-brown"
+                      )
+                )}
+                data-testid="link-thoughts"
+                onClick={() => window.trackNavigationClick && window.trackNavigationClick('thoughts', 'navigation')}
+              >
+                Thoughts
+              </Link>
+              <div className="ml-2"> {/* Added margin to the left for spacing */}
+                <Link
+                  href="/experiments"
                   className={cn(
-                    "transition-all duration-200 pb-1 cursor-pointer relative overflow-hidden px-3 py-1.5 rounded-lg border",
-                    isDarkMode 
-                      ? "text-gray-300 hover:text-white border-gray-600/30 hover:border-white/30 hover:bg-gray-800/30"
-                      : "text-soft-black hover:text-warm-brown border-warm-brown/30 hover:border-warm-brown/50 hover:bg-warm-brown/10"
+                    "transition-colors duration-200 pb-1",
+                    isDarkMode
+                      ? cn(
+                          "text-gray-300 hover:text-white",
+                          isActive("/experiments") && "border-b-2 border-white text-white"
+                        )
+                      : cn(
+                          "text-soft-black hover:text-warm-brown",
+                          isActive("/experiments") && "border-b-2 border-warm-brown text-warm-brown"
+                        )
                   )}
-                  data-testid="button-email-me"
+                  data-testid="link-experiments"
+                  onClick={() => window.trackNavigationClick && window.trackNavigationClick('experiments', 'navigation')}
                 >
-                  <span className={cn(
-                    "flex items-center gap-2 transition-all duration-300 ease-in-out",
-                    emailCopied 
-                      ? "transform -translate-y-full opacity-0" 
-                      : "transform translate-y-0 opacity-100"
-                  )}>
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect width="20" height="16" x="2" y="4" rx="2"/>
-                      <path d="m22 7-10 5L2 7"/>
-                    </svg>
-                    Email Me
-                  </span>
-                  <span className={cn(
-                    "absolute inset-0 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out text-green-600 font-medium",
-                    isDarkMode ? "text-green-400" : "text-green-600",
-                    emailCopied 
-                      ? "transform translate-y-0 opacity-100" 
-                      : "transform translate-y-full opacity-0"
-                  )}>
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                      <path d="m9 14 2 2 4-4"/>
-                    </svg>
-                    Copied!
-                  </span>
-                </button>
+                  Experiments
+                </Link>
               </div>
-            </div>
+              <CopyEmail />
+            </nav>
 
             {/* Mobile hamburger menu button */}
             <button
@@ -250,7 +317,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               </span>
             </Link>
           ))}
-          
+
           {/* Mobile Email Me Button */}
           <button
             onClick={handleEmailClick}

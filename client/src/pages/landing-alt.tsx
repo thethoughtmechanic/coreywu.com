@@ -16,28 +16,16 @@ export default function LandingAlt() {
       <div className="text-center w-full">
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-8 flex justify-center">
-          <SpringElement 
-            className="block"
-            springClassName="stroke-4 stroke-warm-brown fill-none"
-            springConfig={{ stiffness: 200, damping: 16 }}
-            springPathConfig={{
-              coilCount: 8,
-              amplitudeMin: 8,
-              amplitudeMax: 20,
-              curveRatioMin: 0.5,
-              curveRatioMax: 1.0,
-              bezierOffset: 8
-            }}
-          >
+          <SpringElement>
             <div 
-              className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl border-4 border-white/80 hover:border-warm-brown/60 transition-all duration-300 select-none"
-              style={{ pointerEvents: 'auto', userSelect: 'none' }}
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl border-4 border-white/80 hover:border-warm-brown/60 transition-all duration-300"
             >
               <img 
                 src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover object-top"
-                style={{ objectPosition: '50% 30%', transform: 'scale(1.2)', pointerEvents: 'none' }}
+                style={{ objectPosition: '50% 30%', transform: 'scale(1.2)' }}
+                draggable={false}
                 data-testid="img-headshot"
                 onError={(e) => {
                   // Fallback to the SVG avatar if the image fails to load

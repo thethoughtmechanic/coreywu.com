@@ -6,6 +6,7 @@ import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import CopyEmail from "@/components/copy-email";
 import { TypingText } from "@/components/typing-text";
 import { SpringElement } from "@/components/spring-element";
+import { HyperText } from "@/components/hyper-text";
 import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
 export default function LandingAlt() {
@@ -35,9 +36,25 @@ export default function LandingAlt() {
         <div className="mb-2">
           <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown leading-tight px-2" data-testid="text-home-title">
             <TypingText 
-              text="Welcome to my digital garden."
+              text="Welcome to my "
               duration={80}
               delay={500}
+              cursor={false}
+              className="inline"
+            />
+            <HyperText 
+              className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-warm-brown inline"
+              duration={600}
+              delay={2000}
+              startOnView={true}
+              animateOnHover={true}
+            >
+              digital
+            </HyperText>
+            <TypingText 
+              text=" garden."
+              duration={80}
+              delay={2600}
               cursor={false}
               className="inline"
             />

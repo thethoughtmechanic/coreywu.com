@@ -177,6 +177,14 @@ const ShapeVariants = {
       <rect x="7" y="7" width="6" height="6" fill="none" stroke="currentColor" strokeWidth="0.8" />
       <rect x="7.5" y="7.5" width="5" height="5" fill="url(#smallOutline1)" opacity="0.6" />
     </svg>
+  ),
+
+  // Email icon shape
+  emailIcon: (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <path d="M22 6a3 3 0 00-3-3H5a3 3 0 00-3 3v12a3 3 0 003 3h14a3 3 0 003-3V6z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
   )
 };
 
@@ -212,16 +220,22 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       position: { x: 8, y: 20 } // Far left, clear of text
     },
     {
-      variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern  
+      variant: 'scribbleSquare' as keyof typeof ShapeVariants, // Thoughts - scribble pattern
       label: 'thoughts',
       path: '/thoughts',
       position: { x: 68, y: 8 } // Moved left and up for better mobile positioning
     },
     {
       variant: 'gridTriangle' as keyof typeof ShapeVariants, // Experiments - grid pattern
-      label: 'experiments', 
+      label: 'experiments',
       path: '/experiments',
-      position: { x: 78, y: 72 } // Moved left for better mobile positioning
+      position: { x: 78, y: 55 } // Moved higher up the page
+    },
+    {
+      variant: 'emailIcon' as keyof typeof ShapeVariants, // Email - grid pattern
+      label: 'email me',
+      path: 'email', // Special path for email functionality
+      position: { x: 8, y: 85 } // Bottom left of page
     }
   ];
 
@@ -244,7 +258,8 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       (x > 25 && x < 75 && y > 15 && y < 85) || // Expanded center content area
       (x > 3 && x < 13 && y > 15 && y < 25) ||  // About me nav area (far left)
       (x > 63 && x < 73 && y > 3 && y < 13) ||  // Thoughts nav area (moved left and up)
-      (x > 73 && x < 83 && y > 67 && y < 77)    // Experiments nav area (moved left)
+      (x > 73 && x < 83 && y > 50 && y < 60) || // Experiments nav area (moved higher)
+      (x > 3 && x < 13 && y > 80 && y < 90)     // Email nav area (bottom left)
     );
 
     allShapes.push(
@@ -269,6 +284,35 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
   if (onNavigate) {
     navigationShapes.forEach((shape, index) => {
       const [isHovered, setIsHovered] = React.useState(false);
+      const [isClicked, setIsClicked] = React.useState(false);
+      const [originalContent, setOriginalContent] = React.useState(shape.label);
+      const [currentVariant, setCurrentVariant] = React.useState(shape.variant);
+
+      const handleClick = async () => {
+        if (shape.path === 'email') {
+          const emailAddress = 'your.email@example.com'; // Replace with actual email
+          try {
+            await navigator.clipboard.writeText(emailAddress);
+            setOriginalContent('Copied!');
+            setCurrentVariant('gridCircle'); // Placeholder for clipboard icon, replace with actual clipboard SVG if needed
+            setIsClicked(true);
+            setTimeout(() => {
+              setOriginalContent(shape.label);
+              setCurrentVariant(shape.variant);
+              setIsHovered(false); // Reset hover state after timeout
+              setIsClicked(false);
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy email: ', err);
+            setOriginalContent('Failed!');
+            setTimeout(() => {
+              setOriginalContent(shape.label);
+            }, 2000);
+          }
+        } else {
+          onNavigate(shape.path);
+        }
+      };
 
       // Determine size and rotation for navigation shapes
       // These are fixed for navigation shapes to ensure consistency and correct positioning
@@ -288,33 +332,35 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => onNavigate(shape.path)}
+          onClick={handleClick}
         >
           {/* Desktop Tooltip */}
-          <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
-            {shape.label}
+          <div className={`hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap transition-opacity duration-200 ${isHovered && !isClicked ? 'opacity-100' : 'opacity-0'} pointer-events-none z-20`}>
+            {originalContent}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
           </div>
 
           {/* Mobile Tooltip - Always visible with arrow, positioned closer to shape */}
           <div className="md:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-warm-brown text-cream text-xs rounded whitespace-nowrap z-20 font-medium">
-            {shape.label}
+            {originalContent}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-warm-brown"></div>
           </div>
 
           {/* Shape with animations */}
-          <div 
+          <div
             className={`w-full h-full transition-all duration-300 ${
-              isHovered 
-                ? 'transform scale-110 drop-shadow-lg' 
+              isHovered && !isClicked
+                ? 'transform scale-110 drop-shadow-lg'
+                : isClicked
+                ? 'transform scale-100' // No pulse when clicked
                 : 'animate-pulse' // Subtle shake/pulse when not hovered
             }`}
             style={{
-              filter: isHovered ? 'drop-shadow(0 4px 8px rgba(139, 69, 19, 0.3))' : 'none',
-              animation: !isHovered ? 'gentle-shake 3s infinite' : 'none',
+              filter: isHovered && !isClicked ? 'drop-shadow(0 4px 8px rgba(139, 69, 19, 0.3))' : 'none',
+              animation: !isHovered && !isClicked ? 'gentle-shake 3s infinite' : 'none',
             }}
           >
-            <ShapeIcon variant={shape.variant} className="w-full h-full text-warm-brown/60 hover:text-warm-brown/80 transition-colors duration-300" />
+            <ShapeIcon variant={currentVariant} className="w-full h-full text-warm-brown/60 hover:text-warm-brown/80 transition-colors duration-300" />
           </div>
         </div>
       );

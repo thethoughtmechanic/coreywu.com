@@ -19,14 +19,14 @@ export default function LandingAlt() {
           <SpringElement 
             className="block"
             springClassName="stroke-2 stroke-warm-brown/60 fill-none"
-            springConfig={{ stiffness: 150, damping: 12 }}
+            springConfig={{ stiffness: 200, damping: 16 }}
             springPathConfig={{
-              coilCount: 6,
-              amplitudeMin: 12,
-              amplitudeMax: 25,
-              curveRatioMin: 0.6,
-              curveRatioMax: 1.2,
-              bezierOffset: 10
+              coilCount: 8,
+              amplitudeMin: 8,
+              amplitudeMax: 20,
+              curveRatioMin: 0.5,
+              curveRatioMax: 1.0,
+              bezierOffset: 8
             }}
           >
             <div 

@@ -137,16 +137,23 @@ function SpringElement({
   const childRef = React.useRef<HTMLDivElement>(null);
   React.useImperativeHandle(ref, () => childRef.current as HTMLDivElement);
   const [center, setCenter] = React.useState({ x: 0, y: 0 });
+  const [anchorPosition, setAnchorPosition] = React.useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = React.useState(false);
  
   React.useLayoutEffect(() => {
     function update() {
       if (childRef.current) {
         const rect = childRef.current.getBoundingClientRect();
-        setCenter({
+        const centerPos = {
           x: rect.left + rect.width / 2,
           y: rect.top + rect.height / 2,
-        });
+        };
+        setCenter(centerPos);
+        
+        // Only set anchor position once (when not dragging) to maintain the "string" anchor point
+        if (!isDragging) {
+          setAnchorPosition(centerPos);
+        }
       }
     }
     update();
@@ -156,7 +163,7 @@ function SpringElement({
       window.removeEventListener('resize', update);
       window.removeEventListener('scroll', update, true);
     };
-  }, []);
+  }, [isDragging]);
  
   React.useEffect(() => {
     if (isDragging) {
@@ -167,8 +174,8 @@ function SpringElement({
   }, [isDragging]);
  
   const path = generateSpringPath(
-    center.x,
-    center.y,
+    anchorPosition.x,
+    anchorPosition.y,
     center.x + sx,
     center.y + sy,
     springPathConfig,
@@ -202,25 +209,18 @@ function SpringElement({
           x: springX,
           y: springY,
         }}
-        drag={true}
+        drag
         dragElastic={dragElastic}
         dragMomentum={false}
-        dragControls={undefined}
-        dragListener={true}
-        dragConstraints={false}
-        whileDrag={{ scale: 1.1 }}
-        onMouseDown={() => console.log('Mouse down on draggable element')}
+        whileDrag={{ scale: 1.05 }}
         onDragStart={() => {
-          console.log('Drag started');
           setIsDragging(true);
         }}
         onDrag={(_, info) => {
-          console.log('Dragging:', info.offset.x, info.offset.y);
           x.set(info.offset.x);
           y.set(info.offset.y);
         }}
         onDragEnd={() => {
-          console.log('Drag ended');
           x.set(0);
           y.set(0);
           setIsDragging(false);

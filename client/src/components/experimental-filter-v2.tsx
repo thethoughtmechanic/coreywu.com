@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -81,16 +80,17 @@ export const ExperimentalFilterV2 = () => {
     return null;
   };
 
-  // Get pill style for medium options (matching thoughts page)
-  const getMediumPillStyle = (optionId: string) => {
-    if (optionId === 'thought-bite') {
-      return 'bg-blue-500 text-white border-blue-500';
-    } else if (optionId === 'scenario') {
-      return 'bg-red-500 text-white border-red-500';
-    } else if (optionId === 'pov') {
-      return 'bg-green-500 text-white border-green-500';
+  // New function to get pill style based on group and option
+  const getPillStyle = (groupId: string, optionId: string) => {
+    if (groupId === 'medium') {
+      if (optionId === 'thought-bite') return 'bg-blue-500 text-white border-blue-500';
+      if (optionId === 'scenario') return 'bg-red-500 text-white border-red-500';
+      if (optionId === 'pov') return 'bg-green-500 text-white border-green-500';
+    } else if (groupId === 'discipline' || groupId === 'conviction') {
+      // Dark branded colors for discipline and conviction
+      return 'bg-purple-700 text-white border-purple-700'; // Example dark branded color
     }
-    return 'bg-warm-brown text-cream';
+    return 'bg-warm-brown text-cream'; // Default for other cases
   };
 
   const activeFilterGroup = getActiveFilterGroup();
@@ -100,13 +100,13 @@ export const ExperimentalFilterV2 = () => {
     <div className="w-full">
       {/* Filter Header */}
       <h3 className="text-lg font-medium text-warm-brown mb-4">Filter</h3>
-      
+
       {/* Main Filter Bar - Pill-in-Pill Design */}
       <div className="flex flex-wrap justify-center gap-3 mb-8">
         {filterGroups.map(group => {
           const isActiveGroup = activeFilterGroup?.id === group.id;
           const isExpanded = expandedGroup === group.id;
-          
+
           return (
             <div key={group.id} className="relative">
               <motion.div 
@@ -124,7 +124,7 @@ export const ExperimentalFilterV2 = () => {
                 >
                   {group.label}
                 </button>
-                
+
                 {/* Show all options when this group has an active filter and not expanded */}
                 <AnimatePresence>
                   {isActiveGroup && activeFilterOption && !isExpanded && (
@@ -153,9 +153,7 @@ export const ExperimentalFilterV2 = () => {
                           onClick={() => handleOptionClick(group.id, option.id)}
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                             activeFilter === option.id
-                              ? group.id === 'medium'
-                                ? getMediumPillStyle(option.id)
-                                : 'bg-warm-brown text-cream shadow-sm'
+                              ? getPillStyle(group.id, option.id)
                               : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
                           }`}
                         >
@@ -165,7 +163,7 @@ export const ExperimentalFilterV2 = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                
+
                 {/* Expanded Options - Show all options when expanded */}
                 <AnimatePresence>
                   {isExpanded && (
@@ -194,9 +192,7 @@ export const ExperimentalFilterV2 = () => {
                           onClick={() => handleOptionClick(group.id, option.id)}
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                             activeFilter === option.id
-                              ? group.id === 'medium'
-                                ? getMediumPillStyle(option.id)
-                                : 'bg-warm-brown text-cream shadow-sm'
+                              ? getPillStyle(group.id, option.id)
                               : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
                           }`}
                         >

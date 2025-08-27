@@ -327,6 +327,110 @@ const CardCollectionComponent = () => {
   );
 };
 
+
+// Mock for ExperimentalFilterV2
+const ExperimentalFilterV2 = () => {
+  const filterOptions = [
+    {
+      title: "By Medium",
+      options: ["Digital", "Print", "3D", "Video"],
+      isMultiSelect: false,
+    },
+    {
+      title: "By Conviction",
+      options: ["Strong", "Moderate", "Subtle"],
+      isMultiSelect: false,
+    },
+    {
+      title: "By Discipline",
+      options: ["Art", "Design", "Architecture", "Engineering", "Writing"],
+      isMultiSelect: true,
+    },
+  ];
+
+  const [openFilter, setOpenFilter] = useState<string | null>(null);
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
+
+  const handleOptionClick = (filterTitle: string, option: string) => {
+    setSelectedFilters((prevFilters) => {
+      const currentFilters = prevFilters[filterTitle] || [];
+      const filter = filterOptions.find((f) => f.title === filterTitle);
+
+      if (filter?.isMultiSelect) {
+        if (currentFilters.includes(option)) {
+          return { ...prevFilters, [filterTitle]: currentFilters.filter((f) => f !== option) };
+        } else {
+          return { ...prevFilters, [filterTitle]: [...currentFilters, option] };
+        }
+      } else {
+        // Single select: toggle or set new option
+        return { ...prevFilters, [filterTitle]: currentFilters.includes(option) ? [] : [option] };
+      }
+    });
+  };
+
+  const handleFilterTitleClick = (filterTitle: string) => {
+    setOpenFilter(openFilter === filterTitle ? null : filterTitle);
+  };
+
+  return (
+    <div className="flex items-center justify-center space-x-4">
+      {filterOptions.map((filter) => (
+        <div key={filter.title} className="relative">
+          <motion.button
+            onClick={() => handleFilterTitleClick(filter.title)}
+            className={`px-4 py-2 rounded-full font-medium transition-colors duration-200 flex items-center space-x-2 ${
+              selectedFilters[filter.title]?.length > 0
+                ? "bg-warm-brown text-cream"
+                : "bg-warm-brown/20 text-warm-brown"
+            }`}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span>{filter.title}</span>
+            <svg
+              className={`w-4 h-4 transition-transform duration-200 ${openFilter === filter.title ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </motion.button>
+
+          <AnimatePresence>
+            {openFilter === filter.title && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                className="absolute top-full left-0 mt-2 w-max bg-white p-3 rounded-lg shadow-lg z-10 flex flex-wrap space-x-2 space-y-2 border border-warm-brown/20"
+              >
+                {filter.options.map((option) => (
+                  <motion.button
+                    key={option}
+                    onClick={() => handleOptionClick(filter.title, option)}
+                    className={`px-3 py-1 rounded-full font-medium transition-colors duration-200 flex-shrink-0
+                      ${
+                        selectedFilters[filter.title]?.includes(option)
+                          ? "bg-warm-brown text-cream"
+                          : "bg-warm-brown/10 text-warm-brown hover:bg-warm-brown/20"
+                      }`}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {option}
+                  </motion.button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+
 export default function Components() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
@@ -509,38 +613,13 @@ export default function Components() {
         </section>
 
         {/* Experimental Filter Section */}
-        <section>
-          <div className="mb-8">
-            <h2 className="text-2xl font-medium text-warm-brown mb-4">
-              Experimental Filter
-            </h2>
-            <p className="text-muted-grey mb-6">
-              A horizontal expanding filter menu for filtering content by multiple criteria. 
-              Features smooth animations and supports both single-select and multi-select modes.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
-                Framer Motion
-              </span>
-              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
-                Horizontal Expansion
-              </span>
-              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
-                Multi-Select
-              </span>
-              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
-                Single-Select
-              </span>
-              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
-                Filter Logic
-              </span>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-2xl p-8">
+        <section className="mb-16">
+          <h2 className="text-2xl font-medium text-warm-brown mb-6">
+            Experimental Filter
+          </h2>
+          <div className="bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-8 border border-warm-brown/10">
             <ExperimentalFilter />
           </div>
-
           <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
             <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
             <ul className="text-sm text-muted-grey space-y-1">
@@ -550,6 +629,26 @@ export default function Components() {
               <li>• <strong>Click</strong> an expanded group again to collapse it</li>
               <li>• Active filters are shown with warm-brown background</li>
               <li>• Switching groups automatically clears previous selections</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Experimental Filter V2 Section */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-medium text-warm-brown mb-6">
+            Experimental Filter V2 - Pill-in-Pill Design
+          </h2>
+          <div className="bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-8 border border-warm-brown/10">
+            <ExperimentalFilterV2 />
+          </div>
+          <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
+            <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
+            <ul className="text-sm text-muted-grey space-y-1">
+              <li>• <strong>Click</strong> a filter group button to expand options</li>
+              <li>• Options appear within pills, expanding horizontally</li>
+              <li>• Single-select options will close the pill after selection</li>
+              <li>• Multi-select options will remain open</li>
+              <li>• Active filters are shown with a warm-brown background</li>
             </ul>
           </div>
         </section>

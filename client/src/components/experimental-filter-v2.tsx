@@ -87,8 +87,8 @@ export const ExperimentalFilterV2 = () => {
       if (optionId === 'scenario') return 'bg-red-500 text-white border-red-500';
       if (optionId === 'pov') return 'bg-green-500 text-white border-green-500';
     } else if (groupId === 'discipline' || groupId === 'conviction') {
-      // Dark branded colors for discipline and conviction
-      return 'bg-purple-700 text-white border-purple-700'; // Example dark branded color
+      // Dark shade for discipline and conviction
+      return 'bg-gray-700 text-white border-gray-700';
     }
     return 'bg-warm-brown text-cream'; // Default for other cases
   };

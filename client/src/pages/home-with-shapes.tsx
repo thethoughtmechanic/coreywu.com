@@ -1,4 +1,3 @@
-
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { ChevronDown, ExternalLink } from "lucide-react";
@@ -32,7 +31,11 @@ export default function HomeWithShapes() {
                 src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: '50% 15%' }}
+                style={{ 
+                  objectPosition: '50% 25%',
+                  transform: 'scale(1.3)',
+                  transformOrigin: 'center 25%'
+                }}
                 draggable={false}
                 data-testid="img-headshot"
               />

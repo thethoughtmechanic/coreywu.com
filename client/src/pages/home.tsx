@@ -54,13 +54,17 @@ export default function Home() {
                 src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: '50% 15%' }}
+                style={{ 
+                  objectPosition: '50% 25%',
+                  transform: 'scale(1.3)',
+                  transformOrigin: 'center 25%'
+                }}
                 draggable={false}
                 data-testid="img-headshot"
               />
             </div>
           </SpringElement>
-          
+
           {/* Pink Heart Anchor Icon - positioned at the exact center where spring attaches */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
             <svg className="w-4 h-4" viewBox="0 0 24 24">

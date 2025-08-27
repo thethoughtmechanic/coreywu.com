@@ -8,6 +8,11 @@ interface FilterGroup {
   type: 'single' | 'multi';
 }
 
+interface ExperimentalFilterV2Props {
+  selectedFilter: string;
+  onFilterChange: (filter: string) => void;
+}
+
 const filterGroups: FilterGroup[] = [
   {
     id: 'medium',
@@ -16,7 +21,8 @@ const filterGroups: FilterGroup[] = [
     options: [
       { id: 'thought-bite', label: 'Thought Bites' },
       { id: 'pov', label: 'POVs' },
-      { id: 'scenario', label: 'Scenarios' }
+      { id: 'scenario', label: 'Scenarios' },
+      { id: 'future-seed', label: 'Future Seeds' }
     ]
   },
   {
@@ -42,9 +48,20 @@ const filterGroups: FilterGroup[] = [
   }
 ];
 
-export const ExperimentalFilterV2 = () => {
+export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: ExperimentalFilterV2Props) => {
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  
+  // Map the selectedFilter from thoughts page to our internal format
+  const getActiveFilterId = () => {
+    if (selectedFilter === "All") return null;
+    if (selectedFilter === "Thought Bite") return "thought-bite";
+    if (selectedFilter === "Scenario") return "scenario";
+    if (selectedFilter === "POV") return "pov";
+    if (selectedFilter === "Future Seed") return "future-seed";
+    return null;
+  };
+  
+  const activeFilter = getActiveFilterId();
 
   const handleGroupClick = (groupId: string) => {
     if (expandedGroup === groupId) {
@@ -57,8 +74,13 @@ export const ExperimentalFilterV2 = () => {
   };
 
   const handleOptionClick = (groupId: string, optionId: string) => {
-    // Single selection across all groups - clear previous and set new
-    setActiveFilter(optionId);
+    // Map our internal filter IDs to the thoughts page format
+    if (groupId === 'medium') {
+      if (optionId === 'thought-bite') onFilterChange("Thought Bite");
+      else if (optionId === 'scenario') onFilterChange("Scenario");  
+      else if (optionId === 'pov') onFilterChange("POV");
+      else if (optionId === 'future-seed') onFilterChange("Future Seed");
+    }
     setExpandedGroup(null); // Collapse after selection
   };
 
@@ -86,6 +108,7 @@ export const ExperimentalFilterV2 = () => {
       if (optionId === 'thought-bite') return 'bg-blue-500 text-white border-blue-500';
       if (optionId === 'scenario') return 'bg-red-500 text-white border-red-500';
       if (optionId === 'pov') return 'bg-green-500 text-white border-green-500';
+      if (optionId === 'future-seed') return 'bg-purple-500 text-white border-purple-500';
     } else if (groupId === 'discipline' || groupId === 'conviction') {
       // Light shade for discipline and conviction
       return 'bg-warm-brown/30 text-warm-brown border-warm-brown/30';
@@ -98,6 +121,7 @@ export const ExperimentalFilterV2 = () => {
     if (optionId === 'thought-bite') return 'hover:bg-blue-500/20 hover:border-blue-500/40';
     if (optionId === 'scenario') return 'hover:bg-red-500/20 hover:border-red-500/40';
     if (optionId === 'pov') return 'hover:bg-green-500/20 hover:border-green-500/40';
+    if (optionId === 'future-seed') return 'hover:bg-purple-500/20 hover:border-purple-500/40';
     return '';
   };
 
@@ -106,11 +130,10 @@ export const ExperimentalFilterV2 = () => {
 
   return (
     <div className="w-full">
-      {/* Filter Header */}
-      <h3 className="text-lg font-medium text-warm-brown mb-4">Filter</h3>
-
-      {/* Main Filter Bar - Pill-in-Pill Design */}
-      <div className="flex flex-wrap justify-center gap-3 mb-8">
+      {/* Main Filter Bar - Pill-in-Pill Design with inline Filter header */}
+      <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
+        {/* Filter Header - inline with pills */}
+        <h3 className="text-lg font-medium text-warm-brown">Filter</h3>
         {filterGroups.map(group => {
           const isActiveGroup = activeFilterGroup?.id === group.id;
           const isExpanded = expandedGroup === group.id;
@@ -121,7 +144,7 @@ export const ExperimentalFilterV2 = () => {
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
                   isActiveGroup 
                     ? 'bg-warm-brown border-warm-brown shadow-sm' 
-                    : 'bg-warm-brown hover:bg-hover-brown border-warm-brown'
+                    : 'bg-cream border-warm-brown hover:bg-light-brown/50'
                 }`}
                 layout
                 transition={{
@@ -137,7 +160,7 @@ export const ExperimentalFilterV2 = () => {
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 ease-out ${
                     isActiveGroup
                       ? 'text-cream bg-warm-brown border-r border-warm-brown/30'
-                      : 'text-cream bg-warm-brown hover:bg-hover-brown'
+                      : 'text-warm-brown bg-transparent hover:bg-warm-brown/10 hover:text-warm-brown'
                   }`}
                 >
                   {group.label}
@@ -240,28 +263,7 @@ export const ExperimentalFilterV2 = () => {
 
 
 
-      {/* Mock article grid for demonstration */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[1, 2, 3, 4, 5, 6].map(i => (
-          <motion.div
-            key={i}
-            layout
-            className="bg-light-brown/30 rounded-xl p-6 border border-warm-brown/20"
-          >
-            <h3 className="font-medium text-warm-brown mb-2">
-              Sample Article {i}
-            </h3>
-            <p className="text-sm text-muted-grey mb-4">
-              This would be filtered based on the selected criteria above.
-            </p>
-            <div className="flex gap-2">
-              <span className="text-xs px-2 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
-                Tag {i}
-              </span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      
     </div>
   );
 };

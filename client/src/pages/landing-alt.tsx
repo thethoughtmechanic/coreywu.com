@@ -8,7 +8,7 @@ import { TypingText } from "@/components/typing-text";
 import { SpringElement } from "@/components/spring-element";
 import { HyperText } from "@/components/hyper-text";
 import { GeometricField } from "@/components/grass-icons";
-import headshotImage from "@assets/illustrated-headshot-portrait.jpg";
+import headshotImage from "@/assets/illustrated-headshot-portrait.jpg";
 
 export default function LandingAlt() {
   const [, setLocation] = useLocation();

@@ -50,7 +50,7 @@ const filterGroups: FilterGroup[] = [
 
 export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: ExperimentalFilterV2Props) => {
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
-  
+
   // Map the selectedFilter from thoughts page to our internal format
   const getActiveFilterId = () => {
     if (selectedFilter === "All") return null;
@@ -60,7 +60,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
     if (selectedFilter === "Future Seed") return "future-seed";
     return null;
   };
-  
+
   const activeFilter = getActiveFilterId();
 
   const handleGroupClick = (groupId: string) => {
@@ -197,9 +197,11 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300 ease-out whitespace-nowrap border ${
                             activeFilter === option.id
                               ? getPillStyle(group.id, option.id)
-                              : group.id === 'medium' 
-                                ? `bg-cream text-warm-brown border-warm-brown/30 ${getMediumHoverStyle(option.id)}`
-                                : 'bg-cream text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
+                              : isActiveGroup
+                                ? 'bg-cream text-warm-brown border-cream/30 hover:bg-warm-brown/20'
+                                : group.id === 'medium' 
+                                  ? `bg-cream text-warm-brown border-warm-brown/30 ${getMediumHoverStyle(option.id)}`
+                                  : 'bg-cream text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
                           }`}
                         >
                           {option.label}
@@ -242,9 +244,11 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300 ease-out whitespace-nowrap border ${
                             activeFilter === option.id
                               ? getPillStyle(group.id, option.id)
-                              : group.id === 'medium' 
-                                ? `bg-cream text-warm-brown border-warm-brown/30 ${getMediumHoverStyle(option.id)}`
-                                : 'bg-cream text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
+                              : isActiveGroup
+                                ? 'bg-cream text-warm-brown border-cream/30 hover:bg-warm-brown/20'
+                                : group.id === 'medium' 
+                                  ? `bg-cream text-warm-brown border-warm-brown/30 ${getMediumHoverStyle(option.id)}`
+                                  : 'bg-cream text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
                           }`}
                         >
                           {option.label}
@@ -261,7 +265,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
 
 
 
-      
+
     </div>
   );
 };

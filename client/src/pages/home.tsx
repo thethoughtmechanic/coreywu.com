@@ -61,24 +61,22 @@ export default function Home() {
             </div>
           </SpringElement>
           
-          {/* Pink Heart Anchor Icon */}
-          <div className="absolute -bottom-2 -right-2 z-10">
-            <div className="bg-white rounded-full p-2 shadow-lg">
-              <svg className="w-6 h-6" viewBox="0 0 24 24">
-                <defs>
-                  <pattern id="pinkSketch-anchor" patternUnits="userSpaceOnUse" width="2" height="2">
-                    <rect width="2" height="2" fill="#ec4899"/>
-                    <path d="M0,0.5 L2,0.5" stroke="#fce7f3" strokeWidth="0.3" opacity="0.8"/>
-                    <path d="M0,1.5 L2,1.5" stroke="#fbcfe8" strokeWidth="0.3" opacity="0.6"/>
-                    <path d="M0.5,0 L0.5,2" stroke="#f9a8d4" strokeWidth="0.3" opacity="0.7"/>
-                    <path d="M1.5,0 L1.5,2" stroke="#f472b6" strokeWidth="0.3" opacity="0.9"/>
-                    <circle cx="0.5" cy="0.5" r="0.1" fill="#fdf2f8" opacity="0.8"/>
-                    <circle cx="1.5" cy="1.5" r="0.1" fill="#fef7f3" opacity="0.6"/>
-                  </pattern>
-                </defs>
-                <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="url(#pinkSketch-anchor)" stroke="#ec4899" strokeWidth="0.5"/>
-              </svg>
-            </div>
+          {/* Pink Heart Anchor Icon - positioned at the exact center where spring attaches */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+            <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <defs>
+                <pattern id="pinkSketch-anchor" patternUnits="userSpaceOnUse" width="2" height="2">
+                  <rect width="2" height="2" fill="#ec4899"/>
+                  <path d="M0,0.5 L2,0.5" stroke="#fce7f3" strokeWidth="0.3" opacity="0.8"/>
+                  <path d="M0,1.5 L2,1.5" stroke="#fbcfe8" strokeWidth="0.3" opacity="0.6"/>
+                  <path d="M0.5,0 L0.5,2" stroke="#f9a8d4" strokeWidth="0.3" opacity="0.7"/>
+                  <path d="M1.5,0 L1.5,2" stroke="#f472b6" strokeWidth="0.3" opacity="0.9"/>
+                  <circle cx="0.5" cy="0.5" r="0.1" fill="#fdf2f8" opacity="0.8"/>
+                  <circle cx="1.5" cy="1.5" r="0.1" fill="#fef7f3" opacity="0.6"/>
+                </pattern>
+              </defs>
+              <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="url(#pinkSketch-anchor)" stroke="#ec4899" strokeWidth="0.5"/>
+            </svg>
           </div>
         </div>
 

@@ -217,6 +217,9 @@ const NavigationShapeComponent: React.FC<{
   const [emailCopied, setEmailCopied] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
+  // Detect if the current environment is mobile for responsive adjustments
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   const handleClick = async () => {
     if (shape.path === 'email') {
       try {

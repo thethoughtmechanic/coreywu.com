@@ -54,7 +54,7 @@ export default function Home() {
                 src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: '50% 25%', transform: 'scale(1.2)' }}
+                style={{ objectPosition: '50% 35%', transform: 'scale(1.2)' }}
                 draggable={false}
                 data-testid="img-headshot"
               />

@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "13",
+    title: "Creativity Is a Construct of Human Ego",
+    description: "We glorify creativity as the pinnacle of human value—but what if it's just ego at work?",
+    fullDescription: "We glorify creativity as the pinnacle of human value—but what if it's just ego at work?\n\nAll possibilities already exist. What we call creativity or invention is simply the discovery of a subset we hadn't yet uncovered.\n\nIn the age of AI, this illusion becomes clearer. Machines can explore possibility spaces far beyond us, dissolving the myth of creativity as a sacred human trait.\n\nInstead of clinging to the romance of \"generating,\" maybe the real choice is this: apply discoveries (human or machine) to drive real change—or indulge in creativity as entertainment.",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Aug 27, 2025"
+  },
+  {
     id: "12",
     title: "Four Tribes of Tomorrow",
     description: "The traditional left-right spectrum feels inadequate for navigating questions about technological pace, human agency, and our relationship with artificial intelligence.",

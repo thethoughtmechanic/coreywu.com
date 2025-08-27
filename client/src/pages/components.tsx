@@ -4,6 +4,7 @@ import CopyEmail from "@/components/copy-email";
 import { Counter } from "@/components/counter";
 import { SpringElement } from "@/components/spring-element";
 import { TypingText } from "@/components/typing-text";
+import { ExperimentalFilter } from "@/components/experimental-filter";
 
 // Animation constants
 const SCALE = 1.5;
@@ -503,6 +504,52 @@ export default function Components() {
               <li>• Accessible with proper ARIA labels</li>
               <li>• Organic design language matching site aesthetic</li>
               <li>• Natural motion that feels alive and responsive</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Experimental Filter Section */}
+        <section>
+          <div className="mb-8">
+            <h2 className="text-2xl font-medium text-warm-brown mb-4">
+              Experimental Filter
+            </h2>
+            <p className="text-muted-grey mb-6">
+              A horizontal expanding filter menu for filtering content by multiple criteria. 
+              Features smooth animations and supports both single-select and multi-select modes.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Framer Motion
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Horizontal Expansion
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Multi-Select
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Single-Select
+              </span>
+              <span className="text-xs px-3 py-1 bg-warm-brown/20 text-warm-brown rounded-full">
+                Filter Logic
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-2xl p-8">
+            <ExperimentalFilter />
+          </div>
+
+          <div className="mt-6 p-4 bg-light-brown/50 rounded-xl">
+            <h3 className="font-medium text-warm-brown mb-2">Interaction Guide:</h3>
+            <ul className="text-sm text-muted-grey space-y-1">
+              <li>• <strong>Click</strong> a filter group button to expand options horizontally</li>
+              <li>• <strong>By Medium & By Conviction</strong> are single-select (only one option at a time)</li>
+              <li>• <strong>By Discipline</strong> is multi-select (multiple options can be active)</li>
+              <li>• <strong>Click</strong> an expanded group again to collapse it</li>
+              <li>• Active filters are shown with warm-brown background</li>
+              <li>• Switching groups automatically clears previous selections</li>
             </ul>
           </div>
         </section>

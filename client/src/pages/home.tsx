@@ -13,6 +13,9 @@ import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 export default function Home() {
   const [, setLocation] = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Assuming mobile is < 768px
+  
+  // Ensure page starts at top
+  useScrollToTop();
 
   const handleNavigation = (path: string) => {
     setLocation(path);

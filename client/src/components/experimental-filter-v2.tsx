@@ -52,8 +52,6 @@ export const ExperimentalFilterV2 = () => {
       setExpandedGroup(null);
     } else {
       setExpandedGroup(groupId);
-      // Clear all filters when switching groups
-      setActiveFilters(new Set());
     }
   };
 
@@ -83,91 +81,117 @@ export const ExperimentalFilterV2 = () => {
       
       return newFilters;
     });
+
+    // Close expanded group after selection for single-select
+    if (group.type === 'single') {
+      setExpandedGroup(null);
+    }
+  };
+
+  // Get active filters for a group
+  const getActiveFiltersForGroup = (groupId: string) => {
+    const group = filterGroups.find(g => g.id === groupId);
+    if (!group) return [];
+    
+    return group.options.filter(option => activeFilters.has(option.id));
   };
 
   // Get pill style for medium options (matching thoughts page)
   const getMediumPillStyle = (optionId: string) => {
     if (optionId === 'thought-bite') {
-      return activeFilters.has(optionId) 
-        ? 'bg-blue-500 text-white border-blue-500'
-        : 'text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white';
+      return 'bg-blue-500 text-white border-blue-500';
     } else if (optionId === 'scenario') {
-      return activeFilters.has(optionId)
-        ? 'bg-red-500 text-white border-red-500'
-        : 'text-red-500 border border-red-500 hover:bg-red-500 hover:text-white';
+      return 'bg-red-500 text-white border-red-500';
     } else if (optionId === 'pov') {
-      return activeFilters.has(optionId)
-        ? 'bg-green-500 text-white border-green-500'
-        : 'text-green-500 border border-green-500 hover:bg-green-500 hover:text-white';
+      return 'bg-green-500 text-white border-green-500';
     }
-    return activeFilters.has(optionId)
-      ? 'bg-warm-brown text-cream'
-      : 'bg-cream text-warm-brown hover:bg-warm-brown/10';
+    return 'bg-warm-brown text-cream';
   };
 
   return (
     <div className="w-full">
-      <div className="flex flex-wrap justify-center gap-3 mb-8">
-        {filterGroups.map(group => (
-          <div key={group.id} className="relative">
-            <motion.div 
-              className="flex items-center bg-light-brown/60 hover:bg-light-brown transition-colors duration-200 rounded-full overflow-hidden border border-warm-brown/20"
-              layout
+      {/* Filter Header */}
+      <h3 className="text-lg font-medium text-warm-brown mb-4">Filter</h3>
+      
+      {/* Main Filter Bar */}
+      <div className="bg-gray-100 rounded-lg p-3 mb-8">
+        <div className="flex flex-wrap items-center gap-3">
+          {filterGroups.map(group => {
+            const activeGroupFilters = getActiveFiltersForGroup(group.id);
+            const hasActiveFilters = activeGroupFilters.length > 0;
+            
+            return (
+              <div key={group.id} className="flex items-center gap-2">
+                {/* Group Button */}
+                <button
+                  onClick={() => handleGroupClick(group.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    hasActiveFilters
+                      ? 'bg-warm-brown text-cream'
+                      : expandedGroup === group.id
+                      ? 'bg-warm-brown/20 text-warm-brown'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  {group.label}
+                </button>
+
+                {/* Active Filter Pills */}
+                <AnimatePresence>
+                  {hasActiveFilters && activeGroupFilters.map(option => (
+                    <motion.div
+                      key={option.id}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium ${
+                        group.id === 'medium' 
+                          ? getMediumPillStyle(option.id)
+                          : 'bg-warm-brown text-cream'
+                      }`}
+                    >
+                      {option.label}
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Expanded Options */}
+        <AnimatePresence>
+          {expandedGroup && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-3 pt-3 border-t border-gray-200"
             >
-              <button
-                onClick={() => handleGroupClick(group.id)}
-                className="px-4 py-2 text-sm font-medium text-warm-brown hover:text-hover-brown transition-colors duration-200"
-              >
-                {group.label}
-              </button>
-              
-              <AnimatePresence>
-                {expandedGroup === group.id && (
-                  <motion.div
-                    initial={{ width: 0, opacity: 0 }}
-                    animate={{ width: 'auto', opacity: 1 }}
-                    exit={{ width: 0, opacity: 0 }}
-                    transition={{ 
-                      duration: 0.4, 
-                      ease: [0.4, 0.0, 0.2, 1],
-                      opacity: { duration: 0.2 }
-                    }}
-                    className="flex items-center gap-2 pl-2 pr-2 overflow-hidden"
-                  >
-                    {group.options.map((option, index) => (
-                      <motion.button
-                        key={option.id}
-                        initial={{ x: 20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: 20, opacity: 0 }}
-                        transition={{ 
-                          delay: index * 0.1,
-                          duration: 0.3,
-                          ease: [0.4, 0.0, 0.2, 1]
-                        }}
-                        onClick={() => handleOptionClick(group.id, option.id)}
-                        className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap relative overflow-hidden group ${
-                          group.id === 'medium' 
+              <div className="flex flex-wrap gap-2">
+                {filterGroups
+                  .find(g => g.id === expandedGroup)
+                  ?.options.map(option => (
+                    <button
+                      key={option.id}
+                      onClick={() => handleOptionClick(expandedGroup, option.id)}
+                      className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
+                        activeFilters.has(option.id)
+                          ? expandedGroup === 'medium'
                             ? getMediumPillStyle(option.id)
-                            : activeFilters.has(option.id)
-                            ? 'bg-warm-brown text-cream shadow-sm'
-                            : 'bg-cream text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/30'
-                        }`}
-                      >
-                        <span className="relative z-10">{option.label}</span>
-                        
-                        {/* Hover effect for non-medium pills */}
-                        {group.id !== 'medium' && !activeFilters.has(option.id) && (
-                          <div className="absolute inset-0 bg-warm-brown opacity-0 group-hover:opacity-20 transition-opacity duration-200 rounded-full" />
-                        )}
-                      </motion.button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                            : 'bg-warm-brown text-cream'
+                          : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+              </div>
             </motion.div>
-          </div>
-        ))}
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Debug info to show active filters */}
@@ -179,23 +203,8 @@ export const ExperimentalFilterV2 = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-warm-brown/10 rounded-full">
             <span className="text-sm text-warm-brown font-medium">
-              Active Filters:
+              Active Filters: {activeFilters.size}
             </span>
-            <div className="flex gap-1">
-              {Array.from(activeFilters).map(filterId => {
-                const option = filterGroups
-                  .flatMap(g => g.options)
-                  .find(opt => opt.id === filterId);
-                return (
-                  <span
-                    key={filterId}
-                    className="px-2 py-1 bg-warm-brown text-cream rounded text-xs"
-                  >
-                    {option?.label}
-                  </span>
-                );
-              })}
-            </div>
           </div>
         </motion.div>
       )}

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 // Helper function to get the appropriate texture class
@@ -18,7 +17,7 @@ const getTextureClass = (section: string, optionName: string) => {
     }
   } else if (section === 'thoughts') {
     switch (optionName) {
-      case 'Organic Scribbles (Current)':
+      case 'Square Structure (Current)':
         return 'thoughts-background-texture';
       case 'Vine Growth':
         return 'vine-background-texture';
@@ -31,7 +30,7 @@ const getTextureClass = (section: string, optionName: string) => {
     }
   } else if (section === 'about') {
     switch (optionName) {
-      case 'Clean Minimal':
+      case 'Circle Connection (Current)':
         return '';
       case 'Subtle Grain':
         return 'grain-background-texture';
@@ -128,8 +127,8 @@ export default function Backgrounds() {
     ],
     thoughts: [
       {
-        name: "Organic Scribbles (Current)",
-        description: "Hand-drawn flowing lines suggesting natural creativity",
+        name: "Square Structure (Current)",
+        description: "Rotated square patterns representing structured thinking and building blocks of ideas",
         css: `
           position: relative;
         `,
@@ -138,8 +137,8 @@ export default function Backgrounds() {
           position: fixed;
           inset: 0;
           z-index: -1;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M20,50 Q40,30 60,50 T100,50 Q120,30 140,50 T180,50' stroke='rgba(139,115,85,0.08)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M30,80 Q50,60 70,80 T110,80 Q130,60 150,80 T190,80' stroke='rgba(139,115,85,0.06)' stroke-width='1' fill='none'/%3E%3Cpath d='M10,110 Q30,90 50,110 T90,110 Q110,90 130,110 T170,110' stroke='rgba(139,115,85,0.1)' stroke-width='1.2' fill='none'/%3E%3Cpath d='M40,140 Q60,120 80,140 T120,140 Q140,120 160,140 T200,140' stroke='rgba(139,115,85,0.05)' stroke-width='0.8' fill='none'/%3E%3Cpath d='M15,170 Q35,150 55,170 T95,170 Q115,150 135,170 T175,170' stroke='rgba(139,115,85,0.08)' stroke-width='1.3' fill='none'/%3E%3C/svg%3E");
-          background-size: 180px 180px;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='10' y='10' width='15' height='15' fill='none' stroke='rgba(139,115,85,0.08)' stroke-width='0.8' transform='rotate(15 17.5 17.5)'/%3E%3Crect x='60' y='15' width='12' height='12' fill='none' stroke='rgba(139,115,85,0.06)' stroke-width='0.6' transform='rotate(-10 66 21)'/%3E%3Crect x='35' y='45' width='18' height='18' fill='none' stroke='rgba(139,115,85,0.07)' stroke-width='0.7' transform='rotate(25 44 54)'/%3E%3Crect x='75' y='65' width='14' height='14' fill='none' stroke='rgba(139,115,85,0.05)' stroke-width='0.5' transform='rotate(-20 82 72)'/%3E%3Crect x='15' y='75' width='16' height='16' fill='none' stroke='rgba(139,115,85,0.06)' stroke-width='0.6' transform='rotate(30 23 83)'/%3E%3Crect x='55' y='5' width='8' height='8' fill='rgba(139,115,85,0.04)' stroke='none' transform='rotate(45 59 9)'/%3E%3Crect x='5' y='50' width='10' height='10' fill='rgba(139,115,85,0.05)' stroke='none' transform='rotate(-15 10 55)'/%3E%3Crect x='80' y='30' width='6' height='6' fill='rgba(139,115,85,0.03)' stroke='none' transform='rotate(20 83 33)'/%3E%3C/svg%3E");
+          background-size: 100px 100px;
           background-repeat: repeat;
           pointer-events: none;
         `
@@ -198,8 +197,8 @@ export default function Backgrounds() {
     ],
     about: [
       {
-        name: "Clean Minimal",
-        description: "No texture - clean focus on content",
+        name: "Circle Connection (Current)",
+        description: "Soft circular patterns representing human connection and wholeness",
         css: `
           position: relative;
         `,
@@ -208,8 +207,19 @@ export default function Backgrounds() {
           position: fixed;
           inset: 0;
           z-index: -1;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='20' cy='20' r='8' fill='none' stroke='rgba(139,115,85,0.08)' stroke-width='0.8'/%3E%3Ccircle cx='70' cy='25' r='6' fill='none' stroke='rgba(139,115,85,0.06)' stroke-width='0.6'/%3E%3Ccircle cx='45' cy='50' r='10' fill='none' stroke='rgba(139,115,85,0.07)' stroke-width='0.7'/%3E%3Ccircle cx='80' cy='75' r='7' fill='none' stroke='rgba(139,115,85,0.05)' stroke-width='0.5'/%3E%3Ccircle cx='25' cy='80' r='9' fill='none' stroke='rgba(139,115,85,0.06)' stroke-width='0.6'/%3E%3Ccircle cx='60' cy='10' r='4' fill='rgba(139,115,85,0.04)' stroke='none'/%3E%3Ccircle cx='15' cy='55' r='5' fill='rgba(139,115,85,0.05)' stroke='none'/%3E%3Ccircle cx='85' cy='40' r='3' fill='rgba(139,115,85,0.03)' stroke='none'/%3E%3C/svg%3E");
+          background-size: 100px 100px;
+          background-repeat: repeat;
           pointer-events: none;
         `
+      },
+      {
+        name: "Clean Minimal",
+        description: "No background pattern - keeps focus on content",
+        css: `
+          position: relative;
+        `,
+        before: ``
       },
       {
         name: "Subtle Grain",
@@ -353,10 +363,10 @@ export default function Backgrounds() {
             <strong>Experiments:</strong> Technical patterns reinforce innovation and systematic building.
           </p>
           <p>
-            <strong>Thoughts:</strong> Organic, flowing patterns support creative expression and idea development.
+            <strong>Thoughts:</strong> Square patterns support structured thinking and building blocks of ideas.
           </p>
           <p>
-            <strong>About:</strong> Minimal patterns keep focus on personal narrative and professional content.
+            <strong>About:</strong> Circular patterns represent human connection and wholeness.
           </p>
           <p className="text-warm-brown/70 italic">
             All textures use CSS-only implementations for optimal performance and maintainability.

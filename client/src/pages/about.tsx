@@ -32,7 +32,7 @@ export default function About() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="max-w-4xl mx-auto px-6 py-8 about-background-texture"></div>
       <header className="text-center mb-8 pt-4">
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-about-title">
           My System Prompts

@@ -208,26 +208,7 @@ export const ExperimentalFilterV2 = () => {
         })}
       </div>
 
-      {/* Active filter summary */}
-      {activeFilter && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-6"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-warm-brown/10 rounded-full">
-            <span className="text-sm text-warm-brown font-medium">
-              Active Filter: {activeFilterOption?.label}
-            </span>
-            <button
-              onClick={() => setActiveFilter(null)}
-              className="text-xs text-warm-brown/70 hover:text-warm-brown underline"
-            >
-              Clear
-            </button>
-          </div>
-        </motion.div>
-      )}
+      
 
       {/* Mock article grid for demonstration */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

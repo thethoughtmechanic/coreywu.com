@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Component</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Smooth transition for the options container */
+        .options-container {
+            max-width: 0;
+            overflow: hidden;
+            transition: max-width 0.5s ease-in-out;
+            white-space: nowrap; /* Prevents wrapping during transition */
+        }
+
+        .options-container.expanded {
+            max-width: 800px; /* A large value to allow content to expand */
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-100 text-gray-800 p-8">
+
+    <!-- The Component Start -->
+    <!-- Horizontal Filter Bar with expanding menus -->
+    <div class="flex flex-wrap justify-center sm:justify-start gap-4 mb-8">
+        <!-- Main Filter Buttons (always visible) -->
+        <div data-group="medium" class="filter-group flex items-center bg-gray-200 text-gray-700 px-1 py-1 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            <button class="filter-group-btn px-3 py-1">By Medium</button>
+            <div class="options-container flex gap-2 pl-2">
+                <button data-filter="thought-bite" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">Thought Bites</button>
+                <button data-filter="pov" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">POVs</button>
+                <button data-filter="scenario" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">Scenarios</button>
+            </div>
+        </div>
+
+        <div data-group="discipline" class="filter-group flex items-center bg-gray-200 text-gray-700 px-1 py-1 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            <button class="filter-group-btn px-3 py-1">By Discipline</button>
+            <div class="options-container flex gap-2 pl-2">
+                <button data-filter="human-experience" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">Human Experience</button>
+                <button data-filter="ai-society" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">AI & Society</button>
+                <button data-filter="community" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">Community</button>
+                <button data-filter="design-strategy" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">Design & Strategy</button>
+            </div>
+        </div>
+
+        <div data-group="conviction" class="filter-group flex items-center bg-gray-200 text-gray-700 px-1 py-1 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            <button class="filter-group-btn px-3 py-1">By Conviction</button>
+            <div class="options-container flex gap-2 pl-2">
+                <button data-filter="conviction-1" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">1</button>
+                <button data-filter="conviction-2" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">2</button>
+                <button data-filter="conviction-3" class="filter-option bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-100 transition-colors">3</button>
+            </div>
+        </div>
+    </div>
+    <!-- The Component End -->
+
+    <!-- Placeholder Article Container for filtering logic -->
+    <section class="articles-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Article cards with corresponding classes go here -->
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterGroups = document.querySelectorAll('.filter-group');
+            const filterGroupButtons = document.querySelectorAll('.filter-group-btn');
+            const filterOptionButtons = document.querySelectorAll('.filter-option');
+            const optionsContainers = document.querySelectorAll('.options-container');
+            const articlesContainer = document.querySelector('.articles-container');
+            const articles = document.querySelectorAll('.garden-article');
+            
+            // Set to store the active filters for multi-select functionality
+            const activeFilters = new Set();
+            let lastClickedGroup = null;
+
+            // Handle horizontal expansion of filter groups
+            filterGroupButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentGroup = button.closest('.filter-group');
+                    const optionsContainerToShow = parentGroup.querySelector('.options-container');
+                    const groupName = parentGroup.dataset.group;
+
+                    // Condense all other expanded containers
+                    optionsContainers.forEach(container => {
+                        if (container !== optionsContainerToShow) {
+                            container.classList.remove('expanded');
+                        }
+                    });
+
+                    // Toggle the 'expanded' class on the clicked container
+                    optionsContainerToShow.classList.toggle('expanded');
+                    
+                    // Reset active state for all filter options
+                    filterOptionButtons.forEach(btn => {
+                        btn.classList.remove('bg-green-600', 'text-white');
+                        btn.classList.add('bg-white', 'text-gray-700');
+                    });
+                    
+                    // Clear all filters from the active set
+                    activeFilters.clear();
+                    applyFilters();
+                    
+                    lastClickedGroup = groupName;
+                });
+            });
+
+            // Handle filtering logic for the filter options
+            filterOptionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+                    const parentGroup = button.closest('.filter-group');
+                    const groupName = parentGroup.dataset.group;
+
+                    if (groupName === 'medium' || groupName === 'conviction') {
+                        // Single-select logic for medium and conviction
+                        // Check if the same button was clicked again to deselect
+                        if (activeFilters.has(filter) && activeFilters.size === 1) {
+                            activeFilters.clear();
+                            button.classList.remove('bg-green-600', 'text-white');
+                            button.classList.add('bg-white', 'text-gray-700');
+                        } else {
+                            // Clear existing filters for this group
+                            document.querySelectorAll(`.options-container[data-group="${groupName}"] .filter-option`).forEach(btn => {
+                                activeFilters.delete(btn.dataset.filter);
+                                btn.classList.remove('bg-green-600', 'text-white');
+                                btn.classList.add('bg-white', 'text-gray-700');
+                            });
+                            // Add the new filter and update button style
+                            activeFilters.add(filter);
+                            button.classList.add('bg-green-600', 'text-white');
+                            button.classList.remove('bg-white', 'text-gray-700');
+                        }
+                    } else { // discipline is multi-select
+                        // Toggle the filter's presence in the set
+                        if (activeFilters.has(filter)) {
+                            activeFilters.delete(filter);
+                            button.classList.remove('bg-green-600', 'text-white');
+                            button.classList.add('bg-white', 'text-gray-700');
+                        } else {
+                            activeFilters.add(filter);
+                            button.classList.add('bg-green-600', 'text-white');
+                            button.classList.remove('bg-white', 'text-gray-700');
+                        }
+                    }
+                    
+                    // This function is included as a placeholder.
+                    // You'll need to define your article filtering logic here.
+                    // For now, it will just log the active filters.
+                    console.log('Active Filters:', Array.from(activeFilters));
+                });
+            });
+        });
+    </script>
+</body>
+</html>

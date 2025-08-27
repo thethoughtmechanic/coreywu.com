@@ -31,7 +31,7 @@ export default function LandingAlt() {
                 src={headshotImage}
                 alt="Corey Wu - Draggable headshot"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: '50% 25%' }}
+                style={{ objectPosition: '50% 15%' }}
                 draggable={false}
                 data-testid="img-headshot"
               />

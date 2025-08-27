@@ -4,7 +4,8 @@ import CopyEmail from "@/components/copy-email";
 import { Counter } from "@/components/counter";
 import { SpringElement } from "@/components/spring-element";
 import { TypingText } from "@/components/typing-text";
-import { ExperimentalFilter } from "@/components/experimental-filter";
+import { ExperimentalFilter } from "../components/experimental-filter";
+import { ExperimentalFilterV2 } from "../components/experimental-filter-v2";
 
 // Animation constants
 const SCALE = 1.5;
@@ -328,107 +329,8 @@ const CardCollectionComponent = () => {
 };
 
 
-// Mock for ExperimentalFilterV2
-const ExperimentalFilterV2 = () => {
-  const filterOptions = [
-    {
-      title: "By Medium",
-      options: ["Digital", "Print", "3D", "Video"],
-      isMultiSelect: false,
-    },
-    {
-      title: "By Conviction",
-      options: ["Strong", "Moderate", "Subtle"],
-      isMultiSelect: false,
-    },
-    {
-      title: "By Discipline",
-      options: ["Art", "Design", "Architecture", "Engineering", "Writing"],
-      isMultiSelect: true,
-    },
-  ];
-
-  const [openFilter, setOpenFilter] = useState<string | null>(null);
-  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
-
-  const handleOptionClick = (filterTitle: string, option: string) => {
-    setSelectedFilters((prevFilters) => {
-      const currentFilters = prevFilters[filterTitle] || [];
-      const filter = filterOptions.find((f) => f.title === filterTitle);
-
-      if (filter?.isMultiSelect) {
-        if (currentFilters.includes(option)) {
-          return { ...prevFilters, [filterTitle]: currentFilters.filter((f) => f !== option) };
-        } else {
-          return { ...prevFilters, [filterTitle]: [...currentFilters, option] };
-        }
-      } else {
-        // Single select: toggle or set new option
-        return { ...prevFilters, [filterTitle]: currentFilters.includes(option) ? [] : [option] };
-      }
-    });
-  };
-
-  const handleFilterTitleClick = (filterTitle: string) => {
-    setOpenFilter(openFilter === filterTitle ? null : filterTitle);
-  };
-
-  return (
-    <div className="flex items-center justify-center space-x-4">
-      {filterOptions.map((filter) => (
-        <div key={filter.title} className="relative">
-          <motion.button
-            onClick={() => handleFilterTitleClick(filter.title)}
-            className={`px-4 py-2 rounded-full font-medium transition-colors duration-200 flex items-center space-x-2 ${
-              selectedFilters[filter.title]?.length > 0
-                ? "bg-warm-brown text-cream"
-                : "bg-warm-brown/20 text-warm-brown"
-            }`}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>{filter.title}</span>
-            <svg
-              className={`w-4 h-4 transition-transform duration-200 ${openFilter === filter.title ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </motion.button>
-
-          <AnimatePresence>
-            {openFilter === filter.title && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                className="absolute top-full left-0 mt-2 w-max bg-white p-3 rounded-lg shadow-lg z-10 flex flex-wrap space-x-2 space-y-2 border border-warm-brown/20"
-              >
-                {filter.options.map((option) => (
-                  <motion.button
-                    key={option}
-                    onClick={() => handleOptionClick(filter.title, option)}
-                    className={`px-3 py-1 rounded-full font-medium transition-colors duration-200 flex-shrink-0
-                      ${
-                        selectedFilters[filter.title]?.includes(option)
-                          ? "bg-warm-brown text-cream"
-                          : "bg-warm-brown/10 text-warm-brown hover:bg-warm-brown/20"
-                      }`}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    {option}
-                  </motion.button>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      ))}
-    </div>
-  );
-};
+// ExperimentalFilterV2 component is now imported from its file.
+// The mock implementation below is removed as per the requirements.
 
 
 export default function Components() {

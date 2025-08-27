@@ -368,7 +368,7 @@ export default function Experiments() {
         </p>
 
         {/* Legend */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-2">
           <div className="flex items-center gap-6 bg-light-brown/50 rounded-xl px-6 py-3 text-sm">
             {/* Connect Icon */}
             <div className="flex items-center gap-2">

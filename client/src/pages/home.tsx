@@ -40,7 +40,7 @@ export default function Home() {
           className={`absolute transition-all duration-300 cursor-pointer z-20 ${
             isMobile 
               ? 'top-[58%] right-8 transform -translate-y-1/2' 
-              : 'top-1/2 right-12 transform -translate-y-1/2'
+              : 'top-1/2 right-24 transform -translate-y-1/2'
           }`}
           onClick={() => setLocation('/experiments')}
         ></div>

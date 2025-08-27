@@ -125,28 +125,43 @@ export const ExperimentalFilterV2 = () => {
                   {group.label}
                 </button>
                 
-                {/* Active Filter Pill Inside - Only show if this group has the active filter and not expanded */}
+                {/* Show all options when this group has an active filter and not expanded */}
                 <AnimatePresence>
                   {isActiveGroup && activeFilterOption && !isExpanded && (
                     <motion.div
-                      initial={{ width: 0, opacity: 0, scale: 0.8 }}
-                      animate={{ width: 'auto', opacity: 1, scale: 1 }}
-                      exit={{ width: 0, opacity: 0, scale: 0.8 }}
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: 'auto', opacity: 1 }}
+                      exit={{ width: 0, opacity: 0 }}
                       transition={{ 
-                        duration: 0.3, 
-                        ease: [0.4, 0.0, 0.2, 1]
+                        duration: 0.4, 
+                        ease: [0.4, 0.0, 0.2, 1],
+                        opacity: { duration: 0.2 }
                       }}
-                      className="flex items-center pl-1 pr-2 overflow-hidden"
+                      className="flex items-center gap-1 pl-2 pr-2 overflow-hidden"
                     >
-                      <div
-                        className={`px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap shadow-sm ${
-                          group.id === 'medium' 
-                            ? getMediumPillStyle(activeFilter!)
-                            : 'bg-warm-brown text-cream'
-                        }`}
-                      >
-                        {activeFilterOption.label}
-                      </div>
+                      {group.options.map((option, index) => (
+                        <motion.button
+                          key={option.id}
+                          initial={{ x: 20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          exit={{ x: 20, opacity: 0 }}
+                          transition={{ 
+                            delay: index * 0.05,
+                            duration: 0.2,
+                            ease: [0.4, 0.0, 0.2, 1]
+                          }}
+                          onClick={() => handleOptionClick(group.id, option.id)}
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                            activeFilter === option.id
+                              ? group.id === 'medium'
+                                ? getMediumPillStyle(option.id)
+                                : 'bg-warm-brown text-cream shadow-sm'
+                              : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
+                          }`}
+                        >
+                          {option.label}
+                        </motion.button>
+                      ))}
                     </motion.div>
                   )}
                 </AnimatePresence>

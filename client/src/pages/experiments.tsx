@@ -356,19 +356,21 @@ export default function Experiments() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
       {/* Header */}
-      <header className="text-center mb-12 pt-4">
+      <header className="text-center mb-6 pt-4">
         {/* Title */}
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-experiments-title">
           Experiments
         </h1>
 
         {/* Description */}
-        <p className="text-muted-grey max-w-xl mx-auto mb-8">
+        <p className="text-muted-grey max-w-xl mx-auto">
           Projects that aim to make the world more meaningful, intentional, and human.
         </p>
+      </header>
 
-        {/* Legend */}
-        <div className="flex justify-center mb-2">
+      {/* Legend */}
+      <div className="mb-2">
+        <div className="flex justify-center">
           <div className="flex items-center gap-6 bg-light-brown/50 rounded-xl px-6 py-3 text-sm">
             {/* Connect Icon */}
             <div className="flex items-center gap-2">
@@ -432,7 +434,7 @@ export default function Experiments() {
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Experiments Content - Add background texture class to page level */}
       <div className="experiments-background-texture">

@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 min-h-screen flex flex-col relative">
-      <GeometricField count={25} onNavigate={handleNavigation} />
+      <GeometricField count={33} onNavigate={handleNavigation} />
 
       {/* Experiments Icon - Triangle */}
         <div 

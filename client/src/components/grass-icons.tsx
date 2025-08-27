@@ -394,9 +394,6 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
       (x > 3 && x < 13 && y > 80 && y < 90)     // Email nav area (bottom left)
     );
 
-    // Apply random darkness variation to shapes, avoiding the darkest opacity
-    const randomOpacity = Math.random() * 0.4 + 0.1; // Opacity between 0.1 and 0.5
-
     allShapes.push(
       <div
         key={`regular-${i}`}
@@ -407,7 +404,7 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
           width: `${size}px`,
           height: `${size}px`,
           transform: `rotate(${rotation}deg)`,
-          opacity: randomOpacity, // Use the calculated random opacity
+          opacity: Math.random() * 0.3 + 0.1, // Random opacity between 0.1-0.4
         }}
       >
         <ShapeIcon variant={variant} className="w-full h-full" />
@@ -419,10 +416,10 @@ export const GeometricField: React.FC<GeometricFieldProps> = ({ count = 20, onNa
   if (onNavigate) {
     allShapes.push(
       ...navigationShapes.map((shape) => (
-        <NavigationShapeComponent
-          key={`nav-${shape.label}`}
-          shape={shape}
-          onNavigate={onNavigate}
+        <NavigationShapeComponent 
+          key={`nav-${shape.label}`} 
+          shape={shape} 
+          onNavigate={onNavigate} 
         />
       ))
     );

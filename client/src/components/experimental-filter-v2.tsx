@@ -23,7 +23,7 @@ const filterGroups: FilterGroup[] = [
   {
     id: 'discipline',
     label: 'By Discipline',
-    type: 'multi',
+    type: 'single',
     options: [
       { id: 'human-experience', label: 'Human Experience' },
       { id: 'ai-society', label: 'AI & Society' },
@@ -45,55 +45,40 @@ const filterGroups: FilterGroup[] = [
 
 export const ExperimentalFilterV2 = () => {
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
-  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
   const handleGroupClick = (groupId: string) => {
     if (expandedGroup === groupId) {
       setExpandedGroup(null);
     } else {
+      // Clear all filters when expanding a new group
+      setActiveFilter(null);
       setExpandedGroup(groupId);
     }
   };
 
   const handleOptionClick = (groupId: string, optionId: string) => {
-    const group = filterGroups.find(g => g.id === groupId);
-    if (!group) return;
-
-    setActiveFilters(prev => {
-      const newFilters = new Set(prev);
-      
-      if (group.type === 'single') {
-        // Single-select: clear other filters from this group and toggle this one
-        const groupOptions = group.options.map(opt => opt.id);
-        groupOptions.forEach(id => newFilters.delete(id));
-        
-        if (!prev.has(optionId)) {
-          newFilters.add(optionId);
-        }
-      } else {
-        // Multi-select: toggle this option
-        if (newFilters.has(optionId)) {
-          newFilters.delete(optionId);
-        } else {
-          newFilters.add(optionId);
-        }
-      }
-      
-      return newFilters;
-    });
-
-    // Close expanded group after selection for single-select
-    if (group.type === 'single') {
-      setExpandedGroup(null);
-    }
+    // Single selection across all groups - clear previous and set new
+    setActiveFilter(optionId);
+    setExpandedGroup(null); // Collapse after selection
   };
 
-  // Get active filters for a group
-  const getActiveFiltersForGroup = (groupId: string) => {
-    const group = filterGroups.find(g => g.id === groupId);
-    if (!group) return [];
-    
-    return group.options.filter(option => activeFilters.has(option.id));
+  // Get the group that contains the active filter
+  const getActiveFilterGroup = () => {
+    if (!activeFilter) return null;
+    return filterGroups.find(group => 
+      group.options.some(option => option.id === activeFilter)
+    );
+  };
+
+  // Get the active filter option
+  const getActiveFilterOption = () => {
+    if (!activeFilter) return null;
+    for (const group of filterGroups) {
+      const option = group.options.find(opt => opt.id === activeFilter);
+      if (option) return option;
+    }
+    return null;
   };
 
   // Get pill style for medium options (matching thoughts page)
@@ -108,6 +93,9 @@ export const ExperimentalFilterV2 = () => {
     return 'bg-warm-brown text-cream';
   };
 
+  const activeFilterGroup = getActiveFilterGroup();
+  const activeFilterOption = getActiveFilterOption();
+
   return (
     <div className="w-full">
       {/* Filter Header */}
@@ -116,8 +104,8 @@ export const ExperimentalFilterV2 = () => {
       {/* Main Filter Bar - Pill-in-Pill Design */}
       <div className="flex flex-wrap justify-center gap-3 mb-8">
         {filterGroups.map(group => {
-          const activeGroupFilters = getActiveFiltersForGroup(group.id);
-          const hasActiveFilters = activeGroupFilters.length > 0;
+          const isActiveGroup = activeFilterGroup?.id === group.id;
+          const isExpanded = expandedGroup === group.id;
           
           return (
             <div key={group.id} className="relative">
@@ -129,7 +117,7 @@ export const ExperimentalFilterV2 = () => {
                 <button
                   onClick={() => handleGroupClick(group.id)}
                   className={`px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                    hasActiveFilters
+                    isActiveGroup
                       ? 'text-warm-brown bg-warm-brown/5'
                       : 'text-warm-brown hover:text-hover-brown'
                   }`}
@@ -137,37 +125,35 @@ export const ExperimentalFilterV2 = () => {
                   {group.label}
                 </button>
                 
-                {/* Active Filter Pills Inside - Pill-in-Pill Design */}
+                {/* Active Filter Pill Inside - Only show if this group has the active filter and not expanded */}
                 <AnimatePresence>
-                  {hasActiveFilters && activeGroupFilters.map((option, index) => (
+                  {isActiveGroup && activeFilterOption && !isExpanded && (
                     <motion.div
-                      key={option.id}
                       initial={{ width: 0, opacity: 0, scale: 0.8 }}
                       animate={{ width: 'auto', opacity: 1, scale: 1 }}
                       exit={{ width: 0, opacity: 0, scale: 0.8 }}
                       transition={{ 
                         duration: 0.3, 
-                        ease: [0.4, 0.0, 0.2, 1],
-                        delay: index * 0.05
+                        ease: [0.4, 0.0, 0.2, 1]
                       }}
                       className="flex items-center pl-1 pr-2 overflow-hidden"
                     >
                       <div
                         className={`px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap shadow-sm ${
                           group.id === 'medium' 
-                            ? getMediumPillStyle(option.id)
+                            ? getMediumPillStyle(activeFilter!)
                             : 'bg-warm-brown text-cream'
                         }`}
                       >
-                        {option.label}
+                        {activeFilterOption.label}
                       </div>
                     </motion.div>
-                  ))}
+                  )}
                 </AnimatePresence>
                 
-                {/* Expanded Options - Dropdown Style */}
+                {/* Expanded Options - Show all options when expanded */}
                 <AnimatePresence>
-                  {expandedGroup === group.id && (
+                  {isExpanded && (
                     <motion.div
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: 'auto', opacity: 1 }}
@@ -192,7 +178,7 @@ export const ExperimentalFilterV2 = () => {
                           }}
                           onClick={() => handleOptionClick(group.id, option.id)}
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
-                            activeFilters.has(option.id)
+                            activeFilter === option.id
                               ? group.id === 'medium'
                                 ? getMediumPillStyle(option.id)
                                 : 'bg-warm-brown text-cream shadow-sm'
@@ -211,8 +197,8 @@ export const ExperimentalFilterV2 = () => {
         })}
       </div>
 
-      {/* Active filters summary */}
-      {activeFilters.size > 0 && (
+      {/* Active filter summary */}
+      {activeFilter && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -220,13 +206,13 @@ export const ExperimentalFilterV2 = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-warm-brown/10 rounded-full">
             <span className="text-sm text-warm-brown font-medium">
-              Active Filters: {activeFilters.size}
+              Active Filter: {activeFilterOption?.label}
             </span>
             <button
-              onClick={() => setActiveFilters(new Set())}
+              onClick={() => setActiveFilter(null)}
               className="text-xs text-warm-brown/70 hover:text-warm-brown underline"
             >
-              Clear All
+              Clear
             </button>
           </div>
         </motion.div>

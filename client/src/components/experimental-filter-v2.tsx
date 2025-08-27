@@ -113,7 +113,7 @@ export const ExperimentalFilterV2 = () => {
       {/* Filter Header */}
       <h3 className="text-lg font-medium text-warm-brown mb-4">Filter</h3>
       
-      {/* Main Filter Bar - Horizontal like V1 */}
+      {/* Main Filter Bar - Pill-in-Pill Design */}
       <div className="flex flex-wrap justify-center gap-3 mb-8">
         {filterGroups.map(group => {
           const activeGroupFilters = getActiveFiltersForGroup(group.id);
@@ -122,36 +122,38 @@ export const ExperimentalFilterV2 = () => {
           return (
             <div key={group.id} className="relative">
               <motion.div 
-                className="flex items-center bg-light-brown/60 hover:bg-light-brown transition-colors duration-200 rounded-full overflow-hidden"
+                className="flex items-center bg-light-brown/60 hover:bg-light-brown transition-colors duration-200 rounded-full overflow-hidden border border-warm-brown/20"
                 layout
               >
+                {/* Group Button */}
                 <button
                   onClick={() => handleGroupClick(group.id)}
                   className={`px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                     hasActiveFilters
-                      ? 'text-warm-brown bg-warm-brown/10'
+                      ? 'text-warm-brown bg-warm-brown/5'
                       : 'text-warm-brown hover:text-hover-brown'
                   }`}
                 >
                   {group.label}
                 </button>
                 
-                {/* Active Filter Pills - show next to group button */}
+                {/* Active Filter Pills Inside - Pill-in-Pill Design */}
                 <AnimatePresence>
-                  {hasActiveFilters && activeGroupFilters.map(option => (
+                  {hasActiveFilters && activeGroupFilters.map((option, index) => (
                     <motion.div
                       key={option.id}
-                      initial={{ width: 0, opacity: 0 }}
-                      animate={{ width: 'auto', opacity: 1 }}
-                      exit={{ width: 0, opacity: 0 }}
+                      initial={{ width: 0, opacity: 0, scale: 0.8 }}
+                      animate={{ width: 'auto', opacity: 1, scale: 1 }}
+                      exit={{ width: 0, opacity: 0, scale: 0.8 }}
                       transition={{ 
                         duration: 0.3, 
-                        ease: [0.4, 0.0, 0.2, 1]
+                        ease: [0.4, 0.0, 0.2, 1],
+                        delay: index * 0.05
                       }}
-                      className="flex items-center pl-2 pr-2 overflow-hidden"
+                      className="flex items-center pl-1 pr-2 overflow-hidden"
                     >
                       <div
-                        className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
+                        className={`px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap shadow-sm ${
                           group.id === 'medium' 
                             ? getMediumPillStyle(option.id)
                             : 'bg-warm-brown text-cream'
@@ -163,7 +165,7 @@ export const ExperimentalFilterV2 = () => {
                   ))}
                 </AnimatePresence>
                 
-                {/* Expanded Options - horizontal like V1 */}
+                {/* Expanded Options - Dropdown Style */}
                 <AnimatePresence>
                   {expandedGroup === group.id && (
                     <motion.div
@@ -175,7 +177,7 @@ export const ExperimentalFilterV2 = () => {
                         ease: [0.4, 0.0, 0.2, 1],
                         opacity: { duration: 0.2 }
                       }}
-                      className="flex items-center gap-2 pl-2 pr-2 overflow-hidden"
+                      className="flex items-center gap-1 pl-2 pr-2 overflow-hidden"
                     >
                       {group.options.map((option, index) => (
                         <motion.button
@@ -184,17 +186,17 @@ export const ExperimentalFilterV2 = () => {
                           animate={{ x: 0, opacity: 1 }}
                           exit={{ x: 20, opacity: 0 }}
                           transition={{ 
-                            delay: index * 0.1,
-                            duration: 0.3,
+                            delay: index * 0.05,
+                            duration: 0.2,
                             ease: [0.4, 0.0, 0.2, 1]
                           }}
                           onClick={() => handleOptionClick(group.id, option.id)}
-                          className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                             activeFilters.has(option.id)
                               ? group.id === 'medium'
                                 ? getMediumPillStyle(option.id)
                                 : 'bg-warm-brown text-cream shadow-sm'
-                              : 'bg-cream text-warm-brown hover:bg-warm-brown/10'
+                              : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
                           }`}
                         >
                           {option.label}
@@ -209,7 +211,7 @@ export const ExperimentalFilterV2 = () => {
         })}
       </div>
 
-      {/* Debug info to show active filters */}
+      {/* Active filters summary */}
       {activeFilters.size > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -220,6 +222,12 @@ export const ExperimentalFilterV2 = () => {
             <span className="text-sm text-warm-brown font-medium">
               Active Filters: {activeFilters.size}
             </span>
+            <button
+              onClick={() => setActiveFilters(new Set())}
+              className="text-xs text-warm-brown/70 hover:text-warm-brown underline"
+            >
+              Clear All
+            </button>
           </div>
         </motion.div>
       )}

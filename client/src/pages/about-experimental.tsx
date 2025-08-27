@@ -436,7 +436,7 @@ export default function AboutExperimental() {
   }
 
   return (
-    <div className="min-h-screen relative bg-cream">
+    <div className="min-h-screen relative bg-cream about-background-texture">
       <div className="max-w-4xl mx-auto px-6 py-12">
         <header className="text-center mb-8 pt-4">
           <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-about-experimental-title">

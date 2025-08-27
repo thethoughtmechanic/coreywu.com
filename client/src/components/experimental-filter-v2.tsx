@@ -75,7 +75,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
     // Map our internal filter IDs to the thoughts page format
     if (groupId === 'medium') {
       if (optionId === 'thought-bite') onFilterChange("Thought Bite");
-      else if (optionId === 'scenario') onFilterChange("Scenario");  
+      else if (optionId === 'scenario') onFilterChange("Scenario");
       else if (optionId === 'pov') onFilterChange("POV");
       else if (optionId === 'future-seed') onFilterChange("Future Seed");
     }
@@ -85,7 +85,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
   // Get the group that contains the active filter
   const getActiveFilterGroup = () => {
     if (!activeFilter) return null;
-    return filterGroups.find(group => 
+    return filterGroups.find(group =>
       group.options.some(option => option.id === activeFilter)
     );
   };
@@ -138,10 +138,10 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
 
           return (
             <div key={group.id} className="relative">
-              <motion.div 
+              <motion.div
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
-                  isActiveGroup 
-                    ? 'bg-warm-brown border-warm-brown shadow-sm' 
+                  isActiveGroup
+                    ? 'bg-warm-brown border-warm-brown shadow-sm'
                     : 'bg-cream border-warm-brown hover:bg-light-brown/50'
                 }`}
                 layout
@@ -171,7 +171,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: 'auto', opacity: 1 }}
                       exit={{ width: 0, opacity: 0 }}
-                      transition={{ 
+                      transition={{
                         type: "spring",
                         stiffness: 280,
                         damping: 25,
@@ -186,7 +186,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                           initial={{ x: 15, opacity: 0, scale: 0.8 }}
                           animate={{ x: 0, opacity: 1, scale: 1 }}
                           exit={{ x: 15, opacity: 0, scale: 0.8 }}
-                          transition={{ 
+                          transition={{
                             delay: index * 0.04,
                             type: "spring",
                             stiffness: 400,
@@ -198,8 +198,8 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                             activeFilter === option.id
                               ? getPillStyle(group.id, option.id)
                               : isActiveGroup
-                                ? 'bg-cream text-warm-brown border-cream/30 hover:bg-warm-brown/20'
-                                : group.id === 'medium' 
+                                ? 'bg-warm-brown text-cream border-warm-brown hover:bg-cream/20 hover:text-warm-brown'
+                                : group.id === 'medium'
                                   ? `bg-cream text-warm-brown border-warm-brown/30 ${getMediumHoverStyle(option.id)}`
                                   : 'bg-cream text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
                           }`}
@@ -218,7 +218,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: 'auto', opacity: 1 }}
                       exit={{ width: 0, opacity: 0 }}
-                      transition={{ 
+                      transition={{
                         type: "spring",
                         stiffness: 280,
                         damping: 25,
@@ -233,7 +233,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                           initial={{ x: 15, opacity: 0, scale: 0.8 }}
                           animate={{ x: 0, opacity: 1, scale: 1 }}
                           exit={{ x: 15, opacity: 0, scale: 0.8 }}
-                          transition={{ 
+                          transition={{
                             delay: index * 0.04,
                             type: "spring",
                             stiffness: 400,
@@ -244,11 +244,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300 ease-out whitespace-nowrap border ${
                             activeFilter === option.id
                               ? getPillStyle(group.id, option.id)
-                              : isActiveGroup
-                                ? 'bg-cream text-warm-brown border-cream/30 hover:bg-warm-brown/20'
-                                : group.id === 'medium' 
-                                  ? `bg-cream text-warm-brown border-warm-brown/30 ${getMediumHoverStyle(option.id)}`
-                                  : 'bg-cream text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
+                              : 'bg-warm-brown text-cream border-warm-brown hover:bg-cream/20 hover:text-warm-brown'
                           }`}
                         >
                           {option.label}

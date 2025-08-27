@@ -120,8 +120,8 @@ export const ExperimentalFilterV2 = () => {
               <motion.div 
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
                   isActiveGroup 
-                    ? 'bg-warm-brown/20 border-warm-brown/40 shadow-sm' 
-                    : 'bg-light-brown/60 hover:bg-light-brown border-warm-brown/20'
+                    ? 'bg-warm-brown border-warm-brown shadow-sm' 
+                    : 'bg-warm-brown hover:bg-hover-brown border-warm-brown'
                 }`}
                 layout
                 transition={{
@@ -136,8 +136,8 @@ export const ExperimentalFilterV2 = () => {
                   onClick={() => handleGroupClick(group.id)}
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 ease-out ${
                     isActiveGroup
-                      ? 'text-warm-brown bg-warm-brown/10'
-                      : 'text-warm-brown hover:text-hover-brown hover:bg-warm-brown/5'
+                      ? 'text-cream bg-warm-brown border-r border-warm-brown/30'
+                      : 'text-cream bg-warm-brown hover:bg-hover-brown'
                   }`}
                 >
                   {group.label}

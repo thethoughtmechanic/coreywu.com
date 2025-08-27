@@ -67,8 +67,6 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange }: Experim
     if (expandedGroup === groupId) {
       setExpandedGroup(null);
     } else {
-      // Clear all filters when expanding a new group
-      setActiveFilter(null);
       setExpandedGroup(groupId);
     }
   };

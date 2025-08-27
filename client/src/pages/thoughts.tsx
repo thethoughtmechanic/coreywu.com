@@ -16,6 +16,7 @@ export default function Thoughts() {
   const [modalSlide, setModalSlide] = useState<string | null>(null); // State for modal slide
   const [expandedThought, setExpandedThought] = useState<string | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<string>("All");
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
   // Group thoughts by content type for mixed layout
   const articles = thoughts?.filter(t => t.tag === 'Article' || (t.readTime && typeof t.readTime === 'string' && t.readTime.includes('min'))) || [];
@@ -55,10 +56,12 @@ export default function Thoughts() {
     return dateB.getTime() - dateA.getTime();
   });
 
-  // Filter thoughts based on selected filter
-  const sortedThoughts = selectedFilter === "All"
-    ? allSortedThoughts
-    : allSortedThoughts.filter(thought => thought.tag === selectedFilter);
+  // Filter thoughts based on selected filters (support for multiple selections)
+  const sortedThoughts = selectedFilters.length > 0
+    ? allSortedThoughts.filter(thought => selectedFilters.includes(thought.tag))
+    : selectedFilter === "All"
+      ? allSortedThoughts
+      : allSortedThoughts.filter(thought => thought.tag === selectedFilter);
 
 
 
@@ -534,7 +537,12 @@ export default function Thoughts() {
       </header>
 
       {/* Experimental Filter V2 */}
-      <ExperimentalFilterV2 selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
+      <ExperimentalFilterV2 
+        selectedFilter={selectedFilter} 
+        onFilterChange={setSelectedFilter}
+        selectedFilters={selectedFilters}
+        onMultiFilterChange={setSelectedFilters}
+      />
 
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">

@@ -92,22 +92,11 @@ app.use((req, res, next) => {
   // Enhanced server startup with better error handling
   server.on('error', (err: any) => {
     if (err.code === 'EADDRINUSE') {
-      log(`Port ${port} is already in use. Attempting to find alternative port...`);
-      // Try alternative ports instead of immediately exiting
-      const altPort = port + 1;
-      log(`Trying port ${altPort}...`);
-      server.listen({ port: altPort, host: "0.0.0.0" }, () => {
-        log(`serving on port ${altPort}`);
-      });
+      log(`Port ${port} is already in use. Exiting to prevent conflicts.`);
+      process.exit(1);
     } else {
       log(`Server error: ${err.message}`);
-      // Don't throw - log and attempt recovery
-      setTimeout(() => {
-        log('Attempting server restart...');
-        server.listen({ port, host: "0.0.0.0" }, () => {
-          log(`serving on port ${port}`);
-        });
-      }, 2000);
+      process.exit(1);
     }
   });
 

@@ -9,7 +9,7 @@ import { TypingText } from "@/components/typing-text";
 import { SpringElement } from "@/components/spring-element";
 import { HyperText } from "@/components/hyper-text";
 import { GeometricField } from "@/components/grass-icons";
-import headshotImage from "@assets/illustrated-headshot-portrait.jpg";
+import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 
 export default function HomeWithShapes() {
   const [, setLocation] = useLocation();

@@ -1,21 +1,6 @@
 import { X } from "lucide-react";
 import { useLocation } from "wouter";
-
-// Assume Navigation component exists and accepts an isDarkMode prop
-// import Navigation from './Navigation'; // Placeholder for actual import
-
-// Dummy Navigation component for demonstration purposes
-const Navigation = ({ isDarkMode }) => (
-  <nav className={`p-4 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
-    <div className="container mx-auto flex justify-between items-center">
-      <div className="text-2xl font-bold">AI Adaptation</div>
-      <div>
-        <a href="/about" className="ml-4 hover:text-gray-400">About</a>
-        <a href="/about-quiz" className="ml-4 hover:text-gray-400">Pattern Recognition</a>
-      </div>
-    </div>
-  </nav>
-);
+import { Navigation } from "../components/navigation";
 
 export default function AboutQuizPersonas() {
   const [, setLocation] = useLocation();

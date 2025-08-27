@@ -87,10 +87,18 @@ export const ExperimentalFilterV2 = () => {
       if (optionId === 'scenario') return 'bg-red-500 text-white border-red-500';
       if (optionId === 'pov') return 'bg-green-500 text-white border-green-500';
     } else if (groupId === 'discipline' || groupId === 'conviction') {
-      // Dark shade for discipline and conviction
-      return 'bg-gray-700 text-white border-gray-700';
+      // Light shade for discipline and conviction
+      return 'bg-warm-brown/30 text-warm-brown border-warm-brown/30';
     }
     return 'bg-warm-brown text-cream'; // Default for other cases
+  };
+
+  // Get medium option hover style
+  const getMediumHoverStyle = (optionId: string) => {
+    if (optionId === 'thought-bite') return 'hover:bg-blue-500/20 hover:border-blue-500/40';
+    if (optionId === 'scenario') return 'hover:bg-red-500/20 hover:border-red-500/40';
+    if (optionId === 'pov') return 'hover:bg-green-500/20 hover:border-green-500/40';
+    return '';
   };
 
   const activeFilterGroup = getActiveFilterGroup();
@@ -110,51 +118,67 @@ export const ExperimentalFilterV2 = () => {
           return (
             <div key={group.id} className="relative">
               <motion.div 
-                className="flex items-center bg-light-brown/60 hover:bg-light-brown transition-colors duration-200 rounded-full overflow-hidden border border-warm-brown/20"
+                className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
+                  isActiveGroup 
+                    ? 'bg-warm-brown/20 border-warm-brown/40 shadow-sm' 
+                    : 'bg-light-brown/60 hover:bg-light-brown border-warm-brown/20'
+                }`}
                 layout
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  mass: 0.8
+                }}
               >
                 {/* Group Button */}
                 <button
                   onClick={() => handleGroupClick(group.id)}
-                  className={`px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 ease-out ${
                     isActiveGroup
-                      ? 'text-warm-brown bg-warm-brown/5'
-                      : 'text-warm-brown hover:text-hover-brown'
+                      ? 'text-warm-brown bg-warm-brown/10'
+                      : 'text-warm-brown hover:text-hover-brown hover:bg-warm-brown/5'
                   }`}
                 >
                   {group.label}
                 </button>
 
                 {/* Show all options when this group has an active filter and not expanded */}
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {isActiveGroup && activeFilterOption && !isExpanded && (
                     <motion.div
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: 'auto', opacity: 1 }}
                       exit={{ width: 0, opacity: 0 }}
                       transition={{ 
-                        duration: 0.4, 
-                        ease: [0.4, 0.0, 0.2, 1],
-                        opacity: { duration: 0.2 }
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 25,
+                        mass: 0.6,
+                        opacity: { duration: 0.3, ease: "easeOut" }
                       }}
                       className="flex items-center gap-1 pl-2 pr-2 overflow-hidden"
                     >
                       {group.options.map((option, index) => (
                         <motion.button
                           key={option.id}
-                          initial={{ x: 20, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          exit={{ x: 20, opacity: 0 }}
+                          initial={{ x: 15, opacity: 0, scale: 0.8 }}
+                          animate={{ x: 0, opacity: 1, scale: 1 }}
+                          exit={{ x: 15, opacity: 0, scale: 0.8 }}
                           transition={{ 
-                            delay: index * 0.05,
-                            duration: 0.2,
-                            ease: [0.4, 0.0, 0.2, 1]
+                            delay: index * 0.04,
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25,
+                            mass: 0.5
                           }}
                           onClick={() => handleOptionClick(group.id, option.id)}
-                          className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300 ease-out whitespace-nowrap ${
                             activeFilter === option.id
                               ? getPillStyle(group.id, option.id)
-                              : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
+                              : group.id === 'medium' 
+                                ? `bg-cream/90 text-warm-brown border border-warm-brown/20 ${getMediumHoverStyle(option.id)}`
+                                : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
                           }`}
                         >
                           {option.label}
@@ -165,35 +189,41 @@ export const ExperimentalFilterV2 = () => {
                 </AnimatePresence>
 
                 {/* Expanded Options - Show all options when expanded */}
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {isExpanded && (
                     <motion.div
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: 'auto', opacity: 1 }}
                       exit={{ width: 0, opacity: 0 }}
                       transition={{ 
-                        duration: 0.4, 
-                        ease: [0.4, 0.0, 0.2, 1],
-                        opacity: { duration: 0.2 }
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 25,
+                        mass: 0.6,
+                        opacity: { duration: 0.3, ease: "easeOut" }
                       }}
                       className="flex items-center gap-1 pl-2 pr-2 overflow-hidden"
                     >
                       {group.options.map((option, index) => (
                         <motion.button
                           key={option.id}
-                          initial={{ x: 20, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          exit={{ x: 20, opacity: 0 }}
+                          initial={{ x: 15, opacity: 0, scale: 0.8 }}
+                          animate={{ x: 0, opacity: 1, scale: 1 }}
+                          exit={{ x: 15, opacity: 0, scale: 0.8 }}
                           transition={{ 
-                            delay: index * 0.05,
-                            duration: 0.2,
-                            ease: [0.4, 0.0, 0.2, 1]
+                            delay: index * 0.04,
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25,
+                            mass: 0.5
                           }}
                           onClick={() => handleOptionClick(group.id, option.id)}
-                          className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300 ease-out whitespace-nowrap ${
                             activeFilter === option.id
                               ? getPillStyle(group.id, option.id)
-                              : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
+                              : group.id === 'medium' 
+                                ? `bg-cream/90 text-warm-brown border border-warm-brown/20 ${getMediumHoverStyle(option.id)}`
+                                : 'bg-cream/90 text-warm-brown hover:bg-warm-brown/10 border border-warm-brown/20'
                           }`}
                         >
                           {option.label}

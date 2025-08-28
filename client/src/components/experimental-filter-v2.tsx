@@ -32,10 +32,10 @@ const filterGroups: FilterGroup[] = [
     label: 'Topic',
     type: 'multi',
     options: [
-      { id: 'human-experience', label: 'Human Experience' },
-      { id: 'ai-society', label: 'AI & Society' },
-      { id: 'community', label: 'Community' },
-      { id: 'design-strategy', label: 'Design & Strategy' }
+      { id: 'ai-tech', label: 'AI & Tech' },
+      { id: 'society-power', label: 'Society & Power' },
+      { id: 'identity-meaning', label: 'Identity & Meaning' },
+      { id: 'futures-experiments', label: 'Futures & Experiments' }
     ]
   },
   {

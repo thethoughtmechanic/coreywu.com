@@ -149,10 +149,10 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
               <motion.div
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
                   isExpanded
-                    ? 'border-gray-400 shadow-sm'
+                    ? 'border-gray-300 shadow-sm'
                     : 'bg-gray-50 border-gray-300 hover:bg-gray-100'
                 }`}
-                style={isExpanded ? { backgroundColor: '#374151' } : {}}
+                style={isExpanded ? { backgroundColor: '#e5e7eb' } : {}}
                 layout
                 transition={{
                   type: "spring",
@@ -169,7 +169,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                       ? 'bg-transparent'
                       : 'text-gray-600 bg-transparent hover:bg-gray-200 hover:text-gray-700'
                   }`}
-                  style={isExpanded ? { color: '#f9fafb' } : {}}
+                  style={isExpanded ? { color: '#374151' } : {}}
                   data-testid={`button-filter-${group.id}`}
                 >
                   {group.label}

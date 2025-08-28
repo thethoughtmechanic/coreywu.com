@@ -149,9 +149,10 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
               <motion.div
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
                   isExpanded
-                    ? 'bg-warm-brown border-warm-brown shadow-sm'
+                    ? 'border-warm-brown shadow-sm'
                     : 'bg-cream border-warm-brown hover:bg-light-brown/50'
                 }`}
+                style={isExpanded ? { backgroundColor: 'hsl(28, 30%, 55%)' } : {}}
                 layout
                 transition={{
                   type: "spring",
@@ -165,9 +166,10 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                   onClick={() => handleGroupClick(group.id)}
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 ease-out ${
                     isExpanded
-                      ? 'text-cream bg-transparent'
+                      ? 'bg-transparent'
                       : 'text-warm-brown bg-transparent hover:bg-warm-brown/10 hover:text-warm-brown'
                   }`}
+                  style={isExpanded ? { color: 'hsl(35, 80%, 99%)' } : {}}
                   data-testid={`button-filter-${group.id}`}
                 >
                   {group.label}

@@ -29,7 +29,7 @@ const filterGroups: FilterGroup[] = [
   },
   {
     id: 'discipline',
-    label: 'Discipline',
+    label: 'Topic',
     type: 'multi',
     options: [
       { id: 'human-experience', label: 'Human Experience' },

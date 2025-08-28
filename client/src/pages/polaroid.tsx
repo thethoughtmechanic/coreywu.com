@@ -1,6 +1,5 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Navigation } from '@/components/navigation';
 
 const Polaroid = () => {
   const [photoDataURL, setPhotoDataURL] = useState('');
@@ -137,13 +136,12 @@ const Polaroid = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <Navigation />
       <div className="max-w-7xl mx-auto p-6">
-        <div className="flex flex-col lg:flex-row gap-6 items-start">
-          {/* Polaroid */}
+        <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
+          {/* Polaroid Frame - Left Side */}
           <div 
             ref={polaroidRef}
-            className="w-[360px] bg-white rounded-xl p-3.5 shadow-lg relative mx-auto lg:mx-0"
+            className="w-[360px] bg-white rounded-xl p-3.5 shadow-lg relative flex-shrink-0"
             style={{
               '--frame-width': '360px',
               '--img-height': '300px',
@@ -190,8 +188,8 @@ const Polaroid = () => {
             </div>
           </div>
 
-          {/* Controls */}
-          <div className="w-full lg:w-[420px] bg-white rounded-xl shadow-sm p-4 grid grid-cols-2 gap-3.5">
+          {/* Editing Controls - Right Side */}
+          <div className="w-full lg:w-[420px] bg-white rounded-xl shadow-sm p-6 grid grid-cols-2 gap-4 max-h-fit">
             <h3 className="col-span-2 text-sm font-bold text-gray-600 uppercase tracking-wide mb-1">Image Source</h3>
             
             <button 
@@ -351,7 +349,7 @@ const Polaroid = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .leak-1 { 
           background: radial-gradient(120px 80px at 8% 90%, rgba(255,80,0,0.45), transparent 60%), linear-gradient(90deg, rgba(255,0,0,0.12), transparent 40%); 
           mix-blend-mode: screen; 

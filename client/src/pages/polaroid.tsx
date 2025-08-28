@@ -103,11 +103,21 @@ const Polaroid = () => {
     
     // Use html2canvas if available
     if (window.html2canvas) {
+      // Temporarily remove shadows and rounded corners for clean capture
+      const originalStyle = polaroidRef.current.style.cssText;
+      polaroidRef.current.style.boxShadow = 'none';
+      polaroidRef.current.style.borderRadius = '0';
+      
       const canvas = await window.html2canvas(polaroidRef.current, { 
         useCORS: true, 
-        backgroundColor: null, 
-        scale: 2 
+        backgroundColor: '#ffffff',
+        scale: 3, // Higher scale for better quality
+        removeContainer: true
       });
+      
+      // Restore original styling
+      polaroidRef.current.style.cssText = originalStyle;
+      
       const link = document.createElement('a');
       link.download = 'polaroid.png';
       link.href = canvas.toDataURL('image/png');

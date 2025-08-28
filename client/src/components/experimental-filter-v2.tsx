@@ -17,8 +17,8 @@ interface ExperimentalFilterV2Props {
 
 const filterGroups: FilterGroup[] = [
   {
-    id: 'medium',
-    label: 'Medium',
+    id: 'type',
+    label: 'Type',
     type: 'multi',
     options: [
       { id: 'thought-bite', label: 'Thought Bites' },
@@ -100,7 +100,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
     setSelectedOptions(newSelectedOptions);
 
     // Map our internal filter IDs to the thoughts page format
-    if (groupId === 'medium') {
+    if (groupId === 'type') {
       if (newSelectedOptions.size === 0) {
         onFilterChange("All");
         if (onMultiFilterChange) {
@@ -229,7 +229,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
 
 // Helper function to get selected pill styles
 function getSelectedPillStyle(groupId: string, optionId: string): string {
-  if (groupId === 'medium') {
+  if (groupId === 'type') {
     if (optionId === 'thought-bite') return 'bg-blue-500 text-white border-blue-500';
     if (optionId === 'scenario') return 'bg-red-500 text-white border-red-500';
     if (optionId === 'pov') return 'bg-green-500 text-white border-green-500';

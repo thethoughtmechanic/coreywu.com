@@ -36,6 +36,7 @@ import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import GardenText from './pages/gardentext';
 import Backgrounds from "@/pages/backgrounds";
 import Components from "./pages/components";
+import Polaroid from "./pages/polaroid"; // Import the Polaroid component
 
 // Import the AnalyticsDashboard component
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
@@ -105,13 +106,11 @@ function Router() {
           <Route path="/gardentext" component={GardenText} />
           <Route path="/backgrounds" component={Backgrounds} />
           <Route path="/components" component={Components} />
-          <Route path="/home-original" component={HomeOriginal} /> {/* Original home with cards */}
-          <Route path="/home-with-shapes" component={HomeWithShapes} /> {/* Home with geometric shapes */}
-
+          <Route path="/polaroid" component={Polaroid} />
+          <Route component={NotFound} />
           <Route path="/admin" component={Admin} />
           <Route path="/admin/emails" component={EmailSubmissions} />
           <Route path="/designsystem" component={DesignSystem} />
-          <Route path="*" component={NotFound} />
         </Switch>
       </main>
     </>

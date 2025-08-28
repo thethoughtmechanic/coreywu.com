@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polaroid Editor</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+    :root {
+      --frame-width: 360px;           /* outer polaroid width */
+      --img-height: 300px;            /* inner photo height */
+      --frame-pad: 14px;              /* white border thickness */
+      --label-height: 72px;           /* tall bottom border for polaroid */
+      --preview-url: url('');         /* dynamically updated once an image exists */
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+      background: #f6f7f9;
+      margin: 0;
+      padding: 24px;
+      color: #111;
+    }
+
+    .app {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Polaroid */
+    .polaroid {
+      width: var(--frame-width);
+      background: #fff;
+      border-radius: 12px;
+      padding: var(--frame-pad);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+      position: relative;
+    }
+
+    .photo-wrap {
+      position: relative;
+      width: 100%;
+      height: calc(var(--img-height));
+      border-radius: 8px;
+      overflow: hidden;
+      background: #e9eaee; /* clean empty state */
+    }
+
+    /* Live camera shown inside the frame */
+    video#camera {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+    img#preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+
+    /* Overlays */
+    .overlay, .grain { position: absolute; inset: 0; pointer-events: none; border-radius: 8px; }
+    .grain { background: url('https://i.ibb.co/k4F2Ktt/grain.png'); background-size: cover; mix-blend-mode: overlay; opacity: 0; }
+
+    /* Light leak patterns (subtle, modern) */
+    .leak-1 { background: radial-gradient(120px 80px at 8% 90%, rgba(255,80,0,0.45), transparent 60%), linear-gradient(90deg, rgba(255,0,0,0.12), transparent 40%); mix-blend-mode: screen; }
+    .leak-2 { background: radial-gradient(160px 100px at 92% 12%, rgba(255,200,0,0.35), transparent 60%), linear-gradient(180deg, rgba(255,255,0,0.12), transparent 50%); mix-blend-mode: screen; }
+    .leak-3 { background: linear-gradient(270deg, rgba(255,120,0,0.35), transparent 55%), radial-gradient(180px 120px at 10% 10%, rgba(255,0,150,0.25), transparent 60%); mix-blend-mode: screen; }
+    .leak-4 { background: radial-gradient(220px 160px at 0% 50%, rgba(255,0,150,0.35), transparent 70%), linear-gradient(0deg, rgba(255,50,50,0.12), transparent 50%); mix-blend-mode: screen; }
+    .leak-5 { background: radial-gradient(200px 120px at 50% 100%, rgba(0,180,255,0.25), transparent 65%), linear-gradient(90deg, rgba(255,160,0,0.2), transparent 55%); mix-blend-mode: screen; }
+
+    /* Label area (bottom border of polaroid) */
+    .label {
+      height: var(--label-height);
+      display: flex; align-items: flex-end; justify-content: flex-end;
+      padding-top: 8px;
+    }
+    .text-label {
+      width: 100%;
+      font-family: 'Permanent Marker', system-ui;
+      font-size: 20px;
+      line-height: 1;
+      color: #222;
+      text-align: right;
+      padding-top: 8px;
+      user-select: none;
+    }
+
+    /* Controls */
+    .panel {
+      width: 420px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 16px;
+    }
+    .panel h3 { grid-column: 1 / -1; margin: 2px 0 6px; font-size: 14px; letter-spacing: .02em; color: #555; font-weight: 700; text-transform: uppercase; }
+    .row { grid-column: 1 / -1; display: flex; gap: 10px; align-items: center; }
+    .row.split { grid-column: auto; }
+
+    .btn, .btn-secondary {
+      appearance: none; border: 0; border-radius: 10px; padding: 10px 12px; cursor: pointer; font-weight: 600; font-size: 14px;
+    }
+    .btn { background: #111; color: #fff; }
+    .btn:hover { background:#2a2a2a; }
+    .btn-secondary { background: #f1f2f4; color: #111; }
+    .btn-secondary:hover { background: #e7e8ec; }
+
+    .chip-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip { display: grid; gap: 6px; justify-items: center; cursor: pointer; }
+    .chip .circle { width: 36px; height: 36px; border-radius: 999px; border: 1px solid #d6d8de; overflow: hidden; background: #eee; }
+    .chip.active .circle { outline: 2px solid #111; outline-offset: 1px; }
+    .chip label { font-size: 12px; color: #444; }
+
+    /* Filter chip previews: use current image as background with css filters */
+    .chip[data-filter] .circle { background-image: var(--preview-url); background-size: cover; background-position: center; }
+    .chip[data-filter="light"] .circle { filter: brightness(1.2); }
+    .chip[data-filter="dark"]  .circle { filter: grayscale(1) contrast(1.25); }
+
+    /* Light leak chip previews: combine photo + miniature gradients */
+    .chip[data-leak] .circle { position: relative; background-image: var(--preview-url); background-size: cover; background-position: center; }
+    .chip[data-leak] .circle::after { content: ""; position: absolute; inset: 0; border-radius: inherit; mix-blend-mode: screen; }
+    .chip[data-leak="1"] .circle::after { background: radial-gradient(40px 24px at 12% 80%, rgba(255,80,0,.6), transparent 60%); }
+    .chip[data-leak="2"] .circle::after { background: radial-gradient(44px 28px at 82% 18%, rgba(255,220,0,.5), transparent 60%); }
+    .chip[data-leak="3"] .circle::after { background: linear-gradient(270deg, rgba(255,120,0,.45), transparent 55%); }
+    .chip[data-leak="4"] .circle::after { background: radial-gradient(60px 40px at 0% 50%, rgba(255,0,150,.45), transparent 70%); }
+    .chip[data-leak="5"] .circle::after { background: radial-gradient(48px 36px at 50% 100%, rgba(0,180,255,.45), transparent 65%); }
+
+    .range { width: 100%; }
+
+    /* Utility */
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .app { flex-direction: column; align-items: center; }
+      .panel { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Polaroid Left -->
+    <div class="polaroid" id="polaroid">
+      <div class="photo-wrap">
+        <video id="camera" playsinline autoplay></video>
+        <img id="preview" alt="" />
+        <div class="overlay" id="leak"></div>
+        <div class="grain" id="grain"></div>
+      </div>
+      <div class="label">
+        <div class="text-label" id="text-label">Your text</div>
+      </div>
+    </div>
+
+    <!-- Controls Right -->
+    <div class="panel" id="panel">
+      <h3>Image Source</h3>
+      <div class="row split">
+        <button class="btn-secondary" id="btn-upload">Upload</button>
+        <button class="btn-secondary" id="btn-camera">Take Photo</button>
+        <input type="file" id="file" accept="image/*" class="hidden" />
+      </div>
+
+      <div class="row hidden" id="camera-actions">
+        <button class="btn" id="btn-capture">Capture</button>
+        <button class="btn-secondary" id="btn-retake">Retake</button>
+        <button class="btn" id="btn-use">Use</button>
+      </div>
+
+      <h3>Filters</h3>
+      <div class="chip-group" id="filters">
+        <div class="chip active" data-filter="none"><div class="circle"></div><label>None</label></div>
+        <div class="chip" data-filter="light"><div class="circle"></div><label>Light</label></div>
+        <div class="chip" data-filter="dark"><div class="circle"></div><label>Dark</label></div>
+      </div>
+
+      <h3>Light Leaks</h3>
+      <div class="chip-group" id="leaks">
+        <div class="chip active" data-leak="none"><div class="circle" style="background:#f0f1f4"></div><label>None</label></div>
+        <div class="chip" data-leak="1"><div class="circle"></div><label>01</label></div>
+        <div class="chip" data-leak="2"><div class="circle"></div><label>02</label></div>
+        <div class="chip" data-leak="3"><div class="circle"></div><label>03</label></div>
+        <div class="chip" data-leak="4"><div class="circle"></div><label>04</label></div>
+        <div class="chip" data-leak="5"><div class="circle"></div><label>05</label></div>
+      </div>
+
+      <h3>Film Grain</h3>
+      <div class="row">
+        <input id="grain-range" class="range" type="range" min="0" max="3" step="1" value="0" />
+      </div>
+
+      <h3>Caption</h3>
+      <div class="row">
+        <input id="caption" type="text" placeholder="Type here" value="Your text" style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid #d6d8de;" />
+      </div>
+
+      <div class="row">
+        <button class="btn" id="btn-save">Save as PNG</button>
+        <button class="btn-secondary" id="btn-restart">Restart</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('file');
+    const btnUpload = document.getElementById('btn-upload');
+    const btnCamera = document.getElementById('btn-camera');
+    const btnCapture = document.getElementById('btn-capture');
+    const btnRetake = document.getElementById('btn-retake');
+    const btnUse = document.getElementById('btn-use');
+    const cameraActions = document.getElementById('camera-actions');
+    const btnRestart = document.getElementById('btn-restart');
+
+    const video = document.getElementById('camera');
+    const img = document.getElementById('preview');
+    const leak = document.getElementById('leak');
+    const grain = document.getElementById('grain');
+
+    const filters = document.getElementById('filters');
+    const leaks = document.getElementById('leaks');
+    const range = document.getElementById('grain-range');
+    const caption = document.getElementById('caption');
+    const textLabel = document.getElementById('text-label');
+    const btnSave = document.getElementById('btn-save');
+
+    let stream = null;
+    let photoDataURL = '';
+    let inCameraMode = false;
+    let captured = false;
+
+    function setPreviewURL(url) {
+      // Update CSS var so chips show mini previews of the current photo
+      document.documentElement.style.setProperty('--preview-url', url ? `url('${url}')` : 'url(\'\')');
+    }
+
+    function resetUI() {
+      // Stop camera if running
+      if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+        stream = null;
+      }
+      inCameraMode = false; captured = false; photoDataURL = '';
+      video.style.display = 'none';
+      img.style.display = 'none';
+      leak.className = 'overlay';
+      grain.style.opacity = 0;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      document.querySelector('.chip[data-filter="none"]').classList.add('active');
+      document.querySelector('.chip[data-leak="none"]').classList.add('active');
+      img.style.filter = '';
+      range.value = 0;
+      textLabel.textContent = caption.value = 'Your text';
+      setPreviewURL('');
+      cameraActions.classList.add('hidden');
+    }
+
+    // Upload flow
+    btnUpload.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        photoDataURL = reader.result;
+        img.src = photoDataURL;
+        img.style.display = 'block';
+        video.style.display = 'none';
+        setPreviewURL(photoDataURL);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Camera flow
+    btnCamera.addEventListener('click', async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+        video.srcObject = stream;
+        video.style.display = 'block';
+        img.style.display = 'none';
+        inCameraMode = true; captured = false; cameraActions.classList.remove('hidden');
+      } catch (e) {
+        alert('Camera permission denied or unavailable.');
+      }
+    });
+
+    btnCapture.addEventListener('click', () => {
+      if (!stream) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      photoDataURL = canvas.toDataURL('image/png');
+      img.src = photoDataURL;
+      img.style.display = 'block';
+      video.style.display = 'none';
+      captured = true;
+      setPreviewURL(photoDataURL);
+    });
+
+    btnRetake.addEventListener('click', async () => {
+      if (!inCameraMode) return;
+      if (!stream) {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+      }
+      video.srcObject = stream;
+      video.style.display = 'block';
+      img.style.display = 'none';
+      captured = false;
+    });
+
+    btnUse.addEventListener('click', () => {
+      if (!captured && !photoDataURL) return;
+      // Confirm photo and clean up camera controls
+      if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+      inCameraMode = false;
+      cameraActions.classList.add('hidden');
+      img.style.display = 'block';
+      video.style.display = 'none';
+    });
+
+    // Restart
+    btnRestart.addEventListener('click', resetUI);
+
+    // Filters
+    filters.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      filters.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const type = chip.dataset.filter;
+      img.style.filter = '';
+      switch (type) {
+        case 'light': img.style.filter = 'brightness(1.2)'; break;
+        case 'dark': img.style.filter = 'grayscale(1) contrast(1.25)'; break;
+      }
+    });
+
+    // Light leaks
+    leaks.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      leaks.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const key = chip.dataset.leak;
+      leak.className = 'overlay';
+      if (key && key !== 'none') leak.classList.add('leak-' + key);
+    });
+
+    // Grain
+    range.addEventListener('input', () => {
+      const map = { 0: 0, 1: 0.2, 2: 0.4, 3: 0.6 };
+      grain.style.opacity = map[range.value] ?? 0;
+    });
+
+    // Caption
+    caption.addEventListener('input', () => { textLabel.textContent = caption.value; });
+
+    // Save PNG
+    document.getElementById('btn-save').addEventListener('click', async () => {
+      // Ensure overlays visible during capture
+      const node = document.getElementById('polaroid');
+      const canvas = await html2canvas(node, { useCORS: true, backgroundColor: null, scale: 2 });
+      const link = document.createElement('a');
+      link.download = 'polaroid.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    // Initialize clean state
+    resetUI();
+  </script>
+</body>
+</html>

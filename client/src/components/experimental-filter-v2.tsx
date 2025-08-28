@@ -152,7 +152,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                     ? 'border-warm-brown shadow-sm'
                     : 'bg-cream border-warm-brown hover:bg-light-brown/50'
                 }`}
-                style={isExpanded ? { backgroundColor: 'hsl(28, 30%, 55%)' } : {}}
+                style={isExpanded ? { backgroundColor: 'hsl(25, 25%, 22%)' } : {}}
                 layout
                 transition={{
                   type: "spring",
@@ -208,7 +208,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300 ease-out whitespace-nowrap border ${
                             selectedOptions.has(option.id)
                               ? getSelectedPillStyle(group.id, option.id)
-                              : 'bg-cream text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
+                              : 'bg-background text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
                           }`}
                           data-testid={`button-filter-option-${option.id}`}
                         >

@@ -18,7 +18,7 @@ interface ExperimentalFilterV2Props {
 const filterGroups: FilterGroup[] = [
   {
     id: 'medium',
-    label: 'By Medium',
+    label: 'Medium',
     type: 'multi',
     options: [
       { id: 'thought-bite', label: 'Thought Bites' },
@@ -29,7 +29,7 @@ const filterGroups: FilterGroup[] = [
   },
   {
     id: 'discipline',
-    label: 'By Discipline',
+    label: 'Discipline',
     type: 'multi',
     options: [
       { id: 'human-experience', label: 'Human Experience' },
@@ -40,7 +40,7 @@ const filterGroups: FilterGroup[] = [
   },
   {
     id: 'conviction',
-    label: 'By Conviction',
+    label: 'Conviction',
     type: 'multi',
     options: [
       { id: 'conviction-1', label: '1' },
@@ -139,7 +139,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
       {/* Main Filter Bar - Horizontal layout */}
       <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
         {/* Filter Header - inline with pills */}
-        <h3 className="text-lg font-medium text-warm-brown">Filter</h3>
+        <h3 className="text-lg font-medium text-gray-600">Filter By</h3>
         
         {filterGroups.map(group => {
           const isExpanded = expandedGroup === group.id;
@@ -149,10 +149,10 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
               <motion.div
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
                   isExpanded
-                    ? 'border-warm-brown shadow-sm'
-                    : 'bg-cream border-warm-brown hover:bg-light-brown/50'
+                    ? 'border-gray-400 shadow-sm'
+                    : 'bg-gray-50 border-gray-300 hover:bg-gray-100'
                 }`}
-                style={isExpanded ? { backgroundColor: 'hsl(25, 25%, 22%)' } : {}}
+                style={isExpanded ? { backgroundColor: '#374151' } : {}}
                 layout
                 transition={{
                   type: "spring",
@@ -167,9 +167,9 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 ease-out ${
                     isExpanded
                       ? 'bg-transparent'
-                      : 'text-warm-brown bg-transparent hover:bg-warm-brown/10 hover:text-warm-brown'
+                      : 'text-gray-600 bg-transparent hover:bg-gray-200 hover:text-gray-700'
                   }`}
-                  style={isExpanded ? { color: 'hsl(35, 80%, 99%)' } : {}}
+                  style={isExpanded ? { color: '#f9fafb' } : {}}
                   data-testid={`button-filter-${group.id}`}
                 >
                   {group.label}
@@ -208,7 +208,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                           className={`px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300 ease-out whitespace-nowrap border ${
                             selectedOptions.has(option.id)
                               ? getSelectedPillStyle(group.id, option.id)
-                              : 'bg-background text-warm-brown border-warm-brown/30 hover:bg-warm-brown/10'
+                              : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'
                           }`}
                           data-testid={`button-filter-option-${option.id}`}
                         >
@@ -235,7 +235,7 @@ function getSelectedPillStyle(groupId: string, optionId: string): string {
     if (optionId === 'pov') return 'bg-green-500 text-white border-green-500';
     if (optionId === 'future-seed') return 'bg-purple-500 text-white border-purple-500';
   } else if (groupId === 'discipline' || groupId === 'conviction') {
-    return 'bg-warm-brown text-cream border-warm-brown';
+    return 'bg-gray-600 text-white border-gray-600';
   }
-  return 'bg-warm-brown text-cream border-warm-brown';
+  return 'bg-gray-600 text-white border-gray-600';
 }

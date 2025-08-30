@@ -11,8 +11,9 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
   const [, setLocation] = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Check if content has more to show
-  const hasMoreContent = thought.fullDescription && thought.fullDescription.trim() !== thought.description?.trim();
+  // Check if content has more to show - fullDescription should be significantly longer than description
+  const hasMoreContent = thought.fullDescription && 
+    thought.fullDescription.trim().length > (thought.description?.trim().length || 0) + 50;
   
   // Get display content based on expansion state
   const getDisplayContent = () => {

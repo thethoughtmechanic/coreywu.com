@@ -12,7 +12,7 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Check if content has more to show
-  const hasMoreContent = thought.fullDescription && thought.fullDescription !== thought.description;
+  const hasMoreContent = thought.fullDescription && thought.fullDescription.trim() !== thought.description?.trim();
   
   // Get display content based on expansion state
   const getDisplayContent = () => {
@@ -259,14 +259,16 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
                 <span className="font-medium">Work in Progress</span>
               </div>
             </div>
-          ) : hasMoreContent ? (
-            <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-              <span>{isExpanded ? 'See less' : 'See more'}</span>
-              <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          ) : null}
+          ) : (
+            hasMoreContent && (
+              <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
+                <span>{isExpanded ? 'See less' : 'See more'}</span>
+                <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+            )
+          )}
         </div>
       </div>
     </article>

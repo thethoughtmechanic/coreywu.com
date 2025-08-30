@@ -144,16 +144,23 @@ Speculation, prototyping, long-term imagination
 - **Value**: Each piece should offer genuine insight or provoke thought
 - **Clarity**: Ideas should be understandable to intended audience
 
-### Content Display Guidelines
-- **Long Content Truncation**: Content that is too long should by default show only the first paragraph (unless explicitly stated for custom formatting)
-- **Expandable Content**: All truncated content must include "See more" functionality that expands to show the full content
-- **Consistent Interaction**: Use consistent expand/collapse patterns across all content types
+### Expandable Content Implementation
 
-#### Technical Implementation Notes
-- **Data Structure**: When adding thoughts with expandable content, ensure both `description` (first paragraph) and `fullDescription` (complete content) fields are populated
-- **Component Logic**: The ThoughtCard component automatically detects when `fullDescription` exists and differs from `description`, then shows appropriate expand/collapse functionality
-- **Content Formatting**: Use `\n\n` to separate paragraphs in `fullDescription` for proper paragraph rendering
-- **Testing**: Always verify that "See more" functionality appears and works correctly after adding new content with extended descriptions
+**Required Data Structure**:
+- `description`: First paragraph only (preview text)
+- `fullDescription`: Complete content including all paragraphs
+- Both fields must be populated and different for expand/collapse to work
+
+**Content Formatting**:
+- Use `\n\n` to separate paragraphs in `fullDescription`
+- Ensure `description` contains only the opening paragraph
+- `fullDescription` should include the complete content
+
+**Implementation Checklist**:
+1. Populate both `description` and `fullDescription` fields
+2. Verify `description` ≠ `fullDescription` (triggers expand/collapse)
+3. Test "See more" button appears and functions correctly
+4. Confirm paragraph formatting renders properly when expanded
 
 ## Metadata Management
 

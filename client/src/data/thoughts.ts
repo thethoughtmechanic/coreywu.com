@@ -2,6 +2,18 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "14",
+    title: "The Plight of Modern Managers",
+    description: "After months of training myself to be explicit and comprehensive with LLMs, I caught myself being too direct with a human intern—almost offensive in my clarity.",
+    fullDescription: "After months of training myself to be explicit and comprehensive with LLMs, I caught myself being too direct with a human intern—almost offensive in my clarity.\n\nNow I wonder: do we coddle humans and limit effectiveness for the sake of politeness? Is human potential bottlenecked by our fragile egos? Modern managers now juggle two species: one that craves precision and another that needs compassion.\n\nWe're in an awkward transition between managing AI and humans, creating a genuine challenge for managers who must switch between vastly different communication styles.\n\nI find I prefer the version of myself that is unfiltered, honest, and empowered.",
+    tag: "Thought Bite",
+    topic: "identity-meaning",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Aug 30, 2025"
+  },
+  {
     id: "13",
     title: "Creativity Is a Construct of Human Ego",
     description: "We glorify creativity as the pinnacle of human value—but what if it's just ego at work?",

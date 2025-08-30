@@ -144,6 +144,11 @@ Speculation, prototyping, long-term imagination
 - **Value**: Each piece should offer genuine insight or provoke thought
 - **Clarity**: Ideas should be understandable to intended audience
 
+### Content Display Guidelines
+- **Long Content Truncation**: Content that is too long should by default show only the first paragraph (unless explicitly stated for custom formatting)
+- **Expandable Content**: All truncated content must include "See more" functionality that expands to show the full content
+- **Consistent Interaction**: Use consistent expand/collapse patterns across all content types
+
 ## Metadata Management
 
 ### Required Fields

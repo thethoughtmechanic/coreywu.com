@@ -252,236 +252,76 @@ export default function Thoughts() {
                     {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                   </h3>
                   <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
-                    {thought.id === '8' ? (
-                      <>
-                        {expandedThought === thought.id ? (
+                    {(() => {
+                      // Check if this thought has expandable content
+                      const hasMoreContent = thought.fullDescription && 
+                        thought.description &&
+                        thought.fullDescription.trim().length > thought.description.trim().length + 50;
+
+                      if (hasMoreContent) {
+                        const isExpanded = expandedThought === thought.id;
+                        const contentToShow = isExpanded ? thought.fullDescription : thought.description;
+                        
+                        return (
                           <>
-                            <p className="mb-3">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
-                            <p className="mb-3">Optimists see missed breakthroughs as moral failures—every delayed cure costs lives. Pessimists see rushed deployments as existential risks—one bad AI launch undermines decades of progress.</p>
-                            <p className="mb-3">Short-term, reversible decisions favour Type 1 tolerance (try fast, fail fast). Long-term, irreversible ones favour Type 2 tolerance (genetic modifications, climate interventions can't be easily undone).</p>
-                            <p className="mb-3">The question isn't which error type to avoid, but developing better mechanisms to adjust our tolerance based on context, stakes, and reversibility.</p>
+                            <div className="mb-4">
+                              {contentToShow?.split('\n\n').map((paragraph, index) => (
+                                <p key={index} className="mb-3" dangerouslySetInnerHTML={{
+                                  __html: paragraph
+                                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                                    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                                    .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                                }} />
+                              ))}
+                            </div>
                             <button
-                              onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
+                              onClick={() => setExpandedThought(isExpanded ? null : thought.id)}
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1"
                             >
-                              <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className={`w-3 h-3 ${isExpanded ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                               </svg>
-                              See less
+                              {isExpanded ? 'See less' : 'See more'}
                             </button>
                           </>
-                        ) : (
-                          <>
-                            <p className="mb-2">The discourse around AI development seems to come back to Type 1 and Type 2 error tolerances (like politics).</p>
-                            <button
-                              onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See more
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : thought.id === '9' ? (
-                      <>
-                        {expandedThought === thought.id ? (
-                          <>
-                            {thought.fullDescription?.split('\n').map((line, index) => (
-                              <p key={index} className="mb-3" dangerouslySetInnerHTML={{
-                                __html: line.replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
-                              }} />
-                            ))}
-                            <button
-                              onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See less
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <p className="mb-2">{thought.description}</p>
-                            <button
-                              onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See more
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : thought.id === '10' ? (
-                      <>
-                        {expandedThought === thought.id ? (
-                          <>
-                            {thought.fullDescription?.split('\n').map((line, index) => (
-                              <p key={index} className="mb-3">{line}</p>
-                            ))}
-                            <button
-                              onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See less
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <div className="mb-2">{thought.description?.split('\n').map((line, index) => (
-                              <p key={index} className="mb-3">{line}</p>
-                            ))}</div>
-                            <button
-                              onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See more
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : thought.id === '11' ? (
-                      <>
-                        {expandedThought === thought.id ? (
-                          <>
-                            <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
-                            <p className="mb-3">Imagine if your rent or condo fees came with community credits to spend at local studios, restaurants, shops, and experiences. Real estate as a community platform, weaving residents into the city rather than isolating them inside four walls.</p>
-                            <p className="mb-3">When a building joins a neighborhood, it should connect, not isolate. It should bring people together, strengthen local businesses, and make community the true amenity.</p>
-                            <button
-                              onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See less
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
-                            <button
-                              onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See more
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : thought.tag === 'Future Seed' ? (
-                      <>
-                        {expandedThought === thought.id ? (
-                          <>
-                            {thought.description?.split('\n').map((line, index) => (
-                              line.trim() ? <p key={index} className="mb-3">{line}</p> : <div key={index} className="mb-3"></div>
-                            ))}
-                            <button
-                              onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See less
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <p className="mb-3">What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?</p>
-                            <button
-                              onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See more
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : thought.id === '13' ? (
-                      <>
-                        {expandedThought === thought.id ? (
-                          <>
-                            {thought.fullDescription?.split('\n\n').map((paragraph, index) => (
-                              <p key={index} className="mb-3">{paragraph}</p>
-                            ))}
-                            <button
-                              onClick={() => setExpandedThought(null)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See less
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <p className="mb-2">{thought.description}</p>
-                            <button
-                              onClick={() => setExpandedThought(thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              See more
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : (
-                      <div className="text-sm text-soft-black/70 mb-4 leading-relaxed">
-                        {(thought.description || '').split('\n').map((line, index) => {
-                          // Handle image markdown
-                          if (line.startsWith('![') && line.includes('](')) {
-                            const imageMatch = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
-                            if (imageMatch) {
+                        );
+                      } else {
+                        // No expandable content, show description normally
+                        return (
+                          <div>
+                            {(thought.description || '').split('\n').map((line, index) => {
+                              // Handle image markdown
+                              if (line.startsWith('![') && line.includes('](')) {
+                                const imageMatch = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+                                if (imageMatch) {
+                                  return (
+                                    <img
+                                      key={index}
+                                      src={imageMatch[2]}
+                                      alt={imageMatch[1]}
+                                      className="max-w-full h-auto rounded-lg mb-4"
+                                    />
+                                  );
+                                }
+                              }
+
+                              // Handle bold and italic formatting
+                              let formattedLine = line
+                                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                                .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
                               return (
-                                <img
+                                <p
                                   key={index}
-                                  src={imageMatch[2]}
-                                  alt={imageMatch[1]}
-                                  className="max-w-full h-auto rounded-lg mb-4"
+                                  className="mb-1"
+                                  dangerouslySetInnerHTML={{ __html: formattedLine }}
                                 />
                               );
-                            }
-                          }
-
-                          // Handle bold and italic formatting
-                          let formattedLine = line
-                            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                            .replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
-                          return (
-                            <p
-                              key={index}
-                              className="mb-1"
-                              dangerouslySetInnerHTML={{ __html: formattedLine }}
-                            />
-                          );
-                        })}
-                      </div>
-                    )}
+                            })}
+                          </div>
+                        );
+                      }
+                    })()}
                   </div>
                 </>
               )}

@@ -6,12 +6,10 @@ This is a personal portfolio website designed as a "digital garden" - a space fo
 
 ### Recent Updates (August 2025)
 - **Mobile Responsive Redesign**: Comprehensive mobile-first optimization with industry best practices
-- **Mobile Navigation**: Replaced top navigation bar with hamburger menu for mobile devices
-- **Card Layout Optimization**: Redesigned 3-card landing page layout for better mobile viewing
-- **Typography Scaling**: Implemented responsive text sizes that scale appropriately across devices
-- **Touch-Friendly Interface**: Enhanced touch targets and mobile interaction patterns
-- **Mister Misu Page Conversion**: Converted modal experience to dedicated page at `/experiments/mistermisu` for cleaner routing and better user experience
-- **Server Stability Improvements**: Added graceful shutdown handling, error recovery, and automatic fallback port selection to prevent recurring workflow crashes
+- **Enhanced Content Expansion**: Fixed 'see more' functionality for thoughts with improved content detection logic
+- **Polaroid Tool Enhancement**: Refined layout with left-frame/right-controls positioning and fixed PNG export dimensions
+- **Filter System**: Interactive category filters with color inversion and nested sub-filter functionality
+- **Server Stability**: Port conflict resolution and graceful shutdown handling
 
 ## User Preferences
 
@@ -29,48 +27,42 @@ Preferred communication style: Simple, everyday language.
 ### Component Structure
 - **Page Components**: Home, About, Thoughts, Experiments, Mister Misu, and NotFound pages
 - **UI Components**: Reusable cards for timeline events, thoughts, and experiments
-- **Navigation**: Responsive navigation with desktop header and mobile hamburger menu with slide-out drawer
+- **Content Expansion**: Thoughts cards with 'see more' functionality based on length-based detection
+- **Navigation**: Responsive navigation with desktop header and mobile hamburger menu
 - **Layout**: Mobile-first responsive design with optimized card layouts and typography scaling
-- **Mobile Features**: Touch-friendly interfaces, proper spacing, and viewport-aware layouts
-- **Dedicated Pages**: Individual project pages with clean routing structure (e.g., /experiments/mistermisu)
 
-### Backend Architecture
-- **Server**: Express.js with TypeScript
-- **API Design**: RESTful endpoints for timeline events, thoughts, and experiments
-- **Development**: Hot module replacement with Vite integration
-- **Error Handling**: Centralized error middleware with JSON responses
+### Content Management Patterns
 
-### Data Layer
-- **ORM**: Drizzle ORM for type-safe database operations
-- **Database**: PostgreSQL with Neon serverless driver
-- **Schema**: Defined schemas for users, timeline events, thoughts, and experiments
-- **Storage Interface**: Abstract storage interface with in-memory implementation for development
+#### Expandable Content Implementation
+For thoughts with preview + 'see more' functionality:
 
-### Development Setup
-- **Build System**: Vite for frontend, esbuild for backend compilation
-- **Environment**: Separate development and production configurations
-- **Type Safety**: Strict TypeScript configuration across client, server, and shared modules
-- **Process Management**: Robust server startup with automatic port conflict resolution, graceful shutdown handling, and error recovery to prevent workflow interruptions
+**Data Structure** (`client/src/data/thoughts.ts`):
+```typescript
+{
+  id: "unique-id",
+  title: "Content Title",
+  description: "Preview text (first paragraph or summary)",
+  fullDescription: "Complete content including description + additional paragraphs",
+  // ... other fields
+}
+```
 
-## External Dependencies
+**Detection Logic** (`ThoughtCard` component):
+```typescript
+const hasMoreContent = thought.fullDescription && 
+  thought.fullDescription.trim().length > (thought.description?.trim().length || 0) + 50;
+```
 
-### UI and Styling
-- **Radix UI**: Comprehensive set of accessible UI primitives
-- **Tailwind CSS**: Utility-first CSS framework with custom design tokens
-- **Lucide React**: Icon library for consistent iconography
-- **Class Variance Authority**: Type-safe styling variants
+**Key Requirements**:
+- `fullDescription` must be 50+ characters longer than `description`
+- `description` serves as preview text
+- `fullDescription` contains complete content
+- Toggle state managed with `useState(false)` per card
 
-### Backend Services
-- **Neon Database**: Serverless PostgreSQL database hosting
-- **Express**: Web framework for API endpoints
-- **Drizzle Kit**: Database migrations and schema management
-
-### Development Tools
-- **Vite**: Frontend build tool with hot reload
-- **TanStack Query**: Server state management and caching
-- **Wouter**: Lightweight routing library
-- **TypeScript**: Type safety across the entire application
-
-### Hosting and Deployment
-- **Replit**: Development environment with built-in deployment
-- **Environment Variables**: Database connection and configuration management
+### Technical Stack
+- **Frontend**: React + TypeScript + Vite + Tailwind CSS + Shadcn/ui
+- **Backend**: Express.js + TypeScript + Drizzle ORM + PostgreSQL
+- **Routing**: Wouter for client-side navigation
+- **State**: TanStack Query for server state management
+- **Development**: Hot reload, type safety, graceful error handling
+- **Hosting**: Replit with automatic deployment

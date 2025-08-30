@@ -147,20 +147,32 @@ Speculation, prototyping, long-term imagination
 ### Expandable Content Implementation
 
 **Required Data Structure**:
-- `description`: First paragraph only (preview text)
+- `description`: First paragraph or opening sentences only (preview text)
 - `fullDescription`: Complete content including all paragraphs
-- Both fields must be populated and different for expand/collapse to work
+- Both fields must be populated with `fullDescription` being significantly longer (50+ characters more)
 
-**Content Formatting**:
+**Content Formatting Rules**:
 - Use `\n\n` to separate paragraphs in `fullDescription`
-- Ensure `description` contains only the opening paragraph
-- `fullDescription` should include the complete content
+- `description` must contain ONLY the opening content (first paragraph or opening sentences)
+- `fullDescription` must contain the COMPLETE content (including the opening content from description)
+- Length difference must be > 50 characters to trigger expand/collapse functionality
 
 **Implementation Checklist**:
-1. Populate both `description` and `fullDescription` fields
-2. Verify `description` ≠ `fullDescription` (triggers expand/collapse)
-3. Test "See more" button appears and functions correctly
-4. Confirm paragraph formatting renders properly when expanded
+1. ✅ Populate both `description` and `fullDescription` fields
+2. ✅ Ensure `fullDescription.length > description.length + 50` (triggers expand/collapse)  
+3. ✅ `description` should be the opening content only
+4. ✅ `fullDescription` should include opening content + additional paragraphs
+5. ✅ Test "See more" button appears and functions correctly
+6. ✅ Verify expansion shows full content, collapse shows preview only
+
+**Example Structure**:
+```typescript
+{
+  description: "Opening paragraph only...",
+  fullDescription: "Opening paragraph only...\n\nSecond paragraph...\n\nThird paragraph...",
+  // This ensures fullDescription.length > description.length + 50
+}
+```
 
 ## Metadata Management
 

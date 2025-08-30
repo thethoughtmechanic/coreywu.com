@@ -13,13 +13,13 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
 
   // Check if content has more to show - fullDescription should be significantly longer than description
   const hasMoreContent = thought.fullDescription && 
-    thought.fullDescription.trim().length > (thought.description?.trim().length || 0) + 50;
+    thought.description &&
+    thought.fullDescription.trim().length > thought.description.trim().length + 50;
   
   // Get display content based on expansion state
   const getDisplayContent = () => {
     if (!hasMoreContent) return thought.description;
-    if (isExpanded) return thought.fullDescription;
-    return thought.description;
+    return isExpanded ? thought.fullDescription : thought.description;
   };
 
   const handleSeeMoreClick = () => {
@@ -261,14 +261,12 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
               </div>
             </div>
           ) : (
-            hasMoreContent && (
-              <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-                <span>{isExpanded ? 'See less' : 'See more'}</span>
-                <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
-            )
+            <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
+              <span>{hasMoreContent ? (isExpanded ? 'See less' : 'See more') : 'Read full'}</span>
+              <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
           )}
         </div>
       </div>

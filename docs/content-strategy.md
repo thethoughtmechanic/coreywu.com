@@ -149,6 +149,12 @@ Speculation, prototyping, long-term imagination
 - **Expandable Content**: All truncated content must include "See more" functionality that expands to show the full content
 - **Consistent Interaction**: Use consistent expand/collapse patterns across all content types
 
+#### Technical Implementation Notes
+- **Data Structure**: When adding thoughts with expandable content, ensure both `description` (first paragraph) and `fullDescription` (complete content) fields are populated
+- **Component Logic**: The ThoughtCard component automatically detects when `fullDescription` exists and differs from `description`, then shows appropriate expand/collapse functionality
+- **Content Formatting**: Use `\n\n` to separate paragraphs in `fullDescription` for proper paragraph rendering
+- **Testing**: Always verify that "See more" functionality appears and works correctly after adding new content with extended descriptions
+
 ## Metadata Management
 
 ### Required Fields

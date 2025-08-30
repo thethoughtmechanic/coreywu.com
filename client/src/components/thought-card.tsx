@@ -1,5 +1,6 @@
 import { Thought } from "@shared/schema";
 import { useLocation } from "wouter";
+import { useState } from "react";
 
 interface ThoughtCardProps {
   thought: Thought;
@@ -8,9 +9,24 @@ interface ThoughtCardProps {
 
 export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) {
   const [, setLocation] = useLocation();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Check if content has more to show
+  const hasMoreContent = thought.fullDescription && thought.fullDescription !== thought.description;
+  
+  // Get display content based on expansion state
+  const getDisplayContent = () => {
+    if (!hasMoreContent) return thought.description;
+    if (isExpanded) return thought.fullDescription;
+    return thought.description;
+  };
 
   const handleSeeMoreClick = () => {
-    setLocation("/thoughts/ai-alignment-presentation");
+    if (hasMoreContent) {
+      setIsExpanded(!isExpanded);
+    } else {
+      setLocation("/thoughts/ai-alignment-presentation");
+    }
   };
 
   // Micro variant for quick thoughts
@@ -28,9 +44,13 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
                 {thought.readTime}
               </span>
             </div>
-            <p className="text-sm text-soft-black leading-relaxed" data-testid={`text-thought-description-${thought.id}`}>
-              {thought.description}
-            </p>
+            <div className="text-sm text-soft-black leading-relaxed" data-testid={`text-thought-description-${thought.id}`}>
+              {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
+                <p key={index} className={index > 0 ? 'mt-3' : ''}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </article>
@@ -91,9 +111,13 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
           <h3 className="font-light text-warm-brown mb-3 leading-tight text-xl group-hover:text-hover-brown transition-colors duration-200" data-testid={`text-thought-title-${thought.id}`}>
             {thought.title}
           </h3>
-          <p className="text-soft-black/80 leading-relaxed mb-4 text-sm" data-testid={`text-thought-description-${thought.id}`}>
-            {thought.description}
-          </p>
+          <div className="text-soft-black/80 leading-relaxed mb-4 text-sm" data-testid={`text-thought-description-${thought.id}`}>
+            {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
+              <p key={index} className={index > 0 ? 'mt-3' : ''}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
           {thought.status === 'wip' ? (
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-2 text-sm text-muted-grey">
@@ -103,7 +127,7 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
             </div>
           ) : (
             <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-              <span>See more</span>
+              <span>{hasMoreContent ? (isExpanded ? 'See less' : 'See more') : 'Read full'}</span>
               <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -154,9 +178,13 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
           <h3 className="font-light text-warm-brown mb-2 leading-tight text-lg group-hover:text-hover-brown transition-colors duration-200" data-testid={`text-thought-title-${thought.id}`}>
             {thought.title}
           </h3>
-          <p className="text-soft-black/80 leading-relaxed text-sm mb-4" data-testid={`text-thought-description-${thought.id}`}>
-            {thought.description}
-          </p>
+          <div className="text-soft-black/80 leading-relaxed text-sm mb-4" data-testid={`text-thought-description-${thought.id}`}>
+            {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
+              <p key={index} className={index > 0 ? 'mt-3' : ''}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
           <button className="w-full bg-warm-brown text-cream py-2 px-4 rounded-lg hover:bg-hover-brown transition-colors duration-200 text-sm font-medium" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
             {thought.tag === 'Video' ? 'Watch' : thought.tag === 'Audio' ? 'Listen' : 'View'}
           </button>
@@ -213,11 +241,15 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
           {thought.title}
         </h3>
 
-        <p className={`text-soft-black/80 leading-relaxed mb-6 flex-grow ${
+        <div className={`text-soft-black/80 leading-relaxed mb-6 flex-grow ${
             isLarge ? 'text-base' : 'text-sm'
           }`} data-testid={`text-thought-description-${thought.id}`}>
-          {thought.description}
-        </p>
+          {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
+            <p key={index} className={index > 0 ? 'mt-3' : ''}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
         <div className="mt-auto">
           {thought.status === 'wip' ? (
@@ -227,14 +259,14 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
                 <span className="font-medium">Work in Progress</span>
               </div>
             </div>
-          ) : (
+          ) : hasMoreContent ? (
             <button className="text-warm-brown hover:text-hover-brown transition-colors duration-200 text-sm font-medium flex items-center gap-2 group/btn" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
-              <span>See more</span>
+              <span>{isExpanded ? 'See less' : 'See more'}</span>
               <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
-          )}
+          ) : null}
         </div>
       </div>
     </article>

@@ -214,7 +214,7 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
       {/* Main Filter Bar - Horizontal layout */}
       <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
         {/* Filter Header - inline with pills */}
-        <h3 className="text-lg font-medium text-warm-brown">Filter</h3>
+        <h3 className="text-lg font-medium text-gray-600">Filter</h3>
         
         {filterGroups.map(group => {
           const isExpanded = expandedGroup === group.id;
@@ -224,10 +224,10 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
               <motion.div
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
                   isExpanded
-                    ? 'border-warm-brown shadow-sm'
-                    : 'bg-cream border-warm-brown hover:bg-light-brown/50'
+                    ? 'border-gray-300 shadow-sm'
+                    : 'bg-gray-50 border-gray-300 hover:bg-gray-100'
                 }`}
-                style={isExpanded ? { backgroundColor: 'hsl(25, 25%, 22%)' } : {}}
+                style={isExpanded ? { backgroundColor: '#e5e7eb' } : {}}
                 layout
                 transition={{
                   type: "spring",
@@ -242,9 +242,9 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 ease-out ${
                     isExpanded
                       ? 'bg-transparent'
-                      : 'text-warm-brown bg-transparent hover:bg-warm-brown/10 hover:text-warm-brown'
+                      : 'text-gray-600 bg-transparent hover:bg-gray-200 hover:text-gray-700'
                   }`}
-                  style={isExpanded ? { color: 'hsl(35, 80%, 99%)' } : {}}
+                  style={isExpanded ? { color: '#374151' } : {}}
                   data-testid={`button-filter-${group.id}`}
                 >
                   {group.label}

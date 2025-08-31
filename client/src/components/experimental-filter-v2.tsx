@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface FilterGroup {
   id: string;
@@ -53,6 +54,7 @@ const filterGroups: FilterGroup[] = [
 export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedFilters = [], onMultiFilterChange }: ExperimentalFilterV2Props) => {
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+  const isMobile = useIsMobile();
 
   // Map the selectedFilter from thoughts page to our internal format
   const getActiveFilterId = () => {
@@ -134,12 +136,85 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
     }
   };
 
+  // Mobile-first two-line layout
+  if (isMobile) {
+    return (
+      <div className="w-full">
+        {/* Mobile Filter Header */}
+        <h3 className="text-center text-lg font-medium text-warm-brown mb-4">Filter By</h3>
+        
+        {/* Top Line: Category Tabs */}
+        <div className="flex justify-center gap-1 mb-4">
+          {filterGroups.map(group => (
+            <button
+              key={group.id}
+              onClick={() => handleGroupClick(group.id)}
+              className={`px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 min-h-[44px] flex-1 ${
+                expandedGroup === group.id
+                  ? 'bg-warm-brown text-cream border-2 border-warm-brown'
+                  : 'bg-cream text-warm-brown border-2 border-warm-brown/20 hover:border-warm-brown/40'
+              }`}
+              data-testid={`button-mobile-filter-${group.id}`}
+            >
+              {group.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Bottom Line: Sub-filters (expandable) */}
+        <AnimatePresence mode="wait">
+          {expandedGroup && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{
+                duration: 0.3,
+                ease: "easeInOut"
+              }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-wrap justify-center gap-2 px-2 pb-4">
+                {filterGroups
+                  .find(group => group.id === expandedGroup)
+                  ?.options.map((option, index) => (
+                    <motion.button
+                      key={option.id}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{
+                        delay: index * 0.05,
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 25
+                      }}
+                      onClick={() => handleOptionClick(expandedGroup, option.id)}
+                      className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 min-h-[44px] whitespace-nowrap border-2 ${
+                        selectedOptions.has(option.id)
+                          ? getSelectedPillStyle(expandedGroup, option.id)
+                          : 'bg-background text-warm-brown border-warm-brown/30 hover:border-warm-brown/60 hover:bg-warm-brown/5'
+                      }`}
+                      data-testid={`button-mobile-filter-option-${option.id}`}
+                    >
+                      {option.label}
+                    </motion.button>
+                  ))
+                }
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  // Desktop layout (existing pill design)
   return (
     <div className="w-full">
       {/* Main Filter Bar - Horizontal layout */}
       <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
         {/* Filter Header - inline with pills */}
-        <h3 className="text-lg font-medium text-gray-600">Filter By</h3>
+        <h3 className="text-lg font-medium text-warm-brown">Filter</h3>
         
         {filterGroups.map(group => {
           const isExpanded = expandedGroup === group.id;
@@ -149,10 +224,10 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
               <motion.div
                 className={`flex items-center rounded-full overflow-hidden border transition-all duration-300 ease-out ${
                   isExpanded
-                    ? 'border-gray-300 shadow-sm'
-                    : 'bg-gray-50 border-gray-300 hover:bg-gray-100'
+                    ? 'border-warm-brown shadow-sm'
+                    : 'bg-cream border-warm-brown hover:bg-light-brown/50'
                 }`}
-                style={isExpanded ? { backgroundColor: '#e5e7eb' } : {}}
+                style={isExpanded ? { backgroundColor: 'hsl(25, 25%, 22%)' } : {}}
                 layout
                 transition={{
                   type: "spring",
@@ -167,9 +242,9 @@ export const ExperimentalFilterV2 = ({ selectedFilter, onFilterChange, selectedF
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 ease-out ${
                     isExpanded
                       ? 'bg-transparent'
-                      : 'text-gray-600 bg-transparent hover:bg-gray-200 hover:text-gray-700'
+                      : 'text-warm-brown bg-transparent hover:bg-warm-brown/10 hover:text-warm-brown'
                   }`}
-                  style={isExpanded ? { color: '#374151' } : {}}
+                  style={isExpanded ? { color: 'hsl(35, 80%, 99%)' } : {}}
                   data-testid={`button-filter-${group.id}`}
                 >
                   {group.label}

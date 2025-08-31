@@ -2,6 +2,18 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "15",
+    title: "Clock Speeds",
+    description: "I'd like to introduce a new term to describe the growing divide between those who use technology and those who don't: clock speeds.",
+    fullDescription: "I'd like to introduce a new term to describe the growing divide between those who use technology and those who don't: clock speeds.\n\nAI has accelerated stratification of society, leaving 1x workers behind while creating 10x researchers and 100x engineers—requiring new paradigms for how we work together.\n\nSome organizations are already experimenting with solutions—Airtable recently introduced dedicated \"fast\" and \"slow\" thinking teams to handle different types of problems at their natural speeds, rather than forcing everything through the same traditional processes.",
+    tag: "Thought Bite",
+    topic: "ai-tech",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Aug 31, 2025"
+  },
+  {
     id: "14",
     title: "The Plight of Modern Managers",
     description: "After months of training myself to be explicit and comprehensive with LLMs, I caught myself being too direct with a human intern—almost offensive in my clarity.",

@@ -157,15 +157,46 @@ Speculation, prototyping, long-term imagination
 - `fullDescription` must contain the COMPLETE content (including the opening content from description)
 - Length difference must be > 50 characters to trigger expand/collapse functionality
 
+**Technical Implementation Rules**:
+- **ALWAYS use ThoughtCard component** for consistent behavior across desktop and mobile
+- **NEVER implement custom expand/collapse logic** in page layouts
+- **ALL layouts (desktop, mobile, masonry)** must use ThoughtCard component
+- **ThoughtCard component handles all expand/collapse logic automatically** based on data structure
+
 **Implementation Checklist**:
 1. ✅ Populate both `description` and `fullDescription` fields
 2. ✅ Ensure `fullDescription.length > description.length + 50` (triggers expand/collapse)  
 3. ✅ `description` should be the opening content only
 4. ✅ `fullDescription` should include opening content + additional paragraphs
-5. ✅ Test "See more" button appears and functions correctly
-6. ✅ Verify expansion shows full content, collapse shows preview only
+5. ✅ **Use ThoughtCard component in ALL layouts** (desktop, mobile, masonry)
+6. ✅ Test "See more" button appears and functions correctly on both desktop AND mobile
+7. ✅ Verify expansion shows full content, collapse shows preview only
+8. ✅ **NO custom expand/collapse implementations in page layouts**
 
-**Example Structure**:
+**Correct Layout Implementation**:
+```typescript
+// ✅ CORRECT - Use ThoughtCard component
+const MobileLayout = () => (
+  <div className="grid grid-cols-1 gap-4">
+    {thoughts.map((thought) => (
+      <ThoughtCard key={thought.id} thought={thought} variant="default" />
+    ))}
+  </div>
+);
+
+// ❌ WRONG - Custom implementation in layout
+const MobileLayout = () => (
+  <div className="grid grid-cols-1 gap-4">
+    {thoughts.map((thought) => (
+      <div key={thought.id}>
+        {/* Custom rendering logic */}
+      </div>
+    ))}
+  </div>
+);
+```
+
+**Data Structure Example**:
 ```typescript
 {
   description: "Opening paragraph only...",

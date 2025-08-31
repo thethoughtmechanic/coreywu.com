@@ -2,6 +2,23 @@ import { Thought } from "@shared/schema";
 import { useLocation } from "wouter";
 import { useState } from "react";
 
+/**
+ * ThoughtCard Component - SINGLE SOURCE OF TRUTH for thought rendering
+ * 
+ * This component handles ALL thought display logic including:
+ * - Expand/collapse functionality for thoughts with fullDescription
+ * - Consistent styling across all variants and layouts
+ * - Universal behavior for desktop and mobile
+ * 
+ * IMPORTANT: All layouts (desktop, mobile, masonry) MUST use this component.
+ * Do NOT implement custom thought rendering in page layouts.
+ * 
+ * The expand/collapse logic automatically triggers when:
+ * - thought.fullDescription exists
+ * - thought.description exists  
+ * - fullDescription.length > description.length + 50
+ */
+
 interface ThoughtCardProps {
   thought: Thought;
   variant?: 'default' | 'large' | 'featured' | 'compact' | 'micro' | 'media';

@@ -503,11 +503,11 @@ export default function Thoughts() {
 
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
-        {/* Mobile: Instagram-style vertical feed */}
+        {/* Mobile: Single column using beautiful ThoughtCard components */}
         {isMobile ? (
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-6">
             {sortedThoughts.map((thought, index) => (
-              <div key={thought.id} className="group/card cursor-pointer">
+              <div key={thought.id} className="w-full">
                 <ThoughtCard thought={thought} variant="default" />
               </div>
             ))}

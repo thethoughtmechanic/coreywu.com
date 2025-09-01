@@ -74,7 +74,7 @@ export default function Thoughts() {
   };
 
   const MasonryLayout = () => (
-    <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+    <div className="md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
       {sortedThoughts.map((thought, index) => (
         <div key={thought.id} className="break-inside-avoid mb-6 cursor-pointer group/card">
           <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${

@@ -504,7 +504,7 @@ export default function Thoughts() {
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
         {/* Mobile: Single column using beautiful ThoughtCard components */}
-        {isMobile ? (
+        <div className="md:hidden">
           <div className="grid grid-cols-1 gap-6">
             {sortedThoughts.map((thought, index) => (
               <div key={thought.id} className="w-full">
@@ -512,10 +512,12 @@ export default function Thoughts() {
               </div>
             ))}
           </div>
-        ) : (
-          /* Desktop: Masonry Layout */
+        </div>
+        
+        {/* Desktop: Masonry Layout */}
+        <div className="hidden md:block">
           <MasonryLayout />
-        )}
+        </div>
       </div>
 
       {/* Modal for Desktop Slide Expansion */}

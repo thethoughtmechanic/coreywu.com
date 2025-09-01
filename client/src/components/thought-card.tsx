@@ -63,11 +63,35 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
               </span>
             </div>
             <div className="text-sm text-soft-black leading-relaxed" data-testid={`text-thought-description-${thought.id}`}>
-              {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
-                <p key={index} className={index > 0 ? 'mt-3' : ''}>
-                  {paragraph}
-                </p>
-              ))}
+              {getDisplayContent()?.split('\n\n').map((paragraph, index) => {
+                // Handle image markdown
+                if (paragraph.startsWith('![') && paragraph.includes('](')) {
+                  const imageMatch = paragraph.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+                  if (imageMatch) {
+                    return (
+                      <img
+                        key={index}
+                        src={imageMatch[2]}
+                        alt={imageMatch[1]}
+                        className="max-w-full h-auto rounded-lg mb-4"
+                      />
+                    );
+                  }
+                }
+
+                return (
+                  <p 
+                    key={index} 
+                    className={index > 0 ? 'mt-3' : ''}
+                    dangerouslySetInnerHTML={{
+                      __html: paragraph
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                        .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -130,11 +154,35 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
             {thought.title}
           </h3>
           <div className="text-soft-black/80 leading-relaxed mb-4 text-sm" data-testid={`text-thought-description-${thought.id}`}>
-            {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
-              <p key={index} className={index > 0 ? 'mt-3' : ''}>
-                {paragraph}
-              </p>
-            ))}
+            {getDisplayContent()?.split('\n\n').map((paragraph, index) => {
+              // Handle image markdown
+              if (paragraph.startsWith('![') && paragraph.includes('](')) {
+                const imageMatch = paragraph.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+                if (imageMatch) {
+                  return (
+                    <img
+                      key={index}
+                      src={imageMatch[2]}
+                      alt={imageMatch[1]}
+                      className="max-w-full h-auto rounded-lg mb-4"
+                    />
+                  );
+                }
+              }
+
+              return (
+                <p 
+                  key={index} 
+                  className={index > 0 ? 'mt-3' : ''}
+                  dangerouslySetInnerHTML={{
+                    __html: paragraph
+                      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                      .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                  }}
+                />
+              );
+            })}
           </div>
           {thought.status === 'wip' ? (
             <div className="flex items-center gap-2">
@@ -197,11 +245,35 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
             {thought.title}
           </h3>
           <div className="text-soft-black/80 leading-relaxed text-sm mb-4" data-testid={`text-thought-description-${thought.id}`}>
-            {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
-              <p key={index} className={index > 0 ? 'mt-3' : ''}>
-                {paragraph}
-              </p>
-            ))}
+            {getDisplayContent()?.split('\n\n').map((paragraph, index) => {
+              // Handle image markdown
+              if (paragraph.startsWith('![') && paragraph.includes('](')) {
+                const imageMatch = paragraph.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+                if (imageMatch) {
+                  return (
+                    <img
+                      key={index}
+                      src={imageMatch[2]}
+                      alt={imageMatch[1]}
+                      className="max-w-full h-auto rounded-lg mb-4"
+                    />
+                  );
+                }
+              }
+
+              return (
+                <p 
+                  key={index} 
+                  className={index > 0 ? 'mt-3' : ''}
+                  dangerouslySetInnerHTML={{
+                    __html: paragraph
+                      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                      .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                  }}
+                />
+              );
+            })}
           </div>
           <button className="w-full bg-warm-brown text-cream py-2 px-4 rounded-lg hover:bg-hover-brown transition-colors duration-200 text-sm font-medium" data-testid={`button-read-more-${thought.id}`} onClick={handleSeeMoreClick}>
             {thought.tag === 'Video' ? 'Watch' : thought.tag === 'Audio' ? 'Listen' : 'View'}
@@ -260,11 +332,35 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
         <div className={`text-soft-black/80 leading-relaxed mb-6 flex-grow ${
             isLarge ? 'text-base' : 'text-sm'
           }`} data-testid={`text-thought-description-${thought.id}`}>
-          {getDisplayContent()?.split('\n\n').map((paragraph, index) => (
-            <p key={index} className={index > 0 ? 'mt-3' : ''}>
-              {paragraph}
-            </p>
-          ))}
+          {getDisplayContent()?.split('\n\n').map((paragraph, index) => {
+            // Handle image markdown
+            if (paragraph.startsWith('![') && paragraph.includes('](')) {
+              const imageMatch = paragraph.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+              if (imageMatch) {
+                return (
+                  <img
+                    key={index}
+                    src={imageMatch[2]}
+                    alt={imageMatch[1]}
+                    className="max-w-full h-auto rounded-lg mb-4"
+                  />
+                );
+              }
+            }
+
+            return (
+              <p 
+                key={index} 
+                className={index > 0 ? 'mt-3' : ''}
+                dangerouslySetInnerHTML={{
+                  __html: paragraph
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                    .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                }}
+              />
+            );
+          })}
         </div>
 
         <div className="mt-auto">

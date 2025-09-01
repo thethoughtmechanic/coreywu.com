@@ -237,6 +237,7 @@ export function ThoughtCard({ thought, variant = 'default' }: ThoughtCardProps) 
               <div className="relative z-10">
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
       </div>
+      </div>
 
       <div className={`${isLarge ? 'p-8' : 'p-6'} flex flex-col h-full`}>
         <div className="flex items-center justify-between mb-4">

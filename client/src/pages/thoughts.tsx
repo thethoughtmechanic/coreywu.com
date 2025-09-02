@@ -264,7 +264,7 @@ export default function Thoughts() {
 
                         return (
                           <>
-                            <div className="mb-3">
+                            <div>
                               {contentToShow?.split('\n\n').map((paragraph, index) => (
                                 <p key={index} className="mb-3 last:mb-0" dangerouslySetInnerHTML={{
                                   __html: paragraph
@@ -276,7 +276,7 @@ export default function Thoughts() {
                             </div>
                             <button
                               onClick={() => setExpandedThought(isExpanded ? null : thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1 mt-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1 mt-2"
                             >
                               <svg className={`w-3 h-3 ${isExpanded ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

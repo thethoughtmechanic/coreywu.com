@@ -4,8 +4,8 @@ export const thoughts: Thought[] = [
   {
     id: "16",
     title: "Curious Companions",
-    description: "What if exploring the web didn't mean endless scrolling or letting AI dictate the answers?\n\nImagine an AI companion that joins your journey: highlighting what matters to your goals, surfacing hidden insights, asking provocative questions, and bringing in content that challenges your perspective.\n\nInstead of a vision where Perplexity owns the answers or OpenAI replaces the screen—both pushing out individual voices—humans and AI could co-exist. You maintain agency over your consumption paths while retaining the ability to express your own ideas.\n\nThis isn't about efficiency. It's about a web where curiosity leads, individuals shape what they explore, and AI amplifies both expression and discovery.",
-    fullDescription: null,
+    description: "What if exploring the web didn't mean endless scrolling or letting AI dictate the answers?",
+    fullDescription: "What if exploring the web didn't mean endless scrolling or letting AI dictate the answers?\n\nImagine an AI companion that joins your journey: highlighting what matters to your goals, surfacing hidden insights, asking provocative questions, and bringing in content that challenges your perspective.\n\nInstead of a vision where Perplexity owns the answers or OpenAI replaces the screen—both pushing out individual voices—humans and AI could co-exist. You maintain agency over your consumption paths while retaining the ability to express your own ideas.\n\nThis isn't about efficiency. It's about a web where curiosity leads, individuals shape what they explore, and AI amplifies both expression and discovery.",
     tag: "Future Seed",
     topic: ["ai-tech", "futures-experiments"],
     readTime: null,
@@ -64,8 +64,8 @@ export const thoughts: Thought[] = [
   {
     id: "11",
     title: "Real Estate as a Community Platform",
-    description: "What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?\n\nImagine if your rent or condo fees came with community credits to spend at local studios, restaurants, shops, and experiences. Real estate as a community platform, weaving residents into the city rather than isolating them inside four walls.\n\nWhen a building joins a neighborhood, it should connect, not isolate. It should bring people together, strengthen local businesses, and make community the true amenity.",
-    fullDescription: null,
+    description: "What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?",
+    fullDescription: "What if buildings stopped trying to be everything—mini gyms, bland lounges, half-working jacuzzis—and instead focused on connecting residents with their neighborhood?\n\nImagine if your rent or condo fees came with community credits to spend at local studios, restaurants, shops, and experiences. Real estate as a community platform, weaving residents into the city rather than isolating them inside four walls.\n\nWhen a building joins a neighborhood, it should connect, not isolate. It should bring people together, strengthen local businesses, and make community the true amenity.",
     tag: "Future Seed",
     topic: ["society-power", "futures-experiments"],
     readTime: null,

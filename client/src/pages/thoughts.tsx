@@ -464,18 +464,14 @@ export default function Thoughts() {
       <div className="flex items-center justify-end gap-2 mb-8">
         <span className="text-sm text-muted-grey font-medium">Views:</span>
         <div className="flex gap-1">
-          <button className="group relative px-3 py-1.5 text-xs rounded-full font-medium transition-all duration-300 overflow-hidden border border-warm-brown text-white">
-            <div className="absolute inset-0 bg-warm-brown rounded-full" />
-            <div className="absolute inset-0 bg-warm-brown opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
-            <span className="relative z-10">Seeds</span>
+          <button className="group px-4 py-2 text-sm font-medium rounded-full border border-gray-300 bg-gray-100 text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out">
+            Seeds
           </button>
-          <button className="group relative px-3 py-1.5 text-xs rounded-full font-medium transition-all duration-300 overflow-hidden border border-warm-brown/30 text-warm-brown hover:text-white">
-            <div className="absolute inset-0 bg-warm-brown opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
-            <span className="relative z-10">Blossoms</span>
+          <button className="group px-4 py-2 text-sm font-medium rounded-full border border-gray-300 bg-gray-50 text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out">
+            Blossoms
           </button>
-          <button className="group relative px-3 py-1.5 text-xs rounded-full font-medium transition-all duration-300 overflow-hidden border border-warm-brown/30 text-warm-brown hover:text-white">
-            <div className="absolute inset-0 bg-warm-brown opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
-            <span className="relative z-10">Garden</span>
+          <button className="group px-4 py-2 text-sm font-medium rounded-full border border-gray-300 bg-gray-50 text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out">
+            Garden
           </button>
         </div>
       </div>

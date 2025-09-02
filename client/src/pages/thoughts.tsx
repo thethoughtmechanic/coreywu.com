@@ -461,7 +461,23 @@ export default function Thoughts() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 thoughts-background-texture">
       {/* Header */}
-      <header className="text-center mb-12 pt-4">
+      <header className="relative text-center mb-12 pt-4">
+        {/* View toggles in top right */}
+        <div className="absolute top-4 right-0 flex items-center gap-2">
+          <span className="text-sm text-muted-grey font-medium">Views:</span>
+          <div className="flex gap-1">
+            <button className="px-3 py-1.5 text-xs bg-warm-brown text-cream rounded-full font-medium">
+              Seeds
+            </button>
+            <button className="px-3 py-1.5 text-xs border border-warm-brown/30 text-warm-brown rounded-full hover:bg-warm-brown hover:text-cream transition-colors duration-200 font-medium">
+              Blossoms
+            </button>
+            <button className="px-3 py-1.5 text-xs border border-warm-brown/30 text-warm-brown rounded-full hover:bg-warm-brown hover:text-cream transition-colors duration-200 font-medium">
+              Garden
+            </button>
+          </div>
+        </div>
+
         {/* Title */}
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-thoughts-title">
           Idea Garden

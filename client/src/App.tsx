@@ -21,6 +21,7 @@ import AboutExpNew from "@/pages/about-expnew"; // Import the about-expnew compo
 import AboutQuizPersonas from "@/pages/about-quiz-personas"; // Import the quiz personas component
 import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the experimental thoughts component
 import ThoughtsAlt from "@/pages/thoughts-alt"; // Import the thoughts alt component
+import ThoughtsBlossoms from "@/pages/thoughts-blossoms"; // Import the thoughts blossoms component
 import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the experimental experiments component
 import Contact from "@/pages/contact"; // Import the contact component
 import MisterMisu from "@/pages/mister-misu"; // Import the Mister Misu component
@@ -92,6 +93,7 @@ function Router() {
           <Route path="/about-quiz-personas" component={AboutQuizPersonas} />
           <Route path="/contact" component={Contact} />
           <Route path="/thoughts" component={Thoughts} />
+          <Route path="/thoughts/blossoms" component={ThoughtsBlossoms} />
           <Route path="/thoughts-alt" component={ThoughtsAlt} /> {/* New notebook theme route */}
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />

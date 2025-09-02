@@ -497,46 +497,32 @@ export default function Thoughts() {
           <button
             key={tag}
             onClick={() => setSelectedFilter(tag)}
-            className={`relative px-2.5 py-1 text-xs font-medium rounded-full transition-all duration-500 overflow-hidden ${
+            className={`relative px-2.5 py-1 text-xs font-medium rounded-full border transition-all duration-300 overflow-hidden ${
               selectedFilter === tag
                 ? tag === 'All' 
-                  ? 'bg-gray-800 text-white border border-gray-800'
+                  ? 'bg-gray-800 text-white border-gray-800'
                   : tag === 'Thought Bite'
-                    ? 'bg-blue-500 text-white border border-blue-500'
+                    ? 'bg-blue-500 text-white border-blue-500'
                     : tag === 'Scenario' 
-                      ? 'bg-red-500 text-white border border-red-500'
+                      ? 'bg-red-500 text-white border-red-500'
                       : tag === 'POV'
-                        ? 'bg-green-500 text-white border border-green-500'
+                        ? 'bg-green-500 text-white border-green-500'
                         : tag === 'Future Seed'
-                          ? 'bg-purple-500 text-white border border-purple-500'
-                          : 'bg-gray-500 text-white border border-gray-500'
-                : 'bg-white border border-gray-300 text-gray-700 hover:text-white'
+                          ? 'bg-purple-500 text-white border-purple-500'
+                          : 'bg-gray-500 text-white border-gray-500'
+                : tag === 'All'
+                  ? 'bg-transparent text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white'
+                  : tag === 'Thought Bite'
+                    ? 'bg-transparent text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'
+                    : tag === 'Scenario'
+                      ? 'bg-transparent text-red-500 border-red-500 hover:bg-red-500 hover:text-white'
+                      : tag === 'POV'
+                        ? 'bg-transparent text-green-500 border-green-500 hover:bg-green-500 hover:text-white'
+                        : tag === 'Future Seed'
+                          ? 'bg-transparent text-purple-500 border-purple-500 hover:bg-purple-500 hover:text-white'
+                          : 'bg-transparent text-gray-500 border-gray-500 hover:bg-gray-500 hover:text-white'
             }`}
           >
-            {/* Selected background (always visible when selected) */}
-            {selectedFilter === tag && (
-              <div
-                className="absolute inset-0 rounded-full"
-                style={tag === "All" ? { background: "#374151" } : 
-                       tag === "Thought Bite" ? { background: "#3b82f6" } :
-                       tag === "Scenario" ? { background: "#ef4444" } :
-                       tag === "POV" ? { background: "#22c55e" } :
-                       tag === "Future Seed" ? { background: "#a855f7" } :
-                       { background: "#6b7280" }}
-              />
-            )}
-            {/* Hover background for unselected pills */}
-            {selectedFilter !== tag && (
-              <div
-                className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-full"
-                style={tag === "All" ? { background: "#374151" } : 
-                       tag === "Thought Bite" ? { background: "#3b82f6" } :
-                       tag === "Scenario" ? { background: "#ef4444" } :
-                       tag === "POV" ? { background: "#22c55e" } :
-                       tag === "Future Seed" ? { background: "#a855f7" } :
-                       { background: "#6b7280" }}
-              />
-            )}
             <span className="relative z-10">
               {tag}
             </span>

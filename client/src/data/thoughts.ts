@@ -2,6 +2,18 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "16",
+    title: "Curious Companions",
+    description: "What if exploring the web didn't mean endless scrolling or letting AI dictate the answers?\n\nImagine an AI companion that joins your journey: highlighting what matters to your goals, surfacing hidden insights, asking provocative questions, and bringing in content that challenges your perspective.\n\nInstead of a vision where Perplexity owns the answers or OpenAI replaces the screen—both pushing out individual voices—humans and AI could co-exist. You maintain agency over your consumption paths while retaining the ability to express your own ideas.\n\nThis isn't about efficiency. It's about a web where curiosity leads, individuals shape what they explore, and AI amplifies both expression and discovery.",
+    fullDescription: null,
+    tag: "Future Seed",
+    topic: ["ai-tech", "futures-experiments"],
+    readTime: null,
+    imageGradient: "from-purple-600 to-purple-400",
+    status: "published",
+    date: "Sep 2, 2025"
+  },
+  {
     id: "15",
     title: "Clock Speeds",
     description: "I'd like to introduce a new term to describe the growing divide between those who use technology and those who don't: clock speeds.",

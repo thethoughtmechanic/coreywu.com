@@ -497,23 +497,51 @@ export default function Thoughts() {
           <button
             key={tag}
             onClick={() => setSelectedFilter(tag)}
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 border-2 ${
+            className={`group relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ease-out overflow-hidden ${
               selectedFilter === tag
                 ? tag === 'All' 
-                  ? 'bg-gray-800 text-white border-gray-800'
+                  ? 'bg-gray-800 text-white border border-gray-800'
                   : tag === 'Thought Bite'
-                    ? 'bg-blue-500 text-white border-blue-500'
+                    ? 'bg-blue-500 text-white border border-blue-500'
                     : tag === 'Scenario' 
-                      ? 'bg-red-500 text-white border-red-500'
+                      ? 'bg-red-500 text-white border border-red-500'
                       : tag === 'POV'
-                        ? 'bg-green-500 text-white border-green-500'
+                        ? 'bg-green-500 text-white border border-green-500'
                         : tag === 'Future Seed'
-                          ? 'bg-purple-500 text-white border-purple-500'
-                          : 'bg-gray-500 text-white border-gray-500'
-                : 'bg-white border-gray-300 text-gray-700 hover:border-gray-400'
+                          ? 'bg-purple-500 text-white border border-purple-500'
+                          : 'bg-gray-500 text-white border border-gray-500'
+                : 'bg-white border border-gray-300 text-gray-700'
             }`}
           >
-            {tag}
+            {/* Selected background (always visible when selected) */}
+            {selectedFilter === tag && (
+              <div
+                className="absolute inset-0 rounded-full"
+                style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                       tag === "Thought Bite" ? { background: "#3b82f6" } :
+                       tag === "Scenario" ? { background: "#ef4444" } :
+                       tag === "POV" ? { background: "#22c55e" } :
+                       tag === "Future Seed" ? { background: "#a855f7" } :
+                       getPaintSplatter(tag)}
+              />
+            )}
+            {/* Hover background for unselected pills */}
+            {selectedFilter !== tag && (
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"
+                style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                       tag === "Thought Bite" ? { background: "#3b82f6" } :
+                       tag === "Scenario" ? { background: "#ef4444" } :
+                       tag === "POV" ? { background: "#22c55e" } :
+                       tag === "Future Seed" ? { background: "#a855f7" } :
+                       getPaintSplatter(tag)}
+              />
+            )}
+            <span className={`relative z-10 transition-colors duration-300 ${
+              selectedFilter !== tag ? 'group-hover:text-white' : ''
+            }`}>
+              {tag}
+            </span>
           </button>
         ))}
       </div>

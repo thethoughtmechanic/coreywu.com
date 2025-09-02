@@ -34,6 +34,7 @@ import { useState, useEffect } from "react";
 import EmailSubmissions from '@/pages/email-submissions';
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import GardenText from './pages/gardentext';
+import GardenViews from "@/pages/garden-views";
 import Backgrounds from "@/pages/backgrounds";
 import Components from "./pages/components";
 import Polaroid from "./pages/polaroid"; // Import the Polaroid component
@@ -104,6 +105,7 @@ function Router() {
           <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
           <Route path="/gardentext" component={GardenText} />
+          <Route path="/garden-views" component={GardenViews} />
           <Route path="/backgrounds" component={Backgrounds} />
           <Route path="/components" component={Components} />
           <Route path="/polaroid" component={Polaroid} />

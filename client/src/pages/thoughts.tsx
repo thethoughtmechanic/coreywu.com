@@ -492,12 +492,12 @@ export default function Thoughts() {
       </header>
 
       {/* Content Type Filter Pills */}
-      <div className="flex justify-center gap-2 mb-8">
+      <div className="flex justify-center gap-2 mb-6">
         {uniqueTags.map(tag => (
           <button
             key={tag}
             onClick={() => setSelectedFilter(tag)}
-            className={`group relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ease-out overflow-hidden ${
+            className={`relative px-2.5 py-1 text-xs font-medium rounded-full transition-all duration-500 overflow-hidden ${
               selectedFilter === tag
                 ? tag === 'All' 
                   ? 'bg-gray-800 text-white border border-gray-800'
@@ -510,36 +510,34 @@ export default function Thoughts() {
                         : tag === 'Future Seed'
                           ? 'bg-purple-500 text-white border border-purple-500'
                           : 'bg-gray-500 text-white border border-gray-500'
-                : 'bg-white border border-gray-300 text-gray-700'
+                : 'bg-white border border-gray-300 text-gray-700 hover:text-white'
             }`}
           >
             {/* Selected background (always visible when selected) */}
             {selectedFilter === tag && (
               <div
                 className="absolute inset-0 rounded-full"
-                style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                style={tag === "All" ? { background: "#374151" } : 
                        tag === "Thought Bite" ? { background: "#3b82f6" } :
                        tag === "Scenario" ? { background: "#ef4444" } :
                        tag === "POV" ? { background: "#22c55e" } :
                        tag === "Future Seed" ? { background: "#a855f7" } :
-                       getPaintSplatter(tag)}
+                       { background: "#6b7280" }}
               />
             )}
             {/* Hover background for unselected pills */}
             {selectedFilter !== tag && (
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"
-                style={tag === "All" ? { background: "linear-gradient(135deg, #374151 0%, #4b5563 100%)" } : 
+                className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-full"
+                style={tag === "All" ? { background: "#374151" } : 
                        tag === "Thought Bite" ? { background: "#3b82f6" } :
                        tag === "Scenario" ? { background: "#ef4444" } :
                        tag === "POV" ? { background: "#22c55e" } :
                        tag === "Future Seed" ? { background: "#a855f7" } :
-                       getPaintSplatter(tag)}
+                       { background: "#6b7280" }}
               />
             )}
-            <span className={`relative z-10 transition-colors duration-300 ${
-              selectedFilter !== tag ? 'group-hover:text-white' : ''
-            }`}>
+            <span className="relative z-10">
               {tag}
             </span>
           </button>

@@ -482,7 +482,7 @@ export default function Thoughts() {
       <header className="text-center mb-12">
         {/* Title */}
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-thoughts-title">
-          Idea Garden
+          Idea Seeds
         </h1>
 
         {/* Description */}

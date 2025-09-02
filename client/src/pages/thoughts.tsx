@@ -460,39 +460,39 @@ export default function Thoughts() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 thoughts-background-texture">
-      {/* View toggles - positioned above header */}
-      <div className="flex items-center justify-end gap-2 mb-8">
-        <span className="text-sm text-muted-grey font-medium">Views:</span>
-        <div className="flex gap-1">
-          <button className="group px-4 py-2 text-xs font-medium rounded-full border border-gray-300 bg-gray-200 text-gray-700 hover:scale-105 transition-all duration-300 ease-out">
-            Seeds
-          </button>
-          <button className="group relative px-4 py-2 text-xs font-medium rounded-full border border-gray-300 bg-transparent text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out cursor-not-allowed">
-            <span className="group-hover:opacity-0 transition-opacity duration-200">Blossoms</span>
-            <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-500">WIP</span>
-          </button>
-          <button className="group relative px-4 py-2 text-xs font-medium rounded-full border border-gray-300 bg-transparent text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out cursor-not-allowed">
-            <span className="group-hover:opacity-0 transition-opacity duration-200">Garden</span>
-            <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-500">WIP</span>
-          </button>
+      {/* Compact Header with integrated controls */}
+      <header className="text-center mb-6">
+        {/* Title and view toggles on same line for desktop */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+          <h1 className="text-3xl font-light text-warm-brown mb-2 md:mb-0" data-testid="text-thoughts-title">
+            Idea Garden
+          </h1>
+          <div className="flex items-center justify-center md:justify-end gap-2">
+            <span className="text-xs text-muted-grey font-medium">Views:</span>
+            <div className="flex gap-1">
+              <button className="group px-3 py-1 text-xs font-medium rounded-full border border-gray-300 bg-gray-200 text-gray-700 hover:scale-105 transition-all duration-300 ease-out">
+                Seeds
+              </button>
+              <button className="group relative px-3 py-1 text-xs font-medium rounded-full border border-gray-300 bg-transparent text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out cursor-not-allowed">
+                <span className="group-hover:opacity-0 transition-opacity duration-200">Blossoms</span>
+                <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-500">WIP</span>
+              </button>
+              <button className="group relative px-3 py-1 text-xs font-medium rounded-full border border-gray-300 bg-transparent text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out cursor-not-allowed">
+                <span className="group-hover:opacity-0 transition-opacity duration-200">Garden</span>
+                <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-500">WIP</span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Header */}
-      <header className="text-center mb-12">
-        {/* Title */}
-        <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-thoughts-title">
-          Idea Garden
-        </h1>
-
-        {/* Description */}
-        <p className="text-muted-grey max-w-xl mx-auto">
+        {/* Compact description */}
+        <p className="text-sm text-muted-grey">
           Reflections on design, strategy, and the intersection of technology and humanity
         </p>
       </header>
 
       {/* Content Type Filter Pills */}
-      <div className="flex justify-center gap-2 mb-8">
+      <div className="flex justify-center gap-2 mb-6">
         {uniqueTags.map(tag => (
           <button
             key={tag}

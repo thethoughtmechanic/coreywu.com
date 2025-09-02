@@ -80,6 +80,7 @@ export default function Thoughts() {
           <div className={`w-full bg-white backdrop-blur-none rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover/card:scale-105 overflow-hidden relative ${
             thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
             thought.tag === 'Scenario' ? 'min-h-[260px]' :
+            thought.tag === 'Future Seed' || thought.tag === 'POV' ? '' :
             index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
           }`}>
             <div className="relative z-10">

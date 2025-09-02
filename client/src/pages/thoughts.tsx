@@ -459,7 +459,7 @@ export default function Thoughts() {
   // );
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8 thoughts-background-texture">
+    <div className="max-w-7xl mx-auto px-6 py-4 thoughts-background-texture">
       {/* View toggles - positioned above header */}
       <div className="flex items-center justify-end gap-2 mb-8">
         <span className="text-sm text-muted-grey font-medium">Views:</span>
@@ -492,7 +492,7 @@ export default function Thoughts() {
       </header>
 
       {/* Content Type Filter Pills */}
-      <div className="flex justify-center gap-2 mb-6">
+      <div className="flex justify-center gap-2 mb-2">
         {uniqueTags.map(tag => (
           <button
             key={tag}

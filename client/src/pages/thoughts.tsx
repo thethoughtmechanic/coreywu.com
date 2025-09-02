@@ -7,7 +7,7 @@ import democracyImage from "@assets/image_1754686959251.png";
 import fourTribesImage from "@assets/image_1755886711758.png";
 import { getPaintSplatter } from "@/lib/paint-splatters";
 import CopyEmail from "@/components/copy-email";
-import { ExperimentalFilterV2 } from "@/components/experimental-filter-v2";
+import { ExperimentalFilter } from "@/components/experimental-filter";
 
 export default function Thoughts() {
   const [, setLocation] = useLocation();
@@ -491,13 +491,32 @@ export default function Thoughts() {
         </p>
       </header>
 
-      {/* Experimental Filter V2 */}
-      <ExperimentalFilterV2
-        selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
-        selectedFilters={selectedFilters}
-        onMultiFilterChange={setSelectedFilters}
-      />
+      {/* Content Type Filter Pills */}
+      <div className="flex justify-center gap-2 mb-8">
+        {uniqueTags.map(tag => (
+          <button
+            key={tag}
+            onClick={() => setSelectedFilter(tag)}
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 border-2 ${
+              selectedFilter === tag
+                ? tag === 'All' 
+                  ? 'bg-gray-800 text-white border-gray-800'
+                  : tag === 'Thought Bite'
+                    ? 'bg-blue-500 text-white border-blue-500'
+                    : tag === 'Scenario' 
+                      ? 'bg-red-500 text-white border-red-500'
+                      : tag === 'POV'
+                        ? 'bg-green-500 text-white border-green-500'
+                        : tag === 'Future Seed'
+                          ? 'bg-purple-500 text-white border-purple-500'
+                          : 'bg-gray-500 text-white border-gray-500'
+                : 'bg-white border-gray-300 text-gray-700 hover:border-gray-400'
+            }`}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
 
       {/* Idea Garden Content */}
       <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">

@@ -211,7 +211,7 @@ export default function Thoughts() {
                         </div>
                         <button
                           onClick={() => setExpandedThought(thought.id)}
-                          className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
+                          className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-3 flex items-center gap-1"
                         >
                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -251,7 +251,7 @@ export default function Thoughts() {
                   <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
                     {thought.id === '8' ? 'AI and Tolerances for Type I & II Errors' : thought.title}
                   </h3>
-                  <div className="text-sm text-soft-black/70 mb-6 leading-relaxed">
+                  <div className="text-sm text-soft-black/70 leading-relaxed">
                     {(() => {
                       // Check if this thought has expandable content
                       const hasMoreContent = thought.fullDescription &&
@@ -276,7 +276,7 @@ export default function Thoughts() {
                             </div>
                             <button
                               onClick={() => setExpandedThought(isExpanded ? null : thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1"
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1 mt-2"
                             >
                               <svg className={`w-3 h-3 ${isExpanded ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

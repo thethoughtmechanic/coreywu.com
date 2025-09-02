@@ -481,7 +481,7 @@ export default function Thoughts() {
         {/* Title */}
         <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-thoughts-title">
           Idea Garden
-        </h1></header>
+        </h1>
 
         {/* Description */}
         <p className="text-muted-grey max-w-xl mx-auto">

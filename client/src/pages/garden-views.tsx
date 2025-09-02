@@ -242,38 +242,17 @@ export default function GardenViews() {
                           </>
                         );
                       } else {
-                        // No expandable content, show description normally
+                        // No expandable content, show description normally with proper paragraph spacing
                         return (
                           <div>
-                            {(thought.description || '').split('\n').map((line, index) => {
-                              // Handle image markdown
-                              if (line.startsWith('![') && line.includes('](')) {
-                                const imageMatch = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
-                                if (imageMatch) {
-                                  return (
-                                    <img
-                                      key={index}
-                                      src={imageMatch[2]}
-                                      alt={imageMatch[1]}
-                                      className="max-w-full h-auto rounded-lg mb-4"
-                                    />
-                                  );
-                                }
-                              }
-
-                              // Handle bold and italic formatting
-                              let formattedLine = line
-                                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                                .replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
-                              return (
-                                <p
-                                  key={index}
-                                  className="mb-1"
-                                  dangerouslySetInnerHTML={{ __html: formattedLine }}
-                                />
-                              );
-                            })}
+                            {(thought.description || '').split('\n\n').map((paragraph, index) => (
+                              <p key={index} className="mb-3 last:mb-0" dangerouslySetInnerHTML={{
+                                __html: paragraph
+                                  .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                                  .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                                  .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                              }} />
+                            ))}
                           </div>
                         );
                       }

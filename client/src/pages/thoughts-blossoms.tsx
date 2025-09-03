@@ -61,17 +61,17 @@ const SeedCard = ({ seed, mouseLeft, isExpanded = false }: { seed: typeof societ
   return (
     <motion.div
       ref={ref}
-      className="relative w-full h-16 rounded-lg border-2 border-warm-brown/30 overflow-hidden cursor-pointer bg-cream/50 hover:bg-cream transition-colors duration-200"
+      className="relative flex-shrink-0 w-24 h-16 rounded-lg border border-warm-brown/30 overflow-hidden cursor-pointer bg-cream/50 hover:bg-cream transition-colors duration-200"
       style={{
         ...(isExpanded && { x: xSpring, scale: scaleSpring }),
       }}
     >
-      <div className="w-full h-full flex items-center justify-center p-3">
+      <div className="w-full h-full flex items-center justify-center p-2">
         <h3 className="text-xs font-medium text-warm-brown text-center leading-tight">
           {seed.title}
         </h3>
       </div>
-      <div className="absolute inset-0 border-2 border-warm-brown/40 rounded-lg pointer-events-none" />
+      <div className="absolute inset-0 border border-warm-brown/40 rounded-lg pointer-events-none" />
     </motion.div>
   );
 };
@@ -214,10 +214,10 @@ const ThoughtBlossoms = () => {
               {/* Relevant Seeds Subtitle */}
               <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
 
-              {/* Collection Cards Grid with Mouse Tracking */}
+              {/* Collection Cards - Single Horizontal Row with Scroll */}
               <motion.div
                 ref={containerRef}
-                className="grid grid-cols-2 gap-3 mb-6 h-64"
+                className="flex gap-3 mb-6 overflow-x-auto pb-2"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 style={{ willChange: "transform" }}
@@ -226,7 +226,6 @@ const ThoughtBlossoms = () => {
                   <motion.div 
                     key={seed.id}
                     onClick={() => setExpandedSeed(seed.id)}
-                    className="flex items-center justify-center"
                   >
                     <SeedCard 
                       seed={seed} 

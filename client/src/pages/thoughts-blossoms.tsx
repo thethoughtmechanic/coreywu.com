@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useLocation } from "wouter";
 import CopyEmail from '../components/copy-email';
@@ -32,12 +33,9 @@ const ThoughtBlossoms = () => {
 
         {/* Header */}
         <header className="text-center mb-12">
-          {/* Title */}
           <h1 className="text-4xl font-light text-warm-brown mb-6 text-center" data-testid="text-thoughts-title">
             Thought Blossoms
           </h1>
-
-          {/* Description */}
           <p className="text-muted-grey max-w-xl mx-auto">
             Reflections on design, strategy, and the intersection of technology and humanity
           </p>
@@ -48,7 +46,7 @@ const ThoughtBlossoms = () => {
 
           {/* Left Blossom - Standard Collection Card */}
           <div className="group cursor-pointer">
-            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[400px]">
+            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
 
               {/* Collection Header */}
               <div className="mb-6">
@@ -62,7 +60,6 @@ const ThoughtBlossoms = () => {
 
               {/* Seed Cards Grid */}
               <div className="grid grid-cols-2 gap-3 mb-4">
-                {/* Individual seed cards - small and title-only */}
                 <div 
                   className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
                   onClick={() => setExpandedSeed('curious-companions')}
@@ -116,7 +113,7 @@ const ThoughtBlossoms = () => {
 
           {/* Right Blossom - Collection with Hover Effect */}
           <div className="group cursor-pointer">
-            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[400px]">
+            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
 
               {/* Collection Header */}
               <div className="mb-4">
@@ -133,7 +130,7 @@ const ThoughtBlossoms = () => {
 
               {/* Horizontal Cards with Collection Hover Effect */}
               <div className="relative mb-4">
-                <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+                <div className="flex gap-2 overflow-x-hidden">
                   {[
                     { id: 'four-tribes', title: 'Four Tribes of Tomorrow' },
                     { id: 'real-estate-community', title: 'Real Estate as Community' },
@@ -220,16 +217,6 @@ const ThoughtBlossoms = () => {
           </p>
         </footer>
       </div>
-
-      <style jsx>{`
-        .hide-scrollbar {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </div>
   );
 };

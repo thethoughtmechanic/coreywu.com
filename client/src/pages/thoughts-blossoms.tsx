@@ -128,64 +128,66 @@ const ThoughtBlossoms = () => {
                 </p>
               </div>
 
-              {/* Square Grid of Seed Cards */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                
-                {/* Four Tribes of Tomorrow */}
-                <div 
-                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
-                  onClick={() => setExpandedSeed('four-tribes')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
-                    Four Tribes of Tomorrow
-                  </h3>
-                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                
-                {/* Real Estate as Community */}
-                <div 
-                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
-                  onClick={() => setExpandedSeed('real-estate-community')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
-                    Real Estate as Community
-                  </h3>
-                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                
-                {/* Families Are The Root */}
-                <div 
-                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
-                  onClick={() => setExpandedSeed('families-inequality')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
-                    Families Are The Root of Inequality
-                  </h3>
-                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                
-                {/* Democracy's Last Voter */}
-                <div 
-                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
-                  onClick={() => setExpandedSeed('democracy-last-voter')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
-                    Democracy's Last Voter
-                  </h3>
-                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                
-                {/* Regulation Through Code */}
-                <div 
-                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center col-span-2"
-                  onClick={() => setExpandedSeed('regulation-code')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
-                    Regulation Through Code, Not Policy
-                  </h3>
-                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-                </div>
+              {/* Horizontal Scrollable Seed Cards */}
+              <div className="mb-6">
+                <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-warm-brown/20">
+                  
+                  {/* Four Tribes of Tomorrow */}
+                  <div 
+                    className="group/card relative flex-shrink-0 w-32 h-20 bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                    onClick={() => setExpandedSeed('four-tribes')}
+                  >
+                    <h3 className="text-xs font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                      Four Tribes of Tomorrow
+                    </h3>
+                    <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  
+                  {/* Real Estate as Community */}
+                  <div 
+                    className="group/card relative flex-shrink-0 w-32 h-20 bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                    onClick={() => setExpandedSeed('real-estate-community')}
+                  >
+                    <h3 className="text-xs font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                      Real Estate as Community
+                    </h3>
+                    <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  
+                  {/* Families Are The Root */}
+                  <div 
+                    className="group/card relative flex-shrink-0 w-32 h-20 bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                    onClick={() => setExpandedSeed('families-inequality')}
+                  >
+                    <h3 className="text-xs font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                      Families Are The Root
+                    </h3>
+                    <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  
+                  {/* Democracy's Last Voter */}
+                  <div 
+                    className="group/card relative flex-shrink-0 w-32 h-20 bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                    onClick={() => setExpandedSeed('democracy-last-voter')}
+                  >
+                    <h3 className="text-xs font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                      Democracy's Last Voter
+                    </h3>
+                    <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  
+                  {/* Regulation Through Code */}
+                  <div 
+                    className="group/card relative flex-shrink-0 w-32 h-20 bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                    onClick={() => setExpandedSeed('regulation-code')}
+                  >
+                    <h3 className="text-xs font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                      Regulation Through Code
+                    </h3>
+                    <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+                  </div>
 
+                </div>
               </div>
 
               {/* Collection Footer */}

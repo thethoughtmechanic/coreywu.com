@@ -1,11 +1,98 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocation } from "wouter";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import CopyEmail from '../components/copy-email';
+
+// Animation constants for collection behavior
+const SCALE = 1.2;
+const DISTANCE = 80;
+const NUDGE = 16;
+const SPRING_CONFIG = () => ({
+  mass: 0.1,
+  stiffness: 300,
+  damping: 20,
+});
+
+// Seed card data for Society & Power collection
+const societySeeds = [
+  { id: 'four-tribes', title: 'Four Tribes of Tomorrow' },
+  { id: 'real-estate-community', title: 'Real Estate as Community' },
+  { id: 'families-inequality', title: 'Families Are The Root of Inequality' },
+  { id: 'democracy-last-voter', title: "Democracy's Last Voter" },
+  { id: 'regulation-code', title: 'Regulation Through Code, Not Policy' }
+];
+
+const SeedCard = ({ seed, mouseLeft, isExpanded = false }: { seed: typeof societySeeds[0], mouseLeft?: any, isExpanded?: boolean }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const distance = useTransform(() => {
+    if (!isExpanded || !mouseLeft) return -Infinity;
+
+    const bounds = ref.current
+      ? { x: ref.current.offsetLeft, width: ref.current.offsetWidth }
+      : { x: 0, width: 0 };
+    return (mouseLeft?.get() ?? 0) - bounds.x - bounds.width / 2;
+  });
+
+  const scale = useTransform(distance, [-DISTANCE, 0, DISTANCE], [1, SCALE, 1]);
+
+  const calculateOffset = (currentDistance: number, currentScale: number) => {
+    if (currentDistance === -Infinity) {
+      return 0;
+    }
+
+    if (currentDistance < -DISTANCE || currentDistance > DISTANCE) {
+      return Math.sign(currentDistance) * -1 * NUDGE;
+    }
+
+    return (-currentDistance / DISTANCE) * NUDGE * currentScale;
+  };
+
+  const x = useTransform(() => {
+    const currentDistance = distance.get();
+    const currentScale = scale.get();
+    return calculateOffset(currentDistance, currentScale);
+  });
+
+  const springConfig = SPRING_CONFIG();
+  const scaleSpring = useSpring(scale, springConfig);
+  const xSpring = useSpring(x, springConfig);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="relative aspect-square rounded-lg border-2 border-warm-brown/20 overflow-hidden cursor-pointer bg-cream/50 hover:bg-cream transition-colors duration-200"
+      style={{
+        ...(isExpanded && { x: xSpring, scale: scaleSpring }),
+      }}
+    >
+      <div className="w-full h-full flex items-center justify-center p-4">
+        <h3 className="text-sm font-medium text-warm-brown text-center leading-tight">
+          {seed.title}
+        </h3>
+      </div>
+      <div className="absolute inset-0 border-2 border-warm-brown/30 rounded-lg pointer-events-none" />
+    </motion.div>
+  );
+};
 
 const ThoughtBlossoms = () => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isCollectionExpanded, setIsCollectionExpanded] = useState(false);
+  const mouseLeft = useMotionValue(-Infinity);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseLeft.set(e.clientX - rect.left);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    mouseLeft.set(-Infinity);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream/30 to-light-brown/20">
@@ -110,65 +197,49 @@ const ThoughtBlossoms = () => {
             </div>
           </div>
 
-          {/* Right Blossom - Collection with Hover Effect */}
+          {/* Right Blossom - Proper Collection with Framer Motion */}
           <div className="group cursor-pointer">
-            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
-
+            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] min-h-[600px]">
+              
               {/* Collection Header */}
-              <div className="mb-4">
+              <div className="mb-6">
                 <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
                   Society & Power Structures
                 </h2>
-                <p className="text-muted-grey text-sm leading-relaxed mb-4">
+                <p className="text-muted-grey text-sm leading-relaxed">
                   Examining how systems of power, community, and governance evolve in our rapidly changing world.
                 </p>
               </div>
 
               {/* Relevant Seeds Subtitle */}
-              <h3 className="text-sm font-semibold text-warm-brown mb-3">Relevant Seeds</h3>
+              <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
 
-              {/* Horizontal Cards with Collection Hover Effect */}
-              <div className="relative mb-4">
-                <div className="flex gap-2 overflow-x-hidden">
-                  {[
-                    { id: 'four-tribes', title: 'Four Tribes of Tomorrow' },
-                    { id: 'real-estate-community', title: 'Real Estate as Community' },
-                    { id: 'families-inequality', title: 'Families Are The Root' },
-                    { id: 'democracy-last-voter', title: "Democracy's Last Voter" },
-                    { id: 'regulation-code', title: 'Regulation Through Code' }
-                  ].map((seed, index) => (
-                    <div
-                      key={seed.id}
-                      className="relative flex-shrink-0 w-28 h-16 bg-cream/50 rounded-lg p-2 border border-warm-brown/10 transition-all duration-300 cursor-pointer flex items-center justify-center"
-                      style={{
-                        transform: hoveredIndex !== null ? 
-                          `translateX(${(index - hoveredIndex) * -2}px) scale(${index === hoveredIndex ? 1.05 : 0.95})` : 
-                          'translateX(0px) scale(1)',
-                        zIndex: index === hoveredIndex ? 10 : 1
-                      }}
-                      onMouseEnter={() => setHoveredIndex(index)}
-                      onMouseLeave={() => setHoveredIndex(null)}
-                      onClick={() => setExpandedSeed(seed.id)}
-                    >
-                      <h3 className="text-xs font-medium text-warm-brown text-center leading-tight">
-                        {seed.title}
-                      </h3>
-                      {index === hoveredIndex && (
-                        <div className="absolute inset-0 bg-warm-brown/10 rounded-lg transition-opacity duration-300"></div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Visual indicator for more content */}
-                <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white/80 to-transparent pointer-events-none flex items-center justify-end pr-1">
-                  <div className="text-warm-brown/60 text-xs">⋯</div>
-                </div>
-              </div>
+              {/* Collection Cards Grid with Mouse Tracking */}
+              <motion.div
+                ref={containerRef}
+                className="grid grid-cols-2 gap-3 mb-6 h-64"
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{ willChange: "transform" }}
+              >
+                {societySeeds.map((seed, index) => (
+                  <motion.div 
+                    key={seed.id}
+                    onClick={() => setExpandedSeed(seed.id)}
+                    className="flex items-center justify-center"
+                  >
+                    <SeedCard 
+                      seed={seed} 
+                      mouseLeft={mouseLeft} 
+                      isExpanded={true}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
 
               {/* Collection Footer */}
               <div className="pt-4 border-t border-warm-brown/10">
-                <p className="text-xs text-muted-grey">5 thoughts • Click any card to explore</p>
+                <p className="text-xs text-muted-grey">5 thoughts • Hover over cards to see collection effect</p>
               </div>
 
             </div>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useLocation } from "wouter";
 import CopyEmail from '../components/copy-email';

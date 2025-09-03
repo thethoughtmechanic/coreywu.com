@@ -1,108 +1,11 @@
-
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from "wouter";
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, MotionConfig } from "framer-motion";
 import CopyEmail from '../components/copy-email';
-
-// Animation constants for collection hover effect
-const SCALE = 1.2;
-const DISTANCE = 80;
-const NUDGE = 16;
-const SPRING_CONFIG = () => ({
-  mass: 0.1,
-  stiffness: 300,
-  damping: 20,
-});
-
-interface SeedCardProps {
-  title: string;
-  width: number;
-  height: number;
-  isExpanded?: boolean;
-  mouseLeft?: any;
-  onClick: () => void;
-}
-
-const SeedCard = ({ title, width, height, isExpanded = false, mouseLeft, onClick }: SeedCardProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const distance = useTransform(() => {
-    if (!isExpanded || !mouseLeft) return -Infinity;
-
-    const bounds = ref.current
-      ? { x: ref.current.offsetLeft, width: ref.current.offsetWidth }
-      : { x: 0, width: 0 };
-    return (mouseLeft?.get() ?? 0) - bounds.x - bounds.width / 2;
-  });
-
-  const scale = useTransform(distance, [-DISTANCE, 0, DISTANCE], [1, SCALE, 1]);
-
-  const calculateOffset = (currentDistance: number, currentScale: number) => {
-    if (currentDistance === -Infinity) {
-      return 0;
-    }
-
-    if (currentDistance < -DISTANCE || currentDistance > DISTANCE) {
-      return Math.sign(currentDistance) * -1 * NUDGE;
-    }
-
-    return (-currentDistance / DISTANCE) * NUDGE * currentScale;
-  };
-
-  const x = useTransform(() => {
-    const currentDistance = distance.get();
-    const currentScale = scale.get();
-    return calculateOffset(currentDistance, currentScale);
-  });
-
-  const springConfig = SPRING_CONFIG();
-  const scaleSpring = useSpring(scale, springConfig);
-  const xSpring = useSpring(x, springConfig);
-
-  return (
-    <motion.div
-      ref={ref}
-      className="group/card relative flex-shrink-0 bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream hover:shadow-md transition-all duration-300 cursor-pointer flex items-center justify-center"
-      style={{
-        width,
-        height,
-        ...(isExpanded && { x: xSpring, scale: scaleSpring }),
-      }}
-      onClick={onClick}
-    >
-      <h3 className="text-xs font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
-        {title}
-      </h3>
-      <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-    </motion.div>
-  );
-};
 
 const ThoughtBlossoms = () => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
-  const [isRightCollectionExpanded, setIsRightCollectionExpanded] = useState(false);
-  const mouseLeft = useMotionValue(-Infinity);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (containerRef.current && isRightCollectionExpanded) {
-      const rect = containerRef.current.getBoundingClientRect();
-      mouseLeft.set(e.clientX - rect.left);
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (containerRef.current && isRightCollectionExpanded) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const touch = e.touches[0];
-      mouseLeft.set(touch.clientX - rect.left);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    mouseLeft.set(-Infinity);
-  };
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream/30 to-light-brown/20">
@@ -142,13 +45,13 @@ const ThoughtBlossoms = () => {
 
         {/* Blossoms Grid - 2 wide */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          
+
           {/* Left Blossom - Standard Collection Card */}
           <div className="group cursor-pointer">
-            <div className="bg-white rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] min-h-[480px]">
-              
+            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[400px]">
+
               {/* Collection Header */}
-              <div className="mb-4"></div>
+              <div className="mb-6">
                 <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
                   AI & Human Futures
                 </h2>
@@ -158,7 +61,7 @@ const ThoughtBlossoms = () => {
               </div>
 
               {/* Seed Cards Grid */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 mb-4">
                 {/* Individual seed cards - small and title-only */}
                 <div 
                   className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
@@ -166,35 +69,35 @@ const ThoughtBlossoms = () => {
                 >
                   <h3 className="text-sm font-medium text-warm-brown">Curious Companions</h3>
                 </div>
-                
+
                 <div 
                   className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
                   onClick={() => setExpandedSeed('clock-speeds')}
                 >
                   <h3 className="text-sm font-medium text-warm-brown">Clock Speeds</h3>
                 </div>
-                
+
                 <div 
                   className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
                   onClick={() => setExpandedSeed('modern-managers')}
                 >
                   <h3 className="text-sm font-medium text-warm-brown">The Plight of Modern Managers</h3>
                 </div>
-                
+
                 <div 
                   className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
                   onClick={() => setExpandedSeed('human-gaps')}
                 >
                   <h3 className="text-sm font-medium text-warm-brown">Human-of-the-Gaps</h3>
                 </div>
-                
+
                 <div 
                   className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
                   onClick={() => setExpandedSeed('defend-flow')}
                 >
                   <h3 className="text-sm font-medium text-warm-brown">We Need to Defend Flow</h3>
                 </div>
-                
+
                 <div 
                   className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
                   onClick={() => setExpandedSeed('ai-made-that')}
@@ -204,7 +107,7 @@ const ThoughtBlossoms = () => {
               </div>
 
               {/* Collection Footer */}
-              <div className="mt-4 pt-3 border-t border-warm-brown/10"></div>
+              <div className="pt-4 border-t border-warm-brown/10">
                 <p className="text-xs text-muted-grey">6 thoughts • Click any card to explore</p>
               </div>
 
@@ -213,157 +116,62 @@ const ThoughtBlossoms = () => {
 
           {/* Right Blossom - Collection with Hover Effect */}
           <div className="group cursor-pointer">
-            <div className="bg-white rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] min-h-[480px]">
-              
+            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[400px]">
+
               {/* Collection Header */}
               <div className="mb-4">
                 <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
                   Society & Power Structures
                 </h2>
-                <p className="text-muted-grey text-sm leading-relaxed">
-                  Examining how systems of power, community, and governance evolve in our rapidly changing world. These explorations challenge conventional wisdom about democracy, equality, and social organization.
+                <p className="text-muted-grey text-sm leading-relaxed mb-4">
+                  Examining how systems of power, community, and governance evolve in our rapidly changing world.
                 </p>
               </div>
 
               {/* Relevant Seeds Subtitle */}
-              <div className="mb-3">
-                <h3 className="text-sm font-medium text-warm-brown/80">Relevant Seeds</h3>
+              <h3 className="text-sm font-semibold text-warm-brown mb-3">Relevant Seeds</h3>
+
+              {/* Horizontal Cards with Collection Hover Effect */}
+              <div className="relative mb-4">
+                <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+                  {[
+                    { id: 'four-tribes', title: 'Four Tribes of Tomorrow' },
+                    { id: 'real-estate-community', title: 'Real Estate as Community' },
+                    { id: 'families-inequality', title: 'Families Are The Root' },
+                    { id: 'democracy-last-voter', title: "Democracy's Last Voter" },
+                    { id: 'regulation-code', title: 'Regulation Through Code' }
+                  ].map((seed, index) => (
+                    <div
+                      key={seed.id}
+                      className="relative flex-shrink-0 w-28 h-16 bg-cream/50 rounded-lg p-2 border border-warm-brown/10 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                      style={{
+                        transform: hoveredIndex !== null ? 
+                          `translateX(${(index - hoveredIndex) * -2}px) scale(${index === hoveredIndex ? 1.05 : 0.95})` : 
+                          'translateX(0px) scale(1)',
+                        zIndex: index === hoveredIndex ? 10 : 1
+                      }}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      onClick={() => setExpandedSeed(seed.id)}
+                    >
+                      <h3 className="text-xs font-medium text-warm-brown text-center leading-tight">
+                        {seed.title}
+                      </h3>
+                      {index === hoveredIndex && (
+                        <div className="absolute inset-0 bg-warm-brown/10 rounded-lg transition-opacity duration-300"></div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Visual indicator for more content */}
+                <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white/80 to-transparent pointer-events-none flex items-center justify-end pr-1">
+                  <div className="text-warm-brown/60 text-xs">⋯</div>
+                </div>
               </div>
 
-              {/* Collection Preview with Hover Effect */}
-              <MotionConfig transition={{ type: "spring", duration: 0.4, bounce: 0 }}>
-                <div className="mb-4">
-                  {!isRightCollectionExpanded ? (
-                    // Collapsed State - Stacked preview
-                    <div 
-                      className="relative flex items-center justify-start cursor-pointer"
-                      onClick={() => setIsRightCollectionExpanded(true)}
-                      onMouseEnter={() => {}}
-                      onMouseLeave={() => {}}
-                    >
-                      <div className="relative">
-                        {/* Base card */}
-                        <motion.div layoutId="society-card-1">
-                          <SeedCard
-                            title="Four Tribes of Tomorrow"
-                            width={120}
-                            height={80}
-                            onClick={() => {}}
-                          />
-                        </motion.div>
-                        
-                        {/* Stacked cards behind */}
-                        <motion.div 
-                          layoutId="society-card-2"
-                          className="absolute top-0 left-0"
-                          style={{ rotate: 8, x: 24, y: -4, zIndex: -1 }}
-                        >
-                          <SeedCard
-                            title=""
-                            width={120}
-                            height={80}
-                            onClick={() => {}}
-                          />
-                        </motion.div>
-                        
-                        <motion.div 
-                          layoutId="society-card-3"
-                          className="absolute top-0 left-0"
-                          style={{ rotate: -6, x: -20, y: -8, zIndex: -2 }}
-                        >
-                          <SeedCard
-                            title=""
-                            width={120}
-                            height={80}
-                            onClick={() => {}}
-                          />
-                        </motion.div>
-                      </div>
-                      
-                      <div className="ml-4">
-                        <p className="text-sm text-warm-brown font-medium">5 thoughts</p>
-                        <p className="text-xs text-muted-grey">Click to explore →</p>
-                      </div>
-                    </div>
-                  ) : (
-                    // Expanded State - Horizontal layout with hover effects
-                    <div 
-                      ref={containerRef}
-                      className="space-y-3"
-                      onMouseMove={handleMouseMove}
-                      onTouchMove={handleTouchMove}
-                      onMouseLeave={handleMouseLeave}
-                      onTouchEnd={handleMouseLeave}
-                    >
-                      <div className="flex items-center gap-2 overflow-x-auto pb-2">
-                        <motion.div layoutId="society-card-1">
-                          <SeedCard
-                            title="Four Tribes of Tomorrow"
-                            width={120}
-                            height={80}
-                            isExpanded={true}
-                            mouseLeft={mouseLeft}
-                            onClick={() => setExpandedSeed('four-tribes')}
-                          />
-                        </motion.div>
-                        
-                        <motion.div layoutId="society-card-2">
-                          <SeedCard
-                            title="Real Estate as Community"
-                            width={120}
-                            height={80}
-                            isExpanded={true}
-                            mouseLeft={mouseLeft}
-                            onClick={() => setExpandedSeed('real-estate-community')}
-                          />
-                        </motion.div>
-                        
-                        <motion.div layoutId="society-card-3">
-                          <SeedCard
-                            title="Families Are The Root"
-                            width={120}
-                            height={80}
-                            isExpanded={true}
-                            mouseLeft={mouseLeft}
-                            onClick={() => setExpandedSeed('families-inequality')}
-                          />
-                        </motion.div>
-                        
-                        <SeedCard
-                          title="Democracy's Last Voter"
-                          width={120}
-                          height={80}
-                          isExpanded={true}
-                          mouseLeft={mouseLeft}
-                          onClick={() => setExpandedSeed('democracy-last-voter')}
-                        />
-                        
-                        <SeedCard
-                          title="Regulation Through Code"
-                          width={120}
-                          height={80}
-                          isExpanded={true}
-                          mouseLeft={mouseLeft}
-                          onClick={() => setExpandedSeed('regulation-code')}
-                        />
-                      </div>
-                      
-                      <motion.button
-                        className="text-xs text-warm-brown hover:text-hover-brown transition-colors duration-200"
-                        onClick={() => setIsRightCollectionExpanded(false)}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                      >
-                        ← Collapse view
-                      </motion.button>
-                    </div>
-                  )}
-                </div>
-              </MotionConfig>
-
               {/* Collection Footer */}
-              <div className="mt-4 pt-3 border-t border-warm-brown/10">
+              <div className="pt-4 border-t border-warm-brown/10">
                 <p className="text-xs text-muted-grey">5 thoughts • Click any card to explore</p>
               </div>
 
@@ -412,6 +220,16 @@ const ThoughtBlossoms = () => {
           </p>
         </footer>
       </div>
+
+      <style jsx>{`
+        .hide-scrollbar {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 };

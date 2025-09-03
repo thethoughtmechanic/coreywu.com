@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
-import { setLocation } from 'wouter/use-browser-location';
+import { useLocation } from "wouter";
 import CopyEmail from '../components/copy-email';
 
 const ThoughtBlossoms = () => {
+  const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
 
   return (

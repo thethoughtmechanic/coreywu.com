@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from "wouter";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import CopyEmail from '../components/copy-email';
@@ -13,7 +14,16 @@ const SPRING_CONFIG = () => ({
   damping: 20,
 });
 
-// Seed card data for Society & Power collection
+// Seed card data for different collections
+const aiSeeds = [
+  { id: 'curious-companions', title: 'Curious Companions' },
+  { id: 'clock-speeds', title: 'Clock Speeds' },
+  { id: 'modern-managers', title: 'The Plight of Modern Managers' },
+  { id: 'human-gaps', title: 'Human-of-the-Gaps' },
+  { id: 'defend-flow', title: 'We Need to Defend Flow' },
+  { id: 'ai-made-that', title: '"Did AI make that?"' }
+];
+
 const societySeeds = [
   { id: 'four-tribes', title: 'Four Tribes of Tomorrow' },
   { id: 'real-estate-community', title: 'Real Estate as Community' },
@@ -22,7 +32,24 @@ const societySeeds = [
   { id: 'regulation-code', title: 'Regulation Through Code, Not Policy' }
 ];
 
-const SeedCard = ({ seed, mouseLeft, isExpanded = false }: { seed: typeof societySeeds[0], mouseLeft?: any, isExpanded?: boolean }) => {
+const designSeeds = [
+  { id: 'design-thinking', title: 'Design Thinking Evolution' },
+  { id: 'user-centered', title: 'User-Centered Future' },
+  { id: 'aesthetic-function', title: 'Aesthetic vs Function' },
+  { id: 'digital-physical', title: 'Digital-Physical Bridge' },
+  { id: 'inclusive-design', title: 'Inclusive Design Principles' },
+  { id: 'design-ethics', title: 'Design Ethics Framework' }
+];
+
+const techSeeds = [
+  { id: 'quantum-leap', title: 'Quantum Computing Leap' },
+  { id: 'privacy-future', title: 'Privacy in Connected World' },
+  { id: 'automation-jobs', title: 'Automation & Job Evolution' },
+  { id: 'tech-wellness', title: 'Technology & Human Wellness' },
+  { id: 'digital-divide', title: 'Bridging Digital Divide' }
+];
+
+const SeedCard = ({ seed, mouseLeft, isExpanded = false }: { seed: typeof aiSeeds[0], mouseLeft?: any, isExpanded?: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const distance = useTransform(() => {
@@ -76,10 +103,210 @@ const SeedCard = ({ seed, mouseLeft, isExpanded = false }: { seed: typeof societ
   );
 };
 
-const ThoughtBlossoms = () => {
+// Approach 1: Arrow Navigation
+const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
-  const [isCollectionExpanded, setIsCollectionExpanded] = useState(false);
+  const mouseLeft = useMotionValue(-Infinity);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseLeft.set(e.clientX - rect.left);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    mouseLeft.set(-Infinity);
+  };
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
+          {title}
+        </h2>
+        <p className="text-muted-grey text-sm leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
+
+      <div className="relative">
+        <button 
+          onClick={scrollLeft}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
+        >
+          <svg className="w-4 h-4 text-warm-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <motion.div
+          ref={containerRef}
+          className="mx-8"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ willChange: "transform" }}
+        >
+          <div ref={scrollRef} className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+            {seeds.map((seed, index) => (
+              <motion.div 
+                key={seed.id}
+                onClick={() => setExpandedSeed(seed.id)}
+              >
+                <SeedCard 
+                  seed={seed} 
+                  mouseLeft={mouseLeft} 
+                  isExpanded={true}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <button 
+          onClick={scrollRight}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
+        >
+          <svg className="w-4 h-4 text-warm-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="pt-4 border-t border-warm-brown/10 mt-6">
+        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Use arrows to scroll</p>
+      </div>
+    </div>
+  );
+};
+
+// Approach 2: Auto-scroll on edge hover
+const AutoScrollCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
+  const [, setLocation] = useLocation();
+  const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
+  const mouseLeft = useMotionValue(-Infinity);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current && scrollRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const relativeX = e.clientX - containerRect.left;
+      const containerWidth = containerRect.width;
+
+      mouseLeft.set(relativeX);
+
+      // Auto-scroll logic
+      const edgeThreshold = 50;
+      if (relativeX < edgeThreshold) {
+        startAutoScroll('left');
+      } else if (relativeX > containerWidth - edgeThreshold) {
+        startAutoScroll('right');
+      } else {
+        stopAutoScroll();
+      }
+    }
+  };
+
+  const startAutoScroll = (direction: 'left' | 'right') => {
+    if (isScrolling) return;
+    setIsScrolling(true);
+
+    scrollIntervalRef.current = setInterval(() => {
+      if (scrollRef.current) {
+        const scrollAmount = direction === 'left' ? -5 : 5;
+        scrollRef.current.scrollBy({ left: scrollAmount });
+      }
+    }, 16);
+  };
+
+  const stopAutoScroll = () => {
+    if (scrollIntervalRef.current) {
+      clearInterval(scrollIntervalRef.current);
+      scrollIntervalRef.current = null;
+    }
+    setIsScrolling(false);
+  };
+
+  const handleMouseLeave = () => {
+    mouseLeft.set(-Infinity);
+    stopAutoScroll();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (scrollIntervalRef.current) {
+        clearInterval(scrollIntervalRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
+          {title}
+        </h2>
+        <p className="text-muted-grey text-sm leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
+
+      <motion.div
+        ref={containerRef}
+        className="relative"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ willChange: "transform" }}
+      >
+        <div ref={scrollRef} className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+          {seeds.map((seed, index) => (
+            <motion.div 
+              key={seed.id}
+              onClick={() => setExpandedSeed(seed.id)}
+            >
+              <SeedCard 
+                seed={seed} 
+                mouseLeft={mouseLeft} 
+                isExpanded={true}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      <div className="pt-4 border-t border-warm-brown/10 mt-6">
+        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Hover near edges to auto-scroll</p>
+      </div>
+    </div>
+  );
+};
+
+// Approach 3: Snap scrolling
+const SnapScrollCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
+  const [, setLocation] = useLocation();
+  const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
   const mouseLeft = useMotionValue(-Infinity);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -95,9 +322,132 @@ const ThoughtBlossoms = () => {
   };
 
   return (
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
+          {title}
+        </h2>
+        <p className="text-muted-grey text-sm leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
+
+      <motion.div
+        ref={containerRef}
+        className="relative"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ willChange: "transform" }}
+      >
+        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2" style={{ scrollBehavior: 'smooth' }}>
+          {seeds.map((seed, index) => (
+            <motion.div 
+              key={seed.id}
+              className="snap-center"
+              onClick={() => setExpandedSeed(seed.id)}
+            >
+              <SeedCard 
+                seed={seed} 
+                mouseLeft={mouseLeft} 
+                isExpanded={true}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      <div className="pt-4 border-t border-warm-brown/10 mt-6">
+        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Smooth snap scrolling</p>
+      </div>
+    </div>
+  );
+};
+
+// Approach 4: Fade overflow with "..." indicator
+const FadeOverflowCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
+  const [, setLocation] = useLocation();
+  const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const mouseLeft = useMotionValue(-Infinity);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseLeft.set(e.clientX - rect.left);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    mouseLeft.set(-Infinity);
+  };
+
+  const visibleSeeds = showAll ? seeds : seeds.slice(0, 4);
+  const hasMore = seeds.length > 4;
+
+  return (
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
+          {title}
+        </h2>
+        <p className="text-muted-grey text-sm leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
+
+      <motion.div
+        ref={containerRef}
+        className="relative"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ willChange: "transform" }}
+      >
+        <div className="flex gap-3 flex-wrap pb-2">
+          {visibleSeeds.map((seed, index) => (
+            <motion.div 
+              key={seed.id}
+              onClick={() => setExpandedSeed(seed.id)}
+            >
+              <SeedCard 
+                seed={seed} 
+                mouseLeft={mouseLeft} 
+                isExpanded={true}
+              />
+            </motion.div>
+          ))}
+          {hasMore && !showAll && (
+            <button
+              onClick={() => setShowAll(true)}
+              className="flex-shrink-0 w-24 h-16 rounded-lg border border-warm-brown/30 bg-warm-brown/10 hover:bg-warm-brown/20 transition-colors duration-200 flex items-center justify-center"
+            >
+              <span className="text-warm-brown font-medium">+{seeds.length - 4}</span>
+            </button>
+          )}
+        </div>
+      </motion.div>
+
+      <div className="pt-4 border-t border-warm-brown/10 mt-6">
+        <p className="text-xs text-muted-grey">
+          {seeds.length} thoughts • {showAll ? 'Showing all' : `Click +${seeds.length - 4} to see more`}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const ThoughtBlossoms = () => {
+  const [, setLocation] = useLocation();
+  const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
+
+  return (
     <div className="min-h-screen bg-gradient-to-br from-cream/30 to-light-brown/20">
       <div className="max-w-7xl mx-auto px-6 py-4 thoughts-background-texture">
-        {/* View toggles - positioned above header */}
+        {/* View toggles */}
         <div className="flex items-center justify-center gap-2 mb-8">
           <span className="text-sm text-muted-grey font-medium">Views:</span>
           <div className="flex gap-1">
@@ -127,121 +477,43 @@ const ThoughtBlossoms = () => {
           </p>
         </header>
 
-        {/* Blossoms Grid - 2 wide */}
+        {/* Blossoms Grid - 2x2 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
 
-          {/* Left Blossom - Standard Collection Card */}
+          {/* Approach 1: Arrow Navigation */}
           <div className="group cursor-pointer">
-            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
-
-              {/* Collection Header */}
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
-                  AI & Human Futures
-                </h2>
-                <p className="text-muted-grey text-sm leading-relaxed">
-                  Exploring the evolving relationship between artificial intelligence and humanity. These thoughts examine how we adapt, collaborate, and find meaning alongside intelligent systems.
-                </p>
-              </div>
-
-              {/* Seed Cards Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <div 
-                  className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
-                  onClick={() => setExpandedSeed('curious-companions')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown">Curious Companions</h3>
-                </div>
-
-                <div 
-                  className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
-                  onClick={() => setExpandedSeed('clock-speeds')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown">Clock Speeds</h3>
-                </div>
-
-                <div 
-                  className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
-                  onClick={() => setExpandedSeed('modern-managers')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown">The Plight of Modern Managers</h3>
-                </div>
-
-                <div 
-                  className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
-                  onClick={() => setExpandedSeed('human-gaps')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown">Human-of-the-Gaps</h3>
-                </div>
-
-                <div 
-                  className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
-                  onClick={() => setExpandedSeed('defend-flow')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown">We Need to Defend Flow</h3>
-                </div>
-
-                <div 
-                  className="bg-cream/50 rounded-lg p-3 border border-warm-brown/10 hover:bg-cream transition-colors duration-200 cursor-pointer"
-                  onClick={() => setExpandedSeed('ai-made-that')}
-                >
-                  <h3 className="text-sm font-medium text-warm-brown">"Did AI make that?"</h3>
-                </div>
-              </div>
-
-              {/* Collection Footer */}
-              <div className="pt-4 border-t border-warm-brown/10">
-                <p className="text-xs text-muted-grey">6 thoughts • Click any card to explore</p>
-              </div>
-
-            </div>
+            <ArrowNavigationCollection 
+              seeds={aiSeeds}
+              title="AI & Human Futures"
+              description="Exploring the evolving relationship between artificial intelligence and humanity."
+            />
           </div>
 
-          {/* Right Blossom - Proper Collection with Framer Motion */}
+          {/* Approach 2: Auto-scroll on edge hover */}
           <div className="group cursor-pointer">
-            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] min-h-[600px]">
-              
-              {/* Collection Header */}
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
-                  Society & Power Structures
-                </h2>
-                <p className="text-muted-grey text-sm leading-relaxed">
-                  Examining how systems of power, community, and governance evolve in our rapidly changing world.
-                </p>
-              </div>
+            <AutoScrollCollection 
+              seeds={societySeeds}
+              title="Society & Power Structures"
+              description="Examining how systems of power, community, and governance evolve."
+            />
+          </div>
 
-              {/* Relevant Seeds Subtitle */}
-              <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
+          {/* Approach 3: Snap scrolling */}
+          <div className="group cursor-pointer">
+            <SnapScrollCollection 
+              seeds={designSeeds}
+              title="Design & User Experience"
+              description="Thoughts on creating meaningful experiences in digital and physical spaces."
+            />
+          </div>
 
-              {/* Collection Cards - Single Horizontal Row with Scroll */}
-              <motion.div
-                ref={containerRef}
-                className="flex gap-3 mb-6 overflow-x-auto pb-2"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                style={{ willChange: "transform" }}
-              >
-                {societySeeds.map((seed, index) => (
-                  <motion.div 
-                    key={seed.id}
-                    onClick={() => setExpandedSeed(seed.id)}
-                  >
-                    <SeedCard 
-                      seed={seed} 
-                      mouseLeft={mouseLeft} 
-                      isExpanded={true}
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              {/* Collection Footer */}
-              <div className="pt-4 border-t border-warm-brown/10">
-                <p className="text-xs text-muted-grey">5 thoughts • Hover over cards to see collection effect</p>
-              </div>
-
-            </div>
+          {/* Approach 4: Fade overflow with "..." indicator */}
+          <div className="group cursor-pointer">
+            <FadeOverflowCollection 
+              seeds={techSeeds}
+              title="Technology & Society"
+              description="Understanding the broader implications of technological advancement."
+            />
           </div>
 
         </div>
@@ -252,17 +524,8 @@ const ThoughtBlossoms = () => {
             <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
               <div className="flex justify-between items-start mb-6">
                 <h2 className="text-2xl font-bold text-warm-brown">
-                  {expandedSeed === 'curious-companions' && 'Curious Companions'}
-                  {expandedSeed === 'clock-speeds' && 'Clock Speeds'}
-                  {expandedSeed === 'modern-managers' && 'The Plight of Modern Managers'}
-                  {expandedSeed === 'human-gaps' && 'Human-of-the-Gaps'}
-                  {expandedSeed === 'defend-flow' && 'We Need to Defend Flow for Meaning'}
-                  {expandedSeed === 'ai-made-that' && '"Did AI make that?"'}
-                  {expandedSeed === 'four-tribes' && 'Four Tribes of Tomorrow'}
-                  {expandedSeed === 'real-estate-community' && 'Real Estate as a Community Platform'}
-                  {expandedSeed === 'families-inequality' && 'Families Are The Root of Inequality'}
-                  {expandedSeed === 'democracy-last-voter' && "Democracy's Last Voter"}
-                  {expandedSeed === 'regulation-code' && 'Regulation Through Code, Not Policy'}
+                  {/* Find the seed title from all collections */}
+                  {[...aiSeeds, ...societySeeds, ...designSeeds, ...techSeeds].find(seed => seed.id === expandedSeed)?.title || 'Seed Title'}
                 </h2>
                 <button 
                   onClick={() => setExpandedSeed(null)}

@@ -114,12 +114,12 @@ const ThoughtBlossoms = () => {
             </div>
           </div>
 
-          {/* Right Blossom - Stacked/Preview Style */}
+          {/* Right Blossom - Square Grid Collection */}
           <div className="group cursor-pointer">
-            <div className="relative bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] min-h-[600px] overflow-hidden">
+            <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] min-h-[600px]">
               
               {/* Collection Header */}
-              <div className="mb-6 relative z-10">
+              <div className="mb-6">
                 <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
                   Society & Power Structures
                 </h2>
@@ -128,42 +128,69 @@ const ThoughtBlossoms = () => {
                 </p>
               </div>
 
-              {/* Stacked Preview Cards */}
-              <div className="relative h-80">
+              {/* Square Grid of Seed Cards */}
+              <div className="grid grid-cols-2 gap-4 mb-6">
                 
-                {/* Background cards - stacked effect */}
-                <div className="absolute inset-0 space-y-2">
-                  <div className="absolute top-0 left-0 right-2 bg-cream/30 rounded-lg p-3 border border-warm-brown/5 transform rotate-1 translate-x-1">
-                    <h3 className="text-sm font-medium text-warm-brown/60">Four Tribes of Tomorrow</h3>
-                  </div>
-                  
-                  <div className="absolute top-6 left-1 right-1 bg-cream/40 rounded-lg p-3 border border-warm-brown/8 transform -rotate-1">
-                    <h3 className="text-sm font-medium text-warm-brown/70">Real Estate as Community</h3>
-                  </div>
-                  
-                  <div className="absolute top-12 left-0 right-3 bg-cream/50 rounded-lg p-3 border border-warm-brown/10 transform rotate-0.5 translate-x-0.5">
-                    <h3 className="text-sm font-medium text-warm-brown/80">Democracy's Last Voter</h3>
-                  </div>
+                {/* Four Tribes of Tomorrow */}
+                <div 
+                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                  onClick={() => setExpandedSeed('four-tribes')}
+                >
+                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                    Four Tribes of Tomorrow
+                  </h3>
+                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
                 </div>
-
-                {/* Front card - main focus */}
-                <div className="absolute top-16 left-0 right-0 bg-white rounded-lg p-4 border border-warm-brown/15 shadow-md z-10 group-hover:shadow-lg transition-shadow duration-300">
-                  <h3 className="text-sm font-medium text-warm-brown mb-2">Families Are The Root of Inequality</h3>
-                  <p className="text-xs text-muted-grey">Equality of opportunity is impossible when resources accumulate within family lines.</p>
+                
+                {/* Real Estate as Community */}
+                <div 
+                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                  onClick={() => setExpandedSeed('real-estate-community')}
+                >
+                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                    Real Estate as Community
+                  </h3>
+                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
                 </div>
-
-                {/* More cards indicator */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/80 to-transparent h-20 flex items-end justify-center pb-4">
-                  <span className="text-xs text-muted-grey bg-white px-3 py-1 rounded-full border border-warm-brown/10">
-                    +1 more thought
-                  </span>
+                
+                {/* Families Are The Root */}
+                <div 
+                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                  onClick={() => setExpandedSeed('families-inequality')}
+                >
+                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                    Families Are The Root of Inequality
+                  </h3>
+                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                {/* Democracy's Last Voter */}
+                <div 
+                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                  onClick={() => setExpandedSeed('democracy-last-voter')}
+                >
+                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                    Democracy's Last Voter
+                  </h3>
+                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                {/* Regulation Through Code */}
+                <div 
+                  className="group/card relative aspect-square bg-cream/50 rounded-lg p-4 border border-warm-brown/10 hover:bg-cream hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center col-span-2"
+                  onClick={() => setExpandedSeed('regulation-code')}
+                >
+                  <h3 className="text-sm font-medium text-warm-brown text-center leading-tight group-hover/card:text-hover-brown transition-colors duration-200">
+                    Regulation Through Code, Not Policy
+                  </h3>
+                  <div className="absolute inset-0 bg-warm-brown/5 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
               </div>
 
               {/* Collection Footer */}
-              <div className="mt-6 pt-4 border-t border-warm-brown/10 relative z-10">
-                <p className="text-xs text-muted-grey">5 thoughts • Click to explore collection</p>
+              <div className="mt-6 pt-4 border-t border-warm-brown/10">
+                <p className="text-xs text-muted-grey">5 thoughts • Click any card to explore</p>
               </div>
 
             </div>
@@ -183,6 +210,11 @@ const ThoughtBlossoms = () => {
                   {expandedSeed === 'human-gaps' && 'Human-of-the-Gaps'}
                   {expandedSeed === 'defend-flow' && 'We Need to Defend Flow for Meaning'}
                   {expandedSeed === 'ai-made-that' && '"Did AI make that?"'}
+                  {expandedSeed === 'four-tribes' && 'Four Tribes of Tomorrow'}
+                  {expandedSeed === 'real-estate-community' && 'Real Estate as a Community Platform'}
+                  {expandedSeed === 'families-inequality' && 'Families Are The Root of Inequality'}
+                  {expandedSeed === 'democracy-last-voter' && "Democracy's Last Voter"}
+                  {expandedSeed === 'regulation-code' && 'Regulation Through Code, Not Policy'}
                 </h2>
                 <button 
                   onClick={() => setExpandedSeed(null)}

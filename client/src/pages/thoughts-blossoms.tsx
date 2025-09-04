@@ -12,6 +12,19 @@ const globalStyles = `
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  .thin-scrollbar::-webkit-scrollbar {
+    height: 3px;
+  }
+  .thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(139, 109, 92, 0.3);
+    border-radius: 3px;
+  }
+  .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 109, 92, 0.5);
+  }
 `;
 
 // Animation constants for collection behavior
@@ -195,11 +208,7 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
           onMouseLeave={handleMouseLeave}
           style={{ willChange: "transform" }}
         >
-          <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-2" style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitScrollbar: { display: 'none' }
-          }}>
+          <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
             {seeds.map((seed, index) => (
               <motion.div 
                 key={seed.id}
@@ -284,9 +293,8 @@ const DotsIndicatorCollection = ({ seeds, title, description }: { seeds: typeof 
       >
         <div 
           ref={scrollRef} 
-          className="flex gap-3 overflow-x-auto pb-2" 
+          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" 
           onScroll={handleScroll}
-          className="scrollbar-hide"
         >
           {seeds.map((seed, index) => (
             <motion.div 
@@ -388,21 +396,6 @@ const ThinScrollbarCollection = ({ seeds, title, description }: { seeds: typeof 
         <p className="text-xs text-muted-grey">{seeds.length} thoughts • Thin scrollbar with snap</p>
       </div>
 
-      <style jsx>{`
-        .thin-scrollbar::-webkit-scrollbar {
-          height: 3px;
-        }
-        .thin-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .thin-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(139, 109, 92, 0.3);
-          border-radius: 3px;
-        }
-        .thin-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(139, 109, 92, 0.5);
-        }
-      `}</style>
     </div>
   );
 };
@@ -457,9 +450,8 @@ const ProgressBarCollection = ({ seeds, title, description }: { seeds: typeof ai
       >
         <div 
           ref={scrollRef} 
-          className="flex gap-3 overflow-x-auto pb-2" 
+          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" 
           onScroll={handleScroll}
-          className="scrollbar-hide"
         >
           {seeds.map((seed, index) => (
             <motion.div 
@@ -603,6 +595,7 @@ const ThoughtBlossoms = () => {
         </footer>
       </div>
     </div>
+    </>
   );
 };
 

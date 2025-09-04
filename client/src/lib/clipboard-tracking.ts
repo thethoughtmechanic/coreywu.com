@@ -1,4 +1,12 @@
 
+// Global type declarations
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+    umamiTrack?: (event: string, data?: any) => void;
+  }
+}
+
 export interface ClipboardTrackingOptions {
   trackSelection?: boolean;
   trackSpecificElements?: string[];
@@ -136,8 +144,8 @@ export class ClipboardTracker {
   
   private trackEvent(eventName: string, data: any) {
     // GA4 tracking
-    if ((window as any).gtag) {
-      (window as any).gtag('event', eventName, {
+    if (window.gtag) {
+      window.gtag('event', eventName, {
         ...data,
         event_category: 'content_sharing',
         event_label: `${eventName}: ${data.context || 'unknown'}`
@@ -145,8 +153,8 @@ export class ClipboardTracker {
     }
     
     // Umami tracking
-    if ((window as any).umamiTrack) {
-      (window as any).umamiTrack(eventName, data);
+    if (window.umamiTrack) {
+      window.umamiTrack(eventName, data);
     }
     
     console.log(`Clipboard tracking: ${eventName}`, data);

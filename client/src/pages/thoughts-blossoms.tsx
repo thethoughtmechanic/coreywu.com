@@ -208,7 +208,7 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
           onMouseLeave={handleMouseLeave}
           style={{ willChange: "transform" }}
         >
-          <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" onScroll={checkScrollPosition}>
             {seeds.map((seed, index) => (
               <motion.div
                 key={seed.id}

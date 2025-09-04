@@ -8,29 +8,29 @@ import { initClipboardTracking } from "./lib/clipboard-tracking"; // Import the 
 import { Navigation } from "@/components/navigation";
 import Home from "@/pages/home";
 import About from "@/pages/about";
-import AboutProfessional from "@/pages/about-professional"; // Import the new component
-import AboutExperimental from "@/pages/about-experimental"; // Import the new component
-import AboutGame from "@/pages/about-game"; // Import the new component
+import AboutProfessional from "@/pages/about-professional";
+import AboutExperimental from "@/pages/about-experimental";
+import AboutGame from "@/pages/about-game";
 import Thoughts from "@/pages/thoughts";
 import ThoughtDetail from "@/pages/thought-detail";
 import Experiments from "@/pages/experiments";
 import Admin from "@/pages/admin";
 import DesignSystem from "@/pages/designsystem";
 import NotFound from "@/pages/not-found";
-import AboutQuiz from "@/pages/about-quiz"; // Import the new component
-import AboutExpNew from "@/pages/about-expnew"; // Import the about-expnew component
-import AboutQuizPersonas from "@/pages/about-quiz-personas"; // Import the quiz personas component
-import ThoughtsExperimental from "@/pages/thoughts-experimental"; // Import the experimental thoughts component
-import ThoughtsAlt from "@/pages/thoughts-alt"; // Import the thoughts alt component
-import ThoughtsBlossoms from "@/pages/thoughts-blossoms"; // Import the thoughts blossoms component
-import ExperimentsExperimental from "@/pages/experiments-experimental"; // Import the experimental experiments component
-import Contact from "@/pages/contact"; // Import the contact component
-import MisterMisu from "@/pages/mister-misu"; // Import the Mister Misu component
-import BoyfriendMaterial from "@/pages/boyfriend-material"; // Import the Boyfriend Material component
-import FridayHome from "@/pages/friday-home"; // Import the Friday Home component
-import PromptPulse from "@/pages/prompt-pulse"; // Import the Prompt Pulse component
-import FoodForThought from "@/pages/food-for-thought"; // Import the Food for Thought component
-import LewWu from "@/pages/lew-wu"; // Import the Lew + Wu component
+import AboutQuiz from "@/pages/about-quiz";
+import AboutExpNew from "@/pages/about-expnew";
+import AboutQuizPersonas from "@/pages/about-quiz-personas";
+import ThoughtsExperimental from "@/pages/thoughts-experimental";
+import ThoughtsAlt from "@/pages/thoughts-alt";
+import ThoughtsBlossoms from "@/pages/thoughts-blossoms";
+import ExperimentsExperimental from "@/pages/experiments-experimental";
+import Contact from "@/pages/contact";
+import MisterMisu from "@/pages/mister-misu";
+import BoyfriendMaterial from "@/pages/boyfriend-material";
+import FridayHome from "@/pages/friday-home";
+import PromptPulse from "@/pages/prompt-pulse";
+import FoodForThought from "@/pages/food-for-thought";
+import LewWu from "@/pages/lew-wu";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import EmailSubmissions from '@/pages/email-submissions';
@@ -39,11 +39,8 @@ import GardenText from './pages/gardentext';
 import GardenViews from "@/pages/garden-views";
 import Backgrounds from "@/pages/backgrounds";
 import Components from "./pages/components";
-import Polaroid from "./pages/polaroid"; // Import the Polaroid component
-
-// Import the AnalyticsDashboard component
+import Polaroid from "./pages/polaroid";
 import AnalyticsDashboard from "@/pages/analytics-dashboard";
-// Import the renamed components
 import HomeOriginal from "@/pages/home-original";
 import HomeWithShapes from "@/pages/home-with-shapes";
 

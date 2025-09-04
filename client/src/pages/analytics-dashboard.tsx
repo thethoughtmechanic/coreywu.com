@@ -105,6 +105,16 @@ export default function AnalyticsDashboard() {
           </div>
 
           <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
+            <h3 className="text-lg font-medium text-warm-brown mb-4">Content Sharing</h3>
+            <div className="space-y-2 text-sm text-soft-black/80">
+              <p>• Copy events and text selections</p>
+              <p>• Most copied content sections</p>
+              <p>• Copy intent (selections without copy)</p>
+              <p>• Content sharing patterns by page</p>
+            </div>
+          </div>
+
+          <div className="bg-light-brown rounded-xl p-6 border border-warm-brown/20">
             <h3 className="text-lg font-medium text-warm-brown mb-4">Page Performance</h3>
             <div className="space-y-2 text-sm text-soft-black/80">
               <p>• Time spent on each section</p>

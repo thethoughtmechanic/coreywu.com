@@ -117,4 +117,29 @@
       source_page: page
     });
   };
+
+  window.trackContentCopyDual = function(textLength, context, page, source) {
+    // GA4 tracking (existing)
+    window.trackContentCopy(textLength, context, page, source);
+    
+    // Umami tracking
+    window.umamiTrack('content_copy', {
+      text_length: textLength,
+      content_context: context,
+      source_page: page,
+      copy_source: source
+    });
+  };
+
+  window.trackContentSelectionDual = function(textLength, context, page) {
+    // GA4 tracking (existing)
+    window.trackContentSelection(textLength, context, page);
+    
+    // Umami tracking
+    window.umamiTrack('content_selection', {
+      text_length: textLength,
+      content_context: context,
+      source_page: page
+    });
+  };
 })();

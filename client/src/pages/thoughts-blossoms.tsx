@@ -191,7 +191,7 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
 
       <div className="relative">
         {canScrollLeft && (
-          <button 
+          <button
             onClick={scrollLeft}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 text-warm-brown/60 hover:text-warm-brown transition-all duration-200 p-1"
           >
@@ -210,13 +210,13 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
         >
           <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
             {seeds.map((seed, index) => (
-              <motion.div 
+              <motion.div
                 key={seed.id}
                 onClick={() => setExpandedSeed(seed.id)}
               >
-                <SeedCard 
-                  seed={seed} 
-                  mouseLeft={mouseLeft} 
+                <SeedCard
+                  seed={seed}
+                  mouseLeft={mouseLeft}
                   isExpanded={true}
                 />
               </motion.div>
@@ -225,7 +225,7 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
         </motion.div>
 
         {canScrollRight && (
-          <button 
+          <button
             onClick={scrollRight}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 text-warm-brown/60 hover:text-warm-brown transition-all duration-200 p-1"
           >
@@ -291,19 +291,19 @@ const DotsIndicatorCollection = ({ seeds, title, description }: { seeds: typeof 
         onMouseLeave={handleMouseLeave}
         style={{ willChange: "transform" }}
       >
-        <div 
-          ref={scrollRef} 
-          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" 
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
           onScroll={handleScroll}
         >
           {seeds.map((seed, index) => (
-            <motion.div 
+            <motion.div
               key={seed.id}
               onClick={() => setExpandedSeed(seed.id)}
             >
-              <SeedCard 
-                seed={seed} 
-                mouseLeft={mouseLeft} 
+              <SeedCard
+                seed={seed}
+                mouseLeft={mouseLeft}
                 isExpanded={true}
               />
             </motion.div>
@@ -372,19 +372,19 @@ const ThinScrollbarCollection = ({ seeds, title, description }: { seeds: typeof 
         onMouseLeave={handleMouseLeave}
         style={{ willChange: "transform" }}
       >
-        <div 
-          className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 thin-scrollbar" 
+        <div
+          className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 thin-scrollbar"
           style={{ scrollBehavior: 'smooth' }}
         >
           {seeds.map((seed, index) => (
-            <motion.div 
+            <motion.div
               key={seed.id}
               className="snap-center"
               onClick={() => setExpandedSeed(seed.id)}
             >
-              <SeedCard 
-                seed={seed} 
-                mouseLeft={mouseLeft} 
+              <SeedCard
+                seed={seed}
+                mouseLeft={mouseLeft}
                 isExpanded={true}
               />
             </motion.div>
@@ -448,19 +448,19 @@ const ProgressBarCollection = ({ seeds, title, description }: { seeds: typeof ai
         onMouseLeave={handleMouseLeave}
         style={{ willChange: "transform" }}
       >
-        <div 
-          ref={scrollRef} 
-          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" 
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
           onScroll={handleScroll}
         >
           {seeds.map((seed, index) => (
-            <motion.div 
+            <motion.div
               key={seed.id}
               onClick={() => setExpandedSeed(seed.id)}
             >
-              <SeedCard 
-                seed={seed} 
-                mouseLeft={mouseLeft} 
+              <SeedCard
+                seed={seed}
+                mouseLeft={mouseLeft}
                 isExpanded={true}
               />
             </motion.div>
@@ -469,7 +469,7 @@ const ProgressBarCollection = ({ seeds, title, description }: { seeds: typeof ai
 
         {/* Progress bar */}
         <div className="mt-3 w-full h-0.5 bg-warm-brown/20 rounded-full overflow-hidden">
-          <div 
+          <div
             className="h-full bg-warm-brown transition-all duration-150 rounded-full"
             style={{ width: `${Math.min(100, Math.max(25, scrollProgress + 25))}%` }}
           />
@@ -487,6 +487,36 @@ const ThoughtBlossoms = () => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
 
+  // Function to handle copy events globally
+  const handleCopy = (event: ClipboardEvent) => {
+    if (window.gtag) {
+      // GA4 Event for Copy
+      window.gtag('event', 'copy', {
+        content_type: 'text',
+        content_length: event.clipboardData?.getData('text/plain')?.length,
+        // Add more context if available, e.g., from data attributes on the copied element
+      });
+    }
+    if (window.umami && window.umami.track) {
+      // Umami Event for Copy
+      window.umami.track('copy', {
+        content_type: 'text',
+        content_length: event.clipboardData?.getData('text/plain')?.length,
+      });
+    }
+  };
+
+  useEffect(() => {
+    // Add global event listener for copy
+    document.addEventListener('copy', handleCopy);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      document.removeEventListener('copy', handleCopy);
+    };
+  }, []);
+
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
@@ -496,7 +526,7 @@ const ThoughtBlossoms = () => {
         <div className="flex items-center justify-center gap-2 mb-8">
           <span className="text-sm text-muted-grey font-medium">Views:</span>
           <div className="flex gap-1">
-            <button 
+            <button
               onClick={() => setLocation('/thoughts')}
               className="group px-4 py-2 text-xs font-medium rounded-full border border-gray-300 bg-transparent text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out"
             >
@@ -527,7 +557,7 @@ const ThoughtBlossoms = () => {
 
           {/* Approach 1: Smart Arrow Navigation */}
           <div className="group cursor-pointer">
-            <ArrowNavigationCollection 
+            <ArrowNavigationCollection
               seeds={aiSeeds}
               title="AI & Human Futures"
               description="Exploring the evolving relationship between artificial intelligence and humanity."
@@ -536,7 +566,7 @@ const ThoughtBlossoms = () => {
 
           {/* Approach 2: Dots indicator */}
           <div className="group cursor-pointer">
-            <DotsIndicatorCollection 
+            <DotsIndicatorCollection
               seeds={societySeeds}
               title="Society & Power Structures"
               description="Examining how systems of power, community, and governance evolve."
@@ -545,7 +575,7 @@ const ThoughtBlossoms = () => {
 
           {/* Approach 3: Thin custom scrollbar */}
           <div className="group cursor-pointer">
-            <ThinScrollbarCollection 
+            <ThinScrollbarCollection
               seeds={designSeeds}
               title="Design & User Experience"
               description="Thoughts on creating meaningful experiences in digital and physical spaces."
@@ -554,7 +584,7 @@ const ThoughtBlossoms = () => {
 
           {/* Approach 4: Progress bar indicator */}
           <div className="group cursor-pointer">
-            <ProgressBarCollection 
+            <ProgressBarCollection
               seeds={techSeeds}
               title="Technology & Society"
               description="Understanding the broader implications of technological advancement."
@@ -572,7 +602,7 @@ const ThoughtBlossoms = () => {
                   {/* Find the seed title from all collections */}
                   {[...aiSeeds, ...societySeeds, ...designSeeds, ...techSeeds].find(seed => seed.id === expandedSeed)?.title || 'Seed Title'}
                 </h2>
-                <button 
+                <button
                   onClick={() => setExpandedSeed(null)}
                   className="text-muted-grey hover:text-warm-brown transition-colors"
                 >

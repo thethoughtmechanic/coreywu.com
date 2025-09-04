@@ -93,3 +93,34 @@ window.trackAudioComplete = function(songTitle, page) {
     event_label: `Audio completed: ${songTitle}`
   });
 };
+
+window.trackContentCopy = function(textLength, context, page, source) {
+  gtag('event', 'content_copy', {
+    text_length: textLength,
+    content_context: context,
+    source_page: page,
+    copy_source: source,
+    event_category: 'content_sharing',
+    event_label: `Content copied: ${context} (${textLength} chars)`
+  });
+  
+  console.log(`Content copy tracked: ${textLength} chars from ${context} on ${page}`);
+};
+
+window.trackContentSelection = function(textLength, context, page) {
+  gtag('event', 'content_selection', {
+    text_length: textLength,
+    content_context: context,
+    source_page: page,
+    event_category: 'content_sharing',
+    event_label: `Content selected: ${context} (${textLength} chars)`
+  });
+};
+
+window.trackSelectAll = function(page) {
+  gtag('event', 'select_all', {
+    source_page: page,
+    event_category: 'content_sharing',
+    event_label: `Select all triggered on ${page}`
+  });
+};

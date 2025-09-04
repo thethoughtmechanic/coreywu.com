@@ -4,6 +4,17 @@ import { useLocation } from "wouter";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import CopyEmail from '../components/copy-email';
 
+// Global scrollbar hiding styles
+const globalStyles = `
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 // Animation constants for collection behavior
 const SCALE = 1.2;
 const DISTANCE = 80;
@@ -103,13 +114,32 @@ const SeedCard = ({ seed, mouseLeft, isExpanded = false }: { seed: typeof aiSeed
   );
 };
 
-// Approach 1: Arrow Navigation
+// Approach 1: Smart Arrow Navigation (only show when needed)
 const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const mouseLeft = useMotionValue(-Infinity);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const checkScrollPosition = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    const scrollElement = scrollRef.current;
+    if (scrollElement) {
+      checkScrollPosition();
+      scrollElement.addEventListener('scroll', checkScrollPosition);
+      return () => scrollElement.removeEventListener('scroll', checkScrollPosition);
+    }
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (containerRef.current) {
@@ -135,7 +165,7 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[320px]">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
           {title}
@@ -148,23 +178,29 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
       <h3 className="text-sm font-semibold text-warm-brown mb-4">Relevant Seeds</h3>
 
       <div className="relative">
-        <button 
-          onClick={scrollLeft}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
-        >
-          <svg className="w-4 h-4 text-warm-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+        {canScrollLeft && (
+          <button 
+            onClick={scrollLeft}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 text-warm-brown/60 hover:text-warm-brown transition-all duration-200 p-1"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+        )}
 
         <motion.div
           ref={containerRef}
-          className="mx-8"
+          className="mx-6"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{ willChange: "transform" }}
         >
-          <div ref={scrollRef} className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+          <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-2" style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitScrollbar: { display: 'none' }
+          }}>
             {seeds.map((seed, index) => (
               <motion.div 
                 key={seed.id}
@@ -180,88 +216,55 @@ const ArrowNavigationCollection = ({ seeds, title, description }: { seeds: typeo
           </div>
         </motion.div>
 
-        <button 
-          onClick={scrollRight}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
-        >
-          <svg className="w-4 h-4 text-warm-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        {canScrollRight && (
+          <button 
+            onClick={scrollRight}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 text-warm-brown/60 hover:text-warm-brown transition-all duration-200 p-1"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <div className="pt-4 border-t border-warm-brown/10 mt-6">
-        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Use arrows to scroll</p>
+        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Smart arrow navigation</p>
       </div>
     </div>
   );
 };
 
-// Approach 2: Auto-scroll on edge hover
-const AutoScrollCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
+// Approach 2: Dots indicator with hidden scrollbar
+const DotsIndicatorCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const mouseLeft = useMotionValue(-Infinity);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      setScrollProgress(maxScroll > 0 ? scrollLeft / maxScroll : 0);
+    }
+  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (containerRef.current && scrollRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const relativeX = e.clientX - containerRect.left;
-      const containerWidth = containerRect.width;
-
-      mouseLeft.set(relativeX);
-
-      // Auto-scroll logic
-      const edgeThreshold = 50;
-      if (relativeX < edgeThreshold) {
-        startAutoScroll('left');
-      } else if (relativeX > containerWidth - edgeThreshold) {
-        startAutoScroll('right');
-      } else {
-        stopAutoScroll();
-      }
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseLeft.set(e.clientX - rect.left);
     }
-  };
-
-  const startAutoScroll = (direction: 'left' | 'right') => {
-    if (isScrolling) return;
-    setIsScrolling(true);
-
-    scrollIntervalRef.current = setInterval(() => {
-      if (scrollRef.current) {
-        const scrollAmount = direction === 'left' ? -5 : 5;
-        scrollRef.current.scrollBy({ left: scrollAmount });
-      }
-    }, 16);
-  };
-
-  const stopAutoScroll = () => {
-    if (scrollIntervalRef.current) {
-      clearInterval(scrollIntervalRef.current);
-      scrollIntervalRef.current = null;
-    }
-    setIsScrolling(false);
   };
 
   const handleMouseLeave = () => {
     mouseLeft.set(-Infinity);
-    stopAutoScroll();
   };
 
-  useEffect(() => {
-    return () => {
-      if (scrollIntervalRef.current) {
-        clearInterval(scrollIntervalRef.current);
-      }
-    };
-  }, []);
-
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[320px]">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
           {title}
@@ -280,7 +283,15 @@ const AutoScrollCollection = ({ seeds, title, description }: { seeds: typeof aiS
         onMouseLeave={handleMouseLeave}
         style={{ willChange: "transform" }}
       >
-        <div ref={scrollRef} className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+        <div 
+          ref={scrollRef} 
+          className="flex gap-3 overflow-x-auto pb-2" 
+          onScroll={handleScroll}
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+        >
           {seeds.map((seed, index) => (
             <motion.div 
               key={seed.id}
@@ -294,17 +305,33 @@ const AutoScrollCollection = ({ seeds, title, description }: { seeds: typeof aiS
             </motion.div>
           ))}
         </div>
+        
+        {/* Dots indicator */}
+        <div className="flex justify-center mt-3 gap-1">
+          {Array.from({ length: Math.max(1, seeds.length - 3) }).map((_, index) => {
+            const dotProgress = index / Math.max(1, seeds.length - 4);
+            const isActive = Math.abs(scrollProgress - dotProgress) < 0.25;
+            return (
+              <div
+                key={index}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                  isActive ? 'bg-warm-brown' : 'bg-warm-brown/30'
+                }`}
+              />
+            );
+          })}
+        </div>
       </motion.div>
 
-      <div className="pt-4 border-t border-warm-brown/10 mt-6">
-        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Hover near edges to auto-scroll</p>
+      <div className="pt-4 border-t border-warm-brown/10 mt-4">
+        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Scroll to explore with dots indicator</p>
       </div>
     </div>
   );
 };
 
-// Approach 3: Snap scrolling
-const SnapScrollCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
+// Approach 3: Thin custom scrollbar
+const ThinScrollbarCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
   const mouseLeft = useMotionValue(-Infinity);
@@ -322,7 +349,7 @@ const SnapScrollCollection = ({ seeds, title, description }: { seeds: typeof aiS
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[320px]">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
           {title}
@@ -341,7 +368,10 @@ const SnapScrollCollection = ({ seeds, title, description }: { seeds: typeof aiS
         onMouseLeave={handleMouseLeave}
         style={{ willChange: "transform" }}
       >
-        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2" style={{ scrollBehavior: 'smooth' }}>
+        <div 
+          className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 thin-scrollbar" 
+          style={{ scrollBehavior: 'smooth' }}
+        >
           {seeds.map((seed, index) => (
             <motion.div 
               key={seed.id}
@@ -358,20 +388,45 @@ const SnapScrollCollection = ({ seeds, title, description }: { seeds: typeof aiS
         </div>
       </motion.div>
 
-      <div className="pt-4 border-t border-warm-brown/10 mt-6">
-        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Smooth snap scrolling</p>
+      <div className="pt-4 border-t border-warm-brown/10 mt-4">
+        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Thin scrollbar with snap</p>
       </div>
+
+      <style jsx>{`
+        .thin-scrollbar::-webkit-scrollbar {
+          height: 3px;
+        }
+        .thin-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .thin-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(139, 109, 92, 0.3);
+          border-radius: 3px;
+        }
+        .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(139, 109, 92, 0.5);
+        }
+      `}</style>
     </div>
   );
 };
 
-// Approach 4: Fade overflow with "..." indicator
-const FadeOverflowCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
+// Approach 4: Progress bar indicator
+const ProgressBarCollection = ({ seeds, title, description }: { seeds: typeof aiSeeds, title: string, description: string }) => {
   const [, setLocation] = useLocation();
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
-  const [showAll, setShowAll] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const mouseLeft = useMotionValue(-Infinity);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      setScrollProgress(maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0);
+    }
+  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (containerRef.current) {
@@ -384,11 +439,8 @@ const FadeOverflowCollection = ({ seeds, title, description }: { seeds: typeof a
     mouseLeft.set(-Infinity);
   };
 
-  const visibleSeeds = showAll ? seeds : seeds.slice(0, 4);
-  const hasMore = seeds.length > 4;
-
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[350px]">
+    <div className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-all duration-300 border border-warm-brown/10 group-hover:scale-[1.02] h-[320px]">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-warm-brown mb-3 group-hover:text-hover-brown transition-colors duration-300">
           {title}
@@ -407,8 +459,16 @@ const FadeOverflowCollection = ({ seeds, title, description }: { seeds: typeof a
         onMouseLeave={handleMouseLeave}
         style={{ willChange: "transform" }}
       >
-        <div className="flex gap-3 flex-wrap pb-2">
-          {visibleSeeds.map((seed, index) => (
+        <div 
+          ref={scrollRef} 
+          className="flex gap-3 overflow-x-auto pb-2" 
+          onScroll={handleScroll}
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+        >
+          {seeds.map((seed, index) => (
             <motion.div 
               key={seed.id}
               onClick={() => setExpandedSeed(seed.id)}
@@ -420,21 +480,19 @@ const FadeOverflowCollection = ({ seeds, title, description }: { seeds: typeof a
               />
             </motion.div>
           ))}
-          {hasMore && !showAll && (
-            <button
-              onClick={() => setShowAll(true)}
-              className="flex-shrink-0 w-24 h-16 rounded-lg border border-warm-brown/30 bg-warm-brown/10 hover:bg-warm-brown/20 transition-colors duration-200 flex items-center justify-center"
-            >
-              <span className="text-warm-brown font-medium">+{seeds.length - 4}</span>
-            </button>
-          )}
+        </div>
+        
+        {/* Progress bar */}
+        <div className="mt-3 w-full h-0.5 bg-warm-brown/20 rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-warm-brown transition-all duration-150 rounded-full"
+            style={{ width: `${Math.min(100, Math.max(25, scrollProgress + 25))}%` }}
+          />
         </div>
       </motion.div>
 
-      <div className="pt-4 border-t border-warm-brown/10 mt-6">
-        <p className="text-xs text-muted-grey">
-          {seeds.length} thoughts • {showAll ? 'Showing all' : `Click +${seeds.length - 4} to see more`}
-        </p>
+      <div className="pt-4 border-t border-warm-brown/10 mt-4">
+        <p className="text-xs text-muted-grey">{seeds.length} thoughts • Progress bar shows scroll position</p>
       </div>
     </div>
   );
@@ -445,7 +503,9 @@ const ThoughtBlossoms = () => {
   const [expandedSeed, setExpandedSeed] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream/30 to-light-brown/20">
+    <>
+      <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
+      <div className="min-h-screen bg-gradient-to-br from-cream/30 to-light-brown/20">
       <div className="max-w-7xl mx-auto px-6 py-4 thoughts-background-texture">
         {/* View toggles */}
         <div className="flex items-center justify-center gap-2 mb-8">
@@ -480,7 +540,7 @@ const ThoughtBlossoms = () => {
         {/* Blossoms Grid - 2x2 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
 
-          {/* Approach 1: Arrow Navigation */}
+          {/* Approach 1: Smart Arrow Navigation */}
           <div className="group cursor-pointer">
             <ArrowNavigationCollection 
               seeds={aiSeeds}
@@ -489,27 +549,27 @@ const ThoughtBlossoms = () => {
             />
           </div>
 
-          {/* Approach 2: Auto-scroll on edge hover */}
+          {/* Approach 2: Dots indicator */}
           <div className="group cursor-pointer">
-            <AutoScrollCollection 
+            <DotsIndicatorCollection 
               seeds={societySeeds}
               title="Society & Power Structures"
               description="Examining how systems of power, community, and governance evolve."
             />
           </div>
 
-          {/* Approach 3: Snap scrolling */}
+          {/* Approach 3: Thin custom scrollbar */}
           <div className="group cursor-pointer">
-            <SnapScrollCollection 
+            <ThinScrollbarCollection 
               seeds={designSeeds}
               title="Design & User Experience"
               description="Thoughts on creating meaningful experiences in digital and physical spaces."
             />
           </div>
 
-          {/* Approach 4: Fade overflow with "..." indicator */}
+          {/* Approach 4: Progress bar indicator */}
           <div className="group cursor-pointer">
-            <FadeOverflowCollection 
+            <ProgressBarCollection 
               seeds={techSeeds}
               title="Technology & Society"
               description="Understanding the broader implications of technological advancement."
@@ -549,7 +609,7 @@ const ThoughtBlossoms = () => {
           </p>
         </footer>
       </div>
-    </div>
+    </>
   );
 };
 

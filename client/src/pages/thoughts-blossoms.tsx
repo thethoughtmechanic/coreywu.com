@@ -609,7 +609,7 @@ const ThoughtBlossoms = () => {
           </p>
         </footer>
       </div>
-    </>
+    </div>
   );
 };
 

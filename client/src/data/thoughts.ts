@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "17",
+    title: "AI Moneyball",
+    description: "With tech giants throwing $100M+ at obvious AI talent, there's a massive arbitrage opportunity in recognizing that the best AI operators aren't always engineers.",
+    fullDescription: "With tech giants throwing $100M+ at obvious AI talent, there's a massive arbitrage opportunity in recognizing that the best AI operators aren't always engineers—they're the people whose pre-existing behaviors perfectly match how AI actually works.\n\nThe real \"10x AI employees\" are hiding in plain sight: ADHD hyperfixators who naturally chain non-linear prompts, intellectual stoners who follow wild associative trails and ask \"but what if...\" questions without inhibition, fiction writers who instinctively understand narrative temperature control, therapists trained in structured questioning, and dungeon masters who've spent years managing complex state across improvisational systems.\n\nWhile Meta pays Silicon Valley premiums, smart companies should be recruiting from writing workshops, philosophy departments, improv troupes, and Discord servers where these natural AI whisperers have been accidentally training for this moment their entire lives.",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Sep 3, 2025"
+  },
+  {
     id: "16",
     title: "Curious Companions",
     description: "What if exploring the web didn't mean endless scrolling or letting AI dictate the answers?",

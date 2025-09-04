@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from "wouter";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
@@ -287,10 +286,7 @@ const DotsIndicatorCollection = ({ seeds, title, description }: { seeds: typeof 
           ref={scrollRef} 
           className="flex gap-3 overflow-x-auto pb-2" 
           onScroll={handleScroll}
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          }}
+          className="scrollbar-hide"
         >
           {seeds.map((seed, index) => (
             <motion.div 
@@ -305,7 +301,7 @@ const DotsIndicatorCollection = ({ seeds, title, description }: { seeds: typeof 
             </motion.div>
           ))}
         </div>
-        
+
         {/* Dots indicator */}
         <div className="flex justify-center mt-3 gap-1">
           {Array.from({ length: Math.max(1, seeds.length - 3) }).map((_, index) => {
@@ -463,10 +459,7 @@ const ProgressBarCollection = ({ seeds, title, description }: { seeds: typeof ai
           ref={scrollRef} 
           className="flex gap-3 overflow-x-auto pb-2" 
           onScroll={handleScroll}
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          }}
+          className="scrollbar-hide"
         >
           {seeds.map((seed, index) => (
             <motion.div 
@@ -481,7 +474,7 @@ const ProgressBarCollection = ({ seeds, title, description }: { seeds: typeof ai
             </motion.div>
           ))}
         </div>
-        
+
         {/* Progress bar */}
         <div className="mt-3 w-full h-0.5 bg-warm-brown/20 rounded-full overflow-hidden">
           <div 

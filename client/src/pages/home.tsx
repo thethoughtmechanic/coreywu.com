@@ -13,7 +13,7 @@ import headshotImage from "@assets/0X5A2925_2_pp_1756229624864.jpg";
 export default function Home() {
   const [, setLocation] = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Assuming mobile is < 768px
-
+  
   // Ensure page starts at top
   useScrollToTop();
 
@@ -46,7 +46,7 @@ export default function Home() {
         ></div>
 
       {/* Main Content Area - Constrained height to leave room for footer */}
-      <main className="flex flex-col items-center justify-center py-8 md:py-12 pb-24 md:pb-8">
+      <main className="flex flex-col items-center justify-center py-8 md:py-12" style={{ minHeight: 'calc(100vh - 200px)' }}>
         {/* Draggable Headshot - positioned above the welcome text */}
         <div className="mb-8 md:mb-10 flex justify-center relative">
           <SpringElement>

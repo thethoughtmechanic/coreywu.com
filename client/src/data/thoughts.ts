@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "18",
+    title: "The Input Economy",
+    description: "AI promises to democratize creation, but democratizing opportunity isn't the same as democratizing outcomes—we're about to see the biggest income gap in human history.",
+    fullDescription: "AI promises to democratize creation, but democratizing opportunity isn't the same as democratizing outcomes—we're about to see the biggest income gap in human history.\n\nWhen everyone has access to AI that amplifies output 1000x, small differences in human curiosity and persistence create exponential gaps in value creation and capture.\n\nMaybe we need an input economy—compensating people for their human contributions rather than their unpredictable AI-amplified results.",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Sep 8, 2025"
+  },
+  {
     id: "17",
     title: "AI Moneyball",
     description: "With tech giants throwing $100M+ at obvious AI talent, there's a massive arbitrage opportunity in recognizing that the best AI operators aren't always engineers.",

@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "19",
+    title: "AI Alignment is About Calibrating for Natural Speeds",
+    description: "Every need and experience has a natural pace, and just as a road's design should honor its natural speed, our future must be designed around the rhythms of human purpose.",
+    fullDescription: "Every need and experience has a natural pace, and just as a road's design should honor its natural speed, our future must be designed around the rhythms of human purpose.\n\nAI has accelerated what's possible, creating a new tension between a task's inherent rhythm and the speed we can now achieve.\n\nThe key to the future isn't to work faster or slower, but to find the right speed—the one that serves our purpose and avoids a crash.",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Sep 9, 2025"
+  },
+  {
     id: "18",
     title: "The Input Economy",
     description: "AI promises to democratize creation, but democratizing opportunity isn't the same as democratizing outcomes—we're about to see the biggest income gap in human history.",

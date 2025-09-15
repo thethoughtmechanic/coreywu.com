@@ -222,6 +222,71 @@ export default function Thoughts() {
                     )}
                   </div>
                 </>
+              ) : thought.id === '20' ? (
+                <>
+                  <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">
+                    {thought.title}
+                  </h3>
+                  <div className="text-sm text-soft-black/80 leading-relaxed">
+                    {expandedThought === thought.id ? (
+                      <>
+                        <p className="mb-4">{thought.fullDescription?.split('\n\n')[0]}</p>
+                        <div className="flex items-center justify-center mb-4">
+                          <img
+                            src="/great-speed-mismatch-matrix.png"
+                            alt="The Great Speed Mismatch Matrix"
+                            className="max-w-full max-h-64 object-contain rounded-lg"
+                          />
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <p className="mb-2"><strong>The Craftsman</strong>: The ideal state of alignment, where a deliberate pace produces high-quality work.</p>
+                          </div>
+
+                          <div>
+                            <p className="mb-2"><strong>The Bottleneck</strong>: The crash of irrelevance, where a slow pace becomes a liability in a fast-moving world.</p>
+                          </div>
+
+                          <div>
+                            <p className="mb-2"><strong>The Impatient</strong>: The burnout crash, where a fast pace destroys the value of a naturally slow job.</p>
+                          </div>
+
+                          <div>
+                            <p className="mb-2"><strong>The Conductor</strong>: The new ideal, where a fast, AI-leveraged pace meets a naturally fast job, leading to mastery and scale.</p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setExpandedThought(null)}
+                          className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-4 flex items-center gap-1"
+                        >
+                          <svg className="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                          See less
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-center justify-center mb-4">
+                          <img
+                            src="/great-speed-mismatch-matrix.png"
+                            alt="The Great Speed Mismatch Matrix"
+                            className="max-w-full max-h-48 object-contain rounded-lg"
+                          />
+                        </div>
+                        <button
+                          onClick={() => setExpandedThought(thought.id)}
+                          className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium mt-2 flex items-center gap-1"
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                          See more
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </>
               ) : thought.id === '7' ? (
                 <>
                   <h3 className="text-xl font-bold text-warm-brown mb-4 leading-tight group-hover/card:text-hover-brown transition-colors duration-300">

@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "20",
+    title: "The Great Speed Mismatch",
+    description: "Our next great societal task is to solve the great speed mismatch by understanding and categorizing the natural speed of the work we do, creating a blueprint for how we can best partner with AI.",
+    fullDescription: "Our next great societal task is to solve the great speed mismatch by understanding and categorizing the natural speed of the work we do, creating a blueprint for how we can best partner with AI.\n\n![The Great Speed Mismatch Matrix](/great-speed-mismatch-matrix.png)\n\n**The Craftsman**: The ideal state of alignment, where a deliberate pace produces high-quality work.\n\n**The Bottleneck**: The crash of irrelevance, where a slow pace becomes a liability in a fast-moving world.\n\n**The Impatient**: The burnout crash, where a fast pace destroys the value of a naturally slow job.\n\n**The Conductor**: The new ideal, where a fast, AI-leveraged pace meets a naturally fast job, leading to mastery and scale.",
+    tag: "POV",
+    readTime: "4 min read",
+    imageGradient: "from-green-600 to-green-400",
+    status: "published",
+    date: "Sep 10, 2025"
+  },
+  {
     id: "19",
     title: "AI Alignment is About Calibrating for Natural Speeds",
     description: "Every need and experience has a natural pace, and just as a road's design should honor its natural speed, our future must be designed around the rhythms of human purpose.",

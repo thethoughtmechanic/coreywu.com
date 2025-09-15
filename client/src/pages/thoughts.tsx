@@ -261,19 +261,38 @@ export default function Thoughts() {
                       if (hasMoreContent) {
                         const isExpanded = expandedThought === thought.id;
                         const contentToShow = isExpanded ? thought.fullDescription : thought.description;
+                        const imageMatch = thought.fullDescription?.match(/!\[([^\]]*)\]\(([^)]+)\)/);
 
                         return (
                           <>
                             <div>
-                              {contentToShow?.split('\n\n').map((paragraph, index) => (
-                                <p key={index} className="mb-3 last:mb-0" dangerouslySetInnerHTML={{
-                                  __html: paragraph
-                                    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full max-h-64 object-contain rounded-lg mx-auto my-4" />')
-                                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                                    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-                                    .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
-                                }} />
-                              ))}
+                              {/* Show the text content (description or full) */}
+                              {contentToShow?.split('\n\n').map((paragraph, index) => {
+                                // Skip image paragraphs in preview mode to avoid showing text representation
+                                if (!isExpanded && paragraph.trim().startsWith('![')) {
+                                  return null;
+                                }
+                                return (
+                                  <p key={index} className="mb-3 last:mb-0" dangerouslySetInnerHTML={{
+                                    __html: paragraph
+                                      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full max-h-64 object-contain rounded-lg mx-auto my-4" />')
+                                      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                                      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                                      .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                                  }} />
+                                );
+                              })}
+                              
+                              {/* Show image from fullDescription in preview mode */}
+                              {!isExpanded && imageMatch && (
+                                <div className="flex items-center justify-center my-4">
+                                  <img
+                                    src={imageMatch[2]}
+                                    alt={imageMatch[1]}
+                                    className="max-w-full max-h-48 object-contain rounded-lg"
+                                  />
+                                </div>
+                              )}
                             </div>
                             <button
                               onClick={() => setExpandedThought(isExpanded ? null : thought.id)}

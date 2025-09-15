@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { ThoughtCard } from "@/components/thought-card";
 import { thoughts } from "@/data/thoughts";
 import { useIsMobile } from "@/hooks/use-mobile";
 import democracyImage from "@assets/image_1754686959251.png";
@@ -269,6 +268,7 @@ export default function Thoughts() {
                               {contentToShow?.split('\n\n').map((paragraph, index) => (
                                 <p key={index} className="mb-3 last:mb-0" dangerouslySetInnerHTML={{
                                   __html: paragraph
+                                    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full max-h-64 object-contain rounded-lg mx-auto my-4" />')
                                     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
                                     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
                                     .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
@@ -288,16 +288,32 @@ export default function Thoughts() {
                         );
                       } else {
                         // No expandable content, show description normally with proper paragraph spacing
+                        // But also check if there are any images in fullDescription that should be shown in preview
+                        const imageMatch = thought.fullDescription?.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+                        
                         return (
                           <div>
+                            {/* Show the description */}
                             {(thought.description || '').split('\n\n').map((paragraph, index) => (
                               <p key={index} className="mb-3 last:mb-0" dangerouslySetInnerHTML={{
                                 __html: paragraph
+                                  .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full max-h-64 object-contain rounded-lg mx-auto my-4" />')
                                   .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
                                   .replace(/\*([^*]+)\*/g, '<em>$1</em>')
                                   .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
                               }} />
                             ))}
+                            
+                            {/* Show image from fullDescription if it exists */}
+                            {imageMatch && (
+                              <div className="flex items-center justify-center my-4">
+                                <img
+                                  src={imageMatch[2]}
+                                  alt={imageMatch[1]}
+                                  className="max-w-full max-h-48 object-contain rounded-lg"
+                                />
+                              </div>
+                            )}
                           </div>
                         );
                       }

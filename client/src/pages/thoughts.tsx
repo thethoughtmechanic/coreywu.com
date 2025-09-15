@@ -233,7 +233,7 @@ export default function Thoughts() {
                         <p className="mb-4">{thought.fullDescription?.split('\n\n')[0]}</p>
                         <div className="flex items-center justify-center mb-4">
                           <img
-                            src="/great-speed-mismatch-matrix.png"
+                            src="https://via.placeholder.com/400x300/8B6D5C/FFFFFF?text=The+Great+Speed+Mismatch+Matrix"
                             alt="The Great Speed Mismatch Matrix"
                             className="max-w-full max-h-64 object-contain rounded-lg"
                           />
@@ -269,7 +269,7 @@ export default function Thoughts() {
                       <>
                         <div className="flex items-center justify-center mb-4">
                           <img
-                            src="/great-speed-mismatch-matrix.png"
+                            src="https://via.placeholder.com/400x300/8B6D5C/FFFFFF?text=The+Great+Speed+Mismatch+Matrix"
                             alt="The Great Speed Mismatch Matrix"
                             className="max-w-full max-h-48 object-contain rounded-lg"
                           />

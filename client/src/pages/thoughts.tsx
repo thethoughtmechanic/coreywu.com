@@ -253,7 +253,52 @@ export default function Thoughts() {
                   </h3>
                   <div className="text-sm text-soft-black/70 leading-relaxed">
                     {(() => {
-                      // Check if this thought has expandable content
+                      // Special handling for "The Great Speed Mismatch" post
+                      if (thought.id === '20') {
+                        const isExpanded = expandedThought === thought.id;
+                        const imageMatch = thought.fullDescription?.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+
+                        return (
+                          <>
+                            <div>
+                              {isExpanded ? (
+                                // Show full content when expanded
+                                thought.fullDescription?.split('\n\n').map((paragraph, index) => (
+                                  <p key={index} className="mb-3 last:mb-0" dangerouslySetInnerHTML={{
+                                    __html: paragraph
+                                      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full max-h-64 object-contain rounded-lg mx-auto my-4" />')
+                                      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                                      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                                      .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
+                                  }} />
+                                ))
+                              ) : (
+                                // Show only image in preview mode
+                                imageMatch && (
+                                  <div className="flex items-center justify-center my-4">
+                                    <img
+                                      src={imageMatch[2]}
+                                      alt={imageMatch[1]}
+                                      className="max-w-full max-h-48 object-contain rounded-lg"
+                                    />
+                                  </div>
+                                )
+                              )}
+                            </div>
+                            <button
+                              onClick={() => setExpandedThought(isExpanded ? null : thought.id)}
+                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1 mt-2"
+                            >
+                              <svg className={`w-3 h-3 ${isExpanded ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                              {isExpanded ? 'See less' : 'See more'}
+                            </button>
+                          </>
+                        );
+                      }
+
+                      // Regular handling for other posts
                       const hasMoreContent = thought.fullDescription &&
                         thought.description &&
                         thought.fullDescription.trim().length > thought.description.trim().length + 50;

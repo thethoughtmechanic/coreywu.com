@@ -64,6 +64,7 @@ export const experiments: Experiment[] = [
     timeframe: "2020",
     collaborators: ["@kylebrown"],
     technologies: ["Game Mechanics", "Thematic Roleplay", "Scenario Building", "Physical Components"],
+    image: "/food-for-thought-game.jpg",
     isActive: false
   },
   {

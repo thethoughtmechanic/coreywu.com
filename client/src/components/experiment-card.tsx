@@ -41,6 +41,17 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
         {/* Text Background for better readability when splatter is visible */}
         <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
 
+        {/* Experiment Image */}
+        {experiment.image && (
+          <div className="mb-3 relative z-10">
+            <img 
+              src={experiment.image} 
+              alt={experiment.title}
+              className="w-full h-24 object-cover rounded"
+            />
+          </div>
+        )}
+
         <div className="flex items-start relative z-10">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
@@ -149,6 +160,17 @@ export function ExperimentCard({ experiment, variant = 'default', showStatusIndi
 
       {/* Text Background for better readability when splatter is visible */}
       <div className={`absolute inset-0 bg-black/40 transition-opacity duration-700 ease-out rounded-lg ${showStatusIndicator ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+
+      {/* Experiment Image */}
+      {experiment.image && (
+        <div className="mb-4 relative z-10">
+          <img 
+            src={experiment.image} 
+            alt={experiment.title}
+            className="w-full h-48 object-cover rounded-lg"
+          />
+        </div>
+      )}
 
       <div className="flex items-start justify-between relative z-10">
         <div className="flex-1">

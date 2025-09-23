@@ -251,26 +251,19 @@ export default function ExperimentsExperimental() {
                 e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
               }}
+            style={{
+                filter: 'grayscale(1) brightness(0.7)',
+                WebkitFilter: 'grayscale(1) brightness(0.7)'
+              }}
             >
-              {/* Base grayscale overlay for the entire card */}
-              <div 
-                className="absolute inset-0 pointer-events-none z-10"
-                style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0)',
-                  filter: 'grayscale(1) brightness(0.7)',
-                  WebkitFilter: 'grayscale(1) brightness(0.7)'
-                }}
-              />
-
-              {/* Spotlight effect that gets masked to reveal color underneath */}
+              {/* Spotlight effect that reveals normal colors */}
               <div 
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
                 style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0)',
-                  filter: 'grayscale(1) brightness(0.7)',
-                  WebkitFilter: 'grayscale(1) brightness(0.7)',
-                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)',
-                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)'
+                  filter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
+                  WebkitFilter: 'grayscale(0) brightness(1.43)',
+                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
+                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
                 }}
               />
 
@@ -293,26 +286,19 @@ export default function ExperimentsExperimental() {
                 e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
               }}
+            style={{
+                filter: 'grayscale(1) brightness(0.7)',
+                WebkitFilter: 'grayscale(1) brightness(0.7)'
+              }}
             >
-              {/* Base grayscale overlay for the entire card */}
-              <div 
-                className="absolute inset-0 pointer-events-none z-10"
-                style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0)',
-                  filter: 'grayscale(1) brightness(0.7)',
-                  WebkitFilter: 'grayscale(1) brightness(0.7)'
-                }}
-              />
-
-              {/* Spotlight effect that gets masked to reveal color underneath */}
+              {/* Spotlight effect that reveals normal colors */}
               <div 
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
                 style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0)',
-                  filter: 'grayscale(1) brightness(0.7)',
-                  WebkitFilter: 'grayscale(1) brightness(0.7)',
-                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)',
-                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)'
+                  filter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
+                  WebkitFilter: 'grayscale(0) brightness(1.43)',
+                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
+                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
                 }}
               />
 

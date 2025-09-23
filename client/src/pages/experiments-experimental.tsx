@@ -252,33 +252,24 @@ export default function ExperimentsExperimental() {
                 e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
               }}
+              style={{
+                filter: 'grayscale(1) brightness(0.7)',
+                WebkitFilter: 'grayscale(1) brightness(0.7)'
+              }}
             >
-              {/* Mouse spotlight with grayscale overlay */}
+              {/* Spotlight effect that reveals normal colors */}
               <div 
-                className="absolute inset-0 pointer-events-none z-20"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
                 style={{
-                  backdropFilter: 'grayscale(1) brightness(0.7)',
-                  WebkitBackdropFilter: 'grayscale(1) brightness(0.7)',
-                  maskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
-                  WebkitMaskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
-                  opacity: 0,
-                  transition: 'opacity 0.3s ease-out'
+                  backdropFilter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
+                  WebkitBackdropFilter: 'grayscale(0) brightness(1.43)',
+                  maskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
+                  WebkitMaskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
                 }}
               />
 
               {/* Elegant hover overlay with warm tones */}
               <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
-              
-              {/* Mouse spotlight activation */}
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  backdropFilter: 'grayscale(1) brightness(0.7)',
-                  WebkitBackdropFilter: 'grayscale(1) brightness(0.7)',
-                  maskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
-                  WebkitMaskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)'
-                }}
-              />
               
               {/* Content with relative positioning */}
               <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
@@ -296,20 +287,24 @@ export default function ExperimentsExperimental() {
                 e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
               }}
+              style={{
+                filter: 'grayscale(1) brightness(0.7)',
+                WebkitFilter: 'grayscale(1) brightness(0.7)'
+              }}
             >
-              {/* Elegant hover overlay with warm tones */}
-              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
-              
-              {/* Mouse spotlight activation */}
+              {/* Spotlight effect that reveals normal colors */}
               <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
                 style={{
-                  backdropFilter: 'grayscale(1) brightness(0.7)',
-                  WebkitBackdropFilter: 'grayscale(1) brightness(0.7)',
-                  maskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
-                  WebkitMaskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)'
+                  backdropFilter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
+                  WebkitBackdropFilter: 'grayscale(0) brightness(1.43)',
+                  maskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
+                  WebkitMaskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
                 }}
               />
+
+              {/* Elegant hover overlay with warm tones */}
+              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
               
               <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
                 <CardContent />

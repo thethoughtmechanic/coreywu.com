@@ -1,13 +1,31 @@
 
 import React, { useState, useEffect } from 'react';
 
-const CognitiveExtinctionGrid = () => {
-  const [currentYear, setCurrentYear] = useState(0);
-  const [hoveredItem, setHoveredItem] = useState(null);
+interface CognitiveStyle {
+  name: string;
+  description: string;
+  status: 'thriving' | 'declining' | 'critical' | 'extinct';
+}
+
+interface YearData {
+  featured: CognitiveStyle[];
+  distribution: {
+    thriving: number;
+    declining: number;
+    critical: number;
+    extinct: number;
+  };
+}
+
+type StatusType = 'thriving' | 'declining' | 'critical' | 'extinct';
+
+const CognitiveExtinctionTimeline = () => {
+  const [currentYear, setCurrentYear] = useState<number>(0);
+  const [hoveredItem, setHoveredItem] = useState<CognitiveStyle | null>(null);
   const years = [2025, 2027, 2030, 2032, 2035];
 
   // Timeline data with featured cognitive styles
-  const timelineData = {
+  const timelineData: Record<number, YearData> = {
     2025: {
       featured: [
         { name: "Deep Time Synthesizer", description: "Thinks in geological timescales, sees patterns across centuries", status: "thriving" },
@@ -69,7 +87,7 @@ const CognitiveExtinctionGrid = () => {
   };
 
   // Generate dot distribution
-  const generateDots = (distribution) => {
+  const generateDots = (distribution: YearData['distribution']): StatusType[] => {
     const total = 300; // 20x15 grid
     const dots = [];
     const counts = {
@@ -80,14 +98,14 @@ const CognitiveExtinctionGrid = () => {
     };
 
     // Fill array with states
-    for (let i = 0; i < counts.thriving; i++) dots.push('thriving');
-    for (let i = 0; i < counts.declining; i++) dots.push('declining');
-    for (let i = 0; i < counts.critical; i++) dots.push('critical');
-    for (let i = 0; i < counts.extinct; i++) dots.push('extinct');
+    for (let i = 0; i < counts.thriving; i++) dots.push('thriving' as StatusType);
+    for (let i = 0; i < counts.declining; i++) dots.push('declining' as StatusType);
+    for (let i = 0; i < counts.critical; i++) dots.push('critical' as StatusType);
+    for (let i = 0; i < counts.extinct; i++) dots.push('extinct' as StatusType);
 
     // Fill remainder with extinct
     while (dots.length < total) {
-      dots.push('extinct');
+      dots.push('extinct' as StatusType);
     }
 
     // Shuffle
@@ -96,18 +114,18 @@ const CognitiveExtinctionGrid = () => {
       [dots[i], dots[j]] = [dots[j], dots[i]];
     }
 
-    return dots;
+    return dots as StatusType[];
   };
 
-  const [dots, setDots] = useState([]);
-  const [featuredMap, setFeaturedMap] = useState({});
+  const [dots, setDots] = useState<StatusType[]>([]);
+  const [featuredMap, setFeaturedMap] = useState<Record<number, CognitiveStyle>>({});
 
   useEffect(() => {
     const yearData = timelineData[years[currentYear]];
     const newDots = generateDots(yearData.distribution);
     
     // Find indices for featured items based on their status
-    const statusIndices = {
+    const statusIndices: Record<StatusType, number[]> = {
       thriving: [],
       declining: [],
       critical: [],
@@ -115,14 +133,12 @@ const CognitiveExtinctionGrid = () => {
     };
 
     newDots.forEach((status, index) => {
-      if (statusIndices[status]) {
-        statusIndices[status].push(index);
-      }
+      statusIndices[status as StatusType].push(index);
     });
 
     // Create a map of index -> featured item
-    const newFeaturedMap = {};
-    const assignedIndices = new Set();
+    const newFeaturedMap: Record<number, CognitiveStyle> = {};
+    const assignedIndices = new Set<number>();
     
     yearData.featured.forEach((item) => {
       const available = statusIndices[item.status].filter(idx => !assignedIndices.has(idx));
@@ -137,12 +153,12 @@ const CognitiveExtinctionGrid = () => {
     setFeaturedMap(newFeaturedMap);
   }, [currentYear]);
 
-  const handleSliderChange = (e) => {
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentYear(parseInt(e.target.value));
     setHoveredItem(null);
   };
 
-  const handleDotHover = (index) => {
+  const handleDotHover = (index: number) => {
     if (featuredMap[index]) {
       setHoveredItem(featuredMap[index]);
     }
@@ -152,7 +168,7 @@ const CognitiveExtinctionGrid = () => {
     setHoveredItem(null);
   };
 
-  const statusColors = {
+  const statusColors: Record<StatusType, string> = {
     thriving: '#4CAF50',
     declining: '#FFC107', 
     critical: '#F44336',
@@ -161,16 +177,16 @@ const CognitiveExtinctionGrid = () => {
 
   return (
     <div style={styles.container}>
-      <div style={styles.yearDisplay}>{years[currentYear]}</div>
+      <div style={styles.yearDisplay as React.CSSProperties}>{years[currentYear]}</div>
       
-      <div style={styles.sliderContainer}>
+      <div style={styles.sliderContainer as React.CSSProperties}>
         <input
           type="range"
           min="0"
           max="4"
           value={currentYear}
           onChange={handleSliderChange}
-          style={styles.slider}
+          style={styles.slider as React.CSSProperties}
         />
         <div style={styles.sliderTicks}>
           {years.map((_, i) => (
@@ -191,9 +207,9 @@ const CognitiveExtinctionGrid = () => {
                 ...styles.dot,
                 backgroundColor: statusColors[status],
                 opacity: status === 'extinct' ? 0.3 : 0.9,
-                ...(isFeatured ? styles.interactiveDot : {}),
+                ...(isFeatured ? (styles.interactiveDot as React.CSSProperties) : {}),
                 cursor: isFeatured ? 'pointer' : 'default'
-              }}
+              } as React.CSSProperties}
               className={isFeatured ? 'pulsing-dot' : ''}
             />
           );
@@ -223,7 +239,7 @@ const CognitiveExtinctionGrid = () => {
             </div>
           </div>
         ) : (
-          <div style={styles.infoCTA}>
+          <div style={styles.infoCTA as React.CSSProperties}>
             <span>↑</span><br/>
             Hover the pulsing dots to explore cognitive styles
           </div>
@@ -268,7 +284,7 @@ const styles = {
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
   },
   yearDisplay: {
-    textAlign: 'center',
+    textAlign: 'center' as const,
     fontSize: '2.2em',
     color: '#333',
     margin: '0.3em 0 0.8em 0',
@@ -277,7 +293,7 @@ const styles = {
   sliderContainer: {
     margin: '1em 0 1.5em 0',
     padding: '0 2em',
-    position: 'relative'
+    position: 'relative' as const
   },
   slider: {
     width: '100%',
@@ -285,8 +301,8 @@ const styles = {
     backgroundColor: '#e0e0e0',
     borderRadius: '1px',
     outline: 'none',
-    WebkitAppearance: 'none',
-    appearance: 'none'
+    WebkitAppearance: 'none' as const,
+    appearance: 'none' as const
   },
   sliderTicks: {
     display: 'flex',
@@ -312,7 +328,7 @@ const styles = {
     position: 'relative'
   },
   interactiveDot: {
-    position: 'relative'
+    position: 'relative' as const
   },
   legend: {
     display: 'flex',
@@ -347,7 +363,7 @@ const styles = {
   infoCTA: {
     color: '#999',
     fontSize: '0.85em',
-    textAlign: 'center'
+    textAlign: 'center' as const
   },
   infoContent: {
     width: '100%'
@@ -367,7 +383,7 @@ const styles = {
   infoStatus: {
     fontSize: '0.75em',
     fontWeight: '600',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase' as const,
     letterSpacing: '0.5px',
     display: 'inline-block',
     padding: '2px 8px',
@@ -375,4 +391,4 @@ const styles = {
   }
 };
 
-export default CognitiveExtinctionGrid;
+export default CognitiveExtinctionTimeline;

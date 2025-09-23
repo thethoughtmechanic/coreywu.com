@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "22",
+    title: "Leverage is Broken, We Must Break It",
+    description: "For centuries, leverage rewarded risk and effort. AI disrupts this framework—now a single human action can scale 10,000x at near-zero cost.",
+    fullDescription: "For centuries, leverage rewarded risk and effort. Naval Ravikant famously identified three forms of leverage: labor, capital, and code/media. These allowed individuals to amplify their impact and, by extension, their rewards.\n\nAI disrupts this framework. Now, a single human action can scale 10,000x at near-zero cost. The old logic—that scaled impact earns extreme reward—no longer holds. We're just passengers while the machine does the real driving.\n\nLeverage is broken. Some domains will explode into abundance; others will remain tied to fundamental constraints. How this shapes reward, opportunity, or inequality is uncertain—but the rules we've relied on for centuries no longer apply.",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Sep 23, 2025"
+  },
+  {
     id: "21",
     title: "The Golden Era of AI and Humans",
     description: "We're living through different eras of human-technology collaboration, each defined by shifting ratios of contribution.",

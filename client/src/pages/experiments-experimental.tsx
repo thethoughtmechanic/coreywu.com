@@ -245,27 +245,43 @@ export default function ExperimentsExperimental() {
               onClick={() => setLocation(route)}
               className="group w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 h-fit hover:shadow-xl transition-all duration-500 relative overflow-hidden"
               data-testid={`button-${experiment.id}-desktop`}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+              }}
             >
-              {/* Elegant hover overlay with warm tones */}
-              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              
-              {/* Subtle spotlight effect */}
+              {/* Mouse spotlight with grayscale overlay */}
               <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none"
+                className="absolute inset-0 pointer-events-none z-20"
                 style={{
-                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 115, 85, 0.15) 0%, transparent 60%)'
+                  backdropFilter: 'grayscale(1) brightness(0.7)',
+                  WebkitBackdropFilter: 'grayscale(1) brightness(0.7)',
+                  maskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
+                  WebkitMaskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease-out'
                 }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+              />
+
+              {/* Elegant hover overlay with warm tones */}
+              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
+              
+              {/* Mouse spotlight activation */}
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{
+                  backdropFilter: 'grayscale(1) brightness(0.7)',
+                  WebkitBackdropFilter: 'grayscale(1) brightness(0.7)',
+                  maskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
+                  WebkitMaskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)'
                 }}
               />
               
               {/* Content with relative positioning */}
-              <div className="relative z-10 transform group-hover:scale-[1.02] transition-transform duration-500">
+              <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
                 <CardContent />
               </div>
             </article>
@@ -273,25 +289,29 @@ export default function ExperimentsExperimental() {
             <article 
               key={experiment.id} 
               className="group bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 h-fit relative overflow-hidden transition-all duration-500 hover:shadow-xl"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+              }}
             >
-              {/* Same hover effects for non-clickable cards */}
-              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              {/* Elegant hover overlay with warm tones */}
+              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
               
+              {/* Mouse spotlight activation */}
               <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{
-                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 115, 85, 0.15) 0%, transparent 60%)'
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                  backdropFilter: 'grayscale(1) brightness(0.7)',
+                  WebkitBackdropFilter: 'grayscale(1) brightness(0.7)',
+                  maskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)',
+                  WebkitMaskImage: 'radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 20%, black 60%)'
                 }}
               />
               
-              <div className="relative z-10 transform group-hover:scale-[1.02] transition-transform duration-500">
+              <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
                 <CardContent />
               </div>
             </article>

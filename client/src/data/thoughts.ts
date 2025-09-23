@@ -2,6 +2,17 @@ import { Thought } from "@shared/schema";
 
 export const thoughts: Thought[] = [
   {
+    id: "21",
+    title: "The Golden Era of AI and Humans",
+    description: "We're living through different eras of human-technology collaboration, each defined by shifting ratios of contribution.",
+    fullDescription: "We're living through different eras of human-technology collaboration, each defined by shifting ratios of contribution. We started at 1:0—pure human capability with no technological assistance. For decades, we've operated around 0.75:0.25, where humans drive while technology serves as sophisticated tools.\n\nNow we're entering the 0.5:0.5 golden era—true partnership where AI handles scaled execution while humans provide vision, curiosity, and strategic direction. This is the sweet spot where both sides contribute equally, amplifying each other's strengths without either becoming redundant.\n\nAs we approach 0.25:0.75, we enter \"intern mode\"—AI does most of the thinking and shaping while humans complete specific tasks that AI needs done to continue its execution. Eventually, with functional physical robots handling both software and hardware, we could reach 0:1—full automation.\n\nBut this isn't a timeline we must follow—it's a spectrum of possibilities.",
+    tag: "Thought Bite",
+    readTime: "2 min read",
+    imageGradient: "from-teal-600 to-teal-400",
+    status: "published",
+    date: "Sep 22, 2025"
+  },
+  {
     id: "20",
     title: "The Great Speed Mismatch",
     description: "Our next great societal task is to solve the great speed mismatch by understanding and categorizing the natural speed of the work we do, creating a blueprint for how we can best partner with AI.",

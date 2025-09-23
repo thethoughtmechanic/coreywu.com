@@ -7,6 +7,7 @@ import fourTribesImage from "@assets/image_1755886711758.png";
 import { getPaintSplatter } from "@/lib/paint-splatters";
 import CopyEmail from "@/components/copy-email";
 import { ExperimentalFilter } from "@/components/experimental-filter";
+import CognitiveExtinctionTimeline from "@/components/cognitive-extinction-timeline";
 
 export default function Thoughts() {
   const [, setLocation] = useLocation();
@@ -313,6 +314,11 @@ export default function Thoughts() {
                             <div>
                               {/* Show the text content (description or full) */}
                               {contentToShow?.split('\n\n').map((paragraph, index) => {
+                                // Handle special cognitive extinction timeline component
+                                if (paragraph.trim() === "<div id='cognitive-extinction-timeline'></div>") {
+                                  return isExpanded ? <CognitiveExtinctionTimeline key={index} /> : null;
+                                }
+                                
                                 // Skip image paragraphs in preview mode to avoid showing text representation
                                 if (!isExpanded && paragraph.trim().startsWith('![')) {
                                   return null;

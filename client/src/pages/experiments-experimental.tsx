@@ -1,3 +1,4 @@
+
 import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
 import { useState } from "react";
@@ -194,12 +195,14 @@ export default function ExperimentsExperimental() {
           const route = getExperimentRoute(experiment.id);
 
           const CardContent = () => (
-            <div className="space-y-4 h-full flex flex-col">
+            <div className="h-full flex flex-col">
               {/* Image Placeholder */}
-              <ImagePlaceholder experiment={experiment} />
+              <div className="mb-4">
+                <ImagePlaceholder experiment={experiment} />
+              </div>
 
               {/* Title and Status Pill Row */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mb-3">
                 <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'} leading-tight`}>
                   {experiment.title}
                 </h3>
@@ -210,7 +213,7 @@ export default function ExperimentsExperimental() {
               </div>
 
               {/* Timeframe and Team on one line */}
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-gray-400 mb-3">
                 {experiment.timeframe} | {experiment.collaborators && experiment.collaborators.length > 0
                   ? experiment.collaborators.join(', ')
                   : 'Solo'
@@ -218,7 +221,7 @@ export default function ExperimentsExperimental() {
               </div>
 
               {/* Description */}
-              <p className="text-sm text-soft-black leading-relaxed flex-1">
+              <p className="text-sm text-soft-black leading-relaxed flex-1 mb-4">
                 {experiment.description}
               </p>
 
@@ -242,70 +245,26 @@ export default function ExperimentsExperimental() {
             <article
               key={experiment.id}
               onClick={() => setLocation(route)}
-              className="group w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 h-fit hover:shadow-xl transition-all duration-500 relative overflow-hidden"
+              className="group w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 min-h-[500px] flex flex-col hover:shadow-xl transition-all duration-500 relative overflow-hidden"
               data-testid={`button-${experiment.id}-desktop`}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-              }}
-            style={{
-                filter: 'grayscale(1) brightness(0.7)',
-                WebkitFilter: 'grayscale(1) brightness(0.7)'
-              }}
             >
-              {/* Spotlight effect that reveals normal colors */}
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
-                style={{
-                  filter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
-                  WebkitFilter: 'grayscale(0) brightness(1.43)',
-                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
-                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
-                }}
-              />
-
               {/* Elegant hover overlay with warm tones */}
               <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
 
               {/* Content with relative positioning */}
-              <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
+              <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500 h-full">
                 <CardContent />
               </div>
             </article>
           ) : (
             <article 
               key={experiment.id} 
-              className="group bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 h-fit relative overflow-hidden transition-all duration-500 hover:shadow-xl"
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-              }}
-            style={{
-                filter: 'grayscale(1) brightness(0.7)',
-                WebkitFilter: 'grayscale(1) brightness(0.7)'
-              }}
+              className="group bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 min-h-[500px] flex flex-col relative overflow-hidden transition-all duration-500 hover:shadow-xl"
             >
-              {/* Spotlight effect that reveals normal colors */}
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
-                style={{
-                  filter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
-                  WebkitFilter: 'grayscale(0) brightness(1.43)',
-                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
-                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
-                }}
-              />
-
               {/* Elegant hover overlay with warm tones */}
               <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
 
-              <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
+              <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500 h-full">
                 <CardContent />
               </div>
             </article>
@@ -379,12 +338,14 @@ export default function ExperimentsExperimental() {
         const route = getExperimentRoute(experiment.id);
 
         const CardContent = () => (
-          <div className="space-y-3">
+          <div className="h-full flex flex-col">
             {/* Image Placeholder */}
-            <ImagePlaceholder experiment={experiment} />
+            <div className="mb-4">
+              <ImagePlaceholder experiment={experiment} />
+            </div>
 
             {/* Title and Status Pill Row */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mb-3">
               <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'} leading-tight`}>
                 {experiment.title}
               </h3>
@@ -395,7 +356,7 @@ export default function ExperimentsExperimental() {
             </div>
 
             {/* Timeframe and Team on one line */}
-            <div className="text-sm text-gray-400">
+            <div className="text-sm text-gray-400 mb-3">
               {experiment.timeframe} | {experiment.collaborators && experiment.collaborators.length > 0
                 ? experiment.collaborators.join(', ')
                 : 'Solo'
@@ -403,13 +364,13 @@ export default function ExperimentsExperimental() {
             </div>
 
             {/* Description */}
-            <p className="text-sm text-soft-black leading-relaxed">
+            <p className="text-sm text-soft-black leading-relaxed flex-1 mb-4">
               {experiment.description}
             </p>
 
             {/* Technologies */}
             {experiment.technologies && experiment.technologies.length > 0 && (
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1 mt-auto">
                 {experiment.technologies.map((tech, index) => (
                   <span 
                     key={index}
@@ -427,13 +388,13 @@ export default function ExperimentsExperimental() {
           <article
             key={experiment.id}
             onClick={() => setLocation(route)}
-            className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 hover:shadow-md hover:scale-[1.02] transition-all duration-300"
+            className="w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 min-h-[500px] flex flex-col hover:shadow-md hover:scale-[1.02] transition-all duration-300"
             data-testid={`button-${experiment.id}-mobile`}
           >
             <CardContent />
           </article>
         ) : (
-          <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+          <article key={experiment.id} className="bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 min-h-[500px] flex flex-col hover:shadow-md hover:scale-[1.02] transition-all duration-300">
             <CardContent />
           </article>
         );

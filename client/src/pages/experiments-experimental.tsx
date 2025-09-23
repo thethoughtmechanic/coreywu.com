@@ -5,8 +5,6 @@ import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLocation } from "wouter";
 import CopyEmail from "@/components/copy-email";
-import ChromaGrid from "@/components/ui/chroma-grid";
-import type { ChromaItem } from "@/components/ui/chroma-grid";
 
 export default function ExperimentsExperimental() {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
@@ -189,53 +187,116 @@ export default function ExperimentsExperimental() {
     );
   };
 
-  // Convert experiments to ChromaGrid format
-  const convertToChromaItems = (): ChromaItem[] => {
-    return orderedExperiments.map((experiment) => {
-      const route = getExperimentRoute(experiment.id);
-      
-      // Get status color based on experiment status
-      const getStatusColor = () => {
-        switch (experiment.status) {
-          case 'sunset': return '#6B7280'; // gray
-          case 'wip': return '#F59E0B'; // yellow
-          case 'shipped': return experiment.isActive ? '#10B981' : '#3B82F6'; // green or blue
-          default: return '#8B5CF6'; // purple
-        }
-      };
-
-      // Create subtitle with timeframe and collaborators
-      const subtitle = `${experiment.timeframe} | ${
-        experiment.collaborators && experiment.collaborators.length > 0
-          ? experiment.collaborators.join(', ')
-          : 'Solo'
-      }`;
-
-      return {
-        image: experiment.image || `https://i.pravatar.cc/300?img=${Math.floor(Math.random() * 70) + 1}`,
-        title: experiment.title,
-        subtitle: subtitle,
-        handle: experiment.description,
-        location: experiment.technologies ? experiment.technologies.slice(0, 3).join(', ') : undefined,
-        borderColor: getStatusColor(),
-        gradient: `linear-gradient(${135 + (orderedExperiments.indexOf(experiment) * 30)}deg, ${getStatusColor()}, #000)`,
-        url: route || undefined
-      };
-    });
-  };
-
-  // Desktop Card View with ChromaGrid
+  // Desktop Card View with elegant hover effects
   const DesktopView = () => (
     <div className="min-h-[80vh] bg-gradient-to-br from-cream/30 to-light-brown/20 rounded-xl p-4 md:p-8">
-      <div style={{ height: '600px', position: 'relative' }}>
-        <ChromaGrid 
-          items={convertToChromaItems()}
-          radius={300}
-          damping={0.45}
-          fadeOut={0.6}
-          ease="power3.out"
-          className="w-full h-full"
-        />
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+        {orderedExperiments.map((experiment) => {
+          const route = getExperimentRoute(experiment.id);
+
+          const CardContent = () => (
+            <div className="space-y-4 h-full flex flex-col">
+              {/* Image Placeholder */}
+              <ImagePlaceholder experiment={experiment} />
+
+              {/* Title and Status Pill Row */}
+              <div className="flex items-center gap-3">
+                <h3 className={`text-xl font-bold ${route ? 'text-amber-700' : 'text-warm-brown'} leading-tight`}>
+                  {experiment.title}
+                </h3>
+                <StatusPill status={experiment.status || 'unknown'} isActive={experiment.isActive} />
+                <div className="ml-auto">
+                  {getCategoryIcon(experiment.id)}
+                </div>
+              </div>
+
+              {/* Timeframe and Team on one line */}
+              <div className="text-sm text-gray-400">
+                {experiment.timeframe} | {experiment.collaborators && experiment.collaborators.length > 0
+                  ? experiment.collaborators.join(', ')
+                  : 'Solo'
+                }
+              </div>
+
+              {/* Description */}
+              <p className="text-sm text-soft-black leading-relaxed flex-1">
+                {experiment.description}
+              </p>
+
+              {/* Technologies */}
+              {experiment.technologies && experiment.technologies.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-auto">
+                  {experiment.technologies.map((tech, index) => (
+                    <span 
+                      key={index}
+                      className="text-[10px] px-1.5 py-0.5 bg-warm-brown/20 border border-warm-brown/30 text-warm-brown rounded-full font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+
+          return route ? (
+            <article
+              key={experiment.id}
+              onClick={() => setLocation(route)}
+              className="group w-full bg-white rounded-xl p-6 text-left cursor-pointer shadow-sm border border-warm-brown/10 h-fit hover:shadow-xl transition-all duration-500 relative overflow-hidden"
+              data-testid={`button-${experiment.id}-desktop`}
+            >
+              {/* Elegant hover overlay with warm tones */}
+              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
+              {/* Subtle spotlight effect */}
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 115, 85, 0.15) 0%, transparent 60%)'
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                }}
+              />
+              
+              {/* Content with relative positioning */}
+              <div className="relative z-10 transform group-hover:scale-[1.02] transition-transform duration-500">
+                <CardContent />
+              </div>
+            </article>
+          ) : (
+            <article 
+              key={experiment.id} 
+              className="group bg-white rounded-xl p-6 shadow-sm border border-warm-brown/10 h-fit relative overflow-hidden transition-all duration-500 hover:shadow-xl"
+            >
+              {/* Same hover effects for non-clickable cards */}
+              <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 115, 85, 0.15) 0%, transparent 60%)'
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                }}
+              />
+              
+              <div className="relative z-10 transform group-hover:scale-[1.02] transition-transform duration-500">
+                <CardContent />
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   );

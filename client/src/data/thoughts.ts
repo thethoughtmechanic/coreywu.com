@@ -5,7 +5,7 @@ export const thoughts: Thought[] = [
     id: "23",
     title: "Cognitive Extinction Timeline",
     description: "A speculative visualization of how different cognitive styles might thrive or vanish as AI reshapes human thinking from 2025 to 2035.",
-    fullDescription: "What if we could map the rise and fall of human cognitive styles as AI transforms our world?\n\nThis interactive timeline explores which ways of thinking might flourish and which could become extinct between 2025 and 2035. From the Memory Palace Builder to the AI Whisperer, each dot represents a cognitive approach facing an uncertain future.\n\nSome patterns emerge: embodied thinking declines while hybrid human-AI cognition thrives. Traditional attention and memory fade as new forms of augmented intelligence emerge. By 2035, we might inhabit a post-human cognitive landscape where thinking itself has been fundamentally redefined.\n\n<div id='cognitive-extinction-timeline'></div>\n\nThe question isn't whether this future will arrive, but which cognitive traditions we'll choose to preserve—and which new forms of thinking we'll embrace.",
+    fullDescription: "<div id='cognitive-extinction-timeline'></div>",
     tag: "Scenario",
     readTime: "6 min read",
     imageGradient: "from-orange-600 to-orange-400",

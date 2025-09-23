@@ -66,11 +66,12 @@ const CognitiveExtinctionTimeline: React.FC = () => {
     style.textContent = `
       /* Container that matches your website's style */
       .extinction-module {
-        max-width: 420px;
-        margin: 2em auto;
-        padding: 1.5em;
+        max-width: 100%;
+        width: 100%;
+        margin: 1em auto;
+        padding: 1em;
         background: #fafafa;
-        border-radius: 12px;
+        border-radius: 8px;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
 
@@ -151,13 +152,13 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       .dot-grid {
         display: grid;
         grid-template-columns: repeat(20, 1fr);
-        gap: 3px;
+        gap: 2px;
         margin-bottom: 1em;
       }
 
       .dot {
-        width: 13px;
-        height: 13px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
         transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         cursor: default;
@@ -345,17 +346,17 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       /* For embedding */
       @media (max-width: 480px) {
         .extinction-module {
-          padding: 1em;
+          padding: 0.75em;
           max-width: 100%;
         }
         
         .dot {
-          width: 11px;
-          height: 11px;
+          width: 6px;
+          height: 6px;
         }
         
         .dot-grid {
-          gap: 2px;
+          gap: 1px;
         }
       }
     `;

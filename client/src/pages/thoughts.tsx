@@ -81,6 +81,7 @@ export default function Thoughts() {
             thought.tag === 'Thought Bite' || thought.tag === 'Philosophizing' ? 'min-h-[180px]' :
             thought.tag === 'Scenario' ? 'min-h-[260px]' :
             thought.tag === 'Future Seed' || thought.tag === 'POV' ? '' :
+            thought.id === '23' ? 'min-h-[700px]' : // Special handling for timeline component
             index % 3 === 0 ? 'min-h-[300px]' : 'min-h-[240px]'
           }`}>
             <div className="relative z-10">
@@ -318,7 +319,7 @@ export default function Thoughts() {
                                 if (paragraph.trim() === "<div id='cognitive-extinction-timeline'></div>") {
                                   return <CognitiveExtinctionTimeline key={index} />;
                                 }
-                                
+
                                 // Skip image paragraphs in preview mode to avoid showing text representation
                                 if (!isExpanded && paragraph.trim().startsWith('![')) {
                                   return null;
@@ -333,7 +334,7 @@ export default function Thoughts() {
                                   }} />
                                 );
                               })}
-                              
+
                               {/* Show image from fullDescription in preview mode */}
                               {!isExpanded && imageMatch && (
                                 <div className="flex items-center justify-center my-4">
@@ -360,7 +361,7 @@ export default function Thoughts() {
                         // No expandable content, show description normally with proper paragraph spacing
                         // But also check if there are any images in fullDescription that should be shown in preview
                         const imageMatch = thought.fullDescription?.match(/!\[([^\]]*)\]\(([^)]+)\)/);
-                        
+
                         return (
                           <div>
                             {/* Show the description */}
@@ -373,7 +374,7 @@ export default function Thoughts() {
                                   .replace(/<u>/g, '<u>').replace(/<\/u>/g, '</u>')
                               }} />
                             ))}
-                            
+
                             {/* Show image from fullDescription if it exists */}
                             {imageMatch && (
                               <div className="flex items-center justify-center my-4">

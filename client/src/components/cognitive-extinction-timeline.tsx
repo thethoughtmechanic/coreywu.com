@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 
 const CognitiveExtinctionTimeline: React.FC = () => {
@@ -14,7 +13,7 @@ const CognitiveExtinctionTimeline: React.FC = () => {
     containerRef.current.innerHTML = `
       <div class="extinction-module">
         <div class="year-display" id="yearDisplay">2025</div>
-        
+
         <div class="slider-container">
           <input type="range" min="0" max="4" value="0" class="slider" id="yearSlider" step="1">
           <div class="slider-ticks">
@@ -25,9 +24,9 @@ const CognitiveExtinctionTimeline: React.FC = () => {
             <div class="tick"></div>
           </div>
         </div>
-        
+
         <div class="dot-grid" id="dotGrid"></div>
-        
+
         <div class="legend">
           <div class="legend-item">
             <div class="legend-dot" style="background: #4CAF50"></div>
@@ -46,7 +45,7 @@ const CognitiveExtinctionTimeline: React.FC = () => {
             <span>Extinct</span>
           </div>
         </div>
-        
+
         <div class="info-panel" id="infoPanel">
           <div class="info-cta" id="infoCTA">
             <span>↑</span><br>
@@ -68,13 +67,12 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       .extinction-module {
         max-width: 100%;
         width: 100%;
-        margin: 0.5em auto;
-        padding: 0.8em;
+        margin: 0 auto;
+        padding: 1em;
         background: #fafafa;
         border-radius: 8px;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        transform: scale(0.9);
-        transform-origin: center top;
+        min-height: 500px;
       }
 
       /* Year display */
@@ -351,12 +349,12 @@ const CognitiveExtinctionTimeline: React.FC = () => {
           padding: 0.75em;
           max-width: 100%;
         }
-        
+
         .dot {
           width: 6px;
           height: 6px;
         }
-        
+
         .dot-grid {
           gap: 1px;
         }
@@ -437,31 +435,31 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       function generateDistribution(thriving, declining, critical, extinct) {
         const distribution = [];
         const total = 300; // 20x15 grid
-        
+
         const counts = {
           thriving: Math.floor(total * thriving),
           declining: Math.floor(total * declining),
           critical: Math.floor(total * critical),
           extinct: Math.floor(total * extinct)
         };
-        
+
         // Fill array with states
         for (let i = 0; i < counts.thriving; i++) distribution.push('thriving');
         for (let i = 0; i < counts.declining; i++) distribution.push('declining');
         for (let i = 0; i < counts.critical; i++) distribution.push('critical');
         for (let i = 0; i < counts.extinct; i++) distribution.push('extinct');
-        
+
         // Fill remainder
         while (distribution.length < total) {
           distribution.push('extinct');
         }
-        
+
         // Shuffle for random distribution
         for (let i = distribution.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [distribution[i], distribution[j]] = [distribution[j], distribution[i]];
         }
-        
+
         return distribution;
       }
 
@@ -470,9 +468,9 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       function updateGrid(yearData) {
         const grid = containerRef.current?.querySelector('#dotGrid');
         if (!grid) return;
-        
+
         grid.innerHTML = '';
-        
+
         // First, find indices where each status type exists
         const statusIndices = {
           thriving: [],
@@ -480,13 +478,13 @@ const CognitiveExtinctionTimeline: React.FC = () => {
           critical: [],
           extinct: []
         };
-        
+
         yearData.distribution.forEach((state, index) => {
           if (statusIndices[state]) {
             statusIndices[state].push(index);
           }
         });
-        
+
         // Assign featured items to matching status indices
         const assignedIndices = new Set();
         yearData.featured.forEach(feature => {
@@ -498,13 +496,13 @@ const CognitiveExtinctionTimeline: React.FC = () => {
             assignedIndices.add(feature.actualIndex);
           }
         });
-        
+
         // Create all dots
         yearData.distribution.forEach((state, index) => {
           const dot = document.createElement('div');
           dot.className = `dot ${state}`;
           dot.dataset.index = index.toString();
-          
+
           // Check if this dot is featured (using actualIndex)
           const featured = yearData.featured.find(f => f.actualIndex === index);
           if (featured) {
@@ -512,7 +510,7 @@ const CognitiveExtinctionTimeline: React.FC = () => {
             dot.addEventListener('mouseenter', () => showInfo(featured));
             dot.addEventListener('mouseleave', hideInfo);
           }
-          
+
           grid.appendChild(dot);
         });
       }
@@ -523,13 +521,13 @@ const CognitiveExtinctionTimeline: React.FC = () => {
         const title = containerRef.current?.querySelector('#infoTitle');
         const description = containerRef.current?.querySelector('#infoDescription');
         const status = containerRef.current?.querySelector('#infoStatus');
-        
+
         if (!cta || !content || !title || !description || !status) return;
-        
+
         // Hide CTA, show content
         cta.style.display = 'none';
         content.classList.add('active');
-        
+
         title.textContent = item.name;
         description.textContent = item.description;
         status.textContent = item.status;
@@ -539,9 +537,9 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       function hideInfo() {
         const cta = containerRef.current?.querySelector('#infoCTA');
         const content = containerRef.current?.querySelector('#infoContent');
-        
+
         if (!cta || !content) return;
-        
+
         // Show CTA, hide content
         cta.style.display = 'block';
         content.classList.remove('active');
@@ -557,7 +555,7 @@ const CognitiveExtinctionTimeline: React.FC = () => {
           const target = e.target as HTMLInputElement;
           const yearIndex = parseInt(target.value);
           const year = years[yearIndex];
-          
+
           yearDisplay.textContent = year.toString();
           currentData = timelineData[year];
           updateGrid(currentData);

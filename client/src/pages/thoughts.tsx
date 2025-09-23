@@ -335,28 +335,35 @@ export default function Thoughts() {
                                 );
                               })}
 
-                              {/* Show image from fullDescription in preview mode */}
-                              {!isExpanded && imageMatch && (
-                                <div className="flex items-center justify-center my-4">
-                                  <img
-                                    src={imageMatch[2]}
-                                    alt={imageMatch[1]}
-                                    className="max-w-full max-h-48 object-contain rounded-lg"
-                                  />
+                                  {/* For timeline post (ID 23), always show the component even in preview */}
+                                  {!isExpanded && thought.id === '23' && thought.fullDescription?.includes("<div id='cognitive-extinction-timeline'></div>") && (
+                                    <CognitiveExtinctionTimeline />
+                                  )}
+
+                                  {/* Show image from fullDescription in preview mode */}
+                                  {!isExpanded && imageMatch && (
+                                    <div className="flex items-center justify-center my-4">
+                                      <img
+                                        src={imageMatch[2]}
+                                        alt={imageMatch[1]}
+                                        className="max-w-full max-h-48 object-contain rounded-lg"
+                                      />
+                                    </div>
+                                  )}
                                 </div>
-                              )}
-                            </div>
-                            <button
-                              onClick={() => setExpandedThought(isExpanded ? null : thought.id)}
-                              className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1 mt-2"
-                            >
-                              <svg className={`w-3 h-3 ${isExpanded ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                              </svg>
-                              {isExpanded ? 'See less' : 'See more'}
-                            </button>
-                          </>
-                        );
+                                {thought.id !== '23' && (
+                                  <button
+                                    onClick={() => setExpandedThought(isExpanded ? null : thought.id)}
+                                    className="text-warm-brown/80 hover:text-warm-brown text-sm font-medium flex items-center gap-1 mt-2"
+                                  >
+                                    <svg className={`w-3 h-3 ${isExpanded ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                    {isExpanded ? 'See less' : 'See more'}
+                                  </button>
+                                )}
+                              </>
+                            );
                       } else {
                         // No expandable content, show description normally with proper paragraph spacing
                         // But also check if there are any images in fullDescription that should be shown in preview

@@ -316,7 +316,7 @@ export default function Thoughts() {
                               {contentToShow?.split('\n\n').map((paragraph, index) => {
                                 // Handle special cognitive extinction timeline component
                                 if (paragraph.trim() === "<div id='cognitive-extinction-timeline'></div>") {
-                                  return isExpanded ? <CognitiveExtinctionTimeline key={index} /> : null;
+                                  return <CognitiveExtinctionTimeline key={index} />;
                                 }
                                 
                                 // Skip image paragraphs in preview mode to avoid showing text representation

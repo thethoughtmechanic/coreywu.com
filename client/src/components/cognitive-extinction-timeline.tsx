@@ -68,11 +68,13 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       .extinction-module {
         max-width: 100%;
         width: 100%;
-        margin: 1em auto;
-        padding: 1em;
+        margin: 0.5em auto;
+        padding: 0.8em;
         background: #fafafa;
         border-radius: 8px;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        transform: scale(0.9);
+        transform-origin: center top;
       }
 
       /* Year display */
@@ -152,13 +154,13 @@ const CognitiveExtinctionTimeline: React.FC = () => {
       .dot-grid {
         display: grid;
         grid-template-columns: repeat(20, 1fr);
-        gap: 2px;
+        gap: 1px;
         margin-bottom: 1em;
       }
 
       .dot {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         cursor: default;

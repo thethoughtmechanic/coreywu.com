@@ -4,10 +4,10 @@ export const thoughts: Thought[] = [
   {
     id: "23",
     title: "Cognitive Extinction Timeline",
-    description: "A speculative visualization of how different cognitive styles might thrive or vanish as AI reshapes human thinking from 2025 to 2035.",
+    description: "",
     fullDescription: "<div id='cognitive-extinction-timeline'></div>",
     tag: "Scenario",
-    readTime: "6 min read",
+    readTime: null,
     imageGradient: "from-orange-600 to-orange-400",
     status: "published",
     date: "Sep 23, 2025"

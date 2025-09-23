@@ -1,4 +1,3 @@
-
 import { experiments } from "@/data/experiments";
 import { Experiment } from "@shared/schema";
 import { useState } from "react";
@@ -87,7 +86,7 @@ export default function ExperimentsExperimental() {
               <rect x="0.8" y="0.8" width="0.4" height="0.4" fill="#fbbf24" opacity="0.5"/>
             </pattern>
           </defs>
-          <path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" fill={`url(#yellowSketch-${experimentId})`} stroke="#ca8a04" strokeWidth="0.5"/>
+          <path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" fill={`url(#yellowSketch-${experimentId})`} stroke="#ca8a04" strokeWidth="0.5"/>
           <circle cx="12" cy="12" r="3" fill={`url(#yellowSketch-${experimentId})`} stroke="#d97706" strokeWidth="0.5"/>
         </svg>
       );
@@ -166,19 +165,19 @@ export default function ExperimentsExperimental() {
         <div 
           className={`absolute inset-0 ${experiment.imageGradient} opacity-20`}
         />
-        
+
         {/* Icon placeholder */}
         <div className="relative z-10 text-warm-brown/40">
           <svg className="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </div>
-        
+
         {/* Preview text */}
         <div className="relative z-10 text-xs text-warm-brown/60 font-medium">
           Image Preview
         </div>
-        
+
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(139, 92, 246, 0.1) 8px, rgba(139, 92, 246, 0.1) 16px)`
@@ -252,25 +251,32 @@ export default function ExperimentsExperimental() {
                 e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
               }}
-              style={{
-                filter: 'grayscale(1) brightness(0.7)',
-                WebkitFilter: 'grayscale(1) brightness(0.7)'
-              }}
             >
-              {/* Spotlight effect that reveals normal colors */}
+              {/* Base grayscale overlay for the entire card */}
+              <div 
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  filter: 'grayscale(1) brightness(0.7)',
+                  WebkitFilter: 'grayscale(1) brightness(0.7)'
+                }}
+              />
+
+              {/* Spotlight effect that gets masked to reveal color underneath */}
               <div 
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
                 style={{
-                  backdropFilter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
-                  WebkitBackdropFilter: 'grayscale(0) brightness(1.43)',
-                  maskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
-                  WebkitMaskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  filter: 'grayscale(1) brightness(0.7)',
+                  WebkitFilter: 'grayscale(1) brightness(0.7)',
+                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)',
+                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)'
                 }}
               />
 
               {/* Elegant hover overlay with warm tones */}
               <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
-              
+
               {/* Content with relative positioning */}
               <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
                 <CardContent />
@@ -287,25 +293,32 @@ export default function ExperimentsExperimental() {
                 e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
               }}
-              style={{
-                filter: 'grayscale(1) brightness(0.7)',
-                WebkitFilter: 'grayscale(1) brightness(0.7)'
-              }}
             >
-              {/* Spotlight effect that reveals normal colors */}
+              {/* Base grayscale overlay for the entire card */}
+              <div 
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  filter: 'grayscale(1) brightness(0.7)',
+                  WebkitFilter: 'grayscale(1) brightness(0.7)'
+                }}
+              />
+
+              {/* Spotlight effect that gets masked to reveal color underneath */}
               <div 
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
                 style={{
-                  backdropFilter: 'grayscale(0) brightness(1.43)', // Counteracts the card's grayscale and brightness
-                  WebkitBackdropFilter: 'grayscale(0) brightness(1.43)',
-                  maskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)',
-                  WebkitMaskImage: 'radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, black 40%, transparent 70%)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  filter: 'grayscale(1) brightness(0.7)',
+                  WebkitFilter: 'grayscale(1) brightness(0.7)',
+                  maskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)',
+                  WebkitMaskImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 30%, black 60%, black 100%)'
                 }}
               />
 
               {/* Elegant hover overlay with warm tones */}
               <div className="absolute inset-0 bg-gradient-to-br from-warm-brown/5 via-light-brown/10 to-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
-              
+
               <div className="relative z-30 transform group-hover:scale-[1.02] transition-transform duration-500">
                 <CardContent />
               </div>

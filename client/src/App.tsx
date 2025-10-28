@@ -27,6 +27,7 @@ import FridayHome from "@/pages/friday-home"; // Import the Friday Home componen
 import PromptPulse from "@/pages/prompt-pulse"; // Import the Prompt Pulse component
 import FoodForThought from "@/pages/food-for-thought"; // Import the Food for Thought component
 import LewWu from "@/pages/lew-wu"; // Import the Lew + Wu component
+import ScenarioArena from "@/pages/scenario-arena"; // Import the Scenario Arena component
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import EmailSubmissions from '@/pages/email-submissions';
@@ -91,6 +92,7 @@ function Router() {
           <Route path="/experiments/promptpulse" component={PromptPulse} />
           <Route path="/experiments/foodforthought" component={FoodForThought} />
           <Route path="/experiments/lewwu" component={LewWu} />
+          <Route path="/experiments/scenarioarena" component={ScenarioArena} />
           <Route path="/experiments-experimental" component={ExperimentsExperimental} /> {/* Add missing route */}
           <Route path="/analytics-dashboard" component={AnalyticsDashboard} /> {/* Add the new route */}
 

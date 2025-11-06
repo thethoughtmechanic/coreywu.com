@@ -410,31 +410,18 @@ export default function PostTruthLanding() {
           <form onSubmit={handleSubmit} className="mt-8 space-y-3">
             <div className="relative">
               <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password"
-                className={`w-56 px-4 py-2 border rounded text-center text-sm transition-all duration-300 focus:outline-none ${
-                  error
-                    ? 'border-red-500 animate-shake'
-                    : theme === 'warm'
-                    ? 'border-gray-400 focus:border-yellow-500/70'
-                    : theme === 'cyber'
-                    ? 'border-purple-500/50 focus:border-cyan-400/80'
-                    : 'border-gray-500 focus:border-white/70'
-                }`}
+                type="text"
+                value=""
+                readOnly
+                placeholder="Coming Soon"
+                className="w-56 px-4 py-2 border rounded text-center text-sm cursor-not-allowed opacity-50 border-gray-600"
                 style={{
                   fontFamily: theme === 'warm'
                     ? 'Georgia, "Garamond", "Times New Roman", serif'
                     : theme === 'cyber'
                     ? '"Courier New", Courier, monospace'
                     : '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                  backgroundColor: theme === 'cyber' ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)',
-                  boxShadow: error
-                    ? '0 0 20px rgba(239, 68, 68, 0.5)'
-                    : lampOn
-                    ? theme === 'warm'
-                      ? '0 4px 20px rgba(255, 223, 0, 0.15)'
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)'
                       : theme === 'cyber'
                       ? '0 4px 20px rgba(139, 92, 246, 0.2)'
                       : '0 4px 20px rgba(255, 255, 255, 0.05)'

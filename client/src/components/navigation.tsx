@@ -4,6 +4,41 @@ import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
+// Hook to detect scroll direction and position - only for Post-Truth page
+function useAutoHideNav(isPostTruthPage: boolean) {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    if (!isPostTruthPage) {
+      setIsVisible(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Always show nav when at the top
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      } 
+      // Hide when scrolling down, show when scrolling up
+      else if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY, isPostTruthPage]);
+
+  return isVisible;
+}
+
 // Placeholder for CopyEmail component, assuming it's defined elsewhere and handles email copying
 const CopyEmail = () => {
   const [emailCopied, setEmailCopied] = useState(false);
@@ -80,6 +115,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isPostTruthPage = location === "/post-truth";
+  const isNavVisible = useAutoHideNav(isPostTruthPage);
 
   const navItems = [
     { label: "About Me", path: "/about" },
@@ -130,12 +167,13 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
   return (
     <>
       <nav className={cn(
-        "w-full border-b sticky top-0 z-[100] backdrop-blur-sm h-16 md:h-20",
+        "w-full border-b sticky top-0 z-[100] backdrop-blur-sm h-16 md:h-20 transition-transform duration-300 ease-in-out",
         location === "/post-truth"
           ? "bg-black/95 border-gray-700/30" 
           : isDarkMode 
           ? "bg-gray-900/95 border-gray-700/30" 
-          : "bg-cream/95 border-warm-brown/20"
+          : "bg-cream/95 border-warm-brown/20",
+        isPostTruthPage && !isNavVisible && "-translate-y-full"
       )}>
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 h-full">
           <div className="flex items-center justify-between h-full">

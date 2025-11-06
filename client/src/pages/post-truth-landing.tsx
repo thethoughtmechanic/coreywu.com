@@ -33,7 +33,7 @@ export default function PostTruthLanding() {
 
   return (
     <div
-      className="min-h-screen bg-black text-white flex flex-col items-center justify-start overflow-hidden relative transition-all duration-1000"
+      className="fixed inset-0 bg-black text-white flex flex-col items-center justify-start overflow-hidden transition-all duration-1000"
       style={{
         background: lampOn
           ? theme === 'warm'
@@ -363,11 +363,10 @@ export default function PostTruthLanding() {
 
       {/* Content - Only visible when lamp is on */}
       <div
-        className="flex flex-col items-center justify-center min-h-screen transition-opacity duration-1000"
+        className="flex flex-col items-center justify-center min-h-screen w-full transition-opacity duration-1000"
         style={{
           opacity: lampOn ? 1 : 0,
           pointerEvents: lampOn ? 'auto' : 'none',
-          paddingTop: '5vh',
         }}
       >
         <div className="text-center space-y-5 px-6 relative">

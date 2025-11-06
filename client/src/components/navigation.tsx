@@ -85,6 +85,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
     { label: "About Me", path: "/about" },
     { label: "Thoughts", path: "/thoughts" },
     { label: "Experiments", path: "/experiments" },
+    { label: "Post-Truth", path: "/post-truth", isNew: true },
   ];
 
   const handleEmailClick = async () => {
@@ -212,6 +213,33 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   Experiments
                 </Link>
               </div>
+              <Link
+                href="/post-truth"
+                className={cn(
+                  "transition-colors duration-200 pb-1 relative",
+                  isDarkMode
+                    ? cn(
+                        "text-gray-300 hover:text-white",
+                        isActive("/post-truth") && "border-b-2 border-white text-white"
+                      )
+                    : cn(
+                        "text-soft-black hover:text-warm-brown",
+                        isActive("/post-truth") && "border-b-2 border-warm-brown text-warm-brown"
+                      )
+                )}
+                data-testid="link-post-truth"
+                onClick={() => window.trackNavigationClick && window.trackNavigationClick('post-truth', 'navigation')}
+              >
+                Post-Truth
+                <span className={cn(
+                  "absolute -top-1 -right-8 text-[10px] px-1.5 py-0.5 rounded-full font-semibold",
+                  isDarkMode
+                    ? "bg-blue-500 text-white"
+                    : "bg-blue-500 text-white"
+                )}>
+                  NEW
+                </span>
+              </Link>
               <CopyEmail />
             </nav>
 
@@ -290,7 +318,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               href={item.path}
               onClick={closeMenu}
               className={cn(
-                "group flex items-center px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative",
+                "group flex items-center justify-between px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative",
                 isDarkMode 
                   ? cn(
                       "text-gray-300 hover:text-white hover:bg-gray-800/50",
@@ -315,6 +343,16 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   )} />
                 )}
               </span>
+              {item.isNew && (
+                <span className={cn(
+                  "text-[10px] px-1.5 py-0.5 rounded-full font-semibold",
+                  isDarkMode
+                    ? "bg-blue-500 text-white"
+                    : "bg-blue-500 text-white"
+                )}>
+                  NEW
+                </span>
+              )}
             </Link>
           ))}
 

@@ -278,7 +278,20 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 </Link>
               </div>
               <div className="relative flex items-center gap-2">
-                <Link href="/post-truth" className="relative hover:text-hover-brown transition-colors duration-200">
+                <Link
+                  href="/post-truth"
+                  className={cn(
+                    "transition-colors duration-200 pb-1",
+                    location === "/post-truth"
+                      ? cn(
+                          "text-white border-b-2 border-white",
+                          "hover:text-white"
+                        )
+                      : isDarkMode
+                      ? "text-gray-300 hover:text-white"
+                      : "text-soft-black hover:text-warm-brown"
+                  )}
+                >
                   Post-Truth
                 </Link>
                 <span
@@ -292,7 +305,11 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   NEW
                 </span>
               </div>
-              <CopyEmail />
+              <div className={cn(
+                location === "/post-truth" && "[&_button]:text-white [&_button]:border-white/30 [&_button:hover]:border-white/50"
+              )}>
+                <CopyEmail />
+              </div>
             </nav>
 
             {/* Mobile hamburger menu button */}

@@ -22,18 +22,18 @@ function useAutoHideNav(isPostTruthPage: boolean) {
         setIsVisible(true);
         clearTimeout(hideTimeout);
       } else {
-        // Hide after 800ms of no mouse movement near top
+        // Hide after 300ms of no mouse movement near top
         clearTimeout(hideTimeout);
         hideTimeout = setTimeout(() => {
           setIsVisible(false);
-        }, 800);
+        }, 300);
       }
     };
 
-    // Initial hide after 1 second
+    // Initial hide after 500ms
     hideTimeout = setTimeout(() => {
       setIsVisible(false);
-    }, 1000);
+    }, 500);
 
     window.addEventListener('mousemove', handleMouseMove);
     

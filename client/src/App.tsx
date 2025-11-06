@@ -14,6 +14,7 @@ import AboutGame from "@/pages/about-game";
 import Thoughts from "@/pages/thoughts";
 import ThoughtDetail from "@/pages/thought-detail";
 import Experiments from "@/pages/experiments";
+import PostTruthLanding from "@/pages/post-truth-landing";
 import Admin from "@/pages/admin";
 import DesignSystem from "@/pages/designsystem";
 import NotFound from "@/pages/not-found";
@@ -96,6 +97,7 @@ function Router() {
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />
           <Route path="/experiments" component={Experiments} />
+          <Route path="/post-truth" component={PostTruthLanding} />
           <Route path="/experiments/mistermisu" component={MisterMisu} />
           <Route path="/experiments/boyfriendmaterial" component={BoyfriendMaterial} />
           <Route path="/experiments/fridayhome" component={FridayHome} />

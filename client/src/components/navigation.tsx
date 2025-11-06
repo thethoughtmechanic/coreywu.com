@@ -213,33 +213,48 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   Experiments
                 </Link>
               </div>
-              <Link
-                href="/post-truth"
-                className={cn(
-                  "transition-colors duration-200 pb-1 relative",
-                  isDarkMode
-                    ? cn(
-                        "text-gray-300 hover:text-white",
-                        isActive("/post-truth") && "border-b-2 border-white text-white"
+              <div className="relative inline-flex items-center gap-2">
+                <Link
+                  href="/post-truth"
+                  className={cn(
+                    "transition-all duration-300 pb-1 relative group/posttruth",
+                    isDarkMode
+                      ? cn(
+                          "text-gray-300 hover:text-cyan-400",
+                          isActive("/post-truth") && "border-b-2 border-white text-white"
+                        )
+                      : cn(
+                          "text-soft-black hover:text-purple-600",
+                          isActive("/post-truth") && "border-b-2 border-warm-brown text-warm-brown"
                       )
-                    : cn(
-                        "text-soft-black hover:text-warm-brown",
-                        isActive("/post-truth") && "border-b-2 border-warm-brown text-warm-brown"
-                      )
-                )}
-                data-testid="link-post-truth"
-                onClick={() => window.trackNavigationClick && window.trackNavigationClick('post-truth', 'navigation')}
-              >
-                Post-Truth
+                  )}
+                  style={{
+                    fontFamily: 'inherit',
+                    transition: 'all 0.3s ease',
+                  }}
+                  data-testid="link-post-truth"
+                  onClick={() => window.trackNavigationClick && window.trackNavigationClick('post-truth', 'navigation')}
+                >
+                  <span className="group-hover/posttruth:tracking-wider transition-all duration-300" style={{
+                    fontFamily: 'var(--font-mono, "Courier New", monospace)',
+                  }}>
+                    Post-Truth
+                  </span>
+                </Link>
                 <span className={cn(
-                  "absolute -top-1 -right-8 text-[10px] px-1.5 py-0.5 rounded-full font-semibold",
+                  "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider transition-all duration-300",
+                  "border",
                   isDarkMode
-                    ? "bg-blue-500 text-white"
-                    : "bg-blue-500 text-white"
-                )}>
+                    ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+                    : "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-400/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+                )}
+                style={{
+                  fontFamily: 'var(--font-mono, "Courier New", monospace)',
+                  letterSpacing: '0.1em',
+                }}>
                   NEW
                 </span>
-              </Link>
+              </div>
               <CopyEmail />
             </nav>
 
@@ -345,11 +360,15 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               </span>
               {item.isNew && (
                 <span className={cn(
-                  "text-[10px] px-1.5 py-0.5 rounded-full font-semibold",
+                  "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border",
                   isDarkMode
-                    ? "bg-blue-500 text-white"
-                    : "bg-blue-500 text-white"
-                )}>
+                    ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-cyan-400/50"
+                    : "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-400/50"
+                )}
+                style={{
+                  fontFamily: 'var(--font-mono, "Courier New", monospace)',
+                  letterSpacing: '0.1em',
+                }}>
                   NEW
                 </span>
               )}

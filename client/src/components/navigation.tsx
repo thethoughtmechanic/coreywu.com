@@ -348,7 +348,9 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       {/* Mobile navigation menu */}
       <div className={cn(
         "fixed top-0 left-0 h-full w-[280px] z-[110] md:hidden transform transition-transform duration-300 ease-out shadow-xl",
-        isDarkMode
+        location === "/post-truth"
+          ? "bg-black/98 backdrop-blur-md border-r border-gray-700/30"
+          : isDarkMode
           ? "bg-gray-900/98 backdrop-blur-md border-r border-gray-700/30"
           : "bg-cream/98 backdrop-blur-md border-r border-warm-brown/20",
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -356,11 +358,15 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
         {/* Header */}
         <div className={cn(
           "flex items-center justify-between p-6 border-b",
-          isDarkMode ? "border-gray-700/30" : "border-warm-brown/20"
+          location === "/post-truth"
+            ? "border-gray-700/30"
+            : isDarkMode ? "border-gray-700/30" : "border-warm-brown/20"
         )}>
           <span className={cn(
             "text-xl font-bold",
-            isDarkMode ? "text-white" : "text-warm-brown"
+            location === "/post-truth"
+              ? "text-white"
+              : isDarkMode ? "text-white" : "text-warm-brown"
           )}>
             Corey Wu
           </span>
@@ -368,7 +374,9 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             onClick={closeMenu}
             className={cn(
               "p-2 rounded-lg transition-colors",
-              isDarkMode
+              location === "/post-truth"
+                ? "text-gray-300 hover:text-white hover:bg-gray-800"
+                : isDarkMode
                 ? "text-gray-300 hover:text-white hover:bg-gray-800"
                 : "text-warm-brown hover:text-hover-brown hover:bg-light-brown"
             )}
@@ -387,7 +395,12 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               onClick={closeMenu}
               className={cn(
                 "group flex items-center justify-between px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative",
-                isDarkMode
+                location === "/post-truth"
+                  ? cn(
+                      "text-white hover:text-white hover:bg-gray-800/50",
+                      location === item.path && "border-l-white text-white bg-gray-800/30"
+                    )
+                  : isDarkMode
                   ? cn(
                       "text-gray-300 hover:text-white hover:bg-gray-800/50",
                       location === item.path && "border-l-white text-white bg-gray-800/30"
@@ -407,21 +420,17 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 {location === item.path && (
                   <div className={cn(
                     "absolute -bottom-1 left-0 w-full h-0.5 rounded-full",
-                    isDarkMode ? "bg-white" : "bg-warm-brown"
+                    location === "/post-truth" ? "bg-white" : isDarkMode ? "bg-white" : "bg-warm-brown"
                   )} />
                 )}
               </span>
               {item.isNew && (
                 <span className={cn(
-                  "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border",
-                  isDarkMode
-                    ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-cyan-400/50"
-                    : "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-400/50"
-                )}
-                style={{
-                  fontFamily: 'var(--font-mono, "Courier New", monospace)',
-                  letterSpacing: '0.1em',
-                }}>
+                  "text-[8px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide transition-all duration-300",
+                  location === "/post-truth"
+                    ? "bg-white/20 text-white border border-white/30"
+                    : "bg-warm-brown/10 text-warm-brown/60 border border-warm-brown/20"
+                )}>
                   NEW
                 </span>
               )}
@@ -433,7 +442,9 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             onClick={handleEmailClick}
             className={cn(
               "group flex items-center px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative overflow-hidden",
-              isDarkMode
+              location === "/post-truth"
+                ? "text-white hover:text-white hover:bg-gray-800/50"
+                : isDarkMode
                 ? "text-gray-300 hover:text-white hover:bg-gray-800/50"
                 : "text-soft-black hover:text-warm-brown hover:bg-light-brown/50"
             )}
@@ -476,7 +487,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
         {/* Footer */}
         <div className={cn(
           "absolute bottom-6 left-6 right-6 text-xs opacity-60",
-          isDarkMode ? "text-gray-400" : "text-soft-black"
+          location === "/post-truth" ? "text-white" : isDarkMode ? "text-gray-400" : "text-soft-black"
         )}>
           Corey Wu © 2025
         </div>

@@ -115,7 +115,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isPostTruthPage = location === "/post-truth";
+  const isPostTruthPage = location.startsWith("/post-truth");
   const isNavVisible = useAutoHideNav(isPostTruthPage);
 
   const navItems = [

@@ -1,4 +1,3 @@
-
 import { useState, FormEvent } from 'react';
 import { useLocation } from 'wouter';
 
@@ -435,25 +434,23 @@ export default function PostTruthLanding() {
                     ? '0 0 20px rgba(239, 68, 68, 0.5)'
                     : lampOn
                     ? theme === 'warm'
-                      ? '0 0 30px rgba(255, 220, 100, 0.25), 0 0 15px rgba(255, 220, 100, 0.15)'
+                      ? '0 4px 20px rgba(255, 223, 0, 0.15)'
                       : theme === 'cyber'
-                      ? '0 0 30px rgba(139, 92, 246, 0.3), 0 0 15px rgba(34, 211, 238, 0.2)'
-                      : '0 0 20px rgba(255, 255, 255, 0.2)'
+                      ? '0 4px 20px rgba(139, 92, 246, 0.2)'
+                      : '0 4px 20px rgba(255, 255, 255, 0.05)'
                     : 'none',
-                  color: theme === 'cyber' ? '#22D3EE' : '#FFFFFF',
-                  letterSpacing: theme === 'cyber' ? '0.1em' : '0.05em',
+                  color: '#FFFFFF'
                 }}
               />
             </div>
-
-            <button
-              type="submit"
-              className={`px-6 py-1.5 bg-transparent border rounded transition-all duration-300 tracking-wider ${
+            <div className="mt-8">
+            <div
+              className={`px-8 py-3 text-center transition-all duration-300 tracking-wider ${
                 theme === 'warm'
-                  ? 'border-gray-400 hover:border-yellow-500/70 hover:bg-yellow-500/10'
+                  ? 'text-gray-300'
                   : theme === 'cyber'
-                  ? 'border-purple-500/50 hover:border-cyan-400 hover:bg-cyan-400/10'
-                  : 'border-gray-500 hover:border-white hover:bg-white/10'
+                  ? 'text-purple-400'
+                  : 'text-gray-400'
               }`}
               style={{
                 fontFamily: theme === 'warm'
@@ -461,15 +458,16 @@ export default function PostTruthLanding() {
                   : theme === 'cyber'
                   ? '"Courier New", Courier, monospace'
                   : '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                color: theme === 'warm' ? '#FFFFFF' : theme === 'cyber' ? '#8B5CF6' : '#FFFFFF',
-                fontWeight: theme === 'cyber' ? 600 : 500,
-                fontSize: '0.8rem',
+                fontWeight: theme === 'cyber' ? 600 : 400,
+                fontSize: '0.9rem',
                 letterSpacing: theme === 'cyber' ? '0.2em' : '0.15em',
-                textShadow: theme === 'cyber' ? '0 0 10px rgba(139, 92, 246, 0.5)' : 'none',
+                textShadow: lampOn && theme === 'cyber' ? '0 0 10px rgba(139, 92, 246, 0.3)' : 'none',
+                opacity: 0.7
               }}
             >
-              ENTER
-            </button>
+              COMING SOON
+            </div>
+          </div>
           </form>
 
         </div>

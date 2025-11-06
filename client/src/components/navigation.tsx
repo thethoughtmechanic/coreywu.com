@@ -282,11 +282,10 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   href="/post-truth"
                   className={cn(
                     "transition-colors duration-200 pb-1",
-                    location === "/post-truth"
-                      ? cn(
-                          "text-white border-b-2 border-white",
-                          "hover:text-white"
-                        )
+                    isActive("/post-truth")
+                      ? "text-white border-b-2 border-white hover:text-white"
+                      : location.startsWith("/post-truth")
+                      ? "text-white hover:text-white"
                       : isDarkMode
                       ? "text-gray-300 hover:text-white"
                       : "text-soft-black hover:text-warm-brown"

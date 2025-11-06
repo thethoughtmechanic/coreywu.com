@@ -4,10 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
-// Hook to detect scroll direction and position - only for Post-Truth page
+// Hook to auto-hide nav on idle and show when mouse moves to top - only for Post-Truth page
 function useAutoHideNav(isPostTruthPage: boolean) {
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     if (!isPostTruthPage) {
@@ -15,26 +14,34 @@ function useAutoHideNav(isPostTruthPage: boolean) {
       return;
     }
 
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Always show nav when at the top
-      if (currentScrollY < 10) {
+    let hideTimeout: NodeJS.Timeout;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Show nav when mouse is near the top (within 100px)
+      if (e.clientY < 100) {
         setIsVisible(true);
-      } 
-      // Hide when scrolling down, show when scrolling up
-      else if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        setIsVisible(true);
+        clearTimeout(hideTimeout);
+      } else {
+        // Hide after 2 seconds of no mouse movement near top
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+          setIsVisible(false);
+        }, 2000);
       }
-      
-      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY, isPostTruthPage]);
+    // Initial hide after 3 seconds
+    hideTimeout = setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      clearTimeout(hideTimeout);
+    };
+  }, [isPostTruthPage]);
 
   return isVisible;
 }

@@ -36,7 +36,7 @@ function useAutoHideNav(isPostTruthPage: boolean) {
     }, 500);
 
     window.addEventListener('mousemove', handleMouseMove);
-    
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       clearTimeout(hideTimeout);
@@ -86,8 +86,8 @@ const CopyEmail = () => {
     >
       <span className={cn(
         "flex items-center gap-2 transition-all duration-300 ease-in-out",
-        emailCopied 
-          ? "transform -translate-y-full opacity-0" 
+        emailCopied
+          ? "transform -translate-y-full opacity-0"
           : "transform translate-y-0 opacity-100"
       )}>
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -98,8 +98,8 @@ const CopyEmail = () => {
       </span>
       <span className={cn(
         "absolute inset-0 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out text-green-600 font-medium",
-        emailCopied 
-          ? "transform translate-y-0 opacity-100" 
+        emailCopied
+          ? "transform translate-y-0 opacity-100"
           : "transform translate-y-full opacity-0"
       )}>
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -176,9 +176,9 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       <nav className={cn(
         "w-full border-b sticky top-0 z-[100] backdrop-blur-sm h-16 md:h-20 transition-transform duration-300 ease-in-out",
         location === "/post-truth"
-          ? "bg-black/95 border-gray-700/30" 
-          : isDarkMode 
-          ? "bg-gray-900/95 border-gray-700/30" 
+          ? "bg-black/95 border-gray-700/30"
+          : isDarkMode
+          ? "bg-gray-900/95 border-gray-700/30"
           : "bg-cream/95 border-warm-brown/20",
         isPostTruthPage && !isNavVisible && "-translate-y-full"
       )}>
@@ -191,8 +191,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 "text-lg md:text-xl font-semibold transition-colors duration-200",
                 location === "/post-truth"
                   ? "text-white hover:text-gray-300"
-                  : isDarkMode 
-                  ? "text-white hover:text-gray-300" 
+                  : isDarkMode
+                  ? "text-white hover:text-gray-300"
                   : "text-warm-brown hover:text-hover-brown"
               )}
               data-testid="link-home"
@@ -277,45 +277,16 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   Experiments
                 </Link>
               </div>
-              <div className="relative inline-flex items-center gap-2">
-                <Link
-                  href="/post-truth"
-                  className={cn(
-                    "transition-all duration-300 pb-1 relative group/posttruth",
-                    location === "/post-truth"
-                      ? cn(
-                          "text-white border-b-2 border-white"
-                        )
-                      : cn(
-                          "text-soft-black hover:text-purple-600",
-                        )
-                  )}
-                  data-testid="link-post-truth"
-                  onClick={() => window.trackNavigationClick && window.trackNavigationClick('post-truth', 'navigation')}
-                >
-                  <span 
-                    className="group-hover/posttruth:tracking-wider transition-all duration-300"
-                    style={{
-                      fontFamily: 'inherit',
-                      transition: 'font-family 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.fontFamily = 'var(--font-mono, "Courier New", monospace)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.fontFamily = 'inherit';
-                    }}
-                  >
-                    Post-Truth
-                  </span>
+              <div className="relative flex items-center gap-2">
+                <Link href="/post-truth" className="relative hover:text-hover-brown transition-colors duration-200">
+                  Post-Truth
                 </Link>
-                <span 
+                <span
                   className={cn(
-                    "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider transition-all duration-300",
-                    "border group-hover/posttruth:shadow-[0_0_15px_rgba(168,85,247,0.5)]",
+                    "text-[8px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide transition-all duration-300",
                     location === "/post-truth"
-                      ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-cyan-400/50"
-                      : "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-400/50"
+                      ? "bg-warm-brown/20 text-warm-brown border border-warm-brown/30"
+                      : "bg-warm-brown/10 text-warm-brown/60 border border-warm-brown/20"
                   )}
                 >
                   NEW
@@ -329,8 +300,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               onClick={toggleMenu}
               className={cn(
                 "md:hidden p-2 transition-colors duration-200",
-                isDarkMode 
-                  ? "text-white hover:text-gray-300" 
+                isDarkMode
+                  ? "text-white hover:text-gray-300"
                   : "text-warm-brown hover:text-hover-brown"
               )}
               data-testid="button-mobile-menu"
@@ -349,8 +320,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       {/* Mobile navigation overlay */}
       <div className={cn(
         "fixed inset-0 z-[105] md:hidden transition-all duration-300 ease-out",
-        isMenuOpen 
-          ? "opacity-100 backdrop-blur-sm pointer-events-auto" 
+        isMenuOpen
+          ? "opacity-100 backdrop-blur-sm pointer-events-auto"
           : "opacity-0 pointer-events-none",
         isDarkMode ? "bg-black/50" : "bg-warm-brown/30"
       )}
@@ -361,8 +332,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       {/* Mobile navigation menu */}
       <div className={cn(
         "fixed top-0 left-0 h-full w-[280px] z-[110] md:hidden transform transition-transform duration-300 ease-out shadow-xl",
-        isDarkMode 
-          ? "bg-gray-900/98 backdrop-blur-md border-r border-gray-700/30" 
+        isDarkMode
+          ? "bg-gray-900/98 backdrop-blur-md border-r border-gray-700/30"
           : "bg-cream/98 backdrop-blur-md border-r border-warm-brown/20",
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
       )}>
@@ -381,8 +352,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             onClick={closeMenu}
             className={cn(
               "p-2 rounded-lg transition-colors",
-              isDarkMode 
-                ? "text-gray-300 hover:text-white hover:bg-gray-800" 
+              isDarkMode
+                ? "text-gray-300 hover:text-white hover:bg-gray-800"
                 : "text-warm-brown hover:text-hover-brown hover:bg-light-brown"
             )}
             aria-label="Close menu"
@@ -400,7 +371,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               onClick={closeMenu}
               className={cn(
                 "group flex items-center justify-between px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative",
-                isDarkMode 
+                isDarkMode
                   ? cn(
                       "text-gray-300 hover:text-white hover:bg-gray-800/50",
                       location === item.path && "border-l-white text-white bg-gray-800/30"
@@ -446,7 +417,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             onClick={handleEmailClick}
             className={cn(
               "group flex items-center px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative overflow-hidden",
-              isDarkMode 
+              isDarkMode
                 ? "text-gray-300 hover:text-white hover:bg-gray-800/50"
                 : "text-soft-black hover:text-warm-brown hover:bg-light-brown/50"
             )}
@@ -458,8 +429,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             <span className="relative">
               <span className={cn(
                 "flex items-center gap-3 transition-all duration-300 ease-in-out",
-                emailCopied 
-                  ? "transform -translate-y-full opacity-0" 
+                emailCopied
+                  ? "transform -translate-y-full opacity-0"
                   : "transform translate-y-0 opacity-100"
               )}>
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -471,8 +442,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               <span className={cn(
                 "absolute inset-0 flex items-center gap-3 transition-all duration-300 ease-in-out font-semibold",
                 isDarkMode ? "text-green-400" : "text-green-600",
-                emailCopied 
-                  ? "transform translate-y-0 opacity-100" 
+                emailCopied
+                  ? "transform translate-y-0 opacity-100"
                   : "transform translate-y-full opacity-0"
               )}>
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

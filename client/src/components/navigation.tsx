@@ -297,7 +297,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   className={cn(
                     "text-[8px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide transition-all duration-300",
                     location === "/post-truth"
-                      ? "bg-warm-brown/20 text-warm-brown border border-warm-brown/30"
+                      ? "bg-white/20 text-white border border-white/30"
                       : "bg-warm-brown/10 text-warm-brown/60 border border-warm-brown/20"
                   )}
                 >

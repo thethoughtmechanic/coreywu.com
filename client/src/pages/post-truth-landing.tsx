@@ -421,11 +421,7 @@ export default function PostTruthLanding() {
                     : theme === 'cyber'
                     ? '"Courier New", Courier, monospace'
                     : '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                  backgroundColor: 'rgba(0, 0, 0, 0.3)'
-                      : theme === 'cyber'
-                      ? '0 4px 20px rgba(139, 92, 246, 0.2)'
-                      : '0 4px 20px rgba(255, 255, 255, 0.05)'
-                    : 'none',
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
                   color: '#FFFFFF'
                 }}
               />

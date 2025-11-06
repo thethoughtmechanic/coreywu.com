@@ -1,17 +1,16 @@
-'use client';
 
 import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useLocation } from 'wouter';
 
 type Theme = 'warm' | 'cyber' | 'mono';
 
-export default function GatePage() {
+export default function PostTruthLanding() {
+  const [, setLocation] = useLocation();
   const [lampOn, setLampOn] = useState(false);
   const [theme, setTheme] = useState<Theme>('mono');
   const [switchPosition, setSwitchPosition] = useState<'left' | 'right'>('left');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
-  const router = useRouter();
 
   const cycleTheme = () => {
     setSwitchPosition(current => current === 'left' ? 'right' : 'left');
@@ -25,7 +24,7 @@ export default function GatePage() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (password.toLowerCase() === 'reality') {
-      router.push('/newspaper');
+      setLocation('/newspaper');
     } else {
       setError(true);
       setTimeout(() => setError(false), 1000);
@@ -478,7 +477,8 @@ export default function GatePage() {
       </div>
 
       {/* CSS Animations */}
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes fadeIn {
           from {
             opacity: 0;
@@ -512,7 +512,7 @@ export default function GatePage() {
         .animate-shake {
           animation: shake 0.3s ease-in-out;
         }
-      `}</style>
+      `}}></style>
     </div>
   );
 }

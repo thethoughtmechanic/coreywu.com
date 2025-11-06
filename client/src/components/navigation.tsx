@@ -131,7 +131,9 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
     <>
       <nav className={cn(
         "w-full border-b sticky top-0 z-[100] backdrop-blur-sm h-16 md:h-20",
-        isDarkMode 
+        location === "/post-truth"
+          ? "bg-black/95 border-gray-700/30" 
+          : isDarkMode 
           ? "bg-gray-900/95 border-gray-700/30" 
           : "bg-cream/95 border-warm-brown/20"
       )}>
@@ -142,7 +144,9 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               href="/"
               className={cn(
                 "text-lg md:text-xl font-semibold transition-colors duration-200",
-                isDarkMode 
+                location === "/post-truth"
+                  ? "text-white hover:text-gray-300"
+                  : isDarkMode 
                   ? "text-white hover:text-gray-300" 
                   : "text-warm-brown hover:text-hover-brown"
               )}
@@ -158,7 +162,12 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 href="/about"
                 className={cn(
                   "transition-colors duration-200 pb-1",
-                  isDarkMode
+                  location === "/post-truth"
+                    ? cn(
+                        "text-gray-300 hover:text-white",
+                        isActive("/about") && "border-b-2 border-white text-white"
+                      )
+                    : isDarkMode
                     ? cn(
                         "text-gray-300 hover:text-white",
                         isActive("/about") && "border-b-2 border-white text-white"
@@ -177,7 +186,12 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 href="/thoughts"
                 className={cn(
                   "transition-colors duration-200 pb-1",
-                  isDarkMode
+                  location === "/post-truth"
+                    ? cn(
+                        "text-gray-300 hover:text-white",
+                        isActive("/thoughts") && "border-b-2 border-white text-white"
+                      )
+                    : isDarkMode
                     ? cn(
                         "text-gray-300 hover:text-white",
                         isActive("/thoughts") && "border-b-2 border-white text-white"
@@ -197,7 +211,12 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   href="/experiments"
                   className={cn(
                     "transition-colors duration-200 pb-1",
-                    isDarkMode
+                    location === "/post-truth"
+                      ? cn(
+                          "text-gray-300 hover:text-white",
+                          isActive("/experiments") && "border-b-2 border-white text-white"
+                        )
+                      : isDarkMode
                       ? cn(
                           "text-gray-300 hover:text-white",
                           isActive("/experiments") && "border-b-2 border-white text-white"
@@ -218,40 +237,42 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   href="/post-truth"
                   className={cn(
                     "transition-all duration-300 pb-1 relative group/posttruth",
-                    isDarkMode
+                    location === "/post-truth"
                       ? cn(
-                          "text-gray-300 hover:text-cyan-400",
-                          isActive("/post-truth") && "border-b-2 border-white text-white"
+                          "text-white border-b-2 border-white"
                         )
                       : cn(
                           "text-soft-black hover:text-purple-600",
-                          isActive("/post-truth") && "border-b-2 border-warm-brown text-warm-brown"
-                      )
+                        )
                   )}
-                  style={{
-                    fontFamily: 'inherit',
-                    transition: 'all 0.3s ease',
-                  }}
                   data-testid="link-post-truth"
                   onClick={() => window.trackNavigationClick && window.trackNavigationClick('post-truth', 'navigation')}
                 >
-                  <span className="group-hover/posttruth:tracking-wider transition-all duration-300" style={{
-                    fontFamily: 'var(--font-mono, "Courier New", monospace)',
-                  }}>
+                  <span 
+                    className="group-hover/posttruth:tracking-wider transition-all duration-300"
+                    style={{
+                      fontFamily: 'inherit',
+                      transition: 'font-family 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.fontFamily = 'var(--font-mono, "Courier New", monospace)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.fontFamily = 'inherit';
+                    }}
+                  >
                     Post-Truth
                   </span>
                 </Link>
-                <span className={cn(
-                  "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider transition-all duration-300",
-                  "border",
-                  isDarkMode
-                    ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.5)]"
-                    : "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-400/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]"
-                )}
-                style={{
-                  fontFamily: 'var(--font-mono, "Courier New", monospace)',
-                  letterSpacing: '0.1em',
-                }}>
+                <span 
+                  className={cn(
+                    "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider transition-all duration-300",
+                    "border group-hover/posttruth:shadow-[0_0_15px_rgba(168,85,247,0.5)]",
+                    location === "/post-truth"
+                      ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-cyan-400/50"
+                      : "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-400/50"
+                  )}
+                >
                   NEW
                 </span>
               </div>

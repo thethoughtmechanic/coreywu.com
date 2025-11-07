@@ -70,7 +70,7 @@ const CognitiveExtinctionGrid = () => {
 
   // Generate dot distribution
   const generateDots = (distribution: any) => {
-    const total = 300; // 20x15 grid
+    const total = 80; // 10x8 grid
     const dots = [];
     const counts = {
       thriving: Math.floor(total * distribution.thriving),
@@ -300,13 +300,13 @@ const styles: Record<string, React.CSSProperties> = {
   },
   dotGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(20, 1fr)',
-    gap: '3px',
+    gridTemplateColumns: 'repeat(10, 1fr)',
+    gap: '4px',
     marginBottom: '1em'
   },
   dot: {
-    width: '13px',
-    height: '13px',
+    width: '20px',
+    height: '20px',
     borderRadius: '50%',
     transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
     position: 'relative'

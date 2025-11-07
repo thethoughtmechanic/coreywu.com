@@ -260,23 +260,23 @@ const CognitiveExtinctionGrid = () => {
 
 const styles: Record<string, React.CSSProperties> = {
   container: {
-    maxWidth: '420px',
-    margin: '2em auto',
-    padding: '1.5em',
+    maxWidth: '100%',
+    margin: '0 auto',
+    padding: '1em',
     backgroundColor: '#fafafa',
     borderRadius: '12px',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
   },
   yearDisplay: {
     textAlign: 'center',
-    fontSize: '2.2em',
+    fontSize: '1.8em',
     color: '#333',
-    margin: '0.3em 0 0.8em 0',
+    margin: '0.2em 0 0.6em 0',
     fontWeight: '200'
   },
   sliderContainer: {
-    margin: '1em 0 1.5em 0',
-    padding: '0 2em',
+    margin: '0.8em 0 1em 0',
+    padding: '0 1em',
     position: 'relative'
   },
   slider: {
@@ -301,12 +301,12 @@ const styles: Record<string, React.CSSProperties> = {
   dotGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(10, 1fr)',
-    gap: '4px',
+    gap: '3px',
     marginBottom: '1em'
   },
   dot: {
-    width: '20px',
-    height: '20px',
+    width: '12px',
+    height: '12px',
     borderRadius: '50%',
     transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
     position: 'relative'
@@ -317,11 +317,11 @@ const styles: Record<string, React.CSSProperties> = {
   legend: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '20px',
-    fontSize: '0.75em',
+    gap: '12px',
+    fontSize: '0.7em',
     color: '#999',
-    margin: '1em 0',
-    paddingBottom: '1em',
+    margin: '0.8em 0',
+    paddingBottom: '0.8em',
     borderBottom: '1px solid #e0e0e0'
   },
   legendItem: {
@@ -335,8 +335,8 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: '50%'
   },
   infoPanel: {
-    minHeight: '80px',
-    padding: '1em',
+    minHeight: '70px',
+    padding: '0.75em',
     backgroundColor: '#fff',
     borderRadius: '8px',
     border: '1px solid #e0e0e0',

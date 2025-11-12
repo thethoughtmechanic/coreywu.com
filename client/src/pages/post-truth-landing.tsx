@@ -23,7 +23,7 @@ export default function PostTruthLanding() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (password.toLowerCase() === 'reality') {
-      setLocation('/newspaper');
+      setLocation('/post-truth/newspaper');
     } else {
       setError(true);
       setTimeout(() => setError(false), 1000);
@@ -362,10 +362,11 @@ export default function PostTruthLanding() {
 
       {/* Content - Only visible when lamp is on */}
       <div
-        className="flex flex-col items-center justify-center min-h-screen w-full transition-opacity duration-1000"
+        className="flex flex-col items-center justify-center min-h-screen transition-opacity duration-1000"
         style={{
           opacity: lampOn ? 1 : 0,
           pointerEvents: lampOn ? 'auto' : 'none',
+          paddingTop: '5vh',
         }}
       >
         <div className="text-center space-y-5 px-6 relative">
@@ -410,30 +411,49 @@ export default function PostTruthLanding() {
           <form onSubmit={handleSubmit} className="mt-8 space-y-3">
             <div className="relative">
               <input
-                type="text"
-                value=""
-                readOnly
-                placeholder="Coming Soon"
-                className="w-56 px-4 py-2 border rounded text-center text-sm cursor-not-allowed opacity-50 border-gray-600"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password"
+                className={`w-56 px-4 py-2 border rounded text-center text-sm transition-all duration-300 focus:outline-none ${
+                  error
+                    ? 'border-red-500 animate-shake'
+                    : theme === 'warm'
+                    ? 'border-gray-400 focus:border-yellow-500/70'
+                    : theme === 'cyber'
+                    ? 'border-purple-500/50 focus:border-cyan-400/80'
+                    : 'border-gray-500 focus:border-white/70'
+                }`}
                 style={{
                   fontFamily: theme === 'warm'
                     ? 'Georgia, "Garamond", "Times New Roman", serif'
                     : theme === 'cyber'
                     ? '"Courier New", Courier, monospace'
                     : '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                  color: '#FFFFFF'
+                  backgroundColor: theme === 'cyber' ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)',
+                  boxShadow: error
+                    ? '0 0 20px rgba(239, 68, 68, 0.5)'
+                    : lampOn
+                    ? theme === 'warm'
+                      ? '0 0 30px rgba(255, 220, 100, 0.25), 0 0 15px rgba(255, 220, 100, 0.15)'
+                      : theme === 'cyber'
+                      ? '0 0 30px rgba(139, 92, 246, 0.3), 0 0 15px rgba(34, 211, 238, 0.2)'
+                      : '0 0 20px rgba(255, 255, 255, 0.2)'
+                    : 'none',
+                  color: theme === 'cyber' ? '#22D3EE' : '#FFFFFF',
+                  letterSpacing: theme === 'cyber' ? '0.1em' : '0.05em',
                 }}
               />
             </div>
-            <div className="mt-8">
-            <div
-              className={`px-8 py-3 text-center transition-all duration-300 tracking-wider ${
+
+            <button
+              type="submit"
+              className={`px-6 py-1.5 bg-transparent border rounded transition-all duration-300 tracking-wider ${
                 theme === 'warm'
-                  ? 'text-gray-300'
+                  ? 'border-gray-400 hover:border-yellow-500/70 hover:bg-yellow-500/10'
                   : theme === 'cyber'
-                  ? 'text-purple-400'
-                  : 'text-gray-400'
+                  ? 'border-purple-500/50 hover:border-cyan-400 hover:bg-cyan-400/10'
+                  : 'border-gray-500 hover:border-white hover:bg-white/10'
               }`}
               style={{
                 fontFamily: theme === 'warm'
@@ -441,16 +461,15 @@ export default function PostTruthLanding() {
                   : theme === 'cyber'
                   ? '"Courier New", Courier, monospace'
                   : '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                fontWeight: theme === 'cyber' ? 600 : 400,
-                fontSize: '0.9rem',
+                color: theme === 'warm' ? '#FFFFFF' : theme === 'cyber' ? '#8B5CF6' : '#FFFFFF',
+                fontWeight: theme === 'cyber' ? 600 : 500,
+                fontSize: '0.8rem',
                 letterSpacing: theme === 'cyber' ? '0.2em' : '0.15em',
-                textShadow: lampOn && theme === 'cyber' ? '0 0 10px rgba(139, 92, 246, 0.3)' : 'none',
-                opacity: 0.7
+                textShadow: theme === 'cyber' ? '0 0 10px rgba(139, 92, 246, 0.5)' : 'none',
               }}
             >
-              COMING SOON
-            </div>
-          </div>
+              ENTER
+            </button>
           </form>
 
         </div>

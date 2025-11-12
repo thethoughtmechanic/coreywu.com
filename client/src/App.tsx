@@ -15,6 +15,22 @@ import Thoughts from "@/pages/thoughts";
 import ThoughtDetail from "@/pages/thought-detail";
 import Experiments from "@/pages/experiments";
 import PostTruthLanding from "@/pages/post-truth-landing";
+import PostTruthNewspaper from "@/pages/post-truth-newspaper";
+import PostTruthExplore from "@/pages/post-truth-explore";
+import PostTruthHorizons from "@/pages/post-truth-horizons";
+import PostTruthDrivers from "@/pages/post-truth-drivers";
+import PostTruthSteepv from "@/pages/post-truth-steepv";
+import PostTruthDator from "@/pages/post-truth-dator";
+import PostTruthCla from "@/pages/post-truth-cla";
+import PostTruthManoa from "@/pages/post-truth-manoa";
+import PostTruthWildcards from "@/pages/post-truth-wildcards";
+import PostTruthNarratives from "@/pages/post-truth-narratives";
+import PostTruthNarrativesSarah from "@/pages/post-truth-narratives-sarah";
+import PostTruthNarrativesMarcus from "@/pages/post-truth-narratives-marcus";
+import PostTruthNarrativesAmara from "@/pages/post-truth-narratives-amara";
+import PostTruthNarrativesKenji from "@/pages/post-truth-narratives-kenji";
+import PostTruthNarrativesZero from "@/pages/post-truth-narratives-zero";
+import PostTruthAct from "@/pages/post-truth-act";
 import Admin from "@/pages/admin";
 import DesignSystem from "@/pages/designsystem";
 import NotFound from "@/pages/not-found";
@@ -23,9 +39,11 @@ import AboutExpNew from "@/pages/about-expnew";
 import AboutQuizPersonas from "@/pages/about-quiz-personas";
 import ThoughtsExperimental from "@/pages/thoughts-experimental";
 import ThoughtsAlt from "@/pages/thoughts-alt";
-import ThoughtsBlossoms from "@/pages/thoughts-blossoms";
+import ThoughtsBlooms from "@/pages/thoughts-blooms";
 import ExperimentsExperimental from "@/pages/experiments-experimental";
 import Contact from "@/pages/contact";
+import AIGovernanceExplorer from "@/pages/ai-governance-explorer";
+import AIHumanGap from "@/pages/ai-human-gap";
 import MisterMisu from "@/pages/mister-misu";
 import BoyfriendMaterial from "@/pages/boyfriend-material";
 import FridayHome from "@/pages/friday-home";
@@ -80,7 +98,7 @@ function Router() {
   return (
     <>
       <Navigation isDarkMode={isDarkMode} />
-      <main className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : ''}`}>
+      <main className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : ''} ${location.startsWith('/post-truth') ? '!p-0 !m-0' : ''}`}>
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/about" component={AboutExperimental} />
@@ -91,13 +109,32 @@ function Router() {
           <Route path="/about-quiz" component={AboutQuiz} />
           <Route path="/about-quiz-personas" component={AboutQuizPersonas} />
           <Route path="/contact" component={Contact} />
-          <Route path="/thoughts" component={Thoughts} />
-          <Route path="/thoughts/blossoms" component={ThoughtsBlossoms} />
+          <Route path="/thoughts" component={ThoughtsBlooms} />
+          <Route path="/thoughts/blooms" component={ThoughtsBlooms} />
+          <Route path="/thoughts/seeds" component={Thoughts} />
+          <Route path="/thoughts/ai-governance-explorer" component={AIGovernanceExplorer} />
+          <Route path="/thoughts/ai-human-gap" component={AIHumanGap} />
           <Route path="/thoughts-alt" component={ThoughtsAlt} /> {/* New notebook theme route */}
           <Route path="/thoughts-experimental" component={ThoughtsExperimental} /> {/* New route */}
           <Route path="/thoughts/:id" component={ThoughtDetail} />
           <Route path="/experiments" component={Experiments} />
           <Route path="/post-truth" component={PostTruthLanding} />
+          <Route path="/post-truth/newspaper" component={PostTruthNewspaper} />
+          <Route path="/post-truth/explore" component={PostTruthExplore} />
+          <Route path="/post-truth/horizons" component={PostTruthHorizons} />
+          <Route path="/post-truth/drivers" component={PostTruthDrivers} />
+          <Route path="/post-truth/steepv" component={PostTruthSteepv} />
+          <Route path="/post-truth/dator" component={PostTruthDator} />
+          <Route path="/post-truth/cla" component={PostTruthCla} />
+          <Route path="/post-truth/manoa" component={PostTruthManoa} />
+          <Route path="/post-truth/wildcards" component={PostTruthWildcards} />
+          <Route path="/post-truth/narratives" component={PostTruthNarratives} />
+          <Route path="/post-truth/narratives/sarah" component={PostTruthNarrativesSarah} />
+          <Route path="/post-truth/narratives/marcus" component={PostTruthNarrativesMarcus} />
+          <Route path="/post-truth/narratives/amara" component={PostTruthNarrativesAmara} />
+          <Route path="/post-truth/narratives/kenji" component={PostTruthNarrativesKenji} />
+          <Route path="/post-truth/narratives/zero" component={PostTruthNarrativesZero} />
+          <Route path="/post-truth/act" component={PostTruthAct} />
           <Route path="/experiments/mistermisu" component={MisterMisu} />
           <Route path="/experiments/boyfriendmaterial" component={BoyfriendMaterial} />
           <Route path="/experiments/fridayhome" component={FridayHome} />

@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Governance Futures Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            height: 100vh;
+            gap: 0;
+        }
+
+        .left-panel {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            overflow-y: auto;
+            padding: 10px;
+            border-right: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 4px 0 24px rgba(14, 165, 233, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .right-panel {
+            background: #0f172a;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 0px;
+            color: #f1f5f9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .byline {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 10px;
+            font-weight: 400;
+            font-style: italic;
+            margin-top: -8px;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            color: #8892b0;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .overview-text {
+            font-size: 11px;
+            line-height: 1.4;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            margin-bottom: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #cbd5e1;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .left-panel .overview-text {
+            color: #cbd5e1;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .right-panel .overview-text {
+            color: #cbd5e1;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        h2 {
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.3);
+            padding-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        /* Panel Headers */
+        .panel-header {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.3);
+        }
+
+        .output-header {
+            color: #f1f5f9;
+        }
+
+        .input-header {
+            color: #f1f5f9;
+        }
+
+        /* Context Section - Single border container */
+        .context-section {
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(30, 41, 59, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .categories-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            flex: 1;
+            min-width: 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 6px;
+            padding: 8px 4px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .category-tab:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+            border-color: rgba(14, 165, 233, 0.5);
+        }
+
+        .category-tab.active {
+            background: rgba(14, 165, 233, 0.15);
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 0 16px rgba(14, 165, 233, 0.3), inset 0 0 20px rgba(14, 165, 233, 0.1);
+        }
+
+        .category-tab-icon {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 3px;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .category-tab.active .category-tab-icon {
+            color: #0ea5e9;
+        }
+
+        .category-tab-name {
+            font-size: 8px;
+            font-weight: 600;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .category-tab.active .category-tab-name {
+            color: #f1f5f9;
+            font-weight: 700;
+        }
+
+        .selection-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #0ea5e9;
+            color: #0f172a;
+            font-size: 7px;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 10px;
+            min-width: 14px;
+            text-align: center;
+            border: 1px solid rgba(14, 165, 233, 0.5);
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.4);
+        }
+
+        .decisions-panel-container {
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 120px;
+            position: relative;
+        }
+
+        .decisions-panel {
+            display: none;
+        }
+
+        .decisions-panel.active {
+            display: block;
+        }
+
+        .decisions-panel-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .decisions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .decision-tile {
+            padding: 10px 8px;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            font-size: 11px;
+            text-align: center;
+            line-height: 1.3;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            font-weight: 500;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .decision-tile::before {
+            content: '○';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 700;
+            transition: all 0.25s;
+        }
+
+        .decision-tile:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+            border-color: rgba(14, 165, 233, 0.5);
+        }
+
+        .decision-tile.selected-positive {
+            background: rgba(14, 165, 233, 0.2);
+            color: #f1f5f9;
+            font-weight: 600;
+            border-left: 3px solid #0ea5e9;
+            box-shadow: 0 0 16px rgba(14, 165, 233, 0.3), inset 0 0 20px rgba(14, 165, 233, 0.1);
+        }
+
+        .decision-tile.selected-positive::before {
+            content: '✓';
+            color: #0ea5e9;
+            font-weight: 900;
+        }
+
+        .decision-tile.selected-negative {
+            background: rgba(244, 63, 94, 0.2);
+            color: #f1f5f9;
+            font-weight: 600;
+            border-left: 3px solid #f43f5e;
+            box-shadow: 0 0 16px rgba(244, 63, 94, 0.3), inset 0 0 20px rgba(244, 63, 94, 0.1);
+        }
+
+        .decision-tile.selected-negative::before {
+            content: '✓';
+            color: #f43f5e;
+            font-weight: 900;
+        }
+
+        .decision-tile.selected-neutral {
+            background: rgba(100, 116, 139, 0.2);
+            color: #f1f5f9;
+            font-weight: 600;
+            border-left: 3px solid #64748b;
+            box-shadow: 0 0 16px rgba(100, 116, 139, 0.3), inset 0 0 20px rgba(100, 116, 139, 0.1);
+        }
+
+        .decision-tile.selected-neutral::before {
+            content: '✓';
+            color: #64748b;
+            font-weight: 900;
+        }
+
+        /* Drivers Section - Single border container */
+        .drivers-section {
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            background: rgba(30, 41, 59, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .drivers-section h2 {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+
+        .tension-drivers {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 12px;
+        }
+
+        .tension-drivers:last-child {
+            margin-bottom: 0;
+        }
+
+        .tension-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 6px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tension-header:hover {
+            background: rgba(14, 165, 233, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+            border-color: rgba(14, 165, 233, 0.5);
+        }
+
+        .tension-header:hover .tension-title {
+            color: #f1f5f9;
+        }
+
+        .tension-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.25s;
+        }
+
+        .toggle-icon {
+            font-size: 11px;
+            color: #64748b;
+            transition: transform 0.2s;
+            font-weight: 700;
+        }
+
+        .toggle-icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        .axis-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 8px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .driver-bar-container {
+            background: rgba(15, 23, 42, 0.6);
+            height: 24px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 8px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .driver-bar {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(14, 165, 233, 0.6) 0%, rgba(59, 130, 246, 0.6) 50%, rgba(14, 165, 233, 0.6) 100%);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: #f1f5f9;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+        }
+
+        .driver-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .driver-columns.expanded {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .driver-column {
+            font-size: 9px;
+        }
+
+        .driver-column-title {
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 5px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .driver-list {
+            font-size: 10px;
+            color: #cbd5e1;
+        }
+
+        .driver-item {
+            padding: 4px 6px;
+            margin: 2px 0;
+            border-radius: 3px;
+            background: rgba(30, 41, 59, 0.6);
+            transition: all 0.2s;
+            line-height: 1.2;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #cbd5e1;
+        }
+
+        .driver-item.active-positive {
+            background: rgba(14, 165, 233, 0.2);
+            border: 2px solid #0ea5e9;
+            font-weight: 600;
+            color: #f1f5f9;
+            box-shadow: 0 0 12px rgba(14, 165, 233, 0.3);
+        }
+
+        .driver-item.active-negative {
+            background: rgba(244, 63, 94, 0.2);
+            border: 2px solid #f43f5e;
+            font-weight: 600;
+            color: #f1f5f9;
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
+        }
+
+        .matrix-container {
+            background: rgba(30, 41, 59, 0.4);
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            position: relative;
+            overflow: visible;
+        }
+
+        .matrix-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #f1f5f9;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .matrix-wrapper {
+            position: relative;
+            padding: 12px 8px;
+        }
+
+        .matrix-2x2 {
+            position: relative;
+            width: 90%;
+            max-width: 90%;
+            margin: 0 auto;
+            aspect-ratio: 8.5 / 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.2);
+        }
+
+        .axis-label-vertical {
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 9px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .axis-label-horizontal {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .axis-endpoint {
+            position: absolute;
+            font-size: 10px;
+            font-weight: 700;
+            color: #0ea5e9;
+            text-transform: uppercase;
+        }
+
+        .axis-endpoint.top {
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .axis-endpoint.bottom {
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .axis-endpoint.left {
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: center;
+        }
+
+        .axis-endpoint.right {
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            transform-origin: center;
+        }
+
+        .quadrant {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 6px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Individual quadrant backgrounds - tech theme with subtle colors */
+        [data-quadrant="fast-concentrated"] {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+        }
+
+        [data-quadrant="fast-distributed"] {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(217, 70, 239, 0.15) 100%);
+        }
+
+        [data-quadrant="slow-concentrated"] {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%);
+        }
+
+        [data-quadrant="slow-distributed"] {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(74, 222, 128, 0.15) 100%);
+        }
+
+        .quadrant:hover {
+            transform: translateY(-1px);
+            border: 1px solid rgba(14, 165, 233, 0.5);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2), inset 0 0 20px rgba(14, 165, 233, 0.1);
+        }
+
+        .quadrant.active {
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4), inset 0 0 30px rgba(14, 165, 233, 0.15);
+        }
+
+        .quadrant-label {
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #f1f5f9;
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .quadrant-short {
+            font-size: 8px;
+            color: #cbd5e1;
+            line-height: 1.1;
+            font-weight: 500;
+        }
+
+        .position-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff0055 0%, #ff0055 50%, transparent 70%);
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 0 0 3px #ff0055, 0 2px 8px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+
+        .scenario-description {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-left: 3px solid rgba(14, 165, 233, 0.5);
+            flex: 1;
+        }
+
+        .scenario-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: #f1f5f9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .scenario-subtitle {
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #94a3b8;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .scenario-text {
+            font-size: 10px;
+            line-height: 1.3;
+            color: #cbd5e1;
+            font-weight: 400;
+        }
+
+        .reset-button {
+            padding: 10px 20px;
+            background: transparent;
+            color: #0ea5e9;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+            width: 100%;
+        }
+
+        .reset-button:hover {
+            background: rgba(14, 165, 233, 0.1);
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .reset-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 10px;
+        }
+
+        .stat-item {
+            padding: 6px 8px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 4px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: #0ea5e9;
+            font-size: 16px;
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+            white-space: nowrap;
+        }
+
+        /* Responsive scaling for larger screens - make matrix taller */
+        @media (min-width: 1400px) {
+            .matrix-2x2 {
+                aspect-ratio: 3 / 1;
+            }
+
+            .quadrant {
+                padding: 12px 10px;
+            }
+
+            .quadrant-label {
+                font-size: 13px;
+                margin-bottom: 0;
+                letter-spacing: 0.5px;
+                white-space: nowrap;
+            }
+
+            .quadrant-short {
+                font-size: 11px;
+                line-height: 1.3;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .scenario-title {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .scenario-text {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .overview-text {
+                font-size: 15px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .byline {
+                font-size: 13px;
+            }
+
+            .quadrant-label {
+                font-size: 13px;
+                white-space: nowrap;
+            }
+
+            .quadrant-short {
+                font-size: 11px;
+            }
+        }
+
+        @media (min-width: 1800px) {
+            .matrix-2x2 {
+                aspect-ratio: 2.5 / 1;
+            }
+
+            .quadrant {
+                padding: 15px 12px;
+            }
+
+            .quadrant-label {
+                font-size: 14px;
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+
+            .quadrant-short {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+
+            .scenario-title {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .scenario-text {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
+            .overview-text {
+                font-size: 17px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .byline {
+                font-size: 14px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h1>AI Governance Futures Explorer</h1>
+            <div class="byline">by Corey Wu <span style="color:#8892b0;">•</span> <span id="byline-date" style="color:#8892b0;">Nov 11</span></div>
+            <div class="overview-text">
+                The race to deploy increasingly autonomous AI systems is accelerating faster than governance frameworks can adapt. Market forces overwhelmingly favor speed over safety, yet powerful countervailing forces are creating genuine uncertainty. This tool explores two fundamental tensions whose resolution will determine whether we get careful or reckless deployment, and whether control remains concentrated or distributes broadly.
+            </div>
+            <div class="panel-header output-header">◆ Scenario Position</div>
+            
+            <div class="matrix-container">
+                <div class="matrix-title">Future Scenario Positioning</div>
+                <div class="matrix-wrapper">
+                    <div class="axis-endpoint top">FAST</div>
+                    <div class="axis-endpoint bottom">SLOW</div>
+                    <div class="axis-endpoint left">CONCENTRATED</div>
+                    <div class="axis-endpoint right">DISTRIBUTED</div>
+                    <div class="matrix-2x2" id="matrix">
+                        <div class="quadrant" data-quadrant="fast-concentrated" onclick="highlightQuadrant('fast-concentrated')">
+                            <div class="quadrant-label">Winner Takes All</div>
+                        </div>
+                        <div class="quadrant" data-quadrant="fast-distributed" onclick="highlightQuadrant('fast-distributed')">
+                            <div class="quadrant-label">Wild West AI</div>
+                        </div>
+                        <div class="quadrant" data-quadrant="slow-concentrated" onclick="highlightQuadrant('slow-concentrated')">
+                            <div class="quadrant-label">The Gatekeepers</div>
+                        </div>
+                        <div class="quadrant" data-quadrant="slow-distributed" onclick="highlightQuadrant('slow-distributed')">
+                            <div class="quadrant-label">Power to the People</div>
+                        </div>
+                        <div class="position-dot" id="position-dot"></div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">DECISIONS SELECTED</div>
+                        <div class="stat-value" id="decisions-count">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">DRIVERS ACTIVATED</div>
+                        <div class="stat-value" id="drivers-count">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario-description">
+                <div class="scenario-title" id="scenario-title">Select decisions to see scenario</div>
+                <div class="scenario-subtitle" id="scenario-subtitle"></div>
+                <div class="scenario-text" id="scenario-text">
+                    Choose contextual decisions and events from the panel on the right to explore how different combinations shape AI governance futures. The matrix above will show your position across two critical tensions.
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="panel-header input-header">◆ Your Selections</div>
+            
+            <div class="context-section">
+                <h2>Select Context & Decisions</h2>
+                <div id="categories-container" class="categories-container"></div>
+            </div>
+
+            <div class="drivers-section">
+                <h2>Driver Impact Analysis</h2>
+                
+                <div class="tension-drivers">
+                    <div class="tension-header" onclick="toggleTension('tension1')">
+                        <div class="tension-title">Tension 1: Acceleration ↔ Safety</div>
+                        <div class="toggle-icon" id="toggle-tension1">▼</div>
+                    </div>
+                    <div class="axis-label">
+                        <span>← Acceleration</span>
+                        <span>Safety →</span>
+                    </div>
+                    <div class="driver-bar-container">
+                        <div class="driver-bar" id="tension1-bar" style="width: 50%; left: 0;">
+                            <span id="tension1-label">Neutral</span>
+                        </div>
+                    </div>
+                    <div class="driver-columns" id="tension1-drivers">
+                        <div class="driver-column">
+                            <div class="driver-column-title">Acceleration</div>
+                            <div class="driver-list" id="tension1-accel-drivers"></div>
+                        </div>
+                        <div class="driver-column">
+                            <div class="driver-column-title">Safety</div>
+                            <div class="driver-list" id="tension1-safety-drivers"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tension-drivers">
+                    <div class="tension-header" onclick="toggleTension('tension2')">
+                        <div class="tension-title">Tension 2: Concentrated ↔ Distributed</div>
+                        <div class="toggle-icon" id="toggle-tension2">▼</div>
+                    </div>
+                    <div class="axis-label">
+                        <span>← Concentrated</span>
+                        <span>Distributed →</span>
+                    </div>
+                    <div class="driver-bar-container">
+                        <div class="driver-bar" id="tension2-bar" style="width: 50%; left: 0;">
+                            <span id="tension2-label">Neutral</span>
+                        </div>
+                    </div>
+                    <div class="driver-columns" id="tension2-drivers">
+                        <div class="driver-column">
+                            <div class="driver-column-title">Concentrated</div>
+                            <div class="driver-list" id="tension2-conc-drivers"></div>
+                        </div>
+                        <div class="driver-column">
+                            <div class="driver-column-title">Distributed</div>
+                            <div class="driver-list" id="tension2-dist-drivers"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="reset-button" onclick="resetAll()">Reset All Selections</button>
+        </div>
+    </div>
+
+    <script>
+        // Data Structure: Drivers for each tension
+        const drivers = {
+            tension1: {
+                acceleration: [
+                    { id: 'accel-1', text: 'First-mover advantages that compound', weight: 3 },
+                    { id: 'accel-2', text: '$100+ billion investor expectations', weight: 3 },
+                    { id: 'accel-3', text: 'National security competition', weight: 3 },
+                    { id: 'accel-4', text: 'Regulatory capture', weight: 2 },
+                    { id: 'accel-5', text: 'Economic ROI timelines', weight: 2 },
+                    { id: 'accel-6', text: 'Labor cost arbitrage', weight: 2 },
+                    { id: 'accel-7', text: 'Winner-take-most dynamics', weight: 2 }
+                ],
+                safety: [
+                    { id: 'safety-1', text: 'Technical failures mounting', weight: 3 },
+                    { id: 'safety-2', text: 'Litigation creating liability', weight: 2 },
+                    { id: 'safety-3', text: 'Regulatory frameworks activating', weight: 3 },
+                    { id: 'safety-4', text: 'Public opinion demanding control', weight: 2 },
+                    { id: 'safety-5', text: 'Labor organizing succeeding', weight: 2 },
+                    { id: 'safety-6', text: 'Consumer rejection', weight: 2 },
+                    { id: 'safety-7', text: 'Safety costs trivial', weight: 1 }
+                ]
+            },
+            tension2: {
+                concentrated: [
+                    { id: 'conc-1', text: 'Infrastructure advantages', weight: 3 },
+                    { id: 'conc-2', text: 'Capital requirements', weight: 3 },
+                    { id: 'conc-3', text: 'Data moats', weight: 2 },
+                    { id: 'conc-4', text: 'Market concentration', weight: 2 },
+                    { id: 'conc-5', text: 'Regulatory capture enabling incumbents', weight: 2 },
+                    { id: 'conc-6', text: 'Geopolitical fragmentation', weight: 2 },
+                    { id: 'conc-7', text: 'National security classification', weight: 1 }
+                ],
+                distributed: [
+                    { id: 'dist-1', text: 'Open-source closing performance gap', weight: 3 },
+                    { id: 'dist-2', text: 'Democratization tools', weight: 2 },
+                    { id: 'dist-3', text: 'Meta\'s open-source strategy', weight: 2 },
+                    { id: 'dist-4', text: 'Labor victories establishing worker voice', weight: 2 },
+                    { id: 'dist-5', text: 'Regulatory fragmentation creating opportunities', weight: 2 },
+                    { id: 'dist-6', text: 'International cooperation attempts', weight: 2 },
+                    { id: 'dist-7', text: 'Public demanding democratic participation', weight: 2 },
+                    { id: 'dist-8', text: 'Technical capability distribution', weight: 2 }
+                ]
+            }
+        };
+
+        // Decision categories with their impacts on drivers
+        const categories = [
+            {
+                id: 'regulatory',
+                name: 'Regulatory & Policy',
+                icon: '§',
+                decisions: [
+                    {
+                        id: 'eu-enforcement',
+                        label: 'EU fines tech company €1B for AI violations',
+                        impacts: {
+                            'safety-3': 1, 'safety-4': 0.5, 'accel-1': -0.5, 'accel-4': -0.5
+                        }
+                    },
+                    {
+                        id: 'us-deregulation',
+                        label: 'US repeals Biden AI Executive Order',
+                        impacts: {
+                            'accel-1': 1, 'accel-2': 1, 'accel-4': 1, 'safety-3': -1, 'safety-4': -0.5
+                        }
+                    },
+                    {
+                        id: 'state-patchwork',
+                        label: '20+ US states pass conflicting AI laws',
+                        impacts: {
+                            'safety-3': 0.5, 'accel-5': -0.3, 'dist-5': 1
+                        }
+                    },
+                    {
+                        id: 'international-treaty',
+                        label: '100+ countries sign UN AI safety treaty',
+                        impacts: {
+                            'safety-3': 1, 'safety-4': 0.5, 'dist-6': 1, 'accel-3': -0.5
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'corporate',
+                name: 'Corporate Strategy',
+                icon: '◉',
+                decisions: [
+                    {
+                        id: 'anthropic-model',
+                        label: 'OpenAI & Google adopt 6-month safety testing',
+                        impacts: {
+                            'safety-1': 1, 'safety-7': 1, 'accel-1': -0.3
+                        }
+                    },
+                    {
+                        id: 'openai-shortcuts',
+                        label: 'Tech giants cut testing time to 1 week for launches',
+                        impacts: {
+                            'accel-1': 1, 'accel-2': 1, 'accel-5': 1, 'safety-1': -1
+                        }
+                    },
+                    {
+                        id: 'meta-open',
+                        label: 'Meta releases GPT-5 equivalent open-source',
+                        impacts: {
+                            'dist-1': 1, 'dist-3': 1, 'accel-1': 0.5, 'conc-2': -0.5
+                        }
+                    },
+                    {
+                        id: 'closed-models',
+                        label: 'Big Tech keeps all frontier models closed & proprietary',
+                        impacts: {
+                            'conc-1': 1, 'conc-3': 1, 'conc-4': 1, 'dist-1': -1
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'economic',
+                name: 'Economic Forces',
+                icon: '◈',
+                decisions: [
+                    {
+                        id: 'vc-surge',
+                        label: 'AI startup funding reaches $200B in single year',
+                        impacts: {
+                            'accel-2': 1, 'accel-5': 1, 'conc-2': 0.5
+                        }
+                    },
+                    {
+                        id: 'funding-winter',
+                        label: 'VC funding for AI drops 70% in crash',
+                        impacts: {
+                            'accel-2': -1, 'accel-5': -0.5, 'conc-2': 1, 'dist-2': -0.5
+                        }
+                    },
+                    {
+                        id: 'automation-wave',
+                        label: 'Fortune 500 replace 30% of workforce with AI',
+                        impacts: {
+                            'accel-6': 1, 'accel-5': 1, 'safety-5': 0.5, 'safety-6': 0.3
+                        }
+                    },
+                    {
+                        id: 'market-consolidation',
+                        label: 'Microsoft acquires OpenAI; Google buys Anthropic',
+                        impacts: {
+                            'conc-4': 1, 'conc-1': 1, 'accel-7': 1, 'dist-1': -0.5
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'technical',
+                name: 'Technical Development',
+                icon: '▣',
+                decisions: [
+                    {
+                        id: 'capability-breakthrough',
+                        label: 'China releases model 2x better than GPT-5',
+                        impacts: {
+                            'accel-1': 1, 'accel-3': 1, 'dist-8': 0.5, 'conc-1': -0.3
+                        }
+                    },
+                    {
+                        id: 'catastrophic-failure',
+                        label: 'AI agent causes $10B trading loss & market crash',
+                        impacts: {
+                            'safety-1': 1, 'safety-2': 1, 'safety-4': 1, 'accel-1': -1, 'accel-2': -0.5
+                        }
+                    },
+                    {
+                        id: 'hallucination-solved',
+                        label: 'Researchers eliminate hallucinations completely',
+                        impacts: {
+                            'accel-1': 1, 'accel-5': 1, 'safety-1': -0.5
+                        }
+                    },
+                    {
+                        id: 'alignment-progress',
+                        label: 'Breakthrough in AI alignment lets models explain reasoning',
+                        impacts: {
+                            'safety-1': 1, 'safety-7': 1, 'accel-1': 0.5
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'labor',
+                name: 'Labor & Public',
+                icon: '◐',
+                decisions: [
+                    {
+                        id: 'union-victories',
+                        label: 'Teachers, nurses, & tech workers win AI protections',
+                        impacts: {
+                            'safety-5': 1, 'dist-4': 1, 'accel-6': -1, 'accel-5': -0.5
+                        }
+                    },
+                    {
+                        id: 'public-backlash',
+                        label: 'Consumers boycott AI products; sales drop 40%',
+                        impacts: {
+                            'safety-6': 1, 'safety-4': 1, 'accel-5': -1
+                        }
+                    },
+                    {
+                        id: 'worker-displacement',
+                        label: '10M jobs lost to AI automation in single year',
+                        impacts: {
+                            'accel-6': 0.5, 'safety-5': 1, 'safety-4': 1, 'dist-4': 0.5
+                        }
+                    },
+                    {
+                        id: 'litigation-wins',
+                        label: 'Courts award $5B to plaintiffs in AI harm cases',
+                        impacts: {
+                            'safety-2': 1, 'safety-3': 0.5, 'accel-1': -0.5, 'accel-5': -0.5
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'geopolitical',
+                name: 'Geopolitical',
+                icon: '◬',
+                decisions: [
+                    {
+                        id: 'china-breakthrough',
+                        label: 'China achieves quantum computing breakthrough for AI',
+                        impacts: {
+                            'accel-3': 1, 'accel-1': 1, 'dist-8': 1, 'conc-6': 0.5
+                        }
+                    },
+                    {
+                        id: 'us-china-cooperation',
+                        label: 'US & China establish joint AI safety standards',
+                        impacts: {
+                            'safety-3': 1, 'dist-6': 1, 'accel-3': -1
+                        }
+                    },
+                    {
+                        id: 'tech-cold-war',
+                        label: 'US bans all AI tech exports to China; China retaliates',
+                        impacts: {
+                            'accel-3': 1, 'conc-6': 1, 'conc-7': 1, 'dist-6': -1
+                        }
+                    },
+                    {
+                        id: 'global-cooperation',
+                        label: 'UN creates International AI Safety Agency with enforcement',
+                        impacts: {
+                            'dist-6': 1, 'safety-3': 1, 'dist-7': 1, 'conc-6': -0.5
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // Scenario descriptions
+        const scenarios = {
+            'fast-concentrated': {
+                title: 'Winner Takes All',
+                subtitle: 'Big Tech & governments race with minimal constraints',
+                text: 'Current trajectory continues—Big Tech and major governments race to deploy powerful AI with minimal constraints, regulatory capture prevents democratic oversight, winner-take-most dynamics accelerate. This is the path toward AI controlled by small number of entities making autonomous decisions affecting billions.'
+            },
+            'fast-distributed': {
+                title: 'Wild West AI',
+                subtitle: 'Open-source acceleration without coordination',
+                text: 'Open-source acceleration combined with regulatory arbitrage—DeepSeek-style innovations proliferate, smaller players access powerful capabilities, international fragmentation prevents coordinated governance. This is the path toward widespread autonomous AI without centralized control or safety coordination.'
+            },
+            'slow-concentrated': {
+                title: 'The Gatekeepers',
+                subtitle: '"Safety theater" entrenches incumbents',
+                text: 'Regulatory capture by incumbents creates "safety theater"—large companies work with governments to establish frameworks that entrench their positions while preventing new entrants. Innovation slows but not necessarily for safety reasons. This is the path toward controlled AI deployment favoring established players.'
+            },
+            'slow-distributed': {
+                title: 'Power to the People',
+                subtitle: 'Democratic governance with broad participation',
+                text: 'Democratic governance succeeds—labor organizing, public pressure, international cooperation, and genuine safety concerns lead to measured deployment with broad participation in governance. Safety standards become "race to the top." This is the path toward carefully developed AI with distributed benefits.'
+            }
+        };
+
+        // State management
+        let selectedDecisions = new Set();
+        let activeDrivers = {};
+        let expandedTensions = new Set();
+        let activeCategory = null;
+
+        // Initialize the app
+        function init() {
+            renderCategories();
+            renderDrivers();
+            updateVisualization();
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categories-container');
+            
+            // Render category tabs
+            const tabsHTML = `
+                <div class="category-tabs">
+                    ${categories.map(category => `
+                        <div class="category-tab" id="tab-${category.id}" onclick="selectCategory('${category.id}')">
+                            <span class="category-tab-icon">${category.icon}</span>
+                            <div class="category-tab-name">
+                                <span>${category.name}</span>
+                                <span class="selection-badge" id="badge-${category.id}" style="display: none;">0</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Single container for all panels
+            const panelsContainerHTML = `
+                <div class="decisions-panel-container">
+                    ${categories.map(category => `
+                        <div class="decisions-panel" id="panel-${category.id}">
+                            <div class="decisions-panel-title">${category.icon} ${category.name}</div>
+                            <div class="decisions-grid">
+                                ${category.decisions.map(decision => `
+                                    <div class="decision-tile" id="tile-${decision.id}" onclick="toggleDecision('${decision.id}')">
+                                        ${decision.label}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = tabsHTML + panelsContainerHTML;
+            
+            // Auto-select first category
+            if (categories.length > 0) {
+                selectCategory(categories[0].id);
+            }
+        }
+
+        function selectCategory(categoryId) {
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(`tab-${categoryId}`).classList.add('active');
+            
+            // Update active panel
+            document.querySelectorAll('.decisions-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(`panel-${categoryId}`).classList.add('active');
+            
+            activeCategory = categoryId;
+        }
+
+        function renderDrivers() {
+            // Tension 1 drivers - split into two columns
+            const t1AccelContainer = document.getElementById('tension1-accel-drivers');
+            const t1SafetyContainer = document.getElementById('tension1-safety-drivers');
+            
+            t1AccelContainer.innerHTML = drivers.tension1.acceleration.map(driver => 
+                `<div class="driver-item" id="driver-${driver.id}">${driver.text}</div>`
+            ).join('');
+            
+            t1SafetyContainer.innerHTML = drivers.tension1.safety.map(driver => 
+                `<div class="driver-item" id="driver-${driver.id}">${driver.text}</div>`
+            ).join('');
+
+            // Tension 2 drivers - split into two columns
+            const t2ConcContainer = document.getElementById('tension2-conc-drivers');
+            const t2DistContainer = document.getElementById('tension2-dist-drivers');
+            
+            t2ConcContainer.innerHTML = drivers.tension2.concentrated.map(driver => 
+                `<div class="driver-item" id="driver-${driver.id}">${driver.text}</div>`
+            ).join('');
+            
+            t2DistContainer.innerHTML = drivers.tension2.distributed.map(driver => 
+                `<div class="driver-item" id="driver-${driver.id}">${driver.text}</div>`
+            ).join('');
+        }
+
+        function toggleTension(tensionId) {
+            const driversElement = document.getElementById(`${tensionId}-drivers`);
+            const toggleIcon = document.getElementById(`toggle-${tensionId}`);
+            
+            if (expandedTensions.has(tensionId)) {
+                expandedTensions.delete(tensionId);
+                driversElement.classList.remove('expanded');
+                toggleIcon.classList.remove('expanded');
+            } else {
+                expandedTensions.add(tensionId);
+                driversElement.classList.add('expanded');
+                toggleIcon.classList.add('expanded');
+            }
+        }
+
+        function toggleDecision(decisionId) {
+            const tile = document.getElementById(`tile-${decisionId}`);
+            
+            if (selectedDecisions.has(decisionId)) {
+                selectedDecisions.delete(decisionId);
+                tile.className = 'decision-tile';
+            } else {
+                selectedDecisions.add(decisionId);
+                // Will update color based on net impact in updateVisualization
+            }
+            
+            updateBadges();
+            updateVisualization();
+        }
+
+        function updateBadges() {
+            // Count selections per category
+            categories.forEach(category => {
+                const count = category.decisions.filter(d => selectedDecisions.has(d.id)).length;
+                const badge = document.getElementById(`badge-${category.id}`);
+                
+                if (count > 0) {
+                    badge.textContent = count;
+                    badge.style.display = 'inline-block';
+                } else {
+                    badge.style.display = 'none';
+                }
+            });
+        }
+
+        function getDecisionNetImpact(decisionId) {
+            const decision = findDecision(decisionId);
+            if (!decision || !decision.impacts) return 0;
+            
+            let netImpact = 0;
+            Object.values(decision.impacts).forEach(impact => {
+                netImpact += impact;
+            });
+            
+            return netImpact;
+        }
+
+        function updateDecisionTileColors() {
+            selectedDecisions.forEach(decisionId => {
+                const tile = document.getElementById(`tile-${decisionId}`);
+                const netImpact = getDecisionNetImpact(decisionId);
+                
+                if (netImpact > 0.2) {
+                    tile.className = 'decision-tile selected-positive';
+                } else if (netImpact < -0.2) {
+                    tile.className = 'decision-tile selected-negative';
+                } else {
+                    tile.className = 'decision-tile selected-neutral';
+                }
+            });
+        }
+
+        function calculateDriverScores() {
+            // Reset active drivers
+            activeDrivers = {};
+            
+            // Calculate impacts from selected decisions
+            selectedDecisions.forEach(decisionId => {
+                const decision = findDecision(decisionId);
+                if (decision && decision.impacts) {
+                    Object.entries(decision.impacts).forEach(([driverId, impact]) => {
+                        if (!activeDrivers[driverId]) {
+                            activeDrivers[driverId] = 0;
+                        }
+                        activeDrivers[driverId] += impact;
+                    });
+                }
+            });
+
+            // Calculate tension scores
+            let tension1Score = 0; // -100 (acceleration) to +100 (safety)
+            let tension2Score = 0; // -100 (concentrated) to +100 (distributed)
+
+            // Tension 1: Calculate weighted sum
+            drivers.tension1.acceleration.forEach(driver => {
+                const impact = activeDrivers[driver.id] || 0;
+                tension1Score -= impact * driver.weight * 10; // Negative for acceleration
+            });
+            drivers.tension1.safety.forEach(driver => {
+                const impact = activeDrivers[driver.id] || 0;
+                tension1Score += impact * driver.weight * 10; // Positive for safety
+            });
+
+            // Tension 2: Calculate weighted sum
+            drivers.tension2.concentrated.forEach(driver => {
+                const impact = activeDrivers[driver.id] || 0;
+                tension2Score -= impact * driver.weight * 10; // Negative for concentrated
+            });
+            drivers.tension2.distributed.forEach(driver => {
+                const impact = activeDrivers[driver.id] || 0;
+                tension2Score += impact * driver.weight * 10; // Positive for distributed
+            });
+
+            // Clamp scores to -100 to +100
+            tension1Score = Math.max(-100, Math.min(100, tension1Score));
+            tension2Score = Math.max(-100, Math.min(100, tension2Score));
+
+            return { tension1Score, tension2Score };
+        }
+
+        function findDecision(decisionId) {
+            for (const category of categories) {
+                const decision = category.decisions.find(d => d.id === decisionId);
+                if (decision) return decision;
+            }
+            return null;
+        }
+
+        function updateVisualization() {
+            const { tension1Score, tension2Score } = calculateDriverScores();
+
+            // Update decision tile colors
+            updateDecisionTileColors();
+
+            // Update driver highlighting
+            updateDriverHighlighting();
+
+            // Update tension bars
+            updateTensionBar('tension1', tension1Score);
+            updateTensionBar('tension2', tension2Score);
+
+            // Update matrix position
+            updateMatrixPosition(tension1Score, tension2Score);
+
+            // Update stats
+            document.getElementById('decisions-count').textContent = selectedDecisions.size;
+            const activeDriverCount = Object.keys(activeDrivers).length;
+            document.getElementById('drivers-count').textContent = activeDriverCount;
+
+            // Update scenario description
+            updateScenario(tension1Score, tension2Score);
+        }
+
+        function updateDriverHighlighting() {
+            // Reset all drivers
+            document.querySelectorAll('.driver-item').forEach(el => {
+                el.classList.remove('active-positive', 'active-negative');
+            });
+
+            // Highlight active drivers
+            Object.entries(activeDrivers).forEach(([driverId, impact]) => {
+                const element = document.getElementById(`driver-${driverId}`);
+                if (element) {
+                    if (impact > 0) {
+                        element.classList.add('active-positive');
+                    } else if (impact < 0) {
+                        element.classList.add('active-negative');
+                    }
+                }
+            });
+        }
+
+        function updateTensionBar(tensionId, score) {
+            const bar = document.getElementById(`${tensionId}-bar`);
+            const label = document.getElementById(`${tensionId}-label`);
+            
+            // Convert score (-100 to 100) to percentage (0 to 100)
+            const percentage = ((score + 100) / 2);
+            
+            bar.style.width = `${percentage}%`;
+            bar.style.left = '0';
+            
+            if (score < -20) {
+                label.textContent = tensionId === 'tension1' ? 'Acceleration' : 'Concentrated';
+            } else if (score > 20) {
+                label.textContent = tensionId === 'tension1' ? 'Safety' : 'Distributed';
+            } else {
+                label.textContent = 'Neutral';
+            }
+        }
+
+        function updateMatrixPosition(tension1Score, tension2Score) {
+            const dot = document.getElementById('position-dot');
+            const matrix = document.getElementById('matrix');
+            
+            // Only show dot and highlight quadrant if decisions are selected
+            if (selectedDecisions.size === 0) {
+                dot.style.display = 'none';
+                document.querySelectorAll('.quadrant').forEach(q => {
+                    q.classList.remove('active');
+                });
+                return null;
+            }
+            
+            dot.style.display = 'block';
+            
+            // Convert scores to position (0-100%)
+            // tension1Score: -100 (acceleration) to +100 (safety)
+            // For Y axis: safety should be BOTTOM, acceleration should be TOP
+            // So: -100 (acceleration) = 0% (top), +100 (safety) = 100% (bottom)
+            const y = ((tension1Score + 100) / 2); // 0-100 (acceleration at top, safety at bottom)
+            
+            // tension2Score: -100 (concentrated) to +100 (distributed)
+            // For X axis: concentrated LEFT, distributed RIGHT
+            const x = ((tension2Score + 100) / 2); // 0-100 (concentrated at left, distributed at right)
+            
+            dot.style.left = `${x}%`;
+            dot.style.top = `${y}%`;
+
+            // Determine active quadrant
+            let quadrant;
+            if (y < 50 && x < 50) quadrant = 'fast-concentrated';
+            else if (y < 50 && x >= 50) quadrant = 'fast-distributed';
+            else if (y >= 50 && x < 50) quadrant = 'slow-concentrated';
+            else quadrant = 'slow-distributed';
+
+            // Highlight active quadrant
+            document.querySelectorAll('.quadrant').forEach(q => {
+                q.classList.remove('active');
+            });
+            document.querySelector(`[data-quadrant="${quadrant}"]`).classList.add('active');
+
+            // Update dot color based on active quadrant
+            const quadrantColors = {
+                'fast-concentrated': { color: '#00d9ff', rgb: '0, 217, 255' },
+                'fast-distributed': { color: '#ff0099', rgb: '255, 0, 153' },
+                'slow-concentrated': { color: '#ff9500', rgb: '255, 149, 0' },
+                'slow-distributed': { color: '#00ff88', rgb: '0, 255, 136' }
+            };
+            
+            const activeColor = quadrantColors[quadrant];
+            dot.style.background = `radial-gradient(circle, ${activeColor.color} 0%, ${activeColor.color} 50%, transparent 70%)`;
+            dot.style.boxShadow = `0 0 0 3px ${activeColor.color}, 0 2px 8px rgba(0, 0, 0, 0.3)`;
+
+            return quadrant;
+        }
+
+        function updateScenario(tension1Score, tension2Score) {
+            // Show default message if no decisions selected
+            if (selectedDecisions.size === 0) {
+                document.getElementById('scenario-title').textContent = 'Select decisions to see scenario';
+                document.getElementById('scenario-subtitle').textContent = '';
+                document.getElementById('scenario-text').textContent = 'Choose contextual decisions and events from the panel on the right to explore how different combinations shape AI governance futures. The matrix above will show your position across two critical tensions.';
+                // Reset border to black when nothing selected
+                const scenarioElement = document.querySelector('.scenario-description');
+                scenarioElement.style.borderLeftColor = '#1a1a1a';
+                return;
+            }
+            
+            // Use same logic as updateMatrixPosition
+            const y = ((tension1Score + 100) / 2);
+            const x = ((tension2Score + 100) / 2);
+            
+            let quadrant;
+            if (y < 50 && x < 50) quadrant = 'fast-concentrated';
+            else if (y < 50 && x >= 50) quadrant = 'fast-distributed';
+            else if (y >= 50 && x < 50) quadrant = 'slow-concentrated';
+            else quadrant = 'slow-distributed';
+
+            const scenario = scenarios[quadrant];
+            document.getElementById('scenario-title').textContent = scenario.title;
+            document.getElementById('scenario-subtitle').textContent = scenario.subtitle;
+            document.getElementById('scenario-text').textContent = scenario.text;
+
+            // Update scenario border color to match quadrant
+            const quadrantColors = {
+                'fast-concentrated': '#00d9ff',
+                'fast-distributed': '#ff0099',
+                'slow-concentrated': '#ff9500',
+                'slow-distributed': '#00ff88'
+            };
+            const scenarioElement = document.querySelector('.scenario-description');
+            scenarioElement.style.borderLeftColor = quadrantColors[quadrant];
+        }
+
+        function highlightQuadrant(quadrant) {
+            // Optional: Allow users to click quadrants to read their descriptions
+            const scenario = scenarios[quadrant];
+            document.getElementById('scenario-title').textContent = scenario.title;
+            document.getElementById('scenario-text').textContent = scenario.text;
+
+            // Update scenario border color to match quadrant
+            const quadrantColors = {
+                'fast-concentrated': '#00d9ff',
+                'fast-distributed': '#ff0099',
+                'slow-concentrated': '#ff9500',
+                'slow-distributed': '#00ff88'
+            };
+            const scenarioElement = document.querySelector('.scenario-description');
+            scenarioElement.style.borderLeftColor = quadrantColors[quadrant];
+        }
+
+        function resetAll() {
+            selectedDecisions.clear();
+            document.querySelectorAll('.decision-tile').forEach(tile => {
+                tile.className = 'decision-tile';
+            });
+            updateVisualization();
+        }
+
+        // Initialize on page load
+        init();
+    </script>
+</body>
+</html>

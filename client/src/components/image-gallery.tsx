@@ -121,7 +121,7 @@ export function ImageGallery({
       {/* Expanded Image Modal - only show if expanded image belongs to this gallery */}
       {expandedImage && images.includes(expandedImage) && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 overflow-hidden"
+          className="fixed top-16 md:top-20 left-0 right-0 bottom-0 bg-black bg-opacity-75 flex items-center justify-center z-[101] p-4 overflow-hidden"
           onClick={onClose}
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
@@ -142,14 +142,13 @@ export function ImageGallery({
               </button>
             )}
 
-            {/* Image Container - ensures proper viewport fitting */}
+            {/* Image Container - ensures proper viewport fitting, accounting for nav height */}
             <div className="relative w-full h-full flex items-center justify-center">
               <img
                 src={expandedImage}
                 alt={`${altPrefix} ${currentImageIndex + 1}`}
-                className="max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] w-auto h-auto object-contain"
+                className="max-w-[calc(100vw-2rem)] max-h-[calc(100vh-5rem)] md:max-h-[calc(100vh-6rem)] w-auto h-auto object-contain"
                 onClick={(e) => e.stopPropagation()}
-                style={{ maxWidth: 'calc(100vw - 2rem)', maxHeight: 'calc(100vh - 2rem)' }}
               />
             </div>
 

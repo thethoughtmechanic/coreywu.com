@@ -4,44 +4,33 @@ import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
-// Hook to auto-hide nav on idle and show when mouse moves to top - only for Post-Truth page
-function useAutoHideNav(isPostTruthPage: boolean) {
-  const [isVisible, setIsVisible] = useState(true);
+// Hook to auto-hide nav - mouse-based for Post-Truth and Bloom detail pages
+function useAutoHideNav(isPostTruthPage: boolean, isBloomDetailPage: boolean) {
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!isPostTruthPage) {
-      setIsVisible(true);
-      return;
+    // Post-Truth page and Bloom detail pages: mouse-based auto-hide
+    if (isPostTruthPage || isBloomDetailPage) {
+      // Nav bar height is 80px on desktop (h-20), top half is 40px
+      // Only show nav when mouse is in the top half of the nav bar area
+      const NAV_TOP_THRESHOLD = 40;
+      
+      const handleMouseMove = (e: MouseEvent) => {
+        // Show nav immediately when mouse is in top half of nav bar
+        // Hide immediately when mouse moves away
+        setIsVisible(e.clientY < NAV_TOP_THRESHOLD);
+      };
+
+      window.addEventListener('mousemove', handleMouseMove);
+
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+      };
     }
 
-    let hideTimeout: NodeJS.Timeout;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      // Show nav when mouse is near the top (within 100px)
-      if (e.clientY < 100) {
-        setIsVisible(true);
-        clearTimeout(hideTimeout);
-      } else {
-        // Hide after 300ms of no mouse movement near top
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => {
-          setIsVisible(false);
-        }, 300);
-      }
-    };
-
-    // Initial hide after 500ms
-    hideTimeout = setTimeout(() => {
-      setIsVisible(false);
-    }, 500);
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(hideTimeout);
-    };
-  }, [isPostTruthPage]);
+    // Default: always visible
+    setIsVisible(true);
+  }, [isPostTruthPage, isBloomDetailPage]);
 
   return isVisible;
 }
@@ -123,13 +112,20 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
   const [emailCopied, setEmailCopied] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isPostTruthPage = location.startsWith("/post-truth");
-  const isNavVisible = useAutoHideNav(isPostTruthPage);
+  
+  // Bloom detail pages are thought detail pages (not the main /thoughts or /thoughts/blooms or /thoughts/seeds)
+  // Exclude /thoughts/ai-human-gap as it uses light mode styling
+  const isBloomDetailPage = location.startsWith("/thoughts/") && 
+    location !== "/thoughts/blooms" && 
+    location !== "/thoughts/seeds" &&
+    location !== "/thoughts/ai-human-gap";
+  
+  const isNavVisible = useAutoHideNav(isPostTruthPage, isBloomDetailPage);
 
   const navItems = [
     { label: "About Me", path: "/about" },
     { label: "Thoughts", path: "/thoughts" },
     { label: "Experiments", path: "/experiments" },
-    { label: "Post-Truth", path: "/post-truth", isNew: true },
   ];
 
   const handleEmailClick = async () => {
@@ -169,18 +165,23 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
   }, []);
 
   // Helper function to determine if a link is active
-  const isActive = (path: string) => location === path;
+  const isActive = (path: string) => {
+    if (path === "/thoughts") {
+      return location === path || location.startsWith("/thoughts/");
+    }
+    return location === path;
+  };
 
   return (
     <>
       <nav className={cn(
-        "w-full border-b sticky top-0 z-[100] backdrop-blur-sm h-16 md:h-20 transition-transform duration-300 ease-in-out",
-        location === "/post-truth"
+        "w-full border-b sticky top-0 z-[100] backdrop-blur-sm h-16 md:h-20 transition-transform duration-150 ease-in-out",
+        isPostTruthPage || isBloomDetailPage
           ? "bg-black/95 border-gray-700/30"
           : isDarkMode
           ? "bg-gray-900/95 border-gray-700/30"
           : "bg-cream/95 border-warm-brown/20",
-        isPostTruthPage && !isNavVisible && "-translate-y-full"
+        (isPostTruthPage || isBloomDetailPage) && !isNavVisible && "-translate-y-full"
       )}>
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 h-full">
           <div className="flex items-center justify-between h-full">
@@ -189,7 +190,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               href="/"
               className={cn(
                 "text-lg md:text-xl font-semibold transition-colors duration-200",
-                location === "/post-truth"
+                isPostTruthPage || isBloomDetailPage
                   ? "text-white hover:text-gray-300"
                   : isDarkMode
                   ? "text-white hover:text-gray-300"
@@ -207,7 +208,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 href="/about"
                 className={cn(
                   "transition-colors duration-200 pb-1",
-                  location === "/post-truth"
+                  isPostTruthPage || isBloomDetailPage
                     ? cn(
                         "text-gray-300 hover:text-white",
                         isActive("/about") && "border-b-2 border-white text-white"
@@ -231,7 +232,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 href="/thoughts"
                 className={cn(
                   "transition-colors duration-200 pb-1",
-                  location === "/post-truth"
+                  isPostTruthPage || isBloomDetailPage
                     ? cn(
                         "text-gray-300 hover:text-white",
                         isActive("/thoughts") && "border-b-2 border-white text-white"
@@ -256,7 +257,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   href="/experiments"
                   className={cn(
                     "transition-colors duration-200 pb-1",
-                    location === "/post-truth"
+                    isPostTruthPage || isBloomDetailPage
                       ? cn(
                           "text-gray-300 hover:text-white",
                           isActive("/experiments") && "border-b-2 border-white text-white"
@@ -277,35 +278,8 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                   Experiments
                 </Link>
               </div>
-              <div className="relative flex items-center gap-2">
-                <Link
-                  href="/post-truth"
-                  className={cn(
-                    "transition-colors duration-200 pb-1",
-                    isActive("/post-truth")
-                      ? "text-white border-b-2 border-white hover:text-white"
-                      : location.startsWith("/post-truth")
-                      ? "text-white hover:text-white"
-                      : isDarkMode
-                      ? "text-gray-300 hover:text-white"
-                      : "text-soft-black hover:text-warm-brown"
-                  )}
-                >
-                  Post-Truth
-                </Link>
-                <span
-                  className={cn(
-                    "text-[8px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide transition-all duration-300",
-                    location === "/post-truth"
-                      ? "bg-white/20 text-white border border-white/30"
-                      : "bg-warm-brown/10 text-warm-brown/60 border border-warm-brown/20"
-                  )}
-                >
-                  NEW
-                </span>
-              </div>
               <div className={cn(
-                location === "/post-truth" && "[&_button]:text-white [&_button]:border-white/30 [&_button:hover]:border-white/50"
+                (isPostTruthPage || isBloomDetailPage) && "[&_button]:text-white [&_button]:border-white/30 [&_button:hover]:border-white/50"
               )}>
                 <CopyEmail />
               </div>
@@ -316,7 +290,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               onClick={toggleMenu}
               className={cn(
                 "md:hidden p-2 transition-colors duration-200",
-                isDarkMode
+                isPostTruthPage || isBloomDetailPage || isDarkMode
                   ? "text-white hover:text-gray-300"
                   : "text-warm-brown hover:text-hover-brown"
               )}
@@ -339,7 +313,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
         isMenuOpen
           ? "opacity-100 backdrop-blur-sm pointer-events-auto"
           : "opacity-0 pointer-events-none",
-        isDarkMode ? "bg-black/50" : "bg-warm-brown/30"
+        isPostTruthPage || isBloomDetailPage || isDarkMode ? "bg-black/50" : "bg-warm-brown/30"
       )}
         onClick={closeMenu}
         data-testid="overlay-mobile-menu"
@@ -348,7 +322,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
       {/* Mobile navigation menu */}
       <div className={cn(
         "fixed top-0 left-0 h-full w-[280px] z-[110] md:hidden transform transition-transform duration-300 ease-out shadow-xl",
-        location === "/post-truth"
+        isPostTruthPage || isBloomDetailPage
           ? "bg-black/98 backdrop-blur-md border-r border-gray-700/30"
           : isDarkMode
           ? "bg-gray-900/98 backdrop-blur-md border-r border-gray-700/30"
@@ -358,13 +332,13 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
         {/* Header */}
         <div className={cn(
           "flex items-center justify-between p-6 border-b",
-          location === "/post-truth"
+          isPostTruthPage || isBloomDetailPage
             ? "border-gray-700/30"
             : isDarkMode ? "border-gray-700/30" : "border-warm-brown/20"
         )}>
           <span className={cn(
             "text-xl font-bold",
-            location === "/post-truth"
+            isPostTruthPage || isBloomDetailPage
               ? "text-white"
               : isDarkMode ? "text-white" : "text-warm-brown"
           )}>
@@ -374,7 +348,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             onClick={closeMenu}
             className={cn(
               "p-2 rounded-lg transition-colors",
-              location === "/post-truth"
+              isPostTruthPage || isBloomDetailPage
                 ? "text-gray-300 hover:text-white hover:bg-gray-800"
                 : isDarkMode
                 ? "text-gray-300 hover:text-white hover:bg-gray-800"
@@ -395,7 +369,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
               onClick={closeMenu}
               className={cn(
                 "group flex items-center justify-between px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative",
-                location === "/post-truth"
+                isPostTruthPage || isBloomDetailPage
                   ? cn(
                       "text-white hover:text-white hover:bg-gray-800/50",
                       location === item.path && "border-l-white text-white bg-gray-800/30"
@@ -420,14 +394,14 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
                 {location === item.path && (
                   <div className={cn(
                     "absolute -bottom-1 left-0 w-full h-0.5 rounded-full",
-                    location === "/post-truth" ? "bg-white" : isDarkMode ? "bg-white" : "bg-warm-brown"
+                    isPostTruthPage || isBloomDetailPage ? "bg-white" : isDarkMode ? "bg-white" : "bg-warm-brown"
                   )} />
                 )}
               </span>
               {item.isNew && (
                 <span className={cn(
                   "text-[8px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide transition-all duration-300",
-                  location === "/post-truth"
+                  isPostTruthPage || isBloomDetailPage
                     ? "bg-white/20 text-white border border-white/30"
                     : "bg-warm-brown/10 text-warm-brown/60 border border-warm-brown/20"
                 )}>
@@ -442,7 +416,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
             onClick={handleEmailClick}
             className={cn(
               "group flex items-center px-8 py-5 text-lg font-medium transition-all duration-200 border-l-4 border-transparent relative overflow-hidden",
-              location === "/post-truth"
+              isPostTruthPage || isBloomDetailPage
                 ? "text-white hover:text-white hover:bg-gray-800/50"
                 : isDarkMode
                 ? "text-gray-300 hover:text-white hover:bg-gray-800/50"
@@ -487,7 +461,7 @@ export function Navigation({ isDarkMode = false }: NavigationProps) {
         {/* Footer */}
         <div className={cn(
           "absolute bottom-6 left-6 right-6 text-xs opacity-60",
-          location === "/post-truth" ? "text-white" : isDarkMode ? "text-gray-400" : "text-soft-black"
+          isPostTruthPage || isBloomDetailPage ? "text-white" : isDarkMode ? "text-gray-400" : "text-soft-black"
         )}>
           Corey Wu © 2025
         </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
+import { cn } from "@/lib/utils";
 import { thoughts } from "@/data/thoughts";
 import { useIsMobile } from "@/hooks/use-mobile";
 import democracyImage from "@assets/image_1754686959251.png";
@@ -10,7 +11,7 @@ import { ExperimentalFilter } from "@/components/experimental-filter";
 import CognitiveExtinctionTimeline from "@/components/cognitive-extinction-timeline";
 
 export default function Thoughts() {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const isMobile = useIsMobile();
   const [expandedSlide, setExpandedSlide] = useState<string | null>(null);
   const [modalSlide, setModalSlide] = useState<string | null>(null); // State for modal slide
@@ -545,24 +546,33 @@ export default function Thoughts() {
   //   </div>
   // );
 
+  const isBloomsActive = location === "/thoughts" || location === "/thoughts/blooms";
+  const isSeedsActive = location === "/thoughts/seeds";
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-4 thoughts-background-texture">
-      {/* View toggles - positioned above header */}
-      <div className="flex items-center justify-end gap-2 mb-8">
-        <span className="text-sm text-muted-grey font-medium">Views:</span>
-        <div className="flex gap-1">
-          <button className="group px-4 py-2 text-xs font-medium rounded-full border border-gray-300 bg-gray-200 text-gray-700 hover:scale-105 transition-all duration-300 ease-out">
+      {/* Tab Navigation */}
+      <div className="flex items-center justify-center gap-8 mb-12">
+        <Link href="/thoughts/blooms">
+          <a className={cn(
+            "text-base font-medium transition-colors duration-200 pb-1 cursor-pointer",
+            isBloomsActive 
+              ? "text-warm-brown border-b-2 border-warm-brown" 
+              : "text-muted-grey hover:text-warm-brown"
+          )}>
+            Blooms
+          </a>
+        </Link>
+        <Link href="/thoughts/seeds">
+          <a className={cn(
+            "text-base font-medium transition-colors duration-200 pb-1 cursor-pointer",
+            isSeedsActive 
+              ? "text-warm-brown border-b-2 border-warm-brown" 
+              : "text-muted-grey hover:text-warm-brown"
+          )}>
             Seeds
-          </button>
-          <button className="group relative px-4 py-2 text-xs font-medium rounded-full border border-gray-300 bg-transparent text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out cursor-not-allowed">
-            <span className="group-hover:opacity-0 transition-opacity duration-200">Blossoms</span>
-            <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-500">WIP</span>
-          </button>
-          <button className="group relative px-4 py-2 text-xs font-medium rounded-full border border-gray-300 bg-transparent text-gray-700 hover:scale-105 hover:bg-gray-200 transition-all duration-300 ease-out cursor-not-allowed">
-            <span className="group-hover:opacity-0 transition-opacity duration-200">Garden</span>
-            <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-500">WIP</span>
-          </button>
-        </div>
+          </a>
+        </Link>
       </div>
 
       {/* Header */}
